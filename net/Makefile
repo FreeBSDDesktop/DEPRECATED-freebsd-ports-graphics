@@ -28,6 +28,7 @@
     SUBDIR += aslookup
     SUBDIR += asterisk
     SUBDIR += asterisk11
+    SUBDIR += asterisk13
     SUBDIR += avahi
     SUBDIR += avahi-app
     SUBDIR += avahi-autoipd
@@ -37,6 +38,7 @@
     SUBDIR += avahi-libdns
     SUBDIR += avahi-qt4
     SUBDIR += avahi-sharp
+    SUBDIR += axa
     SUBDIR += babeld
     SUBDIR += beacon
     SUBDIR += beanstalkd
@@ -225,6 +227,7 @@
     SUBDIR += ilbc
     SUBDIR += imapproxy
     SUBDIR += iodine
+    SUBDIR += ip2location
     SUBDIR += ip6_int
     SUBDIR += ipgrab
     SUBDIR += iplog
@@ -355,6 +358,7 @@
     SUBDIR += mcast-tools
     SUBDIR += mediastreamer
     SUBDIR += mediatomb
+    SUBDIR += megatools
     SUBDIR += mgen
     SUBDIR += micro_inetd
     SUBDIR += micro_proxy
@@ -416,12 +420,12 @@
     SUBDIR += nss-pam-ldapd-sasl
     SUBDIR += nss_ldap
     SUBDIR += nstxd
+    SUBDIR += ntimed
     SUBDIR += ntlmaps
     SUBDIR += ntop
     SUBDIR += ntopng
     SUBDIR += ntp
     SUBDIR += ntp-devel
-    SUBDIR += ntp-rc
     SUBDIR += ntraceroute
     SUBDIR += nusoap
     SUBDIR += nxproxy
@@ -819,6 +823,7 @@
     SUBDIR += pecl-cvsclient
     SUBDIR += pecl-geoip
     SUBDIR += pecl-gupnp
+    SUBDIR += pecl-ip2location
     SUBDIR += pecl-mosquitto
     SUBDIR += pecl-oauth
     SUBDIR += pecl-radius
@@ -846,6 +851,7 @@
     SUBDIR += phpldapadmin
     SUBDIR += pimdd
     SUBDIR += pipsecd
+    SUBDIR += pjsip
     SUBDIR += pktanon
     SUBDIR += pload
     SUBDIR += plugdaemon

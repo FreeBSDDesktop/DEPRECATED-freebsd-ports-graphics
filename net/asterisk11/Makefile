@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	asterisk
-PORTVERSION=	11.14.1
-PORTREVISION=	1
+PORTVERSION=	11.15.0
+PORTREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/
@@ -39,7 +39,7 @@ MAKE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		ASTCFLAGS="${CFLAGS}"
 
 CONFLICTS_BUILD=	linuxthreads-*
-CONFLICTS_INSTALL=	asterisk*-1.4* asterisk*-1.6* asterisk*-1.8*
+CONFLICTS_INSTALL=	asterisk*-1.8* asterisk*-13*
 
 OPTIONS_DEFINE=	VORBIS PGSQL MYSQL ODBC RADIUS SNMP FREETDS XMPP SQLITE GSM \
 		CURL SPANDSP EXCHANGE NEWG711 SRTP LUA LDAP OOH323 UUID
@@ -55,12 +55,12 @@ OPTIONS_DEFAULT_amd64=	DAHDI
 OPTIONS_DEFAULT_sparc64=	DAHDI
 
 EXCHANGE_DESC?=	Exchange calendar support
-NEWG711_DESC?=	New G711 Codec
+NEWG711_DESC?=	New G711 codec
 SRTP_DESC?=	SecureRTP support
 OOH323_DESC?=	ooh323 support
 DAHDI_DESC?=	DAHDI support
 XMPP_DESC?=	XMPP/GTALK support
-UUID_DESC?=	libuuid support(required for ICE and TURN in RTP)
+UUID_DESC?=	libuuid support (required for ICE and TURN in RTP)
 
 OPTIONS_SUB=	yes
 OOH323_LIB_DEPENDS=	libpt_r.so:${PORTSDIR}/devel/pwlib \
@@ -98,9 +98,9 @@ CURL_CONFIGURE_ON=	--with-libcurl
 CURL_CONFIGURE_OFF=	--with-libcurl=no
 CURL_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 SPANDSP_CONFIGURE_WITH=	spandsp
-SPANDSP_LIB_DEPENDS=	libspandsp.so.2:${PORTSDIR}/comms/spandsp-devel
+SPANDSP_LIB_DEPENDS=	libspandsp.so:${PORTSDIR}/comms/spandsp
 EXCHANGE_CONFIGURE_OFF=	--without-neon --without-neon29
-EXCHANGE_LIB_DEPENDS=	libneon.so:${PORTSDIR}/www/neon29
+EXCHANGE_LIB_DEPENDS=	libneon.so:${PORTSDIR}/www/neon
 SRTP_CONFIGURE_WITH=	srtp
 SRTP_BUILD_DEPENDS=	libsrtp>=1.4.4:${PORTSDIR}/net/libsrtp
 LUA_CONFIGURE_WITH=	lua

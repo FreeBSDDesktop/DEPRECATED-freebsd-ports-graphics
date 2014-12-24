@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mp3splt-gtk
-PORTVERSION=	0.8.2
-PORTREVISION=	2
+PORTVERSION=	0.9.2
 CATEGORIES=	audio
 MASTER_SITES=	SF/mp3splt/${PORTNAME}/${PORTVERSION}
 
@@ -11,6 +10,8 @@ MAINTAINER=	beyert@cs.ucr.edu
 COMMENT=	Utility to split mp3 and ogg files (via GTK Interface)
 
 LICENSE=	GPLv2
+
+BROKEN=		Fails to configure
 
 LIB_DEPENDS=	libmp3splt.so:${PORTSDIR}/audio/libmp3splt \
 		libmad.so:${PORTSDIR}/audio/libmad \
