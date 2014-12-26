@@ -157,6 +157,7 @@
     SUBDIR += gogoc
     SUBDIR += google-cloud-sdk
     SUBDIR += google-daemon
+    SUBDIR += google-startup-scripts
     SUBDIR += googlecl
     SUBDIR += gopher
     SUBDIR += gotthard
@@ -420,6 +421,7 @@
     SUBDIR += nss-pam-ldapd-sasl
     SUBDIR += nss_ldap
     SUBDIR += nstxd
+    SUBDIR += ntimed
     SUBDIR += ntlmaps
     SUBDIR += ntop
     SUBDIR += ntopng
@@ -1062,6 +1064,7 @@
     SUBDIR += rubygem-rye
     SUBDIR += rubygem-simple_oauth
     SUBDIR += rubygem-stompserver
+    SUBDIR += rubygem-t
     SUBDIR += rubygem-tweetstream
     SUBDIR += rubygem-twitter
     SUBDIR += rubygem-twitter-stream

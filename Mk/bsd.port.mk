@@ -880,7 +880,6 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  Default: ${PORTSDIR}/Templates/BSD.local.dist or
 #				  /etc/mtree/BSD.usr.dist if ${PREFIX} == "/usr".
 # PLIST_DIRS	- Directories to be added to packing list
-# PLIST_DIRSTRY	- Directories to be added to packing list and try to remove them.
 # PLIST_FILES	- Files and symbolic links to be added to packing list
 #
 # PLIST			- Name of the `packing list' file.
@@ -1086,7 +1085,6 @@ CO_ENV+=	STAGEDIR=${STAGEDIR} \
 			WRKDIR=${WRKDIR} \
 			WRKSRC=${WRKSRC} \
 			MTREE_FILE=${MTREE_FILE} \
-			GNOME_MTREE_FILE=${GNOME_MTREE_FILE} \
 			TMPPLIST=${TMPPLIST} \
 			SCRIPTSDIR=${SCRIPTSDIR} \
 			PLIST_SUB_SED="${PLIST_SUB_SED}" \
@@ -1224,14 +1222,6 @@ _OSVERSION_MAJOR=	${OSVERSION:C/([0-9]?[0-9])([0-9][0-9])[0-9]{3}/\1/}
 .error UNAME_r (${UNAMER}) and OSVERSION (${OSVERSION}) do not agree on major version number.
 .elif ${_OSVERSION_MAJOR} != ${OSREL:R}
 .error OSREL (${OSREL}) and OSVERSION (${OSVERSION}) do not agree on major version number.
-.endif
-
-# Enable new xorg for FreeBSD versions after Radeon KMS was imported unless
-# WITHOUT_NEW_XORG is set.
-.if !defined(WITHOUT_NEW_XORG)
-WITH_NEW_XORG?=	yes
-.else
-.undef WITH_NEW_XORG
 .endif
 
 # Only define tools here (for transition period with between pkg tools)
@@ -4890,9 +4880,6 @@ create-manifest:
 	[ -f ${PKGPOSTUPGRADE} ] && ${CP} ${PKGPOSTUPGRADE} ${METADIR}/+POST_UPGRADE; \
 	${CP} ${DESCR} ${METADIR}/+DESC; \
 	[ -f ${PKGMESSAGE} ] && ${CP} ${PKGMESSAGE} ${METADIR}/+DISPLAY || return 0
-.if !defined(NO_MTREE)
-	@[ -f ${MTREE_FILE} ] && ${CP} ${MTREE_FILE} ${METADIR}/+MTREE_DIRS || return 0
-.endif
 
 # Print out package names.
 
@@ -5079,6 +5066,7 @@ generate-plist: ${WRKDIR}
 		${SED} ${PLIST_SUB:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/} ${PLIST} >> ${TMPPLIST}; \
 	fi
 
+# Keep PLIST_DIRSTRY as compatibility
 .for dir in ${PLIST_DIRS} ${PLIST_DIRSTRY}
 	@${ECHO_CMD} ${dir} | ${SED} ${PLIST_SUB:S/$/!g/:S/^/ -e s!%%/:S/=/%%!/} -e 's,^,@dir ,' >> ${TMPPLIST}
 .endfor

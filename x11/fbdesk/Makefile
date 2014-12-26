@@ -3,7 +3,7 @@
 
 PORTNAME=	fbdesk
 PORTVERSION=	1.4.1
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	x11
 MASTER_SITES=	http://fluxbox.sourceforge.net/download/ \
 		GENTOO/distfiles
@@ -13,7 +13,7 @@ COMMENT=	Fluxbox utility to create and manage icons on the desktop
 
 LICENSE=	MIT
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 OPTIONS_DEFINE=	IMLIB2 DOCS
 OPTIONS_DEFAULT=	IMLIB2

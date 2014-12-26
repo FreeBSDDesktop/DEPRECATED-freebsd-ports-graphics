@@ -3,6 +3,7 @@
 
 PORTNAME=	netpbm
 PORTVERSION=	10.35.94
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	SF/netpbm/super_stable/${PORTVERSION} \
 		${MASTER_SITE_LOCAL:S/$/:man/}
@@ -13,7 +14,7 @@ COMMENT=	Toolkit for conversion of images between different formats
 
 LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
 		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libjbig.so:${PORTSDIR}/graphics/jbigkit \
 		libjasper.so:${PORTSDIR}/graphics/jasper \
 		libxml2.so:${PORTSDIR}/textproc/libxml2

@@ -3,7 +3,7 @@
 
 PORTNAME=	secretmaryochronicles
 PORTVERSION=	1.10.git20140514
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	games
 MASTER_SITES=	http://mirror.amdmi3.ru/distfiles/
 # it could use github.com/Quintus/SMC, but it needs to be packaged
@@ -21,7 +21,7 @@ LICENSE=	GPLv3
 
 LIB_DEPENDS=	libCEGUIBase-0.so:${PORTSDIR}/graphics/cegui \
 		libboost_filesystem.so:${PORTSDIR}/devel/boost-libs \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libpcre.so:${PORTSDIR}/devel/pcre \
 		libfreeimage.so:${PORTSDIR}/graphics/freeimage \
 		libxml++-2.6.so:${PORTSDIR}/textproc/libxml++26

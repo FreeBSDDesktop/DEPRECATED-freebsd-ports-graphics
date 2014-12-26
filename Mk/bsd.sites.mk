@@ -544,18 +544,16 @@ IGNORE?=	Using master as GH_TAGNAME is invalid. \
 MASTER_SITE_GITHUB+=		https://codeload.github.com/%SUBDIR% \
 				http://codeload.github.com/%SUBDIR%
 MASTER_SITE_GITHUB_CLOUD+=	http://cloud.github.com/downloads/%SUBDIR%
-.if !defined(MASTER_SITES) || !${MASTER_SITES:MGH} && !${MASTER_SITES:MGHC}
-MASTER_SITES+=	GH GHC
+MASTER_SITE_GITHUB_RELEASE+=	https://github.com/%SUBDIR%
+
+.if !defined(MASTER_SITES) || !${MASTER_SITES:MGH} && !${MASTER_SITES:MGHC} && !${MASTER_SITES:MGHR}
+MASTER_SITES+=	GH GHC GHR
 .endif
+GH_ACCOUNT?=	${PORTNAME}
 GH_PROJECT?=	${PORTNAME}
 GH_TAGNAME?=	${DISTVERSION}
 .endif
 .endif
-#
-# GitHub files can also be obtained, without the need for any of the above, by doing:
-#
-# MASTER_SITES=	http://github.com/accountname/${PORTNAME}/archive/${PORTVERSION}.tar.gz?dummy=/
-#
 
 .if !defined(IGNORE_MASTER_SITE_GNOME)
 MASTER_SITE_GNOME+= \
@@ -1509,6 +1507,7 @@ MASTER_SITE_KERNEL_ORG+= \
 MASTER_SITES_ABBREVS=	CPAN:PERL_CPAN \
 			GH:GITHUB \
 			GHC:GITHUB_CLOUD \
+			GHR:GITHUB_RELEASE \
 			LODEV:LIBREOFFICE_DEV \
 			NL:NETLIB \
 			SF:SOURCEFORGE \
@@ -1523,6 +1522,7 @@ MASTER_SITES_SUBDIRS=	APACHE_JAKARTA:${PORTNAME:S,-,/,}/source \
 			GCC:releases/${DISTNAME} \
 			GITHUB:${GH_ACCOUNT}/${GH_PROJECT}/legacy.tar.gz/${GH_TAGNAME}?dummy=/ \
 			GITHUB_CLOUD:${GH_ACCOUNT}/${GH_PROJECT}/ \
+			GITHUB_RELEASE:${GH_ACCOUNT}/${GH_PROJECT}/archive/${DISTVERSIONPREFIX}${DISTVERSION:C/:(.)/\1/g}${DISTVERSIONSUFFIX}${EXTRACT_SUFX}?dummy=/ \
 			GNOME:sources/${PORTNAME}/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/} \
 			GIMP:${PORTNAME}/${PORTVERSION:R}/ \
 			GNU:${PORTNAME} \
@@ -1578,5 +1578,46 @@ MASTER_SITES_EXP:=	${MASTER_SITES_EXP}
 .	endif
 .endfor
 MASTER_SITES=	${MASTER_SITES_EXP}
+
+.endif
+
+.if defined(PATCH_SITES) && ${PATCH_SITES:N*\:/*}
+
+.for _site__ in ${PATCH_SITES}
+_site_=${_site__}
+.	if ${_site_:M*\:/*}
+PATCH_SITES_EXP+=	${_site_}
+PATCH_SITES_EXP:=	${PATCH_SITES_EXP}
+.	else
+_site_urlpath_=	${_site_:C@^(.*):[^/:]+$@\1@}
+.		if ${_site_urlpath_:M*/*}
+_site_url_=		${_site_urlpath_:C@^([^/]+)/.*$@\1@}
+_site_subdir_=	${_site_urlpath_:S/^${_site_urlpath_:C@^([^/]+)/.*$@\1@}//:S!^/!!:S!/$!!}
+.		else
+_site_url_=		${_site_urlpath_}
+.undef _site_subdir_
+.		endif
+_site_group_=	${_site_:S/^${_site_:C@^(.*):[^/:]+$@\1@}//:S/^://}
+.		for _abbrev_ in ${MASTER_SITES_ABBREVS}
+.			if ${_site_url_} == ${_abbrev_:C/:.*//}
+_site_url_=	${_abbrev_:C/.*://}
+.			endif
+.		endfor
+.		for _subdir_ in ${MASTER_SITES_SUBDIRS}
+.			if ${_site_url_} == ${_subdir_:C/:.*//} && !defined(MASTER_SITE_SUBDIR)
+_site_subdir_?=	${_subdir_:C/.*://}
+.			endif
+.		endfor
+.		ifdef MASTER_SITE_${_site_url_}
+.			ifdef _site_subdir_
+PATCH_SITES_EXP+=	${MASTER_SITE_${_site_url_}:S^%SUBDIR%^${_site_subdir_}^:S/$/:${_site_group_}/:S/:$//}
+.			else
+PATCH_SITES_EXP+=	${MASTER_SITE_${_site_url_}:S/$/:${_site_group_}/:S/:$//}
+.			endif
+PATCH_SITES_EXP:=	${PATCH_SITES_EXP}
+.		endif
+.	endif
+.endfor
+PATCH_SITES=	${PATCH_SITES_EXP}
 
 .endif

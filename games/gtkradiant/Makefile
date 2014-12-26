@@ -3,7 +3,7 @@
 
 PORTNAME=	gtkradiant
 PORTVERSION=	1.5.0
-PORTREVISION=	12
+PORTREVISION=	13
 CATEGORIES=	games cad
 MASTER_SITES=	${MASTER_SITE_IDSOFTWARE:S|$|source/:id|} \
 		http://www.bsd-geek.de/FreeBSD/distfiles/:fb
@@ -18,7 +18,7 @@ LICENSE=	GPLv2
 
 LIB_DEPENDS=	libgtkglext-x11-1.0.so:${PORTSDIR}/x11-toolkits/gtkglext \
 		libmhash.so:${PORTSDIR}/security/mhash \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 SSP_UNSAFE=	yes
 USES=		pkgconfig python:build scons zip
