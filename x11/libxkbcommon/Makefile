@@ -16,6 +16,7 @@ USES=		gmake bison tar:xz
 
 USE_XORG=	xcb
 MAKE_JOBS_UNSAFE=	yes
+INSTALL_TARGET=	install-strip
 
 CONFIGURE_ARGS=	--without-default-layout \
 		--without-default-model \

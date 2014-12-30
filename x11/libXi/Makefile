@@ -14,6 +14,7 @@ LICENSE=	MIT
 
 XORG_CAT=	lib
 USE_XORG=	xproto x11 xext xextproto xfixes inputproto:both
+INSTALL_TARGET=	install-strip
 
 CONFIGURE_ARGS+=--disable-docs \
 		--disable-specs \

@@ -13,6 +13,7 @@ LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2 \
 
 XORG_CAT=	lib
 USE_XORG=	xproto:both xrender
+INSTALL_TARGET=	install-strip
 
 post-extract:
 	@${CP} ${FILESDIR}/xft-config.in \
