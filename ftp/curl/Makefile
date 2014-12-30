@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	curl
-PORTVERSION=	7.38.0
-PORTREVISION=	2
+PORTVERSION=	7.39.0
+PORTREVISION?=	1
 CATEGORIES=	ftp www
 MASTER_SITES=	http://curl.haxx.se/download/ \
 		LOCAL/sunpoet
@@ -37,7 +37,7 @@ CONFIGURE_ENV+=	LOCALBASE=${LOCALBASE}
 GNU_CONFIGURE=	yes
 MAKE_ENV+=	INSTALL_STRIP_FLAG=${STRIP}
 USE_PERL5=	build
-USES=		libtool:oldver pathfix perl5 tar:lzma
+USES=		libtool pathfix perl5 tar:lzma
 
 .if !defined(BUILDING_HIPHOP)
 USE_LDCONFIG=	yes
@@ -168,6 +168,7 @@ post-patch:
 
 post-install:
 .if !defined(BUILDING_HIPHOP)
+	${LN} -s libcurl.so.4 ${STAGEDIR}${PREFIX}/lib/libcurl.so.7
 	${INSTALL_DATA} ${WRKSRC}/docs/libcurl/libcurl.m4 ${STAGEDIR}${PREFIX}/share/aclocal/
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/ ${STAGEDIR}${DOCSDIR}/libcurl/
 	cd ${WRKSRC}/docs/ && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}/

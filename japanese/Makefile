@@ -42,7 +42,6 @@
     SUBDIR += ebd-fpw
     SUBDIR += eblook
     SUBDIR += ebnetd
-    SUBDIR += ebview
     SUBDIR += ebview-gtk2
     SUBDIR += edict
     SUBDIR += edict-fpw
@@ -64,6 +63,7 @@
     SUBDIR += font-ipa
     SUBDIR += font-ipa-uigothic
     SUBDIR += font-ipaex
+    SUBDIR += font-ipamjm
     SUBDIR += font-jisx0213
     SUBDIR += font-kochi
     SUBDIR += font-koruri
@@ -287,7 +287,6 @@
     SUBDIR += wwasw-fpw
     SUBDIR += xdtp
     SUBDIR += xgate
-    SUBDIR += xjtext
     SUBDIR += xlockmore
     SUBDIR += xpdf
     SUBDIR += xshodou

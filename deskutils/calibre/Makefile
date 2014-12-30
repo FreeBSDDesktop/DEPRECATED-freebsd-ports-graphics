@@ -3,13 +3,14 @@
 
 PORTNAME=	calibre
 PORTVERSION=	1.48.0
+PORTREVISION=	2
 CATEGORIES=	deskutils python
 MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}/
 
-MAINTAINER=	rnejdl@ringofsaturn.com
+MAINTAINER=	madpilot@FreeBSD.org
 COMMENT=	Ebook management application
 
-LIB_DEPENDS=	libMagickWand-6.Q*.so:${PORTSDIR}/graphics/ImageMagick \
+LIB_DEPENDS=	libMagickWand-6.Q16.so:${PORTSDIR}/graphics/ImageMagick \
 		libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig \
 		libpoppler-qt4.so:${PORTSDIR}/graphics/poppler-qt4 \
 		libwmflite.so:${PORTSDIR}/graphics/libwmf \
@@ -44,8 +45,7 @@ RUN_DEPENDS=	xdg-open:${PORTSDIR}/devel/xdg-utils \
 		${PYTHON_PKGNAMEPREFIX}netifaces>=0:${PORTSDIR}/net/py-netifaces \
 		${PYTHON_PKGNAMEPREFIX}cssselect>=0:${PORTSDIR}/www/py-cssselect \
 		${PYTHON_PKGNAMEPREFIX}apsw>=0:${PORTSDIR}/databases/py-apsw \
-		pdftohtml:${PORTSDIR}/graphics/poppler-utils \
-		lshal:${PORTSDIR}/sysutils/hal
+		pdftohtml:${PORTSDIR}/graphics/poppler-utils
 
 USE_RC_SUBR=	calibre
 EXTRACT_BEFORE_ARGS=	-x -s '/^calibre/~-src/' -f

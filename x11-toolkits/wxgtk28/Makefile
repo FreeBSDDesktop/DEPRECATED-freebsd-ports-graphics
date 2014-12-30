@@ -3,7 +3,7 @@
 
 PORTNAME=	wx
 PORTVERSION=	2.8.12
-PORTREVISION?=	4
+PORTREVISION?=	5
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	SF/wxwindows/${PORTVERSION}
 PKGNAMESUFFIX=	28-${WXGTK_FLAVOR}
@@ -12,7 +12,7 @@ DISTNAME=	wxGTK-${PORTVERSION}
 MAINTAINER?=	fjoe@FreeBSD.org
 COMMENT?=	The wxWidgets GUI toolkit with GTK+ bindings
 
-LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png\
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png\
 		libjpeg.so:${PORTSDIR}/graphics/jpeg\
 		libtiff.so:${PORTSDIR}/graphics/tiff\
 		libexpat.so:${PORTSDIR}/textproc/expat2
@@ -71,6 +71,7 @@ RUN_DEPENDS=	${LOCALBASE}/include/wx-2.8/wx/wx.h:${PORTSDIR}/x11-toolkits/wxgtk2
 .if ${WXGTK_FLAVOR:M*-common} != ""
 NO_BUILD=	yes
 INSTALL_TARGET=	install-common
+USES+=		gettext-tools
 .else
 USE_LDCONFIG=	yes
 .endif # *-common

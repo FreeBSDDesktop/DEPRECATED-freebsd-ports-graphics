@@ -3,11 +3,12 @@
 
 PORTNAME=	SVN-Hooks
 PORTVERSION=	1.25
+PORTREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Framework for implementing Subversion hooks
 
 LICENSE=	ART10 GPLv1

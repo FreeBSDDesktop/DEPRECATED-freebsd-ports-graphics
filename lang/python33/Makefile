@@ -2,7 +2,7 @@
 
 PORTNAME=	python33
 PORTVERSION=	3.3.5
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	lang python ipv6
 MASTER_SITES=	PYTHON
 MASTER_SITE_SUBDIR=	ftp/python/${PORTVERSION}
@@ -33,13 +33,14 @@ MAKE_ARGS+=		LIBPC="${PREFIX}/libdata/pkgconfig"			# Until pathfix gets support 
 PLIST_SUB=		ABI=${ABIFLAGS} \
 			OSMAJOR=${OSVERSION:C/([0-9]*)[0-9]{5}/\1/}		# For plat-freebsd* in pkg-plist. http://bugs.python.org/issue19554
 
-OPTIONS_DEFINE=		DEBUG IPV6 NLS PYMALLOC THREADS TSC
-OPTIONS_DEFAULT=	IPV6 NLS PYMALLOC THREADS
+OPTIONS_DEFINE=		DEBUG IPV6 NLS PYMALLOC THREADS TSC LIBFFI
+OPTIONS_DEFAULT=	IPV6 NLS PYMALLOC THREADS LIBFFI
 OPTIONS_SUB=		yes
 
 NLS_DESC=		Enable gettext support for the locale module
 PYMALLOC_DESC=		Enable specialized mallocs
 TSC_DESC=		Enable processor timestamp counter profiling
+LIBFFI_DESC=		Use libffi from ports instead of bundled version
 
 DEBUG_CONFIGURE_WITH=	pydebug
 IPV6_CONFIGURE_ENABLE=	ipv6
@@ -69,6 +70,11 @@ ABIFLAGS:=	m${ABIFLAGS}
 ABIFLAGS:=	d${ABIFLAGS}
 .endif
 
+.if ${PORT_OPTIONS:MLIBFFI}
+CONFIGURE_ARGS+=	--with-system-ffi
+LIB_DEPENDS+=		libffi.so:${PORTSDIR}/devel/libffi
+.endif
+
 .if !empty(ABIFLAGS)
 PLIST_FILES+=	bin/python3.3%%ABI%%
 PLIST_FILES+=	bin/python3.3%%ABI%%-config
@@ -79,8 +85,8 @@ PLIST_FILES+=	libdata/pkgconfig/python-3.3%%ABI%%.pc
 CFLAGS+=	-DPYTHON_DEFAULT_RECURSION_LIMIT=900
 .endif
 
-# See http://bugs.freebsd.org/115940
-.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS) # the world with NO_NIS
+# See http://bugs.freebsd.org/115940 and http://bugs.freebsd.org/193650
+.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS)
 PLIST_SUB+=	NO_NIS="@comment "
 .else
 PLIST_SUB+=	NO_NIS=""

@@ -2,16 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	wget
-DISTVERSION=	1.15
-PORTREVISION=	2
+DISTVERSION=	1.16
 CATEGORIES=	ftp www ipv6
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	wget
+MASTER_SITES=	GNU
 
 MAINTAINER=	vd@FreeBSD.org
 COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
 
-LICENSE=	GPLv3
+LICENSE=	GPLv3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		charsetfix gmake makeinfo perl5 tar:xz
 USE_PERL5=	build
@@ -68,5 +67,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's,/usr/local/etc/wgetrc,${PREFIX}/etc/wgetrc,' \
 			 -e 's,@file{},@file{${PREFIX}},' \
 		${WRKSRC}/doc/sample.wgetrc* ${WRKSRC}/doc/wget.texi
+	${REINPLACE_CMD} -e '/ac_fn_c_check_header_mongrel.*uuid\/uuid.h/ d' \
+		${WRKSRC}/configure
 
 .include <bsd.port.mk>

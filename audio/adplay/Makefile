@@ -3,7 +3,7 @@
 
 PORTNAME=	adplay
 PORTVERSION=	1.7
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	audio
 MASTER_SITES=	SF/adplug/AdPlay_UNIX/${PORTVERSION}:main \
 		SF/adplug/Database/2006-07-06:db
@@ -31,7 +31,6 @@ LIBS+=		-L${LOCALBASE}/lib -lbinio
 CONFIGURE_ARGS+=	--sharedstatedir=${DATADIR}
 
 PLIST_FILES=	bin/adplay %%DATADIR%%/adplug.db man/man1/adplay.1.gz
-PLIST_DIRS=	%%DATADIR%%
 
 OPTIONS_DEFINE=	SDL
 

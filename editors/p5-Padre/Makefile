@@ -3,7 +3,7 @@
 
 PORTNAME=	Padre
 PORTVERSION=	1.00
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	editors perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN} ${MASTER_SITE_PERL_CPAN:S/$/:wxsc/}
 MASTER_SITE_SUBDIR=	${PORTNAME}/:DEFAULT Wx/:wxsc
@@ -76,7 +76,7 @@ MAKE_JOBS_UNSAFE=	yes
 
 DESKTOP_ENTRIES="Padre" \
 		"The Perl IDE" \
-		"${SITE_PERL}/auto/share/dist/Padre/icons/padre/64x64/logo.png" \
+		"${PREFIX}/${SITE_PERL_REL}/auto/share/dist/Padre/icons/padre/64x64/logo.png" \
 		"padre" \
 		"Development;Perl;IDE;" \
 		""
@@ -110,7 +110,7 @@ post-patch:
 		 s|-lgtk-x11-2.0.*-lpangoft2-1.0|-lm| ; \
 		 /-lgobject-2.0/d ; \
 		 /-lglib-2.0/d ; \
-		 s|\\$$ORIGIN|${SITE_PERL}/mach/auto/Wx/Scintilla|' \
+		 s|\\$$ORIGIN|${SITE_ARCH}/auto/Wx/Scintilla|' \
 		${WRKDIR}/${WXSC_DISTNAME}/inc/Module/Build/Scintilla/GTK.pm
 
 pre-configure:
@@ -126,7 +126,7 @@ pre-install:
 		${PERL} Build install)
 
 post-install:
-	@(cd ${STAGEDIR}${SITE_PERL}/${PERL_ARCH}/auto/Wx/Scintilla && \
+	@(cd ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Wx/Scintilla && \
 		${STRIP_CMD} libwx_gtk2u_scintilla.so)
 
 .include <bsd.port.post.mk>

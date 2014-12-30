@@ -2,7 +2,7 @@
 
 PORTNAME=	xbmc
 DISTVERSION=	13.2
-PORTREVISION=	5
+PORTREVISION=	7
 CATEGORIES=	multimedia
 MASTER_SITES=	http://mirrors.xbmc.org/releases/source/
 
@@ -39,7 +39,7 @@ LIB_DEPENDS=	libass.so:${PORTSDIR}/multimedia/libass \
 		libmodplug.so:${PORTSDIR}/audio/libmodplug \
 		libmpeg2.so:${PORTSDIR}/multimedia/libmpeg2 \
 		libpcre.so:${PORTSDIR}/devel/pcre \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libsamplerate.so:${PORTSDIR}/audio/libsamplerate \
 		libsqlite3.so:${PORTSDIR}/databases/sqlite3 \
 		libtag.so:${PORTSDIR}/audio/taglib \
@@ -52,7 +52,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:${PORTSDIR}/databases/py-sqlite3 \
 		${PYTHON_PKGNAMEPREFIX}pillow>0:${PORTSDIR}/graphics/py-pillow \
 		xdpyinfo:${PORTSDIR}/x11/xdpyinfo
 
-USES=		gmake iconv:wchar_t libtool:build pkgconfig python:2
+USES=		gettext gmake iconv:wchar_t libtool:build pkgconfig python:2
 USE_AUTOTOOLS=	autoconf:env automake:env
 GNU_CONFIGURE=	yes
 USE_XORG=	xt xmu xtst

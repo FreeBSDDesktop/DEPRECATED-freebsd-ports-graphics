@@ -12,6 +12,8 @@ DIST_SUBDIR=	gnome2
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Time management applet for the GNOME Desktop
 
+BROKEN=		Uses unknown GNOME components pygnomedesktop and gnomecontrolcenter2
+
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:${PORTSDIR}/databases/py-sqlite3
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:${PORTSDIR}/databases/py-sqlite3 \
 		${PYTHON_SITELIBDIR}/xdg/__init__.py:${PORTSDIR}/devel/py-xdg \
@@ -19,7 +21,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:${PORTSDIR}/databases/py-sqlite3 \
 
 USES=		gettext gmake pkgconfig python tar:bzip2
 USE_XORG=	xscrnsaver
-USE_GNOME=	gnomeprefix intlhack gnomehack pygnomedesktop \
+USE_GNOME=	gnomeprefix intlhack pygnomedesktop \
 		gnomecontrolcenter2 gnomedocutils
 INSTALLS_OMF=	yes
 INSTALLS_ICONS=	yes

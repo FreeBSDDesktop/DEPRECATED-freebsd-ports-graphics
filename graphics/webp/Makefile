@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	webp
-PORTVERSION=	0.4.1
+PORTVERSION=	0.4.2
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://downloads.webmproject.org/releases/webp/
 DISTNAME=	lib${PORTNAME}-${PORTVERSION}
@@ -14,7 +15,7 @@ LICENSE=	BSD3CLAUSE
 
 LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib \
 		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 PORTSCOUT=	limit:^[0-9\.]*$$

@@ -1491,9 +1491,6 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/db9/rmd160_8h__dep__incl.png
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dbf/basicsocket_8c.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dbf/basicsocket_8c_source.html
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dc2/ripper_8y__incl.map
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dc2/ripper_8y__incl.md5
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dc2/ripper_8y__incl.png
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dc2/structconstat.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dcf/fbuffer_8h__dep__incl.map
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d2/dcf/fbuffer_8h__dep__incl.md5
@@ -1781,9 +1778,6 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/fiddle_8c__incl.map
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/fiddle_8c__incl.md5
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/fiddle_8c__incl.png
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/parse_8y__incl.map
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/parse_8y__incl.md5
-%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/db4/parse_8y__incl.png
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/dbc/structglobal__variable.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/dc4/constdefs_8h.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/d4/dc4/constdefs_8h_source.html
@@ -12497,6 +12491,7 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/cdesc-Document.ri
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/clone-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/doctype-i.ri
+%%RDOC%%%%RUBY_RIDIR%%/REXML/Document/document-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/encoding-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/entity_expansion_count-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/REXML/Document/entity_expansion_limit%3d-c.ri
@@ -16913,3 +16908,9 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/syntax/page-precedence_rdoc.ri
 %%RDOC%%%%RUBY_RIDIR%%/syntax/page-refinements_rdoc.ri
 %%RDOC%%%%RUBY_RIDIR%%/unknown/cdesc-unknown.ri
+@dir %%RUBY_LIBDIR%%/racc/rdoc
+@dir %%RUBY_SITEARCHLIBDIR%%
+@dir %%RUBY_VENDORARCHLIBDIR%%
+@dir %%RUBY_EXAMPLESDIR%%/curses
+%%RDOC%%@dir %%RUBY_SITERIDIR%%
+%%CAPIDOCS%%@dir %%RUBY_RIDIR%%

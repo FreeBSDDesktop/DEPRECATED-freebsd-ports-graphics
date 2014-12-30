@@ -9,10 +9,10 @@ PKGNAMEPREFIX=	pecl-
 EXTRACT_SUFX=	.tgz
 DIST_SUBDIR=	PECL
 
-MAINTAINER=	miwi@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	PECL extension which allows quick and efficient BBCode Parsing
 
-LICENSE=	PHP301 BSD
+LICENSE=	PHP301 BSD3CLAUSE
 LICENSE_COMB=	multi
 
 USE_PHP=	yes

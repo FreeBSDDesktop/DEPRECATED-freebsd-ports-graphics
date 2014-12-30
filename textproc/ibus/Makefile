@@ -22,9 +22,8 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dbus>=0.83.0:${PORTSDIR}/devel/py-dbus \
 		setxkbmap:${PORTSDIR}/x11/setxkbmap
 LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib
 
-USES=		compiler gmake libtool pathfix pkgconfig
+USES=		compiler gmake libtool pathfix pkgconfig python
 USE_GNOME=	pygobject3
-USE_PYTHON=	yes
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes
@@ -64,7 +63,7 @@ GTK3_USE=		GNOME=gtk30
 GTK3_CONFIGURE_ENABLE=	gtk3 libnotify
 GTK3_LIB_DEPENDS=	libnotify.so:${PORTSDIR}/devel/libnotify
 
-VALA_BUILD_DEPENDS=	vala-vapigen>=0.16:${PORTSDIR}/lang/vala-vapigen
+VALA_BUILD_DEPENDS=	vala>=0.16:${PORTSDIR}/lang/vala
 VALA_CONFIGURE_ENABLE=	vala
 
 GINTRO_BUILD_DEPENDS=	gobject-introspection>=0.6.8:${PORTSDIR}/devel/gobject-introspection
@@ -106,11 +105,6 @@ GLIB_SCHEMAS=	org.freedesktop.ibus.gschema.xml
 PLIST_SUB+=	COMPDIR=""
 .else
 PLIST_SUB+=	COMPDIR="@comment "
-.endif
-
-# Workaround XIGrabKeycode/XIUngrabKeycode bug: XIAllMasterDevice does not work
-.if !defined(WITH_NEW_XORG)
-EXTRA_PATCHES+=	${FILESDIR}/extra-xigrabkeycode
 .endif
 
 post-patch:

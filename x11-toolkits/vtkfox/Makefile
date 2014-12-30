@@ -7,7 +7,7 @@ PORTREVISION=	5
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	http://www.gahr.ch/vtkfox/
 
-MAINTAINER=	gahr@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	FOX/VTK Widget and Interactor
 
 LIB_DEPENDS=	libvtkCommon.so.5:${PORTSDIR}/math/vtk5
@@ -45,7 +45,6 @@ PLIST_FILES=	include/vtkfox/FXVTKCanvas.h \
 		lib/libvtkfox.so \
 		lib/libvtkfox.so.1 \
 		libdata/pkgconfig/vtkfox.pc
-PLIST_DIRS=	include/vtkfox
 
 SAMPLE_FILES=	imgsurf double cone quad xyplot simple
 PORTEXAMPLES=	*

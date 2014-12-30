@@ -20,14 +20,15 @@
     SUBDIR += mtoolsfm
     SUBDIR += mucommander
     SUBDIR += nautilus
+    SUBDIR += nemo
     SUBDIR += p5-PerlFM
-    SUBDIR += pbi-thumbnailer
     SUBDIR += pcmanfm
     SUBDIR += qtfm
     SUBDIR += rodent
     SUBDIR += rox-filer
     SUBDIR += rox-mime-editor
     SUBDIR += rox-session
+    SUBDIR += sushi
     SUBDIR += tdfsb
     SUBDIR += thunar
     SUBDIR += thunar-vfs

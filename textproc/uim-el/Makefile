@@ -3,7 +3,7 @@
 
 PORTNAME=	uim-el
 PORTVERSION=	1.8.6
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
@@ -21,9 +21,9 @@ RUN_DEPENDS=	uim-el-agent:${PORTSDIR}/textproc/uim
 
 OPTIONS_DEFINE=	DOCS
 
+USES=		gettext-tools gmake iconv perl5 tar:bzip2
 USE_PERL5=	build
 USE_GNOME=	intltool
-USES=		iconv gmake perl5 tar:bzip2
 USE_EMACS=	yes
 GNU_CONFIGURE=	yes
 

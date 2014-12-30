@@ -2,14 +2,14 @@
 
 PORTNAME=	openjdk
 PORTVERSION=	${JDK_MAJOR_VERSION}.${JDK_UPDATE_VERSION}.${JDK_BUILD_NUMBER:S/^0//}
-PORTREVISION?=	1
+PORTREVISION=	3
 CATEGORIES=	java devel
 MASTER_SITES=	http://download.java.net/openjdk/jdk${JDK_MAJOR_VERSION}/promoted/b${DIST_BUILD_NUMBER}/:jdk \
 		https://adopt-openjdk.ci.cloudbees.com/job/jtreg/${JTREG_JENKINS_BUILD}/artifact/:jtreg \
 		LOCAL/jkim:jdk,jtreg
 PKGNAMESUFFIX?=	${JDK_MAJOR_VERSION}
 DISTNAME=	${PORTNAME}-${JDK_MAJOR_VERSION}-src-b${DIST_BUILD_NUMBER}-03_mar_2014
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:jdk
+DISTFILES=	${DISTNAME}.zip:jdk
 
 MAINTAINER=	java@FreeBSD.org
 COMMENT?=	Java Development Kit ${JDK_MAJOR_VERSION}
@@ -26,7 +26,7 @@ LIB_DEPENDS=	libasound.so:${PORTSDIR}/audio/alsa-lib \
 RUN_DEPENDS=	javavm:${PORTSDIR}/java/javavmwrapper \
 		${LOCALBASE}/lib/X11/fonts/dejavu:${PORTSDIR}/x11-fonts/dejavu
 
-USES=		compiler:features dos2unix gmake iconv pkgconfig shebangfix zip
+USES=		compiler:features dos2unix gmake iconv pkgconfig shebangfix
 USE_AUTOTOOLS=	autoconf
 USE_XORG=	x11 xext xi xrender xt xtst
 
@@ -38,6 +38,15 @@ ONLY_FOR_ARCHS=	i386 amd64
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
 DOS2UNIX_FILES=	jdk/src/share/classes/com/sun/org/apache/xml/internal/security/resource/xmlsecurity_en.properties \
+		jdk/src/bsd/doc/man/java.1 \
+		jdk/src/bsd/doc/man/javac.1 \
+		jdk/src/bsd/doc/man/javap.1 \
+		jdk/src/linux/doc/man/java.1 \
+		jdk/src/linux/doc/man/javac.1 \
+		jdk/src/linux/doc/man/javap.1 \
+		jdk/src/solaris/doc/sun/man/man1/java.1 \
+		jdk/src/solaris/doc/sun/man/man1/javac.1 \
+		jdk/src/solaris/doc/sun/man/man1/javap.1 \
 		nashorn/test/script/jfx.js
 SHEBANG_FILES=	configure
 
@@ -62,8 +71,8 @@ NO_CCACHE=		yes
 NOPRECIOUSMAKEVARS=	yes
 
 JDK_MAJOR_VERSION=	8
-JDK_UPDATE_VERSION=	11
-JDK_BUILD_NUMBER=	12
+JDK_UPDATE_VERSION=	25
+JDK_BUILD_NUMBER=	17
 DIST_BUILD_NUMBER=	132
 JTREG_VERSION=		4.1
 JTREG_BUILD_NUMBER=	b08
@@ -114,7 +123,7 @@ TEST_DESC=		Run regression tests
 RELEASE_CONFIGURE_ON=	--disable-debug-symbols
 TEST_ALL_TARGET=	test
 TEST_CONFIGURE_ON=	--with-jtreg=${WRKDIR}/jtreg
-TEST_DISTFILES=		jtreg${JTREG_VERSION}-${JTREG_BUILD_NUMBER}.tar.gz:jtreg
+TEST_DISTFILES=		jtreg${JTREG_VERSION}-${JTREG_BUILD_NUMBER}${EXTRACT_SUFX}:jtreg
 .else
 CONFIGURE_ARGS+=	--disable-debug-symbols
 JAVAVMS_COMMENT+=	JRE
@@ -149,6 +158,9 @@ BUILD_DEPENDS+=		${BOOTSTRAPJDKDIR}/bin/javac:${PORTSDIR}/java/openjdk7
 .endif
 
 .if ${COMPILER_TYPE} == clang
+.if ${COMPILER_VERSION} >= 35
+MAKE_ENV+=	COMPILER_WARNINGS_FATAL=false
+.endif
 MAKE_ENV+=	USE_CLANG=true
 .if ${COMPILER_FEATURES:Mlibc++}
 CONFIGURE_ENV=	LIBCXX="-lc++"
@@ -163,33 +175,20 @@ ICONV_LDFLAGS=	-L${LOCALBASE}/lib ${ICONV_LIB}
 .endif
 
 post-extract:
-	@${MV} -f ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-debug \
-	    ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-debug.macosx
-	@${MV} -f ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-product \
-	    ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-product.macosx
-	@${CP} -f ${WRKSRC}/hotspot/make/linux/makefiles/mapfile-vers-debug \
-	    ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-debug
-	@${CP} -f ${WRKSRC}/hotspot/make/linux/makefiles/mapfile-vers-product \
-	    ${WRKSRC}/hotspot/make/bsd/makefiles/mapfile-vers-product
-	@${MKDIR} ${WRKSRC}/jdk/src/bsd/classes/java/net \
-	    ${WRKSRC}/jdk/src/bsd/classes/sun/nio/ch
-	@${MV} -f ${WRKSRC}/jdk/src/macosx/classes/java/net/DefaultInterface.java \
-	    ${WRKSRC}/jdk/src/bsd/classes/java/net
-	@${MV} -f ${WRKSRC}/jdk/src/macosx/classes/sun/nio/ch/DefaultSelectorProvider.java \
-	    ${WRKSRC}/jdk/src/bsd/classes/sun/nio/ch
-	@${MV} -f ${WRKSRC}/jdk/src/macosx/classes/sun/nio/ch/KQueue*.java \
-	    ${WRKSRC}/jdk/src/solaris/classes/sun/nio/ch
-	@${MV} -f ${WRKSRC}/jdk/src/macosx/native/sun/nio/ch/KQueue*.c \
-	    ${WRKSRC}/jdk/src/solaris/native/sun/nio/ch
+	@${CP} ${FILESDIR}/jdk-test-javax-imageio-plugins-jpeg-truncated.jpg \
+	    ${WRKSRC}/jdk/test/javax/imageio/plugins/jpeg/truncated.jpg
+	@${CP} ${FILESDIR}/nashorn-test-script-jfx-flyingimage-golden-bsd.png \
+	    ${WRKSRC}/nashorn/test/script/jfx/flyingimage/golden/bsd.png
+	@${CP} ${FILESDIR}/nashorn-test-script-jfx-kaleidoscope-golden-bsd.png \
+	    ${WRKSRC}/nashorn/test/script/jfx/kaleidoscope/golden/bsd.png
+	@${CP} ${FILESDIR}/nashorn-test-script-jfx-spread-golden-bsd.png \
+	    ${WRKSRC}/nashorn/test/script/jfx/spread/golden/bsd.png
+
+post-patch:
+	@${FIND} ${WRKSRC} -name '*.orig' -delete
 	@${RMDIR} ${WRKSRC}/jdk/src/macosx/classes/java/net \
 	    ${WRKSRC}/jdk/src/macosx/native/sun/nio/ch \
 	    ${WRKSRC}/jdk/src/macosx/native/sun/nio
-	@${CP} -f ${WRKSRC}/jdk/src/solaris/classes/java/lang/UNIXProcess.java.bsd \
-	    ${WRKSRC}/jdk/src/solaris/classes/java/lang/UNIXProcess.java.macosx
-	@${CP} -f ${FILESDIR}/jdk-test-javax-imageio-plugins-jpeg-truncated.jpg \
-	    ${WRKSRC}/jdk/test/javax/imageio/plugins/jpeg/truncated.jpg
-
-post-patch:
 	@${SED} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 	    ${FILESDIR}/bsd.fontconfig.properties.in > \
 	    ${WRKSRC}/jdk/src/solaris/classes/sun/awt/fontconfigs/bsd.fontconfig.properties
@@ -233,11 +232,13 @@ do-install:
 	    ${FIND} bin jre/bin -type f -exec ${CHMOD} ${BINMODE} {} \; && \
 	    ${CHMOD} ${BINMODE} jre/lib/${ARCH}/jexec \
 	    jre/lib/${ARCH}/jspawnhelper lib/${ARCH}/jexec
+	@${ECHO} "@dir ${INSTALLDIR}/jre/lib/applet" >> ${TMPPLIST}
 .else
 	@cd ${JRE_IMAGEDIR} && ${COPYTREE_SHARE} . ${STAGEDIR}${INSTALLDIR}
 	@cd ${STAGEDIR}${INSTALLDIR} && \
 	    ${FIND} bin -type f -exec ${CHMOD} ${BINMODE} {} \; && \
 	    ${CHMOD} ${BINMODE} lib/${ARCH}/jexec lib/${ARCH}/jspawnhelper
+	@${ECHO} "@dir ${INSTALLDIR}/lib/applet" >> ${TMPPLIST}
 .endif
 	@${ECHO} "@unexec ${LOCALBASE}/bin/unregistervm ${INSTALLDIR}/bin/java" >> ${TMPPLIST}
 	@${FIND} -s ${STAGEDIR}${INSTALLDIR} -not -type d | ${SORT} | \

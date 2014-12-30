@@ -32,10 +32,12 @@ man/man8/debootstrap.8.gz
 %%DATADIR%%/scripts/sid
 %%DATADIR%%/scripts/squeeze
 %%DATADIR%%/scripts/stable
+%%DATADIR%%/scripts/stretch
 %%DATADIR%%/scripts/testing
 %%DATADIR%%/scripts/trusty
 %%DATADIR%%/scripts/unstable
 %%DATADIR%%/scripts/utopic
+%%DATADIR%%/scripts/vivid
 %%DATADIR%%/scripts/warty
 %%DATADIR%%/scripts/warty.buildd
 %%DATADIR%%/scripts/wheezy

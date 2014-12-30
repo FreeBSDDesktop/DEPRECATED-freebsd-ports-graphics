@@ -105,7 +105,6 @@
     SUBDIR += eigen2
     SUBDIR += eigen3
     SUBDIR += eispack
-    SUBDIR += elmer-umfpack
     SUBDIR += emc2
     SUBDIR += ent
     SUBDIR += entropy
@@ -132,7 +131,6 @@
     SUBDIR += galculator
     SUBDIR += gambit
     SUBDIR += gap
-    SUBDIR += gcalctool
     SUBDIR += gdcalc
     SUBDIR += geg
     SUBDIR += geogebra-i18n
@@ -148,9 +146,11 @@
     SUBDIR += gmm++
     SUBDIR += gmp
     SUBDIR += gmp-ecm
+    SUBDIR += gnome-calculator
     SUBDIR += gnubc
     SUBDIR += gnumeric
     SUBDIR += gnuplot
+    SUBDIR += gnuplot-tex-extras
     SUBDIR += goblin
     SUBDIR += gotoblas
     SUBDIR += grace
@@ -329,6 +329,7 @@
     SUBDIR += octave-forge-octproj
     SUBDIR += octave-forge-odebvp
     SUBDIR += octave-forge-odepkg
+    SUBDIR += octave-forge-optics
     SUBDIR += octave-forge-optim
     SUBDIR += octave-forge-optiminterp
     SUBDIR += octave-forge-outliers
@@ -539,6 +540,7 @@
     SUBDIR += pspp
     SUBDIR += pure-mpfr
     SUBDIR += pure-rational
+    SUBDIR += py-altgraph
     SUBDIR += py-apgl
     SUBDIR += py-basemap
     SUBDIR += py-basemap-data

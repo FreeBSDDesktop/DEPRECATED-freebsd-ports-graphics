@@ -2,7 +2,7 @@
 
 PORTNAME=	libav
 PORTVERSION=	10.2
-PORTREVISION=	4
+PORTREVISION=	7
 CATEGORIES=	multimedia audio ipv6 net
 MASTER_SITES=	http://libav.org/releases/
 
@@ -86,7 +86,8 @@ ILBC_BUILD_DEPENDS=		${LOCALBASE}/include/ilbc.h:${PORTSDIR}/net/libilbc
 ILBC_CONFIGURE_ENABLE=		libilbc
 
 JACK_LIB_DEPENDS=		libjack.so:${PORTSDIR}/audio/jack
-JACK_CONFIGURE_ENABLE=		indev=jack
+JACK_CONFIGURE_ON=		--enable-indev=jack
+JACK_CONFIGURE_OFF=		--disable-indev=jack
 
 LAME_LIB_DEPENDS=		libmp3lame.so:${PORTSDIR}/audio/lame
 LAME_CONFIGURE_ENABLE=		libmp3lame
@@ -118,7 +119,8 @@ THEORA_LIB_DEPENDS=		libtheora.so:${PORTSDIR}/multimedia/libtheora
 THEORA_CONFIGURE_ENABLE=	libtheora
 
 V4L_BUILD_DEPENDS=		${LOCALBASE}/include/linux/videodev2.h:${PORTSDIR}/multimedia/v4l_compat
-V4L_CONFIGURE_ENABLE=		indev=v4l2
+V4L_CONFIGURE_ON=		--enable-indev=v4l2
+V4L_CONFIGURE_OFF=		--disable-indev=v4l2
 
 VAAPI_LIB_DEPENDS=		libva.so:${PORTSDIR}/multimedia/libva
 VAAPI_CONFIGURE_ENABLE=		vaapi
@@ -146,7 +148,7 @@ WEBP_CONFIGURE_ENABLE=		libwebp
 
 X11GRAB_USE=			XORG=x11,xext,xfixes
 
-X264_LIB_DEPENDS=		libx264.so:${PORTSDIR}/multimedia/x264
+X264_LIB_DEPENDS=		libx264.so:${PORTSDIR}/multimedia/libx264
 X264_CONFIGURE_ENABLE=		libx264
 
 XVID_LIB_DEPENDS=		libxvidcore.so:${PORTSDIR}/multimedia/xvid

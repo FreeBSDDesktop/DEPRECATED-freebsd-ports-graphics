@@ -3,7 +3,7 @@
 
 PORTNAME=	freedoko
 PORTVERSION=	0.7.12
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	games
 MASTER_SITES=	SF/free-doko/FreeDoko%20source
 DISTNAME=	FreeDoko_${PORTVERSION}.src
@@ -52,5 +52,6 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC}/../doc/manual && ${FIND} . | \
 		${CPIO} --quiet -pdum ${STAGEDIR}${DOCSDIR}
+	@${RMDIR} ${STAGEDIR}${DOCSDIR}/de/pictures
 
 .include <bsd.port.mk>

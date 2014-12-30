@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rabbitmq
-PORTVERSION=	3.4.0
+PORTVERSION=	3.4.2
 CATEGORIES=	net
 MASTER_SITES=	http://www.rabbitmq.com/releases/rabbitmq-server/v${PORTVERSION}/
 DISTNAME=	${PORTNAME}-server-${PORTVERSION}
@@ -41,6 +41,8 @@ MAKE_ENV+=	TARGET_DIR="${STAGEDIR}${PREFIX}/lib/erlang/lib/rabbitmq_server-${POR
 		SBIN_DIR="${STAGEDIR}${PREFIX}/sbin/" \
 		MAN_DIR="${STAGEDIR}${PREFIX}/man" \
 		DOC_INSTALL_DIR="${STAGEDIR}${EXAMPLESDIR}"
+
+MAKE_JOBS_UNSAFE=	yes
 
 .include <bsd.port.options.mk>
 

@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	xnec2c
-PORTVERSION=	2.9
+PORTVERSION=	3.1
 CATEGORIES=	comms hamradio
 MASTER_SITES=	http://www.qsl.net/5b4az/pkg/nec2/xnec2c/ \
 		${MASTER_SITE_LOCAL}
 MASTER_SITE_SUBDIR=	shurd
 
-MAINTAINER=	shurd@FreeBSD.org
+MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Used to calculate antenna patterns useful to ham radio
 
 LICENSE=	GPLv2
@@ -16,7 +16,7 @@ LICENSE=	GPLv2
 LIB_DEPENDS=	libccm.so:${PORTSDIR}/math/ccmath
 
 GNU_CONFIGURE=	yes
-USES=		tar:bzip2 pkgconfig gmake
+USES=		gettext gmake pkgconfig tar:bzip2
 USE_GNOME=	gtk20
 
 OPTIONS_DEFINE=	DOCS

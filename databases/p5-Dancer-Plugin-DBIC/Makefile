@@ -3,11 +3,12 @@
 
 PORTNAME=	Dancer-Plugin-DBIC
 PORTVERSION=	0.2100
+PORTREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	DBIx::Class interface for Dancer applications
 
 LICENSE=	ART10 GPLv1

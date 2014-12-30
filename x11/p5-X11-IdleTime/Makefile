@@ -3,6 +3,7 @@
 
 PORTNAME=	X11-IdleTime
 PORTVERSION=	0.5
+PORTREVISION=	1
 CATEGORIES=	x11 perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -20,7 +21,7 @@ USE_XORG=	x11 xscrnsaver
 USES=		perl5
 USE_PERL5=	configure patch
 
-MANPREFIX=	${SITE_PERL}
+MANPREFIX=	${PREFIX}/${SITE_PERL_REL}
 
 post-patch:
 .for i in IdleTime.pm

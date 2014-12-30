@@ -3,7 +3,7 @@
 
 PORTNAME=	xtla
 PORTVERSION=	1.2.1
-PORTREVISION=	14
+PORTREVISION=	15
 PORTEPOCH=	1
 CATEGORIES=	devel elisp
 MASTER_SITES=	http://download.gna.org/xtla-el/ \
@@ -12,6 +12,8 @@ PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Emacs front-end to tla
+
+BROKEN=		Fails to package
 
 BUILD_DEPENDS+=	tla:${PORTSDIR}/devel/tla \
 		${LOCALBASE}/${EMACS_VERSION_SITE_LISPDIR}/tree-widget/tree-widget.el:${PORTSDIR}/editors/tree-widget

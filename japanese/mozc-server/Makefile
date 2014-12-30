@@ -47,6 +47,8 @@ USE_XORG=	xcb
 USE_GNOME=	glib20 gtk20
 .elif ${BUILD_MOZC_LIST:Mmozc_el} == "mozc_el"
 USE_EMACS=	yes
+.elif ${BUILD_MOZC_LIST:Mfcitx_mozc}
+USES+=		gettext-tools
 .endif
 
 # Use GCC only when the stock clang does not have libc++.so.
@@ -172,7 +174,6 @@ PLIST_FILES+=	libexec/mozc_tool \
 		bin/mozc_tool \
 		%%DATADIR%%/icons/product_logo.png \
 		%%DATADIR%%/icons/update_uptodate.png
-PLIST_DIRS+=	%%DATADIR%%/icons ${DATADIR_REL}
 SUB_FILES+=	mozc_tool
 
 do-build-mozc_tool:

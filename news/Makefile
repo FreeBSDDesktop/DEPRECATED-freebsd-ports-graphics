@@ -13,12 +13,11 @@
     SUBDIR += crashmail
     SUBDIR += diablo
     SUBDIR += fidogate
-    SUBDIR += fidogate-ds
     SUBDIR += golded+
     SUBDIR += gup
     SUBDIR += hellanzb
-    SUBDIR += husky-areafix
     SUBDIR += husky
+    SUBDIR += husky-areafix
     SUBDIR += husky-fidoconf
     SUBDIR += husky-hpt
     SUBDIR += husky-htick

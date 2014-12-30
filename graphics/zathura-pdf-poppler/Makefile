@@ -3,7 +3,7 @@
 
 PORTNAME=	zathura-pdf-poppler
 PORTVERSION=	0.2.5
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://pwmt.org/projects/zathura/plugins/download/
 
@@ -21,6 +21,5 @@ CONFLICTS=	zathura-pdf-mupdf-[0-9]*
 
 PLIST_FILES=	lib/zathura/pdf.so \
 		share/applications/zathura-pdf-poppler.desktop
-PLIST_DIRSTRY=	lib/zathura
 
 .include <bsd.port.mk>

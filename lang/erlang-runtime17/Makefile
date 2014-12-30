@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	erlang
-PORTVERSION=	17.3
-PORTREVISION=	1
+PORTVERSION=	17.4
 CATEGORIES=	lang parallel java
 MASTER_SITES=	http://www.erlang.org/download/:erlangorg		\
 		http://erlang.stacken.kth.se/download/:erlangorg	\
@@ -46,6 +45,7 @@ ERL_RELEASE=	${PORTVERSION}
 
 USES=		gmake perl5
 USE_AUTOTOOLS=	autoconf:env
+USE_PERL5=	build
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib
 

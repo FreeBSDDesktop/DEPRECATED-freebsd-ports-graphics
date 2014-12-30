@@ -3,10 +3,11 @@
 
 PORTNAME=	metaf2xml
 PORTVERSION=	1.55
+PORTREVISION=	2
 CATEGORIES=	science perl5
 MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}
 
-MAINTAINER=	clsung@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Parse and Decode METAR, TAF, SYNOP and BUOY and Store as XML
 
 OPTIONS_DEFINE=	APACHE DOCS
@@ -20,8 +21,9 @@ MAKE_ARGS=	CGI_BIN_DIR=${PREFIX}/www/metaf2xml/cgi-bin \
 		METAF2XML_DOC=${DOCSDIR} \
 		METAF2XML_XSL=${DATADIR}
 NO_BUILD=	yes
-USES=		perl5 tar:tgz
+USES=		perl5 shebangfix tar:tgz
 USE_PERL5=	install run
+SHEBANG_FILES=	metaf.pl metaf2xml.pl metafsrc2raw.pl
 
 .include <bsd.port.options.mk>
 

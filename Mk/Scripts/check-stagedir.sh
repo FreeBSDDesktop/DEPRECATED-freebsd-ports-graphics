@@ -173,11 +173,7 @@ parse_mtree() {
 		fi
 		listmtree "${PORTSDIR}/Templates/BSD.local.dist" "${LOCALBASE}"
 
-		if [ -n "${GNOME_MTREE_FILE}" ] && \
-		    [ -f "${GNOME_MTREE_FILE}" ]; then
-			listmtree "${GNOME_MTREE_FILE}" "${PREFIX}"
-		fi
-		unset MTREE_FILE GNOME_MTREE_FILE
+		unset MTREE_FILE
 
 		# Add LOCALBASE
 		a=${LOCALBASE}
@@ -255,8 +251,12 @@ generate_plist() {
 	### HANDLE DIRS
 	cat ${WRKDIR}/.plist-dirs-unsorted ${WRKDIR}/.mtree \
 	    | sort -u >${WRKDIR}/.traced-dirs
-	find -sd ${STAGEDIR} -type d | sed -e "s,^${STAGEDIR},,;/^$/d" \
+	find ${STAGEDIR} -type d | sed -e "s,^${STAGEDIR},,;/^$/d" | sort \
+	    >${WRKDIR}/.staged-dirrms-sorted
+	find -sd ${STAGEDIR}${PREFIX} -type d -empty | sed -e "s,^${STAGEDIR},,;\,^${PREFIX}$,d;/^$/d" \
 	    >${WRKDIR}/.staged-dirs-dfs
+	find -sd ${STAGEDIR} -type d ! -path "${STAGEDIR}${PREFIX}/*" | sed -e "s,^${STAGEDIR},,;\,^${PREFIX}$,d;/^$/d" \
+	    >>${WRKDIR}/.staged-dirs-dfs
 	sort ${WRKDIR}/.staged-dirs-dfs >${WRKDIR}/.staged-dirs-sorted
 	awk '{print FNR, $0}' ${WRKDIR}/.staged-dirs-dfs \
 	    >${WRKDIR}/.staged-dirs-dfs-sorted
@@ -274,7 +274,6 @@ check_orphans_from_plist() {
 	# Handle whitelisting
 	while read path; do
 		case "${path}" in
-		*'@dir '[^/]*) ;;
 		*.bak) ;;
 		*.orig) ;;
 		*/.DS_Store) ;;
@@ -300,6 +299,7 @@ check_orphans_from_plist() {
 		share/mime/treemagic) ;;
 		share/mime/types) ;;
 		share/mime/version) ;;
+		'@dir etc/gconf/gconf.xml.defaults');;
 		*)
 			# An orphan was found, return non-zero status
 			ret=1
@@ -324,7 +324,7 @@ check_missing_plist_items() {
 	rm -rf ${WRKDIR}/.missing-dirs > /dev/null 2>&1 || :
 	mkdir ${WRKDIR}/.missing-dirs
 	comm -23 ${WRKDIR}/.plist-dirs-sorted-no-comments \
-	    ${WRKDIR}/.staged-dirs-sorted > ${WRKDIR}/.missing-plist-dirs
+	    ${WRKDIR}/.staged-dirrms-sorted > ${WRKDIR}/.missing-plist-dirs
 	# Creates the dirs in WRKDIR/.missing-dirs and ensure spaces are
 	# quoted.
 	sed -e "s,^,${WRKDIR}/.missing-dirs," \
@@ -357,7 +357,7 @@ esac
 
 # validate environment
 envfault=
-for i in STAGEDIR PREFIX LOCALBASE WRKDIR WRKSRC MTREE_FILE GNOME_MTREE_FILE \
+for i in STAGEDIR PREFIX LOCALBASE WRKDIR WRKSRC MTREE_FILE \
     TMPPLIST PLIST_SUB_SED SCRIPTSDIR \
     PORT_OPTIONS NO_PREFIX_RMDIR
 do

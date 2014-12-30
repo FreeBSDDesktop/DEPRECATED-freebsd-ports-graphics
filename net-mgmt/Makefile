@@ -26,6 +26,7 @@
     SUBDIR += bwm-ng
     SUBDIR += cacti
     SUBDIR += cacti-spine
+    SUBDIR += ccnet
     SUBDIR += cdpd
     SUBDIR += cdpr
     SUBDIR += centreon-clib
@@ -116,13 +117,13 @@
     SUBDIR += nagios-check_netsnmp
     SUBDIR += nagios-check_ports
     SUBDIR += nagios-check_postgres
-    SUBDIR += nagios-check_relayd_status
     SUBDIR += nagios-check_puppet
+    SUBDIR += nagios-check_relayd_status
     SUBDIR += nagios-check_smartmon
     SUBDIR += nagios-check_tftp
-    SUBDIR += nagios-pf-plugin
     SUBDIR += nagios-geom
     SUBDIR += nagios-openldap-plugins
+    SUBDIR += nagios-pf-plugin
     SUBDIR += nagios-plugins
     SUBDIR += nagios-snmp-plugins
     SUBDIR += nagios-snmp-plugins-extras
@@ -280,6 +281,8 @@
     SUBDIR += sblim-wbemcli
     SUBDIR += scli
     SUBDIR += sdig
+    SUBDIR += seafile
+    SUBDIR += seafile-gui
     SUBDIR += send
     SUBDIR += sendip
     SUBDIR += sipcalc
@@ -305,7 +308,6 @@
     SUBDIR += victorops-nagios
     SUBDIR += vidalia
     SUBDIR += virt-viewer
-    SUBDIR += virtinst
     SUBDIR += wdiag
     SUBDIR += weathermap
     SUBDIR += weplab
@@ -323,5 +325,9 @@
     SUBDIR += zabbix22-frontend
     SUBDIR += zabbix22-proxy
     SUBDIR += zabbix22-server
+    SUBDIR += zabbix24-agent
+    SUBDIR += zabbix24-frontend
+    SUBDIR += zabbix24-proxy
+    SUBDIR += zabbix24-server
 
 .include <bsd.port.subdir.mk>

@@ -2,15 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	getopt
-PORTVERSION=	1.1.5
+PORTVERSION=	1.1.6
 CATEGORIES=	misc
-MASTER_SITES=	http://software.frodo.looijaard.name/getopt/files/ \
+MASTER_SITES=	http://frodo.looijaard.name/system/files/software/getopt/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Replacement for getopt(1) that supports GNU-style long options
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 GPLv3
+LICENSE_COMB=	dual
 
 OPTIONS_DEFINE=	DOCS NLS
 OPTIONS_SUB=	yes

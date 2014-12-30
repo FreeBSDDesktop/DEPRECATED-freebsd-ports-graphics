@@ -1,4 +1,3 @@
-@comment $FreeBSD$
 bin/mutt
 bin/mutt_dotlock
 bin/pgpewrap
@@ -84,7 +83,3 @@ man/man5/muttrc.5.gz
 %%NLS%%share/locale/uk/LC_MESSAGES/mutt.mo
 %%NLS%%share/locale/zh_CN/LC_MESSAGES/mutt.mo
 %%NLS%%share/locale/zh_TW/LC_MESSAGES/mutt.mo
-%%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%/iconv
-%%PORTEXAMPLES%%@dirrm %%EXAMPLESDIR%%
-%%PORTDOCS%%@dirrm %%DOCSDIR%%/html
-%%PORTDOCS%%@dirrm %%DOCSDIR%%

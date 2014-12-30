@@ -2,7 +2,7 @@
 
 PORTNAME=	musicpd
 PORTVERSION=	0.18.11
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	audio ipv6
 MASTER_SITES=	http://www.musicpd.org/download/mpd/${PORTVERSION:R}/
 DISTNAME=	mpd-${PORTVERSION}
@@ -131,6 +131,11 @@ USERS=	${MPDUSER}
 GROUPS=	${MPDGROUP}
 
 .include <bsd.port.options.mk>
+
+# Work around suspected clang bug
+.if ${OSVERSION} >= 1001000
+USE_GCC=	yes
+.endif
 
 .ifdef MPDCONF
 IGNORE=Please remove the MPDCONF line from make.conf, then rename ${PREFIX}/etc/${MPDCONF} to musicpd.conf, if it exists

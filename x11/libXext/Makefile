@@ -15,5 +15,6 @@ LICENSE=	MIT
 XORG_CAT=	lib
 USE_XORG=	xproto x11 xextproto:both xau
 CONFIGURE_ARGS+=--disable-specs --without-xmlto
+INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>

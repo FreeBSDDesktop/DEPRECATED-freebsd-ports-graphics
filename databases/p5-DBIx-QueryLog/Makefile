@@ -1,13 +1,17 @@
 # $FreeBSD$
 
 PORTNAME=	DBIx-QueryLog
-PORTVERSION=	0.37
+PORTVERSION=	0.39
+PORTREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	kuriyama@FreeBSD.org
 COMMENT=	Perl extension for logging queries for DBI
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
 
 RUN_DEPENDS=	\
 	p5-DBI>0:${PORTSDIR}/databases/p5-DBI
@@ -19,5 +23,6 @@ TEST_DEPENDS=	\
 
 USES=		perl5
 USE_PERL5=	modbuild
+NO_ARCH=	YES
 
 .include <bsd.port.mk>

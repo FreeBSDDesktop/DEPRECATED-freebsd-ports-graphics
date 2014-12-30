@@ -3,11 +3,12 @@
 
 PORTNAME=	Net-FreeDB
 PORTVERSION=	0.09
+PORTREVISION=	1
 CATEGORIES=	audio perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Get the CDID of an audio CD and query the FreeDB servers
 
 LICENSE=	ART10 GPLv1

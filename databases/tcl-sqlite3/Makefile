@@ -1,11 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	sqlite3
-PORTVERSION=	3.8.7
+PORTVERSION=	3.8.7.4
 CATEGORIES=	databases tcl
 MASTER_SITES=	http://www.sqlite.org/2014/ http://www2.sqlite.org/2014/ http://www3.sqlite.org/2014/
 PKGNAMEPREFIX=	tcl-
-DISTNAME=	sqlite-autoconf-3080700
+DISTNAME=	sqlite-autoconf-3080704
 
 MAINTAINER=	pavelivolkov@gmail.com
 COMMENT=	SQLite extension for Tcl using the Tcl Extension Architecture (TEA)
@@ -32,7 +32,6 @@ CONFIGURE_ARGS+=	--with-tcl=${TCL_LIBDIR} --with-system-sqlite
 
 THREADS_CONFIGURE_ENABLE=	threads
 
-PLIST_DIRS+=		lib/${PORTNAME}
 PLIST_FILES+=		lib/${PORTNAME}/libsqlite${PORTVERSION}.so lib/${PORTNAME}/pkgIndex.tcl
 PORTEXAMPLES=		*
 

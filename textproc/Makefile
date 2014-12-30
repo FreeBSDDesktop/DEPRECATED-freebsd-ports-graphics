@@ -118,6 +118,7 @@
     SUBDIR += docbook-xsl
     SUBDIR += docbook-xsl-ns
     SUBDIR += docbook2X
+    SUBDIR += docbook2mdoc
     SUBDIR += docbook2odf
     SUBDIR += docbookide.el
     SUBDIR += docdiff
@@ -204,8 +205,8 @@
     SUBDIR += gsed
     SUBDIR += gtk-doc
     SUBDIR += gtkspell
-    SUBDIR += gtkspell3
     SUBDIR += gtkspell-reference
+    SUBDIR += gtkspell3
     SUBDIR += gu-aspell
     SUBDIR += gutenmark
     SUBDIR += gv-aspell
@@ -364,7 +365,6 @@
     SUBDIR += libmrss-php
     SUBDIR += libmwaw03
     SUBDIR += libnxml
-    SUBDIR += libodfgen
     SUBDIR += libodfgen01
     SUBDIR += libparsifal
     SUBDIR += librevenge
@@ -378,6 +378,7 @@
     SUBDIR += libtextcat
     SUBDIR += libtranslate
     SUBDIR += libtre
+    SUBDIR += libucl
     SUBDIR += libunibreak
     SUBDIR += libuninameslist
     SUBDIR += libvisio
@@ -414,6 +415,7 @@
     SUBDIR += luaexpat
     SUBDIR += lucene
     SUBDIR += lucene4
+    SUBDIR += luceneplusplus
     SUBDIR += lv-aspell
     SUBDIR += m17n-im-config
     SUBDIR += makefaq
@@ -514,6 +516,7 @@
     SUBDIR += p5-Geo-Parse-OSM
     SUBDIR += p5-Getopt-Lucid
     SUBDIR += p5-Google-Data-JSON
+    SUBDIR += p5-Groonga-API
     SUBDIR += p5-HTML-CTPP2
     SUBDIR += p5-HTML-Copy
     SUBDIR += p5-HTML-Entities-ImodePictogram
@@ -1140,6 +1143,7 @@
     SUBDIR += plover
     SUBDIR += po4a
     SUBDIR += pocketreader
+    SUBDIR += pod2mdoc
     SUBDIR += popup
     SUBDIR += popup-stacks
     SUBDIR += ppower4
@@ -1215,6 +1219,7 @@
     SUBDIR += py-stripogram
     SUBDIR += py-syck
     SUBDIR += py-texttable
+    SUBDIR += py-tinycss
     SUBDIR += py-trans
     SUBDIR += py-transifex-client
     SUBDIR += py-translationstring
@@ -1282,7 +1287,6 @@
     SUBDIR += rtfx
     SUBDIR += rubber
     SUBDIR += ruby-deplate
-    SUBDIR += ruby-diff
     SUBDIR += ruby-escape
     SUBDIR += ruby-format
     SUBDIR += ruby-htmlrepair
@@ -1319,6 +1323,7 @@
     SUBDIR += rubygem-fast_xs
     SUBDIR += rubygem-fast_xs073
     SUBDIR += rubygem-ferret
+    SUBDIR += rubygem-fog-xml
     SUBDIR += rubygem-gemoji
     SUBDIR += rubygem-gherkin
     SUBDIR += rubygem-github-linguist
@@ -1391,6 +1396,7 @@
     SUBDIR += s5
     SUBDIR += sablotron
     SUBDIR += sagasu
+    SUBDIR += sansi
     SUBDIR += sarep
     SUBDIR += sary
     SUBDIR += sassc
@@ -1496,6 +1502,7 @@
     SUBDIR += txt2html
     SUBDIR += txt2man
     SUBDIR += txt2tags
+    SUBDIR += uchardet
     SUBDIR += uim
     SUBDIR += uim-el
     SUBDIR += uim-gtk
@@ -1529,8 +1536,6 @@
     SUBDIR += wv
     SUBDIR += wv2
     SUBDIR += xalan-j
-    SUBDIR += xerces-c2
-    SUBDIR += xerces-c2-devel
     SUBDIR += xerces-c3
     SUBDIR += xerces-j
     SUBDIR += xfce4-dict-plugin
@@ -1548,9 +1553,9 @@
     SUBDIR += xml-i18n-tools
     SUBDIR += xml-lite.el
     SUBDIR += xml-parse.el
-    SUBDIR += xml_ez_out
     SUBDIR += xml2
     SUBDIR += xml2rfc
+    SUBDIR += xml_ez_out
     SUBDIR += xmlada
     SUBDIR += xmlcatmgr
     SUBDIR += xmlcharent

@@ -3,12 +3,13 @@
 
 PORTNAME=	Text-Trim
 PORTVERSION=	1.02
+PORTREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	Text
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	miwi@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Extract the structure of a quoted mail message
 
 LICENSE=	ART10 GPLv1

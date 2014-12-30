@@ -80,6 +80,7 @@
     SUBDIR += libimobiledevice
     SUBDIR += libirman
     SUBDIR += libmodbus
+    SUBDIR += librs232
     SUBDIR += libticables2
     SUBDIR += libticalcs2
     SUBDIR += libusbmuxd
@@ -132,6 +133,7 @@
     SUBDIR += qpage
     SUBDIR += qrq
     SUBDIR += qsstv
+    SUBDIR += qt5-serialport
     SUBDIR += quisk
     SUBDIR += remserial
     SUBDIR += rtl-sdr
@@ -174,6 +176,7 @@
     SUBDIR += wwl
     SUBDIR += wy60
     SUBDIR += xastir
+    SUBDIR += xcwcp
     SUBDIR += xdx
     SUBDIR += xlog
     SUBDIR += xmorse

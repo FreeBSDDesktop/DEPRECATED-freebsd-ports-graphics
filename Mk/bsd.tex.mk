@@ -224,7 +224,7 @@ do-fmtutil-$F:
 	${LOCALBASE}/bin/mktexlsr ${TEXHASHDIRS:S,^,${STAGEDIR}${PREFIX}/,}
 	${CAT} ${WRKDIR}/fmtutil.cnf | \
 		while read format dum; do \
-		${SETENV} PATH=${PATH}:${STAGEDIR}${PREFIX}/bin:${LOCALBASE}/bin \
+		${SETENV} PATH=${STAGEDIR}${PREFIX}/bin:${PATH}:${LOCALBASE}/bin \
 		    TEXMFDIST=${STAGEDIR}${PREFIX}/${TEXMFDISTDIR}:${LOCALBASE}/${TEXMFDISTDIR} \
 		    ${LOCALBASE}/bin/fmtutil-sys \
 			--byfmt $$format \
@@ -507,11 +507,13 @@ TEX_FORMAT_PDFTEX_FILES= \
 	${TEXMFVARDIR}/web2c/pdftex/pdfetex.log \
 	${TEXMFVARDIR}/web2c/pdftex/pdfetex.fmt
 TEX_FORMAT_PDFTEX_BIN= \
+	bin/etex \
 	bin/pdfetex
 TEX_FORMAT_PDFTEX_DIRS= \
 	${TEXMFVARDIR}/web2c/pdftex
 post-install-pdftex:
 	${LN} -sf pdftex ${STAGEDIR}${PREFIX}/bin/pdfetex
+	${LN} -sf pdftex ${STAGEDIR}${PREFIX}/bin/etex
 
 TEX_FORMAT_PTEX?= \
 	"ptex ptex - ptex.ini" \

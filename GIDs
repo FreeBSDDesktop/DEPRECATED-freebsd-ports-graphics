@@ -93,6 +93,7 @@ rbldns:*:153:
 trircd:*:154:
 xorp:*:155:
 monetdb:*:156:
+barman:*:157:
 sfs:*:171:
 agk:*:172:
 polipo:*:173:
@@ -223,6 +224,7 @@ dotlrn:*:821:
 polw:*:825:
 statsd:*:826:
 netdisco:*:840:
+tcpcryptd:*:841:
 munin:*:842:
 dahdi:*:843:asterisk
 fossy:*:901:www
@@ -299,5 +301,7 @@ tvheadend:*:984:
 puppetdb:*:985:
 kamailio:*:986:
 spark:*:987:
+mediabrowser:*:989:
+ebnetd:*:999:
 nogroup:*:65533:
 nobody:*:65534:

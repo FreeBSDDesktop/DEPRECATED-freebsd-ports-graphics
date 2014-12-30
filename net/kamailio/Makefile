@@ -3,17 +3,17 @@
 #
 
 PORTNAME=	kamailio
-PORTVERSION=	4.1.6
+PORTVERSION=	4.2.1
 CATEGORIES=	net
 MASTER_SITES=	http://www.kamailio.org/pub/kamailio/${PORTVERSION}/src/
 DISTNAME=	${PORTNAME}-${PORTVERSION}_src
 
-MAINTAINER=	olivermahmoudi@gmail.com
+MAINTAINER=	pi@FreeBSD.org
 COMMENT=	Very fast and configurable open source SIP proxy
 
 LICENSE=	GPLv2
 
-USES=		gmake shebangfix
+USES=		gmake shebangfix readline
 USE_LDCONFIG=	yes
 SHEBANG_FILES=	utils/kamctl/kamctl utils/kamctl/kamdbctl
 CFLAGS+=	-Wall
@@ -118,7 +118,8 @@ post-stage:
 	htable topoh auth sms async \
 	prefix_route speeddial registrar mtree uid_avp_db \
 	xlog sipt siptrace qos pdb xprint auth_radius \
-	sanity uid_gflags db_text sdpops sipcapture
+	sanity uid_gflags db_text sdpops sipcapture \
+	tsilo nosip rtpengine jsonrpc-s
 	@if [ -e ${STAGEDIR}${PREFIX}/lib/${PORTNAME}/modules/${i}.so ]; then \
 		${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${PORTNAME}/modules/${i}.so; \
 	fi

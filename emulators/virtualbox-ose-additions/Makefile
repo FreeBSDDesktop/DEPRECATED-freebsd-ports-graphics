@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	virtualbox-ose
-DISTVERSION=	4.3.18
+DISTVERSION=	4.3.20
+PORTREVISION=	3
 CATEGORIES=	emulators
 MASTER_SITES=	http://download.virtualbox.org/virtualbox/${DISTVERSION}/ \
 		http://tmp.chruetertee.ch/ \
@@ -87,8 +88,11 @@ VBOX_LIBS=	VBoxOGL.so \
 
 .if ${PORT_OPTIONS:MX11}
 BUILD_DEPENDS+=	${LOCALBASE}/bin/X:${PORTSDIR}/x11-servers/xorg-server
-VBOX_WITH_X11=	1
 USE_XORG=	xcursor xmu inputproto xorg-server xrandr
+USES+=		pkgconfig
+VBOX_WITH_X11=	1
+XORG_DRV_ABI=	pkgconf --modversion xorg-server | \
+		${SED} -E -e 's/\.[0-9]+$$//' -e 's/\.//'
 .else
 VBOX_WITH_X11=
 .endif
@@ -99,8 +103,6 @@ KMK_ARCH=	freebsd.x86
 KMK_ARCH=	freebsd.${ARCH}
 .endif
 
-XSERVER_ABI:=	${XSERVER_VER:S/.//:R}
-
 .include <bsd.port.pre.mk>
 
 .if ${COMPILER_TYPE} == clang
@@ -110,6 +112,8 @@ EXTRA_PATCHES=	${PATCHDIR}/extrapatch-Config.kmk \
 EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-x11-VBoxClient-Makefile.kmk
 .endif
 .endif
+
+SUB_LIST+=	KMODDIR=${KMODDIR}
 
 pre-everything::
 .if ${ARCH} == "amd64"
@@ -157,8 +161,11 @@ do-install:
 .if ${PORT_OPTIONS:MDEBUG}
 	${INSTALL_KLD} ${VBOX_BIN}/src/vboxguest/vboxguest.ko.symbols ${STAGEDIR}${KMODDIR}
 .endif
-.if ${PORT_OPTIONS:MX11}
+.if ${PORT_OPTIONS:MOPENGL}
 	${INSTALL_KLD} ${VBOX_BIN}/vboxvideo.ko ${STAGEDIR}${KMODDIR}
+.if ${PORT_OPTIONS:MDEBUG}
+	${INSTALL_KLD} ${VBOX_BIN}/vboxvideo.ko.symbols ${STAGEDIR}${KMODDIR}
+.endif
 .endif
 
 	${INSTALL_PROGRAM} ${VBOX_SBINS:S|^|${VBOX_BIN}/|} \
@@ -180,11 +187,11 @@ do-install:
 	    ${STAGEDIR}${PREFIX}/share/autostart/
 
 	${MKDIR} ${STAGEDIR}${VIDEODIR}
-	${INSTALL_DATA} ${VBOX_BIN}/vboxvideo_drv_${XSERVER_ABI}.so \
+	${INSTALL_DATA} ${VBOX_BIN}/vboxvideo_drv_$$(${XORG_DRV_ABI}).so \
 	    ${STAGEDIR}${VIDEODIR}/vboxvideo_drv.so
 
 	${MKDIR} ${STAGEDIR}${INPUTDIR}
-	${INSTALL_DATA} ${VBOX_BIN}/vboxmouse_drv_${XSERVER_ABI}.so \
+	${INSTALL_DATA} ${VBOX_BIN}/vboxmouse_drv_$$(${XORG_DRV_ABI}).so \
 	    ${STAGEDIR}${INPUTDIR}/vboxmouse_drv.so
 .endif
 

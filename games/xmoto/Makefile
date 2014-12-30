@@ -3,7 +3,7 @@
 
 PORTNAME=	xmoto
 PORTVERSION=	0.5.11
-PORTREVISION=	3
+PORTREVISION=	6
 CATEGORIES=	games
 MASTER_SITES=	http://download.tuxfamily.org/xmoto/xmoto/${PORTVERSION}/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -18,7 +18,8 @@ LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libxdg-basedir.so:${PORTSDIR}/x11/libxdg-basedir
 BUILD_DEPENDS=	${LOCALBASE}/lib/libode.a:${PORTSDIR}/devel/ode
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 GNU_CONFIGURE=	yes
 USES=		gmake dos2unix lua:51
@@ -55,6 +56,15 @@ DESKTOP_ENTRIES="XMoto" \
 		"Game;SportsGame;ArcadeGame;" \
 		false
 
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
+BROKEN=		does not build
+.endif
+
+post-extract:
+	@${RM} -rf ${WRKSRC}/src/ode
+
 post-patch:
 	@${REINPLACE_CMD} -e "s/lua5.1/lua-${LUA_VER}/g" ${WRKSRC}/configure
 
@@ -64,4 +74,4 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}/
 .endfor
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

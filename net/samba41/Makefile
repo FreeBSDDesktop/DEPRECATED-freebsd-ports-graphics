@@ -18,7 +18,7 @@ CONFLICTS?=		*samba3[2-6]-3.* samba4-4.0.*
 
 SAMBA4_BASENAME=	samba
 SAMBA4_PORTNAME=	${SAMBA4_BASENAME}4
-SAMBA4_VERSION=		4.1.13
+SAMBA4_VERSION=		4.1.14
 SAMBA4_DISTNAME=	${SAMBA4_BASENAME}-${SAMBA4_VERSION:S|.p|pre|:S|.r|rc|:S|.t|tp|:S|.a|alpha|}
 
 WRKSRC?=		${WRKDIR}/${DISTNAME}
@@ -361,7 +361,7 @@ CONFIGURE_ARGS+=	--with-shared-modules="${WANT_EXP_MODULES:Q:C|(\\\\ )+|,|g:S|\\
 		pdb_test pdb_wbc_sam perfcount_test vfs_aio_posix vfs_aio_pthread \
 		vfs_cacheprime vfs_dfs_samba4 vfs_fake_acls vfs_notify_fam \
 		vfs_shadow_copy_test vfs_skel_opaque vfs_skel_transparent
-.	if !empty(${SAMBA4_MODULES}) && ${SAMBA4_MODULES:M${module}}
+.	if !empty(SAMBA4_MODULES) && ${SAMBA4_MODULES:M${module}}
 PLIST_SUB+=		MODULE_${module:tu}=""
 .	else
 PLIST_SUB+=		MODULE_${module:tu}="@comment "

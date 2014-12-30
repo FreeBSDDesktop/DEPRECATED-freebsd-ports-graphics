@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mediawiki
-PORTVERSION=	1.22.12
+PORTVERSION=	1.22.15
 CATEGORIES=	www
 MASTER_SITES=	http://releases.wikimedia.org/mediawiki/${PORTVERSION:R}/
 PKGNAMESUFFIX=	122
@@ -12,7 +12,10 @@ COMMENT=	The wiki engine used by Wikipedia
 
 LICENSE=	GPLv2
 
-CONFLICTS=	mediawiki119-[0-9]* mediawiki121-[0-9]* mediawiki123-[0-9]*
+DEPRECATED=	Deprecated by upstream, use www/mediawiki12{3,4} instead
+EXPIRATION_DATE=2015-02-28
+
+CONFLICTS=	mediawiki119-[0-9]* mediawiki123-[0-9]* mediawiki124-[0-9]*
 
 USE_PHP=	ctype iconv mbstring pcre session xml zlib readline dom json
 WANT_PHP_WEB=	yes
@@ -24,11 +27,11 @@ PLIST=		${WRKDIR}/plist
 OPTIONS_DEFINE=	MYSQL PGSQL SQLITE LDAP MEMCACHED APC EACCEL XCACHE IMAGICK
 OPTIONS_DEFAULT=MYSQL
 
-MEMCACHED_DESC=	use memcached
-APC_DESC=	use pecl-APC(Mediawiki recommended)
-EACCEL_DESC=	use eAccelerator (instead of pecl-APC)
-XCACHE_DESC=	use xCache (instead of pecl-APC)
-IMAGICK_DESC=	use ImageMagick
+MEMCACHED_DESC=	Use memcached
+APC_DESC=	Use pecl-APC (Mediawiki recommended)
+EACCEL_DESC=	Use eAccelerator (instead of pecl-APC)
+XCACHE_DESC=	Use xCache (instead of pecl-APC)
+IMAGICK_DESC=	Use ImageMagick
 
 .include <bsd.port.options.mk>
 

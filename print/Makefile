@@ -63,6 +63,11 @@
     SUBDIR += frescobaldi
     SUBDIR += ft2demos
     SUBDIR += ggv
+    SUBDIR += ghostscript7
+    SUBDIR += ghostscript7-commfont
+    SUBDIR += ghostscript7-jpnfont
+    SUBDIR += ghostscript7-korfont
+    SUBDIR += ghostscript7-nox11
     SUBDIR += ghostscript8
     SUBDIR += ghostscript8-nox11
     SUBDIR += ghostscript9
@@ -104,7 +109,7 @@
     SUBDIR += latex-resume
     SUBDIR += latex2rtf
     SUBDIR += latexdiff
-    SUBDIR += latexmk
+    SUBDIR += lgrind
     SUBDIR += libgnomecups
     SUBDIR += libgnomeprint
     SUBDIR += libgnomeprint-reference
@@ -156,7 +161,6 @@
     SUBDIR += pdf4tcl
     SUBDIR += pdfbox
     SUBDIR += pdfcube
-    SUBDIR += pdfjam
     SUBDIR += pdflib
     SUBDIR += pdflib-perl
     SUBDIR += pdftk

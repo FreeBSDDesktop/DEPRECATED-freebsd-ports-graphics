@@ -3,7 +3,7 @@
 
 PORTNAME=	cedet
 PORTVERSION=	1.1
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	devel elisp
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
@@ -12,6 +12,10 @@ MAINTAINER=	mva@FreeBSD.org
 COMMENT=	Collection of Emacs Development Environment Tools
 
 LICENSE=	GPLv2
+
+BROKEN=		Fails to build, use Emacs' builtin cedet package instead
+DEPRECATED=	Fails to build, use Emacs' builtin cedet package instead
+EXPIRATION_DATE=	2015-01-01
 
 USE_EMACS=		yes
 USES=			gmake makeinfo

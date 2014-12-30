@@ -132,6 +132,7 @@
     SUBDIR += sablevm
     SUBDIR += sablevm-classpath
     SUBDIR += servingxml
+    SUBDIR += sigar
     SUBDIR += springframework
     SUBDIR += springframework31
     SUBDIR += sqlitejdbc
@@ -139,6 +140,7 @@
     SUBDIR += veditor
     SUBDIR += visualvm
     SUBDIR += wildfly80
+    SUBDIR += wildfly81
     SUBDIR += xdoclet
 
 .include <bsd.port.subdir.mk>

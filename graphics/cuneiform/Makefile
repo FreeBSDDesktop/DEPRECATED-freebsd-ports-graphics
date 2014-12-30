@@ -11,7 +11,7 @@ DISTNAME=	${PORTNAME}-linux-${PORTVERSION}
 MAINTAINER=	samm@os2.kiev.ua
 COMMENT=	OCR system developed and open sourced by Cognitive technologies
 
-LICENSE=	BSD
+LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/cuneiform_src/Kern/license.txt
 
 ONLY_FOR_ARCHS=	i386 amd64
@@ -27,7 +27,7 @@ OPTIONS_DEFINE=	IMAGEMAGICK
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MIMAGEMAGICK}
-LIB_DEPENDS+=	libMagickWand-6.Q*.so:${PORTSDIR}/graphics/ImageMagick
+LIB_DEPENDS+=	libMagickWand-6.Q16.so:${PORTSDIR}/graphics/ImageMagick
 .endif
 
 post-patch:

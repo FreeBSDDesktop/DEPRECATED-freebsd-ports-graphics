@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	php55
-PORTVERSION=	5.5.18
+PORTVERSION=	5.5.20
 PORTREVISION?=	0
 CATEGORIES?=	lang devel www
 MASTER_SITES=	${MASTER_SITE_PHP}
@@ -37,14 +37,13 @@ CONFIGURE_ARGS+=--with-layout=GNU \
 
 USE_GNOME=	libxml2
 
-OPTIONS_DEFINE+=CLI CGI FPM FPM_IPV6 EMBED DEBUG DTRACE IPV6 MAILHEAD LINKTHR ZTS
+OPTIONS_DEFINE+=CLI CGI FPM EMBED DEBUG DTRACE IPV6 MAILHEAD LINKTHR ZTS
 OPTIONS_DEFAULT=CLI CGI FPM IPV6 LINKTHR
 OPTIONS_SUB=	yes
 
 CLI_DESC=	Build CLI version
 CGI_DESC=	Build CGI version
 FPM_DESC=	Build FPM version
-FPM_IPV6_DESC=	Enable ipv6 patch for FPM
 EMBED_DESC=	Build embedded library
 DEBUG_DESC=	Enable debug
 DTRACE_DESC=	Enable DTrace support
@@ -87,9 +86,6 @@ USE_RC_SUBR+=	php-fpm
 CONFIGURE_ARGS+=--enable-fpm \
 		--with-fpm-user=${WWWOWN} \
 		--with-fpm-group=${WWWGRP}
-.if ${PORT_OPTIONS:MIPV6} && ${PORT_OPTIONS:MFPM_IPV6}
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-php-fpm-ipv6:-p1
-.endif
 .endif
 
 .if defined(OPTIONS_FILE_SET) && ${OPTIONS_FILE_SET:MAPACHE}
@@ -163,6 +159,9 @@ CONFIGURE_ARGS+=--enable-maintainer-zts
 IGNORE=		cannot be built with DTrace support on FreeBSD < 9.x
 .endif
 CONFIGURE_ARGS+=--enable-dtrace
+PLIST_SUB+=	DTRACE=""
+.else
+PLIST_SUB+=	DTRACE="@comment "
 .endif
 
 .if empty(PORT_OPTIONS:MIPV6)

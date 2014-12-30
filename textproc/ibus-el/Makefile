@@ -3,7 +3,7 @@
 PORTNAME=	ibus-el
 PORTVERSION=	0.3.2
 #PORTREVISION=	0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	textproc elisp
 MASTER_SITES=	http://www11.atwiki.jp/s-irie/pub/emacs/ibus/
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
@@ -14,8 +14,8 @@ COMMENT=	IBus client for GNU Emacs
 RUN_DEPENDS=	ibus-daemon:${PORTSDIR}/textproc/ibus \
 		${PYTHON_SITELIBDIR}/Xlib/X.py:${PORTSDIR}/x11-toolkits/py-xlib
 
+USES=		python:run
 USE_EMACS=	yes
-USE_PYTHON_RUN=	yes
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/doc/COPYING

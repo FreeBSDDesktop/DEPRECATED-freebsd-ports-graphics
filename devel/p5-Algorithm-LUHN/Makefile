@@ -3,11 +3,12 @@
 
 PORTNAME=	Algorithm-LUHN
 PORTVERSION=	1.00
+PORTREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Calculate the Modulus 10 Double Add Double checksum
 
 LICENSE=	ART10 GPLv1

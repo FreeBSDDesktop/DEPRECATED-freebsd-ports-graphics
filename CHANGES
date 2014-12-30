@@ -10,6 +10,81 @@ in the release notes and/or placed into UPDATING.
 
 All ports committers are allowed to commit to this file.
 
+20141217:
+  AFFECTS: users of lang/perl5.*
+  AUTHOR: mat@FreeBSD.org
+
+  Perl now links libperl.so with all .so it builds.  The stage-qa checks have
+  been extended to check that libperl.so is in fact linked with .so in
+  SITE_ARCH and errors out if none of the .so build by a port are linked with
+  it.  It also checks that the rpath and runpath elf attributes are present.
+
+20141130:
+AUTHOR: tijl@FreeBSD.org
+
+  The devel/gettext port has been split up in devel/gettext-runtime which
+  contains runtime libraries such as libintl, and devel/gettext-tools which
+  contains build tools such as msgfmt.  You can use USES=gettext-runtime to
+  set a LIB/BUILD/RUN_DEPENDS on devel/gettext-runtime and USES=gettext-tools
+  to set a BUILD/RUN_DEPENDS on devel/gettext-tools.
+
+  USES=gettext is now the same as "USES=gettext-runtime gettext-tools",
+  meaning a LIB_DEPENDS on devel/gettext-runtime and a BUILD_DEPENDS on
+  devel/gettext-tools.
+
+20141126:
+AUTHOR: mat@FreeBSD.org
+
+  The way Perl modules are installed has changed.  Before, we had
+
+    site_perl :           lib/perl5/site_perl/5.18
+    site_perl/perl_arch : lib/perl5/site_perl/5.18/mach
+    perl_man3 :           lib/perl5/5.18/man/man3
+
+  Now we have :
+
+    site_perl : lib/perl5/site_perl
+    site_arch : lib/perl5/site_perl/mach/5.18
+    perl_man3 : lib/perl5/site_perl/man/man3
+
+  Modules without any .so will be installed at the same place regardless of the
+  Perl version, minimizing the upgrade when the major Perl version is changed.
+  It uses a version dependent directory for modules with compiled bits.
+
+  As PERL_ARCH is no longer needed in plists, it has been removed from
+  PLIST_SUB.
+
+  The USE_PERL5=fixpacklist keyword is removed, the .packlist file is now
+  always removed, as is perllocal.pod.
+
+  The old site_perl and site_perl/arch directories have been kept in the
+  default Perl @INC for all Perl ports, and will be phased out as these old
+  Perl versions expire.
+
+20141122:
+AUTHOR: crees@FreeBSD.org
+
+  Dependencies on the PostgreSQL ports have been migrated
+  to USES. Instead of USE_PGSQL, please use USES=pgsql instead.
+
+    USE_PGSQL=yes becomes USES=pgsql
+    WANT_PGSQL_VER=91+ becomes USES=pgsql:9.1+
+    USE_PGSQL=server becomes USES=pgsql and WANT_PGSQL=server
+
+20141118:
+AUTHOR: mat@FreeBSD.org
+
+  To ease future work, a new SITE_ARCH variable and PLIST_SUB replacement
+  containing SITE_PERL/PERL_ARCH has been added.
+
+20141102:
+AUTHOR: bdrewery@FreeBSD.org
+
+  SSP is now default. This can be disabled with WITHOUT_SSP.
+  SSP_CFLAGS defaults to -fstack-protector.
+  SSP will be used on all amd64 releases. It will only be used on i386
+  releases over 10.0.
+
 20141007:
 AUTHOR: mat@FreeBSD.org
 

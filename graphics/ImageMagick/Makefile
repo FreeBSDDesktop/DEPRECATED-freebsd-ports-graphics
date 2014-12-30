@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	ImageMagick
-DISTVERSION=	6.8.9-8
-PORTREVISION=	3
+DISTVERSION=	6.9.0-0
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	graphics perl5
 MASTER_SITES=	http://www.imagemagick.org/download/ \
@@ -32,10 +32,10 @@ MASTER_SITES=	http://www.imagemagick.org/download/ \
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Image processing tools
 
-#LICENSE=	APACHE20
+LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-LIB_DEPENDS=	libltdl.so:${PORTSDIR}/devel/libltdl \
-		liblqr-1.so:${PORTSDIR}/graphics/liblqr-1
+LIB_DEPENDS=	libltdl.so:${PORTSDIR}/devel/libltdl
 
 # This port uses .la files, keep libtool:keepla! (magick/module.c)
 USES=		gmake libtool:keepla pathfix perl5 pkgconfig shebangfix tar:xz
@@ -46,8 +46,8 @@ CONFIGURE_ARGS=	--without-dps \
 		--without-lcms
 USE_LDCONFIG=	yes
 
-CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-isystem${LOCALBASE}/include
+LDFLAGS+=	-Wl,-Y${LOCALBASE}/lib
 
 SAMPLE_FILES=	coder.xml colors.xml delegates.xml log.xml magic.xml mime.xml \
 		policy.xml quantization-table.xml thresholds.xml type-dejavu.xml \
@@ -200,7 +200,7 @@ PLIST_SUB+=		JPEG="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MPNG}
-LIB_DEPENDS+=		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=		libpng.so:${PORTSDIR}/graphics/png
 PLIST_SUB+=		PNG=""
 .else
 CONFIGURE_ARGS+=	--without-png
@@ -396,10 +396,6 @@ pre-configure:
 .endif
 
 post-install: test
-.if ${PORT_OPTIONS:MPERL}
-	@${RM} -f ${STAGEDIR}${PREFIX}/lib/perl5/${PERL_VER}/${PERL_ARCH}/perllocal.pod*
-	@${RM} -f ${STAGEDIR}${SITE_PERL}/${PERL_ARCH}/auto/Image/Magick/.packlist
-.endif
 .if ${PORT_OPTIONS:MMODULES}
 	@${TOUCH} ${STAGEDIR}${PREFIX}/lib/ImageMagick-${PORTVERSION:R}/modules-${_QBIT}${_HDRI}/coders/.keep
 	@${TOUCH} ${STAGEDIR}${PREFIX}/lib/ImageMagick-${PORTVERSION:R}/modules-${_QBIT}${_HDRI}/filters/.keep

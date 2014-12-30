@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	python27
-PORTVERSION=	2.7.8
-PORTREVISION=	5
+PORTVERSION=	2.7.9
 CATEGORIES=	lang python ipv6
 MASTER_SITES=	PYTHON
 MASTER_SITE_SUBDIR=	ftp/python/${PORTVERSION}
@@ -34,8 +33,8 @@ PLIST_SUB=		ABI=${ABIFLAGS} \
 			PORTVERSION=${PORTVERSION} \
 			OSMAJOR=${OSVERSION:C/([0-9]*)[0-9]{5}/\1/}		# For plat-freebsd* in pkg-plist. http://bugs.python.org/issue19554
 
-OPTIONS_DEFINE=		DEBUG IPV6 NLS PYMALLOC SEM THREADS
-OPTIONS_DEFAULT=	IPV6 NLS PYMALLOC SEM THREADS UCS4
+OPTIONS_DEFINE=		DEBUG IPV6 NLS PYMALLOC SEM THREADS LIBFFI
+OPTIONS_DEFAULT=	IPV6 NLS PYMALLOC SEM THREADS UCS4 LIBFFI
 OPTIONS_SINGLE=		UNICODE
 OPTIONS_SINGLE_UNICODE=	UCS2 UCS4
 
@@ -45,6 +44,7 @@ NLS_DESC=	Enable gettext support for the locale module
 UCS2_DESC=	Enable UCS2 Unicode Strings
 UCS4_DESC=	Enable UCS4 Unicode Strings
 PYMALLOC_DESC=	Enable specialized mallocs
+LIBFFI_DESC=	Use libffi from ports instead of bundled version
 
 DEBUG_CONFIGURE_WITH=	pydebug
 IPV6_CONFIGURE_ENABLE=	ipv6
@@ -88,8 +88,13 @@ MAKE_ENV+=	UNAME_m="powerpc64"
 CFLAGS+=	-DPYTHON_DEFAULT_RECURSION_LIMIT=900
 .endif
 
-# See http://bugs.freebsd.org/115940
-.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS) # the world with NO_NIS
+.if ${PORT_OPTIONS:MLIBFFI}
+CONFIGURE_ARGS+=	--with-system-ffi
+LIB_DEPENDS+=		libffi.so:${PORTSDIR}/devel/libffi
+.endif
+
+# See http://bugs.freebsd.org/115940 and http://bugs.freebsd.org/193650
+.if !exists(/usr/bin/ypcat) || defined(WITHOUT_NIS)
 PLIST_SUB+=	NO_NIS="@comment "
 .else
 PLIST_SUB+=	NO_NIS=""

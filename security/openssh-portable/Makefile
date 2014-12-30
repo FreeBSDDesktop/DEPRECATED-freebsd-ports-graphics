@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	openssh
-DISTVERSION=	6.6p1
-PORTREVISION=	4
+DISTVERSION=	6.7p1
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	security ipv6
 MASTER_SITES=	${MASTER_SITE_OPENBSD}
@@ -33,11 +33,8 @@ ETCOLD=			${PREFIX}/etc
 SUDO?=		# empty
 MAKE_ENV+=	SUDO="${SUDO}"
 
-# https://github.com/openssh/openssh-portable/commit/5618210618256bbf5f4f71b2887ff186fd451736.patch
-EXTRA_PATCHES+=		${FILESDIR}/extra-patch-openssh661
-
 OPTIONS_DEFINE=		PAM TCP_WRAPPERS LIBEDIT BSM \
-			HPN LPK X509 KERB_GSSAPI \
+			HPN X509 KERB_GSSAPI \
 			OVERWRITE_BASE SCTP AES_THREADED LDNS NONECIPHER
 OPTIONS_DEFAULT=	LIBEDIT PAM TCP_WRAPPERS HPN LDNS NONECIPHER
 OPTIONS_RADIO=		KERBEROS
@@ -46,7 +43,6 @@ TCP_WRAPPERS_DESC=	tcp_wrappers support
 BSM_DESC=		OpenBSM Auditing
 KERB_GSSAPI_DESC=	Kerberos/GSSAPI patch (req: GSSAPI)
 HPN_DESC=		HPN-SSH patch
-LPK_DESC=		LDAP Public Key (LPK) [OBSOLETE]
 LDNS_DESC=		SSHFP/LDNS support
 X509_DESC=		x509 certificate patch
 SCTP_DESC=		SCTP support
@@ -60,6 +56,8 @@ NONECIPHER_DESC=	NONE Cipher support
 OPTIONS_SUB=		yes
 PLIST_SUB+=		MANPREFIX=${MANPREFIX}
 
+TCP_WRAPPERS_EXTRA_PATCHES=${FILESDIR}/extra-patch-tcpwrappers
+
 LDNS_CONFIGURE_WITH=	ldns
 LDNS_LIB_DEPENDS=	libldns.so:${PORTSDIR}/dns/ldns
 LDNS_EXTRA_PATCHES=	${FILESDIR}/extra-patch-ldns
@@ -72,30 +70,20 @@ HPN_CONFIGURE_WITH=		hpn
 NONECIPHER_CONFIGURE_WITH=	nonecipher
 AES_THREADED_CONFIGURE_WITH=	aes-threaded
 
-# See http://code.google.com/p/openssh-lpk/wiki/Main
-# and svn repo described here:
-# http://code.google.com/p/openssh-lpk/source/checkout
-# LPK is now OBSOLETE with 6.2: https://code.google.com/p/openssh-lpk/issues/detail?id=15#c1
-LPK_PATCHFILES=		${PORTNAME}-lpk-6.3p1.patch.gz
-LPK_CPPFLAGS=		-I${LOCALBASE}/include
-LPK_CONFIGURE_ON=	--with-ldap=yes \
-			--with-ldflags='-L${LOCALBASE}/lib' \
-			--with-cppflags='${CPPFLAGS}'
-LPK_USE=		OPENLDAP=yes
-
 # See http://www.roumenpetrov.info/openssh/
-X509_VERSION=		7.9
+X509_VERSION=		8.2
 X509_PATCH_SITES=	http://www.roumenpetrov.info/openssh/x509-${X509_VERSION}/:x509
-X509_PATCHFILES=	${PORTNAME}-6.6p1+x509-${X509_VERSION}.diff.gz:-p1:x509
+X509_PATCHFILES=	${PORTNAME}-6.7p1+x509-${X509_VERSION}.diff.gz:-p1:x509
 
 # See https://bugzilla.mindrot.org/show_bug.cgi?id=2016
-SCTP_PATCHFILES=	${PORTNAME}-6.6p1-sctp-2329.patch.gz
+SCTP_PATCHFILES=	${PORTNAME}-6.7p1-sctp-2496.patch.gz:-p1
 SCTP_CONFIGURE_WITH=	sctp
 
-# 6.6 patch taken from http://www.stacken.kth.se/~haba/ which was originally
-# based on 5.7 patch at http://www.sxw.org.uk/computing/patches/
-KERB_GSSAPI_PATCHFILES=	openssh-6.6p1-gsskex-all-20140318.patch.gz:-p1:gsskex
-#KERB_GSSAPI_PATCH_SITES=http://www.stacken.kth.se/~haba/:gsskex
+# 6.7 patch taken from
+# http://sources.debian.net/data/main/o/openssh/1:6.7p1-3/debian/patches/gssapi.patch
+# which was originally based on 5.7 patch from
+# http://www.sxw.org.uk/computing/patches/
+KERB_GSSAPI_PATCHFILES=	openssh-6.7p1-gsskex-all-20141021-284f364.patch.gz:-p1:gsskex
 
 MIT_LIB_DEPENDS=		libkrb5.so.3:${PORTSDIR}/security/krb5
 HEIMDAL_LIB_DEPENDS=		libkrb5.so.26:${PORTSDIR}/security/heimdal
@@ -110,13 +98,18 @@ BSM_CONFIGURE_ON=	--with-audit=bsm
 
 PATCH_SITES+=		http://mirror.shatow.net/freebsd/${PORTNAME}/:DEFAULT,x509,hpn,gsskex
 
+# X509 patch includes TCP Wrapper support already
+.if ${PORT_OPTIONS:MX509}
+EXTRA_PATCHES:=		${EXTRA_PATCHES:N${TCP_WRAPPERS_EXTRA_PATCHES}}
+.endif
+
 # http://www.psc.edu/index.php/hpn-ssh
 .if ${PORT_OPTIONS:MHPN} || ${PORT_OPTIONS:MAES_THREADED} || ${PORT_OPTIONS:MNONECIPHER}
 PORTDOCS+=		HPN-README
-HPN_VERSION=		14v2
-HPN_DISTVERSION=	6.6.1p1
-PATCH_SITES+=		${MASTER_SITE_SOURCEFORGE:S/$/:hpn/}
-PATCH_SITE_SUBDIR+=	hpnssh/HPN-SSH%20${HPN_VERSION}%20${HPN_DISTVERSION}/:hpn
+HPN_VERSION=		14v5
+HPN_DISTVERSION=	6.7p1
+#PATCH_SITES+=		${MASTER_SITE_SOURCEFORGE:S/$/:hpn/}
+#PATCH_SITE_SUBDIR+=	hpnssh/HPN-SSH%20${HPN_VERSION}%20${HPN_DISTVERSION}/:hpn
 PATCHFILES+=		${PORTNAME}-${HPN_DISTVERSION}-hpnssh${HPN_VERSION}.diff.gz:-p1:hpn
 EXTRA_PATCHES+=		${FILESDIR}/extra-patch-hpn-build-options
 # Remove HPN if only AES requested
@@ -143,10 +136,6 @@ BROKEN=		X509 patch and HPN patch do not apply cleanly together
 
 .  if ${PORT_OPTIONS:MSCTP}
 BROKEN=		X509 patch and SCTP patch do not apply cleanly together
-.  endif
-
-.  if ${PORT_OPTIONS:MLPK}
-BROKEN=		X509 patch and LPK patch do not apply cleanly together
 .  endif
 
 .  if ${PORT_OPTIONS:MKERB_GSSAPI}
@@ -194,10 +183,6 @@ IGNORE=	KERB_GSSAPI requires one of MIT HEIMDAL or HEIMDAL_BASE
 
 .if ${OPENSSLBASE} != "/usr"
 CONFIGURE_ARGS+=	--with-ssl-dir=${OPENSSLBASE}
-.endif
-
-.if ${PORT_OPTIONS:MLPK}
-CONFIGURE_LIBS+=	-lldap
 .endif
 
 EMPTYDIR=		/var/empty

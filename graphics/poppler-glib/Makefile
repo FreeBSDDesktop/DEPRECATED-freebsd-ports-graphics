@@ -6,7 +6,7 @@ PORTREVISION=	1
 PKGNAMESUFFIX=	-glib
 
 MAINTAINER=	gnome@FreeBSD.org
-COMMENT=	Glib bindings to poppler
+COMMENT=	GLib bindings to poppler
 
 MASTERDIR=	${.CURDIR}/../../graphics/poppler
 SLAVEPORT=	glib

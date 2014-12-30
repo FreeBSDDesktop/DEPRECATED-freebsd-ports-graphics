@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	asterisk
-PORTVERSION=	11.13.1
+PORTVERSION=	11.15.0
+PORTREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/
@@ -13,14 +14,12 @@ COMMENT=	Open Source PBX and telephony toolkit
 LIB_DEPENDS=	libspeex.so:${PORTSDIR}/audio/speex \
 		libnewt.so:${PORTSDIR}/devel/newt \
 		libexecinfo.so:${PORTSDIR}/devel/libexecinfo \
-		libsqlite3.so:${PORTSDIR}/databases/sqlite3 \
-		libuuid.so:${PORTSDIR}/misc/e2fsprogs-libuuid
+		libsqlite3.so:${PORTSDIR}/databases/sqlite3
 RUN_DEPENDS=	mpg123:${PORTSDIR}/audio/mpg123
 
 ONLY_FOR_ARCHS=	i386 amd64 powerpc sparc64
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-uuid=${LOCALBASE}
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/openh323
 CFLAGS+=	-I${LOCALBASE}/include
@@ -40,12 +39,12 @@ MAKE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
 		ASTCFLAGS="${CFLAGS}"
 
 CONFLICTS_BUILD=	linuxthreads-*
-CONFLICTS_INSTALL=	asterisk*-1.4* asterisk*-1.6* asterisk*-1.8*
+CONFLICTS_INSTALL=	asterisk*-1.8* asterisk*-13*
 
 OPTIONS_DEFINE=	VORBIS PGSQL MYSQL ODBC RADIUS SNMP FREETDS XMPP SQLITE GSM \
-		CURL SPANDSP EXCHANGE NEWG711 SRTP LUA LDAP OOH323
+		CURL SPANDSP EXCHANGE NEWG711 SRTP LUA LDAP OOH323 UUID
 OPTIONS_DEFAULT=	VORBIS ODBC PGSQL RADIUS SNMP FREETDS \
-		XMPP GSM SQLITE CURL LUA
+		XMPP GSM SQLITE CURL LUA UUID
 
 OPTIONS_DEFINE_i386=	DAHDI
 OPTIONS_DEFINE_amd64=	DAHDI
@@ -56,11 +55,12 @@ OPTIONS_DEFAULT_amd64=	DAHDI
 OPTIONS_DEFAULT_sparc64=	DAHDI
 
 EXCHANGE_DESC?=	Exchange calendar support
-NEWG711_DESC?=	New G711 Codec
+NEWG711_DESC?=	New G711 codec
 SRTP_DESC?=	SecureRTP support
 OOH323_DESC?=	ooh323 support
 DAHDI_DESC?=	DAHDI support
 XMPP_DESC?=	XMPP/GTALK support
+UUID_DESC?=	libuuid support (required for ICE and TURN in RTP)
 
 OPTIONS_SUB=	yes
 OOH323_LIB_DEPENDS=	libpt_r.so:${PORTSDIR}/devel/pwlib \
@@ -98,9 +98,9 @@ CURL_CONFIGURE_ON=	--with-libcurl
 CURL_CONFIGURE_OFF=	--with-libcurl=no
 CURL_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 SPANDSP_CONFIGURE_WITH=	spandsp
-SPANDSP_LIB_DEPENDS=	libspandsp.so.2:${PORTSDIR}/comms/spandsp-devel
+SPANDSP_LIB_DEPENDS=	libspandsp.so:${PORTSDIR}/comms/spandsp
 EXCHANGE_CONFIGURE_OFF=	--without-neon --without-neon29
-EXCHANGE_LIB_DEPENDS=	libneon.so:${PORTSDIR}/www/neon29
+EXCHANGE_LIB_DEPENDS=	libneon.so:${PORTSDIR}/www/neon
 SRTP_CONFIGURE_WITH=	srtp
 SRTP_BUILD_DEPENDS=	libsrtp>=1.4.4:${PORTSDIR}/net/libsrtp
 LUA_CONFIGURE_WITH=	lua
@@ -109,6 +109,10 @@ LUA_CFLAGS=		-I${LUA_INCDIR}
 LUA_LDFLAGS=		-L${LUA_LIBDIR}
 LDAP_CONFIGURE_WITH=	ldap
 LDAP_USE=		OPENLDAP=yes
+UUID_LIB_DEPENDS=	libuuid.so:${PORTSDIR}/misc/e2fsprogs-libuuid
+UUID_CONFIGURE_ON=	--with-uuid=${LOCALBASE}
+UUID_CONFIGURE_OFF=	--disable-uuid
+UUID_CONFLICTS=		ossp-uuid-[0-9]*
 
 ASTERISK_USER?=		asterisk
 ASTERISK_GROUP?=	asterisk

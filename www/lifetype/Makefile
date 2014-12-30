@@ -10,12 +10,14 @@ DISTFILES=	${DISTNAME}.zip \
 		${CONTRIBE_VERSION}__all_templates.zip
 EXTRACT_ONLY=	${DISTNAME}.zip
 
-MAINTAINER=	clsung@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	PHP and MySQL based blogging platform
 
 LICENSE=	GPLv2
 
 BROKEN=		no distinfo provided for some of the distfiles
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=	2015-01-26
 
 CONTRIBE_VERSION=1.2
 NO_BUILD=	YES

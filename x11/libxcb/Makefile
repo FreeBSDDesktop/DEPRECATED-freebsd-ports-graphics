@@ -24,6 +24,7 @@ XORG_CAT=	lib
 USES=		gmake python:2,build
 USE_GNOME=	libxslt:build
 USE_XORG=	xau xdmcp
+INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	DOCS
 

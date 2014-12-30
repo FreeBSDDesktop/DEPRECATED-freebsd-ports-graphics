@@ -34,6 +34,7 @@
     SUBDIR += chef
     SUBDIR += chmlib
     SUBDIR += chord2html
+    SUBDIR += cinnamon-translations
     SUBDIR += clex
     SUBDIR += cloc
     SUBDIR += clpbar
@@ -146,8 +147,6 @@
     SUBDIR += gnome-mime-data
     SUBDIR += gnome-osd
     SUBDIR += gnome-user-docs
-    SUBDIR += gnome2-reference
-    SUBDIR += gnomehier
     SUBDIR += gnu-watch
     SUBDIR += gnuit
     SUBDIR += gnuls
@@ -469,7 +468,6 @@
     SUBDIR += xgas
     SUBDIR += xiphos
     SUBDIR += xless
-    SUBDIR += xmonad-log-applet
     SUBDIR += xosd
     SUBDIR += xpns
     SUBDIR += xsw

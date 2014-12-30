@@ -2,9 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	dhcpcd
-PORTVERSION=	6.4.3
+PORTVERSION=	6.6.5
 CATEGORIES=	net
 MASTER_SITES=	http://roy.marples.name/downloads/dhcpcd/ \
+		http://roy.aydogan.net/dhcpcd/ \
+		http://cflags.cc/roy/dhcpcd/ \
 		LOCAL/delphij
 
 MAINTAINER=	roy@marples.name
@@ -15,5 +17,9 @@ LICENSE=	BSD2CLAUSE
 USES=		tar:bzip2
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	dhcpcd
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/dhcpcd.conf \
+		${STAGEDIR}${PREFIX}/etc/dhcpcd.conf.sample
 
 .include <bsd.port.mk>

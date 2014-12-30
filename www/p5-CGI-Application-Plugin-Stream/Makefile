@@ -3,11 +3,12 @@
 
 PORTNAME=	CGI-Application-Plugin-Stream
 PORTVERSION=	2.11
+PORTREVISION=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Plugin that adds file streaming support to CGI::Application
 
 LICENSE=	ART10 GPLv1

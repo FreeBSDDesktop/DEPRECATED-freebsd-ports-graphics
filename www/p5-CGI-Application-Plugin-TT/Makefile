@@ -3,11 +3,12 @@
 
 PORTNAME=	CGI-Application-Plugin-TT
 PORTVERSION=	1.05
+PORTREVISION=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Add Template Toolkit support to CGI::Application
 
 LICENSE=	ART10 GPLv1

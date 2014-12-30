@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	freeciv
-PORTVERSION=	2.4.3
+PORTVERSION=	2.4.4
 PORTREVISION=	2
 CATEGORIES=	games
 MASTER_SITES=	SF/freeciv/Freeciv%20${PORTVERSION:R}/${PORTVERSION}
@@ -31,7 +31,6 @@ SDL_USE=		SDL=sdl,image,ttf
 MYSQL_CONFIGURE_ON=	--enable-fcdb=mysql --with-mysql-prefix=${LOCALBASE}
 MYSQL_USE=		MYSQL=yes
 IPV6_CONFIGURE_EANBALE=	ipv6
-NLS_USES=		gettext
 
 .include <bsd.port.options.mk>
 
@@ -41,7 +40,7 @@ IGNORE=		cannot use SDL without X11: re-run make config
 
 .if ${PORT_OPTIONS:MX11}
 LIB_DEPENDS+=	libtiff.so:${PORTSDIR}/graphics/tiff \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libggz.so:${PORTSDIR}/games/libggz \
 		libggz-gtk.so:${PORTSDIR}/games/ggz-gtk-client \
 		libggzcore.so:${PORTSDIR}/games/ggz-client-libs \
@@ -73,5 +72,6 @@ post-install:
 .endif
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreeciv*.so
 	-${RMDIR} ${STAGEDIR}${PREFIX}/lib/fcai
+	${RM} ${STAGEDIR}${PREFIX}/etc/ggz.modules
 
 .include <bsd.port.mk>

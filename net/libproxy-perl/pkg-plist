@@ -1,5 +1,2 @@
-%%SITE_PERL%%/mach/Net/Libproxy.pm
-%%SITE_PERL%%/mach/auto/Net/Libproxy/Libproxy.so
-@dirrm %%SITE_PERL%%/mach/auto/Net/Libproxy
-@dirrmtry %%SITE_PERL%%/mach/auto/Net
-@dirrmtry %%SITE_PERL%%/mach/Net
+%%SITE_ARCH%%/Net/Libproxy.pm
+%%SITE_ARCH%%/auto/Net/Libproxy/Libproxy.so

@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	koruri
-PORTVERSION=	20140904
+PORTVERSION=	20141224
 CATEGORIES=	japanese x11-fonts
-MASTER_SITES=	SFJP/koruri/61919
+MASTER_SITES=	SFJP/koruri/62469
 PKGNAMEPREFIX=	ja-font-
 DISTNAME=	Koruri-${PORTVERSION}
 
@@ -49,9 +49,6 @@ do-install:
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/20-unhint-${PORTNAME}.conf
 	${LN} -s -f ../conf.avail/62-fonts-${PORTNAME}.conf \
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${PORTNAME}.conf
-
-post-su-install:
-	${SETENV} PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
 
 post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}

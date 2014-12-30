@@ -3,6 +3,7 @@
 
 PORTNAME=	openttd
 PORTVERSION=	1.4.4
+PORTREVISION=	2
 CATEGORIES=	games
 MASTER_SITES=	http://gb.binaries.openttd.org/binaries/releases/${PORTVERSION}/ \
 		http://ftp.snt.utwente.nl/pub/games/openttd/binaries/releases/${PORTVERSION}/ \
@@ -14,7 +15,7 @@ COMMENT=	Open source clone of Microprose Transport Tycoon Deluxe
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		liblzo2.so:${PORTSDIR}/archivers/lzo2
 
 USES=		gmake pkgconfig tar:xz
@@ -66,6 +67,10 @@ RUN_DEPENDS+=	${LOCALBASE}/share/${PORTNAME}/baseset/opengfx/opengfx.obg:${PORTS
 		${LOCALBASE}/share/${PORTNAME}/baseset/opensfx/opensfx.obs:${PORTSDIR}/games/opensfx
 .endif
 
+.if defined(WITH_SAVE_PASSWORDS)
+EXTRA_PATCHES=	${FILESDIR}/extra-patch-save-passwords
+.endif
+
 .include <bsd.port.pre.mk>
 
 pre-everything::
@@ -81,9 +86,14 @@ pre-everything::
 .if !defined(WITH_OPEN_GAME_FILES)
 	@${ECHO_MSG} "Define WITH_OPEN_GAME_FILES to install with libre graphics, music, and sounds"
 .endif
+.if !defined(WITH_SAVE_PASSWORDS)
+	@${ECHO_MSG} "Define WITH_SAVE_PASSWORDS to save passwords between server restarts"
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},' ${WRKSRC}/config.lib
+	@${REINPLACE_CMD} -e '/FS_NORMAL/s,max(1,&U,' \
+		${WRKSRC}/src/fontcache.cpp
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/${PORTNAME} ${STAGEDIR}${PREFIX}/bin

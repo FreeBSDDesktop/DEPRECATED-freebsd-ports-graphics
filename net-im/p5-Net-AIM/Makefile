@@ -3,11 +3,12 @@
 
 PORTNAME=	Net-AIM
 PORTVERSION=	1.22
+PORTREVISION=	1
 CATEGORIES=	net-im perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Perl extension for the AOL Instant Messenger TOC protocol
 
 LICENSE=	ART10 GPLv1

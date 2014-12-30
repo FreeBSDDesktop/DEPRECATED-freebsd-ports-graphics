@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	ace
-PORTVERSION=	6.2.7
+PORTVERSION=	6.2.8
 CATEGORIES=	devel
 MASTER_SITES=	ftp://download.dre.vanderbilt.edu/previous_versions/ \
 		http://download.dre.vanderbilt.edu/previous_versions/
@@ -13,8 +13,9 @@ COMMENT=	Adaptive Communication Environment for C++
 
 WRKSRC=		${WRKDIR}/ACE_wrappers
 
-USES=		gmake perl5 pkgconfig tar:bzip2
+USES=		gmake perl5 pkgconfig shebangfix tar:bzip2
 USE_PERL5=	build
+SHEBANG_FILES=	bin/*.pl MPC/*.pl
 MAKE_ENV=	LD_LIBRARY_PATH="${WRKSRC}/lib" ACE_ROOT="${WRKSRC}" \
 		CROSS-COMPILE=1
 MAKEFILE=	GNUmakefile
@@ -26,6 +27,10 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 PLIST_SUB=	VERSION="${PORTVERSION}"
 
 CONFLICTS=	ace+tao-5*
+
+BROKEN_ia64=	Does not compile on ${ARCH}
+BROKEN_powerpc=	Does not compile on ${ARCH}
+BROKEN_sparc64=	Does not compile on ${ARCH}
 
 OPTIONS_DEFINE=		FLTK QT4 SSL TK TRIO X11
 OPTIONS_DEFAULT=	SSL
@@ -48,22 +53,19 @@ TRIO_MAKE_ENV=		trio=1
 X11_USE=		XORG=xt
 X11_MAKE_ENV=		xt=1
 
-.include <bsd.port.options.mk>
-
-.if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
-BROKEN=		Does not compile on ia64, powerpc, or sparc64
-.endif
-
 post-patch:
 	@${REINPLACE_CMD} -e \
-		's|/$$libdir/pkgconfig|/libdata/pkgconfig|g' ${WRKSRC}/bin/ace_install_pkgconfig.pl
+		's|/$$libdir/pkgconfig|/libdata/pkgconfig|g' \
+		${WRKSRC}/bin/ace_install_pkgconfig.pl
 	@${REINPLACE_CMD} -e \
 		's|bin/moc)|bin/moc-qt4)|g ; \
-		 s|bin/moc,|bin/moc-qt4,|g' ${WRKSRC}/ace/QtReactor/GNUmakefile.ACE_Qt4Reactor_moc
+		 s|bin/moc,|bin/moc-qt4,|g' \
+		${WRKSRC}/ace/QtReactor/GNUmakefile.ACE_Qt4Reactor_moc
 	@${REINPLACE_CMD} -i "" -e \
 		'/^C[CX]/s|\([[:space:]]\)=|\1?=| ; \
 		 s|/usr/local|${LOCALBASE}| ; \
-		 s|/usr/X11R6|${LOCALBASE}|' ${WRKSRC}/include/makeinclude/platform_freebsd.GNU
+		 s|/usr/X11R6|${LOCALBASE}|' \
+		${WRKSRC}/include/makeinclude/platform_freebsd.GNU
 
 do-configure:
 	@cd ${WRKSRC}/ace \

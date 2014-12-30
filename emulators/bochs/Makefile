@@ -3,6 +3,7 @@
 
 PORTNAME=	bochs
 PORTVERSION=	2.6.6
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	emulators
 MASTER_SITES=	SF
@@ -268,8 +269,8 @@ post-install:
 .if ${PORT_OPTIONS:MPLUGINS}
 	@${FIND} ${STAGEDIR}${PREFIX}/lib/bochs ! -type d | \
 		${SED} 's,^${STAGEDIR}${PREFIX}/,,' >> ${TMPPLIST}
-	@${FIND} ${STAGEDIR}${PREFIX}/lib/bochs -type d | ${SORT} -r | \
-		${SED} 's,^${STAGEDIR}${PREFIX}/,@dirrm ,' >> ${TMPPLIST}
+	@${FIND} ${STAGEDIR}${PREFIX}/lib/bochs -type d -empty | ${SORT} -r | \
+		${SED} 's,^${STAGEDIR}${PREFIX}/,@dir ,' >> ${TMPPLIST}
 .endif
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for i in CHANGES README TODO bochsrc-sample.txt
