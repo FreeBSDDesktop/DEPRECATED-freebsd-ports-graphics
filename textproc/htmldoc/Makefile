@@ -3,7 +3,7 @@
 
 PORTNAME=	htmldoc
 PORTVERSION=	1.8.28
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	http://www.msweet.org/files/project1/ \
 		${MASTER_SITE_EASYSW}
@@ -27,6 +27,8 @@ USE_OPENSSL=	yes
 GNU_CONFIGURE=	yes
 # Configure seems broken and ignores these ATM:
 CONFIGURE_ARGS+=--disable-localjpeg --disable-localzlib --disable-localpng
+# Explicitely disable gnutls as it fails to build if detected
+CONFIGURE_ARGS+=--disable-gnutls
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 EXCLUDE=	png jpeg zlib htmldoc/md5* htmldoc/rc4* htmldoc/snprintf*
 EXTRACT_AFTER_ARGS=${EXCLUDE:S,^,--exclude ,}

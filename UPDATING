@@ -6,6 +6,18 @@ You should get into the habit of checking this file for changes each time
 you update your ports collection, before attempting any port upgrades.
 
 
+20141225:
+  AFFECTS: users of graphics/png
+  AUTHOR: antoine@FreeBSD.org
+
+  The PNG library has been updated to version 1.6.16.  Please rebuild all
+  ports that depend on it.
+
+  If you use portmaster:
+        portmaster -r png
+  If you use portupgrade:
+        portupgrade -fr graphics/png
+
 20141224:
   AFFECTS: users of lang/neon29
   AUTHOR: ohauer@FreeBSD.org
@@ -389,7 +401,7 @@ you update your ports collection, before attempting any port upgrades.
 
   Delete the old and conflicting packages:
   # pkg delete clutter gnome-utils gnome-panel gnome-keyring vala-vapigen \
-      guile gcalctool gnome-media libgnomekbd
+      guile gcalctool gnome-media libgnomekbd gnome-themes at-spi
   # pkg delete gnome-screensaver gnome-applets bug-buddy \
       evolution-exchange evolution-webcal gnome-system-tools \
       seahorse-plugins gnome-control-center

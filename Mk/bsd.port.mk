@@ -383,9 +383,6 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  (libtool, autoconf, autoheader, automake et al.)
 #				  See bsd.autotools.mk for more details.
 ##
-# USE_EFL		- If set, this port use EFL libraries.
-#				  Implies inclusion of bsd.efl.mk.  (Also see
-#				  that file for more information on USE_EFL_*).
 # USE_FPC		- If set, this port relies on the Free Pascal language.
 # 				  Implies inclusion of bsd.fpc.mk.  (Also see
 #				  that file for more information on WANT_FPC_*).
@@ -1085,7 +1082,6 @@ CO_ENV+=	STAGEDIR=${STAGEDIR} \
 			WRKDIR=${WRKDIR} \
 			WRKSRC=${WRKSRC} \
 			MTREE_FILE=${MTREE_FILE} \
-			GNOME_MTREE_FILE=${GNOME_MTREE_FILE} \
 			TMPPLIST=${TMPPLIST} \
 			SCRIPTSDIR=${SCRIPTSDIR} \
 			PLIST_SUB_SED="${PLIST_SUB_SED}" \
@@ -1422,10 +1418,6 @@ PKGCOMPATDIR?=		${LOCALBASE}/lib/compat/pkg
 
 .if defined(USE_PYTHON) || defined(USE_PYTHON_BUILD) || defined(USE_PYTHON_RUN)
 USES+=	python
-.endif
-
-.if defined(USE_EFL) || defined(WANT_EFL) || defined(USE_EFL_ESMART)
-.include "${PORTSDIR}/Mk/bsd.efl.mk"
 .endif
 
 .if defined(USE_FPC) || defined(WANT_FPC_BASE) || defined(WANT_FPC_ALL)
@@ -1856,10 +1848,6 @@ _FORCE_POST_PATTERNS=	rmdir kldxref mkfontscale mkfontdir fc-cache \
 
 .if defined(WANT_GSTREAMER) || defined(USE_GSTREAMER) || defined(USE_GSTREAMER1)
 .include "${PORTSDIR}/Mk/bsd.gstreamer.mk"
-.endif
-
-.if defined(USE_EFL) || defined(WANT_EFL) || defined(USE_EFL_ESMART)
-.include "${PORTSDIR}/Mk/bsd.efl.mk"
 .endif
 
 .if defined(USE_JAVA)
@@ -4881,9 +4869,6 @@ create-manifest:
 	[ -f ${PKGPOSTUPGRADE} ] && ${CP} ${PKGPOSTUPGRADE} ${METADIR}/+POST_UPGRADE; \
 	${CP} ${DESCR} ${METADIR}/+DESC; \
 	[ -f ${PKGMESSAGE} ] && ${CP} ${PKGMESSAGE} ${METADIR}/+DISPLAY || return 0
-.if !defined(NO_MTREE)
-	@[ -f ${MTREE_FILE} ] && ${CP} ${MTREE_FILE} ${METADIR}/+MTREE_DIRS || return 0
-.endif
 
 # Print out package names.
 
@@ -5461,24 +5446,22 @@ do-config:
 .if empty(ALL_OPTIONS) && empty(OPTIONS_SINGLE) && empty(OPTIONS_MULTI) && empty(OPTIONS_RADIO) && empty(OPTIONS_GROUP)
 	@${ECHO_MSG} "===> No options to configure"
 .else
-.if ${UID} != 0 && !defined(INSTALL_AS_USER)
-	@optionsdir=${OPTIONS_FILE}; optionsdir=$${optionsdir%/*}; \
-	oldoptionsdir=${OPTIONSFILE}; oldoptionsdir=$${oldoptionsdir%/*}; \
-	${ECHO_MSG} "===>  Switching to root credentials to create $${optionsdir}"; \
-	(${SU_CMD} "${SH} -c \"if [ -d $${oldoptionsdir} -a ! -d $${optionsdir} ]; then ${MV} $${oldoptionsdir} $${optionsdir}; elif [ -d $${oldoptionsdir} -a -d $${optionsdir} ]; then ${RM} -rf $${oldoptionsdir} ; fi ; ${MKDIR} $${optionsdir} 2> /dev/null\"") || \
-		(${ECHO_MSG} "===> Cannot create $${optionsdir}, check permissions"; exit 1); \
-	${ECHO_MSG} "===>  Returning to user credentials"
-.else
-	@optionsdir=${OPTIONS_FILE}; optionsdir=$${optionsdir%/*}; \
-	oldoptionsdir=${OPTIONSFILE}; oldoptionsdir=$${oldoptionsdir%/*}; \
+	@optionsdir=${OPTIONS_FILE:H}; \
+	oldoptionsdir=${OPTIONSFILE:H}; \
+	if [ ${UID} != 0 -a -z "${INSTALL_AS_USER}" -a ! -w "${PORT_DBDIR}" ] ; then \
+		${ECHO_MSG} "===>  Switching to root credentials to create $${optionsdir}"; \
+		(${SU_CMD} "${SH} -c \"if [ -d $${oldoptionsdir} -a ! -d $${optionsdir} ]; then ${MV} $${oldoptionsdir} $${optionsdir}; elif [ -d $${oldoptionsdir} -a -d $${optionsdir} ]; then ${RM} -rf $${oldoptionsdir} ; fi ; ${MKDIR} $${optionsdir} 2> /dev/null\"") || \
+			(${ECHO_MSG} "===> Cannot create $${optionsdir}, check permissions"; exit 1); \
+		${ECHO_MSG} "===>  Returning to user credentials" ; \
+	else \
 	if [ -d $${oldoptionsdir} -a ! -d $${optionsdir} ]; then \
 		${MV} $${oldoptionsdir} $${optionsdir}; \
 	elif [ -d $${oldoptionsdir} -a -d $${optionsdir} ]; then \
 		${RM} -rf $${oldoptionsdir} ; \
 	fi ; \
 	${MKDIR} $${optionsdir} 2> /dev/null || \
-	(${ECHO_MSG} "===> Cannot create $${optionsdir}, check permissions"; exit 1)
-.endif
+	(${ECHO_MSG} "===> Cannot create $${optionsdir}, check permissions"; exit 1) ; \
+	fi
 	@TMPOPTIONSFILE=$$(mktemp -t portoptions); \
 	trap "${RM} -f $${TMPOPTIONSFILE}; exit 1" 1 2 3 5 10 13 15; \
 	${SETENV} ${D4P_ENV} ${SH} ${SCRIPTSDIR}/dialog4ports.sh $${TMPOPTIONSFILE} || { \
@@ -5506,7 +5489,7 @@ do-config:
 			${ECHO_CMD} "OPTIONS_FILE_UNSET+=$${i}" >> $${TMPOPTIONSFILE}; \
 		fi; \
 	done; \
-	if [ ${UID} != 0 -a "x${INSTALL_AS_USER}" = "x" ]; then \
+	if [ ${UID} != 0 -a -z "${INSTALL_AS_USER}" -a ! -w "${OPTIONS_FILE:H}" ]; then \
 		${ECHO_MSG} "===>  Switching to root credentials to write ${OPTIONS_FILE}"; \
 		${SU_CMD} "${CAT} $${TMPOPTIONSFILE} > ${OPTIONS_FILE}"; \
 		${ECHO_MSG} "===>  Returning to user credentials"; \
@@ -5595,8 +5578,8 @@ showconfig-recursive:
 rmconfig:
 .if exists(${OPTIONSFILE})
 	-@${ECHO_MSG} "===> Removing user-configured options for ${PKGNAME}"; \
-	optionsdir=${OPTIONSFILE}; optionsdir=$${optionsdir%/*}; \
-	if [ ${UID} != 0 -a "x${INSTALL_AS_USER}" = "x" ]; then \
+	optionsdir=${OPTIONSFILE:H}; \
+	if [ ${UID} != 0 -a "x${INSTALL_AS_USER}" = "x" -a ! -w "${OPTIONSFILE}" ]; then \
 		${ECHO_MSG} "===> Switching to root credentials to remove ${OPTIONSFILE} and $${optionsdir}"; \
 		${SU_CMD} "${RM} -f ${OPTIONSFILE} ; \
 			${RMDIR} $${optionsdir}"; \
@@ -5608,8 +5591,8 @@ rmconfig:
 .endif
 .if exists(${OPTIONS_FILE})
 	-@${ECHO_MSG} "===> Removing user-configured options for ${PKGNAME}"; \
-	optionsdir=${OPTIONS_FILE}; optionsdir=$${optionsdir%/*}; \
-	if [ ${UID} != 0 -a "x${INSTALL_AS_USER}" = "x" ]; then \
+	optionsdir=${OPTIONS_FILE:H}; \
+	if [ ${UID} != 0 -a "x${INSTALL_AS_USER}" = "x" -a ! -w "${OPTIONS_FILE}" ]; then \
 		${ECHO_MSG} "===> Switching to root credentials to remove ${OPTIONS_FILE} and $${optionsdir}"; \
 		${SU_CMD} "${RM} -f ${OPTIONS_FILE} ; \
 			${RMDIR} $${optionsdir}"; \

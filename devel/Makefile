@@ -588,6 +588,7 @@
     SUBDIR += go-runewidth
     SUBDIR += go-sql-driver
     SUBDIR += go-termbox
+    SUBDIR += go-uuid
     SUBDIR += gob2
     SUBDIR += gobject-introspection
     SUBDIR += goffice
@@ -1200,6 +1201,7 @@
     SUBDIR += linux-c6-dbus-glib
     SUBDIR += linux-c6-dbus-libs
     SUBDIR += linux-c6-devtools
+    SUBDIR += linux-c6-libgfortran
     SUBDIR += linux-c6-libglade2
     SUBDIR += linux-c6-libpciaccess
     SUBDIR += linux-c6-libsigc++20
@@ -3664,7 +3666,7 @@
     SUBDIR += py-cffi
     SUBDIR += py-cfgparse
     SUBDIR += py-characteristic
-    SUBDIR += py-checkmanifest
+    SUBDIR += py-check-manifest
     SUBDIR += py-cheetah
     SUBDIR += py-ciphon
     SUBDIR += py-circuits
@@ -3777,6 +3779,7 @@
     SUBDIR += py-initgroups
     SUBDIR += py-instant
     SUBDIR += py-interface
+    SUBDIR += py-ioflo
     SUBDIR += py-ipaddr
     SUBDIR += py-ipdb
     SUBDIR += py-iso8601

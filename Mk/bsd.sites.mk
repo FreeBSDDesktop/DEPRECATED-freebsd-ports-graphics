@@ -1154,13 +1154,14 @@ MASTER_SITE_SAMBA+= \
 # List:	http://download.savannah.gnu.org/mirmon/
 .if !defined(IGNORE_MASTER_SITE_SAVANNAH)
 MASTER_SITE_SAVANNAH+= \
+	http://download.savannah.gnu.org/releases/%SUBDIR%/ \
+	http://download-mirror.savannah.gnu.org/releases/%SUBDIR%/ \
 	http://nongnu.askapache.com/%SUBDIR%/ \
 	http://mirror.lihnidos.org/GNU/savannah/%SUBDIR%/ \
 	http://ftp.twaren.net/Unix/NonGNU/%SUBDIR%/ \
 	ftp://ftp.twaren.net/Unix/NonGNU/%SUBDIR%/ \
 	http://gnu.mirrors.pair.com/savannah/savannah/%SUBDIR%/ \
-	ftp://gnu.mirrors.pair.com/savannah/%SUBDIR%/ \
-	http://download-mirror.savannah.gnu.org/releases/%SUBDIR%/
+	ftp://gnu.mirrors.pair.com/savannah/%SUBDIR%/
 .endif
 
 # List:		http://sourceforge.net/apps/trac/sourceforge/wiki/Mirrors
@@ -1578,5 +1579,46 @@ MASTER_SITES_EXP:=	${MASTER_SITES_EXP}
 .	endif
 .endfor
 MASTER_SITES=	${MASTER_SITES_EXP}
+
+.endif
+
+.if defined(PATCH_SITES) && ${PATCH_SITES:N*\:/*}
+
+.for _site__ in ${PATCH_SITES}
+_site_=${_site__}
+.	if ${_site_:M*\:/*}
+PATCH_SITES_EXP+=	${_site_}
+PATCH_SITES_EXP:=	${PATCH_SITES_EXP}
+.	else
+_site_urlpath_=	${_site_:C@^(.*):[^/:]+$@\1@}
+.		if ${_site_urlpath_:M*/*}
+_site_url_=		${_site_urlpath_:C@^([^/]+)/.*$@\1@}
+_site_subdir_=	${_site_urlpath_:S/^${_site_urlpath_:C@^([^/]+)/.*$@\1@}//:S!^/!!:S!/$!!}
+.		else
+_site_url_=		${_site_urlpath_}
+.undef _site_subdir_
+.		endif
+_site_group_=	${_site_:S/^${_site_:C@^(.*):[^/:]+$@\1@}//:S/^://}
+.		for _abbrev_ in ${MASTER_SITES_ABBREVS}
+.			if ${_site_url_} == ${_abbrev_:C/:.*//}
+_site_url_=	${_abbrev_:C/.*://}
+.			endif
+.		endfor
+.		for _subdir_ in ${MASTER_SITES_SUBDIRS}
+.			if ${_site_url_} == ${_subdir_:C/:.*//} && !defined(MASTER_SITE_SUBDIR)
+_site_subdir_?=	${_subdir_:C/.*://}
+.			endif
+.		endfor
+.		ifdef MASTER_SITE_${_site_url_}
+.			ifdef _site_subdir_
+PATCH_SITES_EXP+=	${MASTER_SITE_${_site_url_}:S^%SUBDIR%^${_site_subdir_}^:S/$/:${_site_group_}/:S/:$//}
+.			else
+PATCH_SITES_EXP+=	${MASTER_SITE_${_site_url_}:S/$/:${_site_group_}/:S/:$//}
+.			endif
+PATCH_SITES_EXP:=	${PATCH_SITES_EXP}
+.		endif
+.	endif
+.endfor
+PATCH_SITES=	${PATCH_SITES_EXP}
 
 .endif
