@@ -1,4 +1,4 @@
-# Created by: Bernhard Froehlich <decke@bluelife.at>
+# Created by:	Jean-Sebastien Pedron <dumbbell@FreeBSD.org>
 # $FreeBSD$
 
 PORTNAME=	drm-i915-kmod
@@ -9,7 +9,7 @@ MASTER_SITES=	http://people.freebsd.org/~dumbbell/
 DISTNAME=	drm-i915-${DISTVERSION}
 
 MAINTAINER=	x11@FreeBSD.org
-COMMENT=	Kernel DRM driver for i915 GPUs
+COMMENT=	FreeBSD 9.3 Kernel DRM driver for i915 GPUs
 
 LICENSE=	MIT
 
@@ -22,7 +22,7 @@ PLIST_FILES=	${KMODDIR}/drm2_port.ko \
 .include <bsd.port.options.mk>
 
 .if (${OSVERSION} < 903000 || ${OSVERSION} > 1000000)
-IGNORE=		This port is only for 9.x systems.
+IGNORE=		This port is only for 9.3 systems.
 .endif
 
 .if ${PORT_OPTIONS:MDEBUG}
