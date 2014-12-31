@@ -4,8 +4,7 @@
 PORTNAME=	drm-i915-kmod
 DISTVERSION=	9.275699
 CATEGORIES=	x11-drivers
-#MASTER_SITES=	LOCAL/dumbbell
-MASTER_SITES=	http://people.freebsd.org/~dumbbell/
+MASTER_SITES=	LOCAL/dumbbell
 DISTNAME=	drm-i915-${DISTVERSION}
 
 MAINTAINER=	x11@FreeBSD.org
