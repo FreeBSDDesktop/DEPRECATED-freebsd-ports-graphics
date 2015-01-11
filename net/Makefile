@@ -503,6 +503,7 @@
     SUBDIR += p5-IO-Socket-IP
     SUBDIR += p5-IO-Socket-Multicast
     SUBDIR += p5-IO-Socket-Multicast6
+    SUBDIR += p5-IO-Socket-UNIX-Util
     SUBDIR += p5-IP-Anonymous
     SUBDIR += p5-IP-Country
     SUBDIR += p5-IPC-Session
@@ -1222,6 +1223,7 @@
     SUBDIR += unison-devel
     SUBDIR += unison-nox11
     SUBDIR += unison232
+    SUBDIR += unison240
     SUBDIR += unix2tcp
     SUBDIR += uplog
     SUBDIR += urelay
@@ -1279,6 +1281,7 @@
     SUBDIR += xrdesktop
     SUBDIR += xrdp
     SUBDIR += xrdp-devel
+    SUBDIR += yami4
     SUBDIR += yaph
     SUBDIR += yate
     SUBDIR += yaz
