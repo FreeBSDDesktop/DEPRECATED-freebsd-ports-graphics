@@ -71,6 +71,8 @@
     SUBDIR += ldapdns
     SUBDIR += ldns
     SUBDIR += ldnsm
+    SUBDIR += libasr
+    SUBDIR += libasr-devel
     SUBDIR += libbind
     SUBDIR += libdjbdns
     SUBDIR += libidn
@@ -177,6 +179,7 @@
     SUBDIR += vizone
     SUBDIR += walker
     SUBDIR += wdns
+    SUBDIR += wrapsrv
     SUBDIR += yadifa
     SUBDIR += zkt
     SUBDIR += zonecheck

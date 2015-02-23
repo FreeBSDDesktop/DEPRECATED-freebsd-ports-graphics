@@ -3,7 +3,6 @@
 
 PORTNAME=	aster
 DISTVERSION=	${ASTER_DISTVERSION}
-PORTREVISION=	3
 CATEGORIES=	french cad
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -31,7 +30,7 @@ LICENSE=	GPLv2
 #
 #-----------------------------------------------------------------------
 
-BUILD_DEPENDS+=	${LOCALBASE}/aster/ASTK/ASTK_SERV:${PORTSDIR}/cad/astk-serveur	\
+BUILD_DEPENDS+=	astk-serveur>0:${PORTSDIR}/cad/astk-serveur	\
 		${SHELL_INSTALL_ASTER}:${PORTSDIR}/shells/${SHIADEP}		\
 		${LOCALBASE}/lib/libscotch.a:${PORTSDIR}/cad/scotch		\
 		python:${PORTSDIR}/lang/python					\
@@ -39,12 +38,13 @@ BUILD_DEPENDS+=	${LOCALBASE}/aster/ASTK/ASTK_SERV:${PORTSDIR}/cad/astk-serveur	\
 LIB_DEPENDS+=	libhdf5.so:${PORTSDIR}/science/hdf5				\
 		libmed.so:${PORTSDIR}/french/med				\
 		libmetis.so.0:${PORTSDIR}/math/metis-edf
-RUN_DEPENDS+=	${PYTHON_SITELIBDIR}/Gnuplot:${PORTSDIR}/math/py-gnuplot	\
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gnuplot>0:${PORTSDIR}/math/py-gnuplot	\
 		${LOCALBASE}/bin/onmetis:${PORTSDIR}/math/metis-edf		\
 		${SHELL_INSTALL_ASTER}:${PORTSDIR}/shells/${SHIADEP}		\
-		${LOCALBASE}/aster/ASTK/ASTK_SERV:${PORTSDIR}/cad/astk-serveur
+		astk-serveur>0:${PORTSDIR}/cad/astk-serveur
 
 USES=		bison fortran tk python:2
+USE_BINUTILS=	yes
 
 .if defined(WITH_ATLAS)
 USES+=		blaslapack:atlas
@@ -80,13 +80,13 @@ FLAGARCH=	-DLINUX64
 .endif
 
 .if !defined(WITHOUT_ASTK_CLI)
-RUN_DEPENDS+=	${ASTKDIR}:${PORTSDIR}/cad/astk-client
+RUN_DEPENDS+=	astk-client>0:${PORTSDIR}/cad/astk-client
 PLIST_SUB+=	ASTK_CLIENT=""  ASTKDIR=${ASTKDIR}
 .else
 PLIST_SUB+=	ASTK_CLIENT="@comment " ASTKDIR=""
 .endif
 .if !defined(WITHOUT_EFICAS)
-RUN_DEPENDS+=	${LOCALBASE}/apps/eficas:${PORTSDIR}/french/eficas
+RUN_DEPENDS+=	fr-eficas>0:${PORTSDIR}/french/eficas
 PLIST_SUB+=	EFICAS=""
 .else
 PLIST_SUB+=	EFICAS="@comment "
@@ -165,6 +165,9 @@ INST_SH=	as_run parallel_cp
 PFX2FIX=	bin/as_run ${VE}/include/aster/asterc_config.h ${VE}/config.txt	\
 		${VE}/include/aster/asterf_config.h ${VE}/profile.sh		\
 		${VE}/lib/aster/aster_pkginfo.py
+V_HOMARD=	V11_2
+V_HOMARD0=	V10_6
+V_H2FIX=	${VE}/lib/aster/Cata/cata.py ${VE}/tests/zzzz121a.comm
 inst_dir=	${PREFIX}/${PORTNAME}
 tools_dir=	${PREFIX}/${PORTNAME}/outils
 tools=		kmetis onmetis pmetis gnuplot
@@ -343,6 +346,9 @@ post-install:
 	${MV} ${STAGEDIR}${inst_dir}/${VE}/share/aster/*	\
 		${STAGEDIR}${inst_dir}/${VE}/
 	${RM} -rf ${STAGEDIR}${inst_dir}/${VE}/share
+.for f in ${V_H2FIX}
+	${REINPLACE_CMD} -e 's|${V_HOMARD0}|${V_HOMARD}|' ${STAGEDIR}${inst_dir}/${f}
+.endfor
 .for f in ${PFX2FIX}
 	${REINPLACE_CMD} -e 's|${STAGEDIR}||g' ${STAGEDIR}${inst_dir}/${f}
 .endfor
@@ -378,7 +384,7 @@ regression-test:	install
 		--filter='"I" not in testlist' -o /tmp/list_seq )
 	(cd /tmp &&	\
 	${LOCALBASE}/aster/ASTK/ASTK_SERV/bin/as_run astout.export) || ${TRUE}
-	@${ECHO_MSG} "Check /tmp/resu_test/*.erre"
+	@${ECHO_MSG} "Check /tmp/resu_test/NOOK"
 .endif
 
 .include <bsd.port.post.mk>

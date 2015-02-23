@@ -35,6 +35,7 @@
     SUBDIR += clang33
     SUBDIR += clang34
     SUBDIR += clang35
+    SUBDIR += clang36
     SUBDIR += clojure
     SUBDIR += clojure-mode.el
     SUBDIR += cmucl
@@ -54,9 +55,11 @@
     SUBDIR += elk
     SUBDIR += emacs-lisp-intro
     SUBDIR += erlang
+    SUBDIR += erlang-java
     SUBDIR += erlang-runtime15
     SUBDIR += erlang-runtime16
     SUBDIR += erlang-runtime17
+    SUBDIR += erlang-wx
     SUBDIR += execline
     SUBDIR += expect
     SUBDIR += f2c
@@ -125,6 +128,7 @@
     SUBDIR += kawa
     SUBDIR += kturtle
     SUBDIR += lafontaine
+    SUBDIR += lci
     SUBDIR += libhx
     SUBDIR += libjit
     SUBDIR += libobjc2
@@ -137,6 +141,7 @@
     SUBDIR += lua-mode.el
     SUBDIR += lua51
     SUBDIR += lua52
+    SUBDIR += lua53
     SUBDIR += luajit
     SUBDIR += malbolge
     SUBDIR += maude
@@ -192,6 +197,7 @@
     SUBDIR += p5-Modern-Perl
     SUBDIR += p5-Parse-Perl
     SUBDIR += p5-Perl6-Subs
+    SUBDIR += p5-Promises
     SUBDIR += p5-Pugs-Compiler-Rule
     SUBDIR += p5-Quantum-Superpositions
     SUBDIR += p5-Scalar-List-Utils
@@ -265,6 +271,7 @@
     SUBDIR += ruby19
     SUBDIR += ruby20
     SUBDIR += ruby21
+    SUBDIR += ruby22
     SUBDIR += runawk
     SUBDIR += rust
     SUBDIR += s9fes

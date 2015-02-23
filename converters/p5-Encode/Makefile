@@ -2,14 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	Encode
-PORTVERSION=	2.55
-PORTREVISION=	1
+PORTVERSION=	2.70
 CATEGORIES=	converters perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:DANKOGAI
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	rafan@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Provides interfaces between strings and the rest of the system
 
 LICENSE=	ART10 GPLv1

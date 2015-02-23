@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Catalyst-Runtime
-PORTVERSION=	5.90077
+PORTVERSION=	5.90083
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:JJNAPIORK
@@ -38,9 +38,6 @@ BUILD_DEPENDS=	p5-CGI-Simple>=1.109:${PORTSDIR}/www/p5-CGI-Simple \
 		p5-MooseX-Getopt>=0.30:${PORTSDIR}/devel/p5-MooseX-Getopt \
 		p5-MooseX-MethodAttributes>=0.24:${PORTSDIR}/devel/p5-MooseX-MethodAttributes \
 		p5-MooseX-Role-WithOverloading>=0.09:${PORTSDIR}/devel/p5-MooseX-Role-WithOverloading \
-		p5-MooseX-Types>=0:${PORTSDIR}/devel/p5-MooseX-Types \
-		p5-MooseX-Types-Common>=0:${PORTSDIR}/devel/p5-MooseX-Types-Common \
-		p5-MooseX-Types-LoadableClass>=0.003:${PORTSDIR}/devel/p5-MooseX-Types-LoadableClass \
 		p5-Path-Class>=0.09:${PORTSDIR}/devel/p5-Path-Class \
 		p5-Plack>=0.9991:${PORTSDIR}/www/p5-Plack \
 		p5-Plack-Middleware-FixMissingBodyInRedirect>=0.09:${PORTSDIR}/www/p5-Plack-Middleware-FixMissingBodyInRedirect \
@@ -57,7 +54,8 @@ BUILD_DEPENDS=	p5-CGI-Simple>=1.109:${PORTSDIR}/www/p5-CGI-Simple \
 		p5-Tree-Simple>=1.15:${PORTSDIR}/devel/p5-Tree-Simple \
 		p5-Tree-Simple-VisitorFactory>=0:${PORTSDIR}/devel/p5-Tree-Simple-VisitorFactory \
 		p5-Try-Tiny>=0.17:${PORTSDIR}/lang/p5-Try-Tiny \
-		p5-URI>=1.36:${PORTSDIR}/net/p5-URI \
+		p5-URI>=1.65:${PORTSDIR}/net/p5-URI \
+		p5-URI-ws>=0.03:${PORTSDIR}/net/p5-URI-ws \
 		p5-libwww>=5.837:${PORTSDIR}/www/p5-libwww \
 		p5-namespace-autoclean>=0.09:${PORTSDIR}/devel/p5-namespace-autoclean \
 		p5-namespace-clean>=0.23:${PORTSDIR}/devel/p5-namespace-clean

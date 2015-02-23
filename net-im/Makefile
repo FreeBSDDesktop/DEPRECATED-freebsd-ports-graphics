@@ -58,6 +58,7 @@
     SUBDIR += libnice-gst010
     SUBDIR += libnice-gst1
     SUBDIR += libpurple
+    SUBDIR += libstrophe
     SUBDIR += libtelepathy
     SUBDIR += libyahoo2
     SUBDIR += licq
@@ -96,7 +97,6 @@
     SUBDIR += pebrot
     SUBDIR += pecl-stomp
     SUBDIR += pidgin
-    SUBDIR += pidgin-audacious-remote
     SUBDIR += pidgin-birthday-reminder
     SUBDIR += pidgin-bs
     SUBDIR += pidgin-fetion
@@ -115,7 +115,9 @@
     SUBDIR += plasma-applet-ktp
     SUBDIR += poezio
     SUBDIR += pork
+    SUBDIR += profanity
     SUBDIR += prosody
+    SUBDIR += proxy65
     SUBDIR += psi
     SUBDIR += psimedia
     SUBDIR += pwytter
@@ -148,6 +150,7 @@
     SUBDIR += skype-devel
     SUBDIR += skype4
     SUBDIR += telegram
+    SUBDIR += telegram-purple
     SUBDIR += telepathy-butterfly
     SUBDIR += telepathy-farsight
     SUBDIR += telepathy-farstream
@@ -174,7 +177,6 @@
     SUBDIR += twitmail
     SUBDIR += uTox
     SUBDIR += vacuum-im
-    SUBDIR += venom
     SUBDIR += vqcc-gtk
     SUBDIR += yoono
     SUBDIR += zephyr

@@ -14,13 +14,15 @@ MAINTAINER=	tphilipp@potion-studios.com
 COMMENT=	PlayStation Portable development toolchain ${PORTNAME}
 
 USES=		gmake tar:bzip2 libtool
-USE_GCC=	any
+# This old code fails with newer versions of GCC, cf. PR 196854.
+USE_GCC=	4.8
 
 HAS_CONFIGURE=	yes
-CONFIGURE_TARGET=	${ARCH:S/amd64/x86_64/}-unknown-${OPSYS:tl}${OSREL}
+CONFIGURE_TARGET=	${ARCH:S/amd64/x86_64/:S/armv6/arm/}-unknown-${OPSYS:tl}${OSREL}
 CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		--target="psp" \
 		--enable-install-libbfd \
+		--disable-werror \
 		--disable-nls \
 		--mandir=${PREFIX}/man
 PLIST_SUB=	CONFIGURE_TARGET="${CONFIGURE_TARGET}"

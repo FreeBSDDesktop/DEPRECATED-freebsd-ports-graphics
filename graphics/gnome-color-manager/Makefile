@@ -1,9 +1,8 @@
 # Created by: FreeBSD GNOME Team <gnome@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/graphics/gnome-color-manager/Makefile 19998 2014-10-19 21:36:22Z gusi $
 
 PORTNAME=	gnome-color-manager
-PORTVERSION=	3.14.1
+PORTVERSION=	3.14.2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -13,7 +12,7 @@ COMMENT=	Session framework for the GNOME desktop to manage color profiles
 
 BUILD_DEPENDS=	docbook2man:${PORTSDIR}/textproc/docbook-utils \
 		itstool:${PORTSDIR}/textproc/itstool \
-		${LOCALBASE}/share/sgml/docbook/4.1:${PORTSDIR}/textproc/docbook-sgml
+		docbook-sgml>0:${PORTSDIR}/textproc/docbook-sgml
 LIB_DEPENDS=	liblcms2.so:${PORTSDIR}/graphics/lcms2 \
 		libcolord.so:${PORTSDIR}/graphics/colord \
 		libcolord-gtk.so:${PORTSDIR}/graphics/colord-gtk \

@@ -162,7 +162,6 @@
     SUBDIR += ming
     SUBDIR += monafonts
     SUBDIR += monafonts-ttf
-    SUBDIR += mozc-additions
     SUBDIR += mozc-el
     SUBDIR += mozc-server
     SUBDIR += mozc-tool
@@ -288,7 +287,6 @@
     SUBDIR += wwasw-fpw
     SUBDIR += xdtp
     SUBDIR += xgate
-    SUBDIR += xlockmore
     SUBDIR += xpdf
     SUBDIR += xshodou
     SUBDIR += xtr

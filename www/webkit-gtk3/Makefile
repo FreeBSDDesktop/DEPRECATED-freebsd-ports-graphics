@@ -3,6 +3,7 @@
 
 PORTNAME=	webkit
 PORTVERSION=	2.4.8
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://webkitgtk.org/releases/
 PKGNAMESUFFIX=	-gtk3
@@ -21,6 +22,8 @@ LIB_DEPENDS=	libenchant.so:${PORTSDIR}/textproc/enchant \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libsoup-2.4.so:${PORTSDIR}/devel/libsoup
 RUN_DEPENDS=	geoclue>=0:${PORTSDIR}/net/geoclue 
+
+PORTSCOUT=	limit:1.4.*$$
 
 USE_GSTREAMER1=	yes
 USE_XORG=	xt xdamage xcomposite

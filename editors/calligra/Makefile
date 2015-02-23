@@ -2,7 +2,7 @@
 
 PORTNAME=	calligra
 PORTVERSION=	${CALLIGRA_VERSION}
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	editors kde
 MASTER_SITES=	${MASTER_SITE_KDE}
 MASTER_SITE_SUBDIR=	${CALLIGRA_BRANCH}/${PORTNAME}-${PORTVERSION}/
@@ -38,7 +38,7 @@ CONFLICTS_BUILD=qt-3.*
 
 USE_GL=		glew
 USE_GNOME=	glib20 libxml2 libxslt
-USE_KDE4=	kactivities kdehier kdelibs kdeprefix libkdcraw nepomuk-core \
+USE_KDE4=	kactivities kdelibs kdeprefix libkdcraw nepomuk-core \
 		okular pimlibs attica automoc4 soprano
 USE_QT4=	corelib dbus designer_build gui opengl phonon porting_build \
 		qt3support qtestlib_build script sql svg webkit xml xmlpatterns \

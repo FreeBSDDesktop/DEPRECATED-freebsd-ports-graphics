@@ -187,6 +187,7 @@
     SUBDIR += dcross
     SUBDIR += defendguin
     SUBDIR += diameter
+    SUBDIR += diaspora
     SUBDIR += digger-vgl
     SUBDIR += dmjava
     SUBDIR += dodgindiamond2
@@ -445,6 +446,7 @@
     SUBDIR += kapman
     SUBDIR += kardsgt
     SUBDIR += kartofel
+    SUBDIR += katawa-shoujo
     SUBDIR += katomic
     SUBDIR += kblackbox
     SUBDIR += kblocks
@@ -590,6 +592,7 @@
     SUBDIR += mindguard
     SUBDIR += minecraft-client
     SUBDIR += minecraft-server
+    SUBDIR += minerbold
     SUBDIR += minetest
     SUBDIR += minetest_game
     SUBDIR += mirrormagic
@@ -1003,13 +1006,13 @@
     SUBDIR += vamos
     SUBDIR += vavoom
     SUBDIR += vavoom-extras
-    SUBDIR += vdrift-data
     SUBDIR += vectoroids
     SUBDIR += vegastrike
     SUBDIR += vegastrike-data
     SUBDIR += violetland
     SUBDIR += viruskiller
     SUBDIR += vitetris
+    SUBDIR += vms-empire
     SUBDIR += vodovod
     SUBDIR += volleyball
     SUBDIR += vor
@@ -1030,7 +1033,6 @@
     SUBDIR += wmpuzzle
     SUBDIR += wmqstat
     SUBDIR += wmquake
-    SUBDIR += vms-empire
     SUBDIR += wmshuffle
     SUBDIR += wmtictactoe
     SUBDIR += wolfpack

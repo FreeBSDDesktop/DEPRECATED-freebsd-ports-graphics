@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=		bash
-PATCHLEVEL=		30
+PATCHLEVEL=		33
 PORTVERSION=		4.3.${PATCHLEVEL:S/^0//g}
-PORTREVISION?=		1
+PORTREVISION?=		0
 CATEGORIES=		shells
 MASTER_SITES=		GNU
 MASTER_SITE_SUBDIR=	${PORTNAME}
@@ -56,6 +56,12 @@ CONFIGURE_ARGS+=	--without-bash-malloc \
 			--disable-rpath \
 			--enable-disabled-builtins
 
+.if empty(PKGNAMESUFFIX)
+CONFLICTS+=		bash-static-[0-9]*
+.else
+CONFLICTS+=		bash-[0-9]*
+.endif
+
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MIMPORTFUNCTIONS}
@@ -66,11 +72,8 @@ CFLAGS+=	-DIMPORT_FUNCTIONS_DEF=0
 
 .if ${PORT_OPTIONS:MSTATIC} || defined(NO_DYNAMICROOT) || (defined(NOSHARED) && ${NOSHARED:tl} != "no")
 CONFIGURE_ARGS+=	--enable-static-link
-PKGNAMESUFFIX=		-static
-CONFLICTS+=		bash-[0-9]*
 .else
 CONFIGURE_ARGS+=	--disable-static-link
-CONFLICTS+=		bash-static-[0-9]*
 .endif
 
 post-patch:

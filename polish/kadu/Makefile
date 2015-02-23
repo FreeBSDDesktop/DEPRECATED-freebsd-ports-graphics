@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	kadu
-PORTVERSION=	1.4
+PORTVERSION=	1.5
 PORTEPOCH=	1
 CATEGORIES=	polish net-im
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}/:kadu \
@@ -27,7 +27,6 @@ LIB_DEPENDS=	libmpdclient.so:${PORTSDIR}/audio/libmpdclient \
 		libgadu.so:${PORTSDIR}/polish/libgadu \
 		libotr.so:${PORTSDIR}/security/libotr \
 		libenchant.so:${PORTSDIR}/textproc/enchant
-RUN_DEPENDS=	qca-ossl>=2.0.0.b3:${PORTSDIR}/security/qca-ossl
 # TODO ntrack and ntrack-qt (needs porting) ?
 # TODO separate ports for plugins and themes (possible starting with 0.10)
 

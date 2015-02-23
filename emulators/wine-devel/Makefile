@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	wine
-DISTVERSION=	1.7.33
-PORTREVISION=	2
+DISTVERSION=	1.7.37
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}/Source \
@@ -119,7 +118,7 @@ USE_AUTOTOOLS=	autoconf
 
 pre-configure:
 	cd ${WRKSRC} && ${TAR} xf ${DISTDIR}/${COMP_DIST} --strip-components 1
-	cd ${WRKSRC} && ${MAKE_CMD} -C ./patches DESTDIR=${WRKSRC} install
+	cd ${WRKSRC} && bash ./patches/patchinstall.sh --backend=patch DESTDIR=${WRKSRC} --all
 .endif
 
 pre-build:

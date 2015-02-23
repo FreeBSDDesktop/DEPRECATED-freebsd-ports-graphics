@@ -796,6 +796,7 @@
     SUBDIR += p5-Text-DoubleMetaphone
     SUBDIR += p5-Text-Emoticon
     SUBDIR += p5-Text-Emoticon-GoogleTalk
+    SUBDIR += p5-Text-Emoticon-MSN
     SUBDIR += p5-Text-EtText
     SUBDIR += p5-Text-Extract-Word
     SUBDIR += p5-Text-ExtractWords
@@ -1164,7 +1165,6 @@
     SUBDIR += py-asciinema
     SUBDIR += py-asv
     SUBDIR += py-bugzillatools
-    SUBDIR += py-charade
     SUBDIR += py-chardet
     SUBDIR += py-cloud_sptheme
     SUBDIR += py-creole
@@ -1191,6 +1191,7 @@
     SUBDIR += py-mako
     SUBDIR += py-markdown
     SUBDIR += py-markdown2
+    SUBDIR += py-mistune
     SUBDIR += py-openpyxl
     SUBDIR += py-openpyxl1
     SUBDIR += py-paragrep
@@ -1207,6 +1208,7 @@
     SUBDIR += py-python-augeas
     SUBDIR += py-pytidylib
     SUBDIR += py-pyx12
+    SUBDIR += py-qrcode
     SUBDIR += py-qt4-xml
     SUBDIR += py-qt4-xmlpatterns
     SUBDIR += py-rdflib
