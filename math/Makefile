@@ -88,6 +88,7 @@
     SUBDIR += cln
     SUBDIR += cloog
     SUBDIR += clp
+    SUBDIR += cminpack
     SUBDIR += coinmp
     SUBDIR += concorde
     SUBDIR += convertall
@@ -184,7 +185,6 @@
     SUBDIR += hs-vector-space
     SUBDIR += igraph
     SUBDIR += ipopt
-    SUBDIR += isabelle
     SUBDIR += ised
     SUBDIR += jacal
     SUBDIR += jags

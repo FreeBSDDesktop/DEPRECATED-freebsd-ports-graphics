@@ -544,6 +544,7 @@
     SUBDIR += git
     SUBDIR += git-bzr-ng
     SUBDIR += git-extras
+    SUBDIR += git-lite
     SUBDIR += git-merge-changelog
     SUBDIR += git-modes
     SUBDIR += git-review
@@ -1112,6 +1113,7 @@
     SUBDIR += liborcus07
     SUBDIR += libosinfo
     SUBDIR += libosmo-abis
+    SUBDIR += libosmo-netif
     SUBDIR += libosmo-sccp
     SUBDIR += libosmocore
     SUBDIR += libowfat
@@ -2227,6 +2229,7 @@
     SUBDIR += p5-IO-Pager
     SUBDIR += p5-IO-Pipely
     SUBDIR += p5-IO-Prompt
+    SUBDIR += p5-IO-Prompt-Simple
     SUBDIR += p5-IO-Prompt-Tiny
     SUBDIR += p5-IO-Prompter
     SUBDIR += p5-IO-Pty-Easy
@@ -2581,6 +2584,7 @@
     SUBDIR += p5-PAR-Dist
     SUBDIR += p5-PAR-Packer
     SUBDIR += p5-PCSC-Card
+    SUBDIR += p5-PerlX-Maybe
     SUBDIR += p5-PHP-Serialization
     SUBDIR += p5-POE
     SUBDIR += p5-POE-API-Hooks
@@ -2887,6 +2891,7 @@
     SUBDIR += p5-TAP-SimpleOutput
     SUBDIR += p5-Taint-Runtime
     SUBDIR += p5-Taint-Util
+    SUBDIR += p5-Task-Tiny
     SUBDIR += p5-Task-Weaken
     SUBDIR += p5-Tee
     SUBDIR += p5-Template-Provider-Encode
@@ -4232,6 +4237,7 @@
     SUBDIR += qt4-help-tools
     SUBDIR += qt4-libqtassistantclient
     SUBDIR += qt4-linguist
+    SUBDIR += qt4-linguisttools
     SUBDIR += qt4-makeqpf
     SUBDIR += qt4-moc
     SUBDIR += qt4-porting
@@ -4434,6 +4440,7 @@
     SUBDIR += rubygem-fastthread
     SUBDIR += rubygem-fattr
     SUBDIR += rubygem-ffi
+    SUBDIR += rubygem-ffi-compiler
     SUBDIR += rubygem-ffi-yajl
     SUBDIR += rubygem-file-tail
     SUBDIR += rubygem-filemagic

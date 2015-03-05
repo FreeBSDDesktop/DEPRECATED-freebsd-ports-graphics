@@ -599,6 +599,7 @@
     SUBDIR += py-ao
     SUBDIR += py-apetag
     SUBDIR += py-cddb
+    SUBDIR += py-discid
     SUBDIR += py-discogs-client
     SUBDIR += py-eyed3
     SUBDIR += py-fastaudio
@@ -667,6 +668,7 @@
     SUBDIR += sdl_mixer
     SUBDIR += sdl_sound
     SUBDIR += sfront
+    SUBDIR += shairplay
     SUBDIR += shairport
     SUBDIR += shntool
     SUBDIR += shorten

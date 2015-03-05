@@ -397,7 +397,6 @@
     SUBDIR += mathjax
     SUBDIR += mathopd
     SUBDIR += mediawiki119
-    SUBDIR += mediawiki122
     SUBDIR += mediawiki123
     SUBDIR += mediawiki124
     SUBDIR += mergelog
@@ -444,7 +443,6 @@
     SUBDIR += mod_chroot
     SUBDIR += mod_clamav
     SUBDIR += mod_cloudflare
-    SUBDIR += mod_cplusplus
     SUBDIR += mod_cvs2
     SUBDIR += mod_dav_svn
     SUBDIR += mod_dnssd
@@ -539,6 +537,7 @@
     SUBDIR += nginx-devel
     SUBDIR += nibbleblog
     SUBDIR += node
+    SUBDIR += node010
     SUBDIR += node-devel
     SUBDIR += nostromo
     SUBDIR += npapi-vlc
@@ -605,6 +604,7 @@
     SUBDIR += p5-Blog-Spam
     SUBDIR += p5-Browser-Open
     SUBDIR += p5-Business-PayPal
+    SUBDIR += p5-CGI
     SUBDIR += p5-CGI-Ajax
     SUBDIR += p5-CGI-Application
     SUBDIR += p5-CGI-Application-Dispatch
@@ -651,6 +651,7 @@
     SUBDIR += p5-CGI-Expand
     SUBDIR += p5-CGI-ExtDirect
     SUBDIR += p5-CGI-FCKeditor
+    SUBDIR += p5-CGI-Fast
     SUBDIR += p5-CGI-FastTemplate
     SUBDIR += p5-CGI-FormBuilder
     SUBDIR += p5-CGI-Framework
@@ -1133,6 +1134,7 @@
     SUBDIR += p5-PocketIO
     SUBDIR += p5-Pod-Site
     SUBDIR += p5-PodToHTML
+    SUBDIR += p5-Protocol-HTTP2
     SUBDIR += p5-Protocol-SocketIO
     SUBDIR += p5-Protocol-WebSocket
     SUBDIR += p5-Protocol-XMLRPC
@@ -1528,7 +1530,6 @@
     SUBDIR += py-django-threaded-multihost
     SUBDIR += py-django-tinymce
     SUBDIR += py-django14
-    SUBDIR += py-django15
     SUBDIR += py-django16
     SUBDIR += py-django_compressor
     SUBDIR += py-djangotoolbox
@@ -1829,6 +1830,7 @@
     SUBDIR += rubygem-html2haml
     SUBDIR += rubygem-http
     SUBDIR += rubygem-http-cookie
+    SUBDIR += rubygem-http-form_data
     SUBDIR += rubygem-http_router
     SUBDIR += rubygem-httparty
     SUBDIR += rubygem-httpclient
@@ -1993,6 +1995,7 @@
     SUBDIR += swiggle
     SUBDIR += swish++
     SUBDIR += swish-e
+    SUBDIR += sws
     SUBDIR += syndigator
     SUBDIR += tclhttpd
     SUBDIR += tclwebtest
@@ -2010,6 +2013,7 @@
     SUBDIR += tickr
     SUBDIR += tidy
     SUBDIR += tidy-devel
+    SUBDIR += tidy-html5
     SUBDIR += tidy-lib
     SUBDIR += tikiwiki
     SUBDIR += tinymce
@@ -2133,6 +2137,7 @@
     SUBDIR += uzbl
     SUBDIR += validator
     SUBDIR += varnish
+    SUBDIR += varnish4
     SUBDIR += varnish-libvmod-header
     SUBDIR += varnish-nagios
     SUBDIR += vdr-plugin-live
