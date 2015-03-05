@@ -31,16 +31,16 @@
  bezier_LDADD = ../util/libutil.la
  brick_LDADD = ../util/libutil.la
  bump_LDADD = ../util/libutil.la
-@@ -602,9 +602,9 @@
- bezier$(EXEEXT): $(bezier_OBJECTS) $(bezier_DEPENDENCIES) $(EXTRA_bezier_DEPENDENCIES) 
+@@ -684,9 +684,9 @@
  	@rm -f bezier$(EXEEXT)
  	$(AM_V_CCLD)$(LINK) $(bezier_OBJECTS) $(bezier_LDADD) $(LIBS)
+ 
 -bitmap$(EXEEXT): $(bitmap_OBJECTS) $(bitmap_DEPENDENCIES) $(EXTRA_bitmap_DEPENDENCIES) 
 -	@rm -f bitmap$(EXEEXT)
 -	$(AM_V_CCLD)$(LINK) $(bitmap_OBJECTS) $(bitmap_LDADD) $(LIBS)
 +bitmap_demo$(EXEEXT): $(bitmap_demo_OBJECTS) $(bitmap_demo_DEPENDENCIES) $(EXTRA_bitmap_demo_DEPENDENCIES) 
 +	@rm -f bitmap_demo$(EXEEXT)
 +	$(AM_V_CCLD)$(LINK) $(bitmap_demo_OBJECTS) $(bitmap_demo_LDADD) $(LIBS)
+ 
  blinking-teapot$(EXEEXT): $(blinking_teapot_OBJECTS) $(blinking_teapot_DEPENDENCIES) $(EXTRA_blinking_teapot_DEPENDENCIES) 
  	@rm -f blinking-teapot$(EXEEXT)
- 	$(AM_V_CCLD)$(LINK) $(blinking_teapot_OBJECTS) $(blinking_teapot_LDADD) $(LIBS)

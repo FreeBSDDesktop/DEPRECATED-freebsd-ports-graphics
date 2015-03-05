@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mesa-demos
-PORTVERSION=	8.1.0
-PORTREVISION=	2
+PORTVERSION=	8.2.0
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/demos/${PORTVERSION}/
 DISTFILES=	mesa-demos-${PORTVERSION}${EXTRACT_SUFX}
@@ -13,13 +12,13 @@ COMMENT=	OpenGL demos distributed with Mesa
 
 USES=		gmake pkgconfig tar:bzip2
 GNU_CONFIGURE=	yes
-USE_GL=		glu glut glew
+USE_GL=		egl glu glut glew
 USE_XORG=	glproto x11 xext xi xxf86vm xdamage xfixes dri2proto
 CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
 LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
 
-CONFIGURE_ARGS+=--disable-egl --disable-gles2 --disable-wayland \
-		--disable-gbm --disable-vg --disable-osmesa
+CONFIGURE_ARGS+=--disable-gles2 --disable-wayland \
+		--disable-vg --disable-osmesa
 
 DATADIR=	${PREFIX}/share/${PKGNAMEPREFIX}${PORTNAME}
 
