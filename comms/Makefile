@@ -32,6 +32,7 @@
     SUBDIR += deforaos-phone
     SUBDIR += dfu-programmer
     SUBDIR += dfu-util
+    SUBDIR += dump1090
     SUBDIR += ebook2cw
     SUBDIR += ebook2cwgui
     SUBDIR += echolinux
@@ -74,6 +75,7 @@
     SUBDIR += jsdr
     SUBDIR += kb
     SUBDIR += kermit
+    SUBDIR += klog
     SUBDIR += kremotecontrol
     SUBDIR += libconcord
     SUBDIR += libfec
@@ -84,6 +86,7 @@
     SUBDIR += libticables2
     SUBDIR += libticalcs2
     SUBDIR += libusbmuxd
+    SUBDIR += linpsk
     SUBDIR += linrad
     SUBDIR += lirc
     SUBDIR += locator
@@ -134,6 +137,7 @@
     SUBDIR += qrq
     SUBDIR += qsstv
     SUBDIR += qt5-serialport
+    SUBDIR += qtel
     SUBDIR += quisk
     SUBDIR += remserial
     SUBDIR += rtl-sdr
@@ -148,7 +152,6 @@
     SUBDIR += smstools3
     SUBDIR += soundmodem
     SUBDIR += spandsp
-    SUBDIR += spandsp-devel
     SUBDIR += splat
     SUBDIR += sredird
     SUBDIR += svxlink

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	audacious-plugins
-PORTVERSION=	3.5
-PORTREVISION=	5
+PORTVERSION=	3.5.2
 CATEGORIES=	multimedia audio
 MASTER_SITES=	http://distfiles.audacious-media-player.org/
 
@@ -171,10 +170,10 @@ PLIST_SUB+=	FLACPLUGIN="@comment "
 
 .if ${PORT_OPTIONS:MFFAUDIO}
 LIB_DEPENDS+=	libavcodec.so:${PORTSDIR}/multimedia/ffmpeg
-CONFIGURE_ARGS+=--enable-ffaudio
+CONFIGURE_ARGS+=--with-ffmpeg=ffmpeg
 PLIST_SUB+=	FFAUDIOPLUGIN=""
 .else
-CONFIGURE_ARGS+=--disable-ffaudio
+CONFIGURE_ARGS+=--with-ffmpeg=none
 PLIST_SUB+=	FFAUDIOPLUGIN="@comment "
 .endif
 

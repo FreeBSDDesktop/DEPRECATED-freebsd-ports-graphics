@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	kadu
-PORTVERSION=	1.3
+PORTVERSION=	1.5
 PORTEPOCH=	1
 CATEGORIES=	polish net-im
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}/:kadu \
@@ -19,7 +19,7 @@ COMMENT=	Internet communicator supporting Gadu-Gadu and Jabber/XMPP
 LICENSE=	GPLv2
 
 BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash \
-		pl-libgadu>=1.11.1:${PORTSDIR}/polish/libgadu
+		pl-libgadu>=1.12.1:${PORTSDIR}/polish/libgadu
 LIB_DEPENDS=	libmpdclient.so:${PORTSDIR}/audio/libmpdclient \
 		libsndfile.so:${PORTSDIR}/audio/libsndfile \
 		libqca.so:${PORTSDIR}/devel/qca \
@@ -27,7 +27,6 @@ LIB_DEPENDS=	libmpdclient.so:${PORTSDIR}/audio/libmpdclient \
 		libgadu.so:${PORTSDIR}/polish/libgadu \
 		libotr.so:${PORTSDIR}/security/libotr \
 		libenchant.so:${PORTSDIR}/textproc/enchant
-RUN_DEPENDS=	qca-ossl>=2.0.0.b3:${PORTSDIR}/security/qca-ossl
 # TODO ntrack and ntrack-qt (needs porting) ?
 # TODO separate ports for plugins and themes (possible starting with 0.10)
 

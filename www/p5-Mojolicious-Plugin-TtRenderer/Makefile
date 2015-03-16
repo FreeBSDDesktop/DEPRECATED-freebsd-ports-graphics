@@ -2,16 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	Mojolicious-Plugin-TtRenderer
-PORTVERSION=	1.54
+PORTVERSION=	1.55
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:PLICEASE
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	adamw@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Template-toolkit renderer for Mojolicious
 
-BUILD_DEPENDS=	p5-Mojolicious>=3.33:${PORTSDIR}/www/p5-Mojolicious \
+BUILD_DEPENDS=	p5-Mojolicious>=5.81:${PORTSDIR}/www/p5-Mojolicious \
 		p5-Template-Toolkit>=2.18:${PORTSDIR}/www/p5-Template-Toolkit
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 

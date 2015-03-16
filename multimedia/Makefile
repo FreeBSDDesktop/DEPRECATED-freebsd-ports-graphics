@@ -58,7 +58,7 @@
     SUBDIR += emovix
     SUBDIR += ffmpeg
     SUBDIR += ffmpeg0
-    SUBDIR += ffmpeg25
+    SUBDIR += ffmpeg26
     SUBDIR += ffmpeg2theora
     SUBDIR += ffmpegthumbnailer
     SUBDIR += flvmeta
@@ -161,10 +161,12 @@
     SUBDIR += kdenlive
     SUBDIR += kissdx
     SUBDIR += kmplayer-kde4
+    SUBDIR += kodi
     SUBDIR += kplayer-kde4
     SUBDIR += libaacs
     SUBDIR += libass
     SUBDIR += libav
+    SUBDIR += libbdplus
     SUBDIR += libbluray
     SUBDIR += libcec
     SUBDIR += libdc1394
@@ -246,7 +248,6 @@
     SUBDIR += mpeg_stat
     SUBDIR += mpgtx
     SUBDIR += mplayer
-    SUBDIR += mplayer-fonts
     SUBDIR += mplayer-skins
     SUBDIR += mplayer2
     SUBDIR += mplex
@@ -365,7 +366,6 @@
     SUBDIR += umph
     SUBDIR += umplayer
     SUBDIR += umr
-    SUBDIR += universal-media-server
     SUBDIR += v4l-utils
     SUBDIR += v4l_compat
     SUBDIR += vamps
@@ -410,7 +410,6 @@
     SUBDIR += x265
     SUBDIR += xanim
     SUBDIR += xawtv
-    SUBDIR += xbmc
     SUBDIR += xbmc-addon-pvr
     SUBDIR += xfce4-parole
     SUBDIR += xine

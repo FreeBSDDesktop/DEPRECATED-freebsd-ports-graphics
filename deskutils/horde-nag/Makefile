@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	nag
-PORTVERSION=	4.2.3
+PORTVERSION=	4.2.4
 CATEGORIES=	deskutils www pear
 PKGNAMEPREFIX=	horde-
 
@@ -31,6 +31,7 @@ USE_HORDE_RUN=	Horde_Role \
 		Horde_Mime \
 		Horde_Perms \
 		Horde_Prefs \
+		Horde_Routes \
 		Horde_Share \
 		Horde_Support \
 		Horde_Text_Filter \

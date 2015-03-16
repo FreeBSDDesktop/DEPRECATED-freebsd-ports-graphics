@@ -5,6 +5,280 @@ they are unavoidable.
 You should get into the habit of checking this file for changes each time
 you update your ports collection, before attempting any port upgrades.
 
+20150313:
+  AFFECTS: users of net/serviio
+  AUTHOR: netchild@FreeBSD.org
+
+  The Java Polling Watch Service used in Serviio 1.5.1 is fixed. If you
+  unchecked "Keep library automatically updated" with 1.5 (as recommended
+  in the 20150206 entry) you can enable it again.
+
+20150309:
+  AFFECTS: users of net-mgmt/netdisco
+  AUTHOR: dgeo@centrale-marseille.fr
+
+  netdisco version has been upgraded to netdisco2
+
+  After upgrading, you will need to review all your configuration, as
+  this new version won't read old config files.
+  You'll be able to keep your data though netdisco-deploy command
+
+20150305:
+  AFFECTS: users of x11-wm/xfce4 and multimedia/xfce4-parole
+  AUTHOR: olivierd@FreeBSD.org
+
+  Xfce 4.12 has been imported. Please use the following instructions to
+  upgrade.
+
+  For package users:
+  # pkg upgrade
+
+  For ports users:
+  # portmaster -a
+  # portmaster x11-wm/xfce4
+
+  GStreamer 1.0 is enabled by default in Parole media player.
+
+  Xfce 4.12 now depends of Adwaita icon theme. If you are upgrading from
+  Xfce 4.10 you probably still have the Tango or GNOME theme selected.
+  Open the Settings Manager and select Appearance. Inside dialog box switch
+  to the Icons tag and select the "Adwaita" entry in the list.
+
+20150304:
+  AFFECTS: users of security/libressl
+  AUTHOR: vsevolod@highsecure.ru
+
+  After upgrading of libressl you should manually update all packages that
+  depending on this library since its version has been changed. Normally,
+  you could obtain the list of dependent software by running the following
+  command:
+
+  pkg query -e '%n = libressl' %ro
+
+  Then you should rebuild all ports depending on libressl to avoid dangling
+  shared library dependencies.
+
+20150301:
+  AFFECTS: users of lang/ruby20
+  AUTHOR: swills@FreeBSD.org
+
+  The default ruby version has been updated from 2.0 to 2.1.
+
+  If you compile your own ports you may keep 2.0 as the default version by
+  adding the following lines to your /etc/make.conf file:
+
+  #
+  # Keep ruby 2.0 as default version
+  #
+  DEFAULT_VERSIONS+=ruby=2.0
+
+  If you wish to update to the new default version, you need to first stop any
+  software that uses ruby. Then, you will need to follow these steps, depending
+  upon how you manage your system.
+
+  If you use pkgng, simply upgrade:
+  # pkg upgrade -f
+
+  If you use portmaster, install new ruby, then rebuild all ports that depend
+  on ruby:
+  # portmaster -o lang/ruby21 lang/ruby20
+  # portmaster -R -r ruby-2.1
+
+  If you use portupgrade, install new ruby, then rebuild all ports that depend
+  on ruby:
+
+  # pkg delete -f ruby portupgrade
+  # make -C /usr/ports/ports-mgmt/portupgrade install clean
+  # pkg set -o lang/ruby20:lang/ruby21
+  # portupgrade -x ruby-2.1.\* -fr lang/ruby21
+
+20150227:
+  AFFECTS: Users of games/trigger
+  AUTHOR: makc@FreeBSD.org
+
+  games/trigger has been split and renamed to games/trigger-rally
+  and games/trigger-data ports. Deinstall previous version
+  before upgrading.
+
+20150224:
+  AFFECTS: Users of devel/qt4-linguist
+  AUTHOR: makc@FreeBSD.org
+
+  Linguist tools have been moved from qt4-linguist port to new
+  devel/qt4-linguisttools port. Deinstall qt4-linguist before
+  upgrading.
+
+20150224:
+  AFFECTS: Users of lang/ruby19
+
+  lang/ruby19 has reached its end-of-life and has been removed.  The
+  default version has been 2.0 for a while.  Other available versions
+  are Ruby 2.1 and Ruby 2.2.
+
+  Users who have DEFAULT_VERSIONS=ruby=1.9 in their /etc/make.conf are
+  encouraged to remove it or change it to an available version.
+
+20150224:
+  AFFECTS: Users of net-p2p/bitcoin (cli utilities)
+
+  The bitcoin-cli and bitcoin-tx utilities have been re-packaged into
+  a separate port. If you require these programs, or use the bitcoin-cli
+  program to access the daemon or the GUI, install net-p2p/bitcoin-utils
+  to reinstall them.
+
+20150220:
+  AFFECTS: users of PHP
+
+  The default PHP version has been updated from 5.4 to 5.6.
+
+  If you use binary packages you should make a list of php packages
+  before running 'pkg upgrade':
+
+  # pkg info php5\* > ~/installed-php-ports-list
+
+  After the upgrade, check with such list if all your php extensions
+  are still installed, and reinstall them if needed.
+
+20150213:
+  AFFECTS: users who upgraded from FreeBSD 7.x or older with "make world" but never ran "make delete-old"
+  AUTHOR: antoine@FreeBSD.org
+
+  Dependency registration has been reworked.
+  If you encounter the following error,  you may have stale magic files
+  for file(1):
+
+    ===>   bar-x depends on shared library: libfoo.so - not found
+
+  You can remove the stale /usr/share/misc/magic.mime{,.mgc} files
+  manually or run "make delete-old" in ${SRCDIR}.
+
+20150207:
+  AFFECTS: users of mail/opensmtpd-devel
+  AUTHOR: ashish@FreeBSD.org
+
+  MYSQL, PGSQL, LDAP, and REDIS options are removed from port, as
+  they're moved upstream to a separate project, which is yet to
+  release snapshots. If you need those options, then please install
+  "mail/opensmtpd" port instead. To do that:
+
+  If using portupgrade:
+  # portupgrade -o mail/opensmtpd mail/opensmtpd-devel
+
+  If using portmaster:
+  # portmaster -o mail/opensmtpd mail/opensmtpd-devel
+
+20150206:
+  AFFECTS: users of net/serviio
+  AUTHOR: netchild@FreeBSD.org
+
+  The java dependency changed from java 7 (java/openjdk7 if you haven't
+  installed another java 7 implementation) to java 8 (e.g. java/openjdk8).
+  If serviio is the only reason that java 7 is installed, you can delete
+  java 7 after the update to serviio 1.5.0.
+
+  The Java Polling Watch Service used in Serviio 1.5 aggressively searches
+  for file system updates. Until the Serviio poller is re-enabled in 1.5.1,
+  consider unchecking "Keep library automatically updated" if you have a
+  large media collection or are concerned about CPU/disk usage.
+
+20150204:
+  AFFECTS: users of databases/mysql55-(server|client)
+  AUTHOR: ale@FreeBSD.org
+
+  The default MySQL version has been updated from 5.5 to 5.6.
+
+  If you compile your own ports you may keep 5.5 as the default version by
+  adding the following lines to your /etc/make.conf file:
+
+  #
+  # Keep MySQL 5.5 as default version
+  #
+  DEFAULT_VERSIONS+=mysql= 5.5 
+
+  If you wish to update to the new default version, you need to first stop any
+  running server instance. Then, you will need to follow these steps, depending
+  on installed packages.
+
+  # pkg set -o databases/mysql55-client:databases/mysql56-client
+  # pkg set -o databases/mysql55-server:databases/mysql56-server
+  # pkg upgrade
+
+20150118:
+  AFFECTS: users of www/thttpd
+  AUTHOR: danfe@FreeBSD.org
+
+  thttpd was updated to version 2.26, which brings several user-noticeable
+  changes to the port:
+
+    - Default WWW root was changed from ${PREFIX}/www/data to more expected
+      (and standard) ${WWWDIR} (${PREFIX}/www/thttpd), be sure to check and
+      adjust your thttpd configuration file and/or web layout accordingly;
+    - Default CGI pattern was changed to "/cgi-bin/*"; this goes better in
+      line with default installation;
+    - Default data MIME type was changed to "application/octet-stream";
+    - thttpd's own htpasswd(1) program, which was previously installed as
+      thttpdpasswd(1) to avoid conflict with other webservers, is now being
+      renamed to thtpasswd(1); this not just makes it shorter, but is more
+      consistent with popular GNU/Linux distributions;
+    - Index pages for directories are not generated by default from now on
+      for security reasons; an option (INDEXES) is provided to turn them
+      back on if they are wanted;
+    - IPREAL option (to respect (pass on) "X-Forwarded-For" header) is now
+      turned on by default: it is often required when thttpd is used as a
+      CGI server behind nginx (http://wiki.nginx.org/ThttpdCGI).
+
+20150113:
+  AFFECTS: users of www/pecl-http
+  AUTHOR: vanilla@FreeBSD.org
+
+  The pecl-http has been upgraded to version 2.1.4, and the new version is
+  not compatible with the old one.  If you need the "old" 1.7.6, you can
+  find it in www/pecl-http1.
+
+20150111:
+  AFFECTS: users of lang/python3
+  AUTHOR: demon@FreeBSD.org
+
+  The default version of python3 has changed from 3.3 to 3.4.
+  If you wish to stick with older version, add "python3=3.3" to your
+  DEFAULT_VERSIONS variable in /etc/make.conf.  To upgrade:
+
+  If using portupgrade:
+  # portupgrade -o lang/python34 lang/python33
+
+  If using portmaster:
+  # portmaster -o lang/python34 lang/python33
+
+20150109:
+  AFFECTS: users of audio/speex
+  AUTHOR: tijl@FreeBSD.org
+
+  The audio/speex port has been updated to 1.2rc2 and one of the libraries
+  it installed has been split off into a new port audio/speexdsp.  Before
+  you can update audio/speex you must first delete the old package using
+  "pkg del -f speex".
+
+20150101:
+  AFFECTS: users of net/unison and net/unison-nox11
+  AUTHOR: madpilot@FreeBSD.org
+
+  Unison has been upgraded to version 2.48, which uses a different wire
+  protocol than 2.40 did.  In order to support synchronization with
+  other computers where Unison is still at version 2.40, a new port
+  net/unison240 has been created.  It provides unison240 and if that is
+  GTK2-enabled, also unison240-text.  This unison240 port can be
+  installed in parallel with the existing net/unison port.
+
+20141230:
+  AFFECTS: users of deskutils/xpad
+  AUTHOR: jgh@FreeBSD.org
+
+  deskutils/xpad has been moved to deskutils/xpad3, since 4.x has been around
+  for a while.
+
+  Should you wish to stick with legacy branch at this time;
+
+  # portmaster -o deskutils/xpad deskutils/xpad3
 
 20141225:
   AFFECTS: users of graphics/png
@@ -25,11 +299,13 @@ you update your ports collection, before attempting any port upgrades.
   The port www/neon29 was renamed to www/neon and updated to version 0.30.1
 
   If you use pkg, simply upgrade:
-  # pkg upgrade
 
-  If you use portmaster, rebuild ports dependding on neon
-  # portmaster -o www/neon www/neon29
-  # portmaster -R -r neon
+	# pkg upgrade
+
+  If you use portmaster, rebuild ports that depend on neon:
+
+	# portmaster -o www/neon www/neon29
+	# portmaster -R -r neon
 
 20141219:
   AFFECTS: users of x11/xorg and all xorg ports
@@ -73,9 +349,9 @@ you update your ports collection, before attempting any port upgrades.
 
   In audio/abcde dependency has been changed from audio/py-eyed3-06
   to audio/py-eyed3. Before updating audio/abcde to 2.6 you must manually
-  deinstall audio/py-eyed-06.
+  deinstall audio/py-eyed-06:
 
-  # pkg delete -f py\*-eyed3-06
+	# pkg delete -f py\*-eyed3-06
 
 20141218:
   AFFECTS: users of security/openssh-portable
@@ -126,9 +402,9 @@ you update your ports collection, before attempting any port upgrades.
   comms/spandsp has been upgraded to version 0.0.6
   comms/spandsp-devel is now deprecated and set for removal, all ports using
   it were converted to use newer comms/spandsp. Before upgrade you must
-  remove comms/spandsp-devel so that ports can pick up new dependency.
+  remove comms/spandsp-devel so that ports can pick up new dependency:
 
-  # pkg delete -f spandsp-devel
+	# pkg delete -f spandsp-devel
 
 20141215:
   AFFECTS: users of emulators/linux_base-f10 and emulators/linux_base-c6
@@ -152,7 +428,7 @@ you update your ports collection, before attempting any port upgrades.
   To solve this problem, remove both of tex-kpathsea and texlive-base first
   and install the new versions:
 
-   # pkg delete -f tex-kpathsea texlive-base
+	# pkg delete -f tex-kpathsea texlive-base
 
 20141209:
   AFFECTS: users of emulators/linux_base-f10 and emulators/linux_base-c6
@@ -281,11 +557,11 @@ you update your ports collection, before attempting any port upgrades.
 
   You will have to wipe your ports tree clean.  If using portsnap, with:
 
-    portsnap extract
+	portsnap extract
 
   If using subversion:
 
-    svn revert -R
+	svn revert -R
 
 20141127:
   AFFECTS: users of lang/perl5.*
@@ -452,7 +728,7 @@ you update your ports collection, before attempting any port upgrades.
   moved between packages, therefore the following action is required
   before running any pkg/port upgrade utility:
 
-  # pkg delete -f kde-runtime-4\*
+	# pkg delete -f kde-runtime-4\*
 
 20141008:
   AFFECTS: users of lang/ruby19
@@ -540,7 +816,7 @@ you update your ports collection, before attempting any port upgrades.
   libusbmuxd.so was split from comms/usbmuxd into comms/libusbmuxd.
   Remove usbmuxd before upgrading to avoid conflicts:
 
-  # pkg delete -f usbmuxd
+	# pkg delete -f usbmuxd
 
   If you need the daemon usbmuxd(1), you can reinstall the package
   after the upgrade.
@@ -605,7 +881,7 @@ you update your ports collection, before attempting any port upgrades.
   People using binary packages(or not wanting to disable the LUA
   option in the port) not using the Lua functionality should add:
 
-  noload => pbx_lua.so
+	noload => pbx_lua.so
 
   to the PREFIX/etc/asterisk/modules.conf file, if using the
   autoload=yes option in that same file. People not autoloading
@@ -839,13 +1115,11 @@ you update your ports collection, before attempting any port upgrades.
   Further steps will be available in the pkg-message, which can
   be shown with these commands:
 
-  # pkg info -D pydio
-
-  # pkg_info -D pydio
+	# pkg info -D pydio
 
   Please also read the upgrading notes at:
 
-  http://pyd.io/pydio-core-5.2.0#Upgrading
+	http://pyd.io/pydio-core-5.2.0#Upgrading
 
 20140728:
   AFFECTS: users of net/GeoIP
@@ -4228,14 +4502,6 @@ you update your ports collection, before attempting any port upgrades.
 
   # pkg_delete -f seamonkey-enigmail-1.4.3 thunderbird-esr-enigmail-1.4.3 \
     thunderbird-enigmail-1.4.3
-
-20121010:
-  AFFECTS: users of www/firefox and www/seamonkey
-  AUTHOR: gecko@FreeBSD.org
-
-  When using Firefox or SeaMonkey compiled with ALSA option ON it may
-  crash on assert in alsa_refill_stream as described in ports/170473.
-  To workaround enable BUFSZ_P2 in audio/alsa-plugins or use PULSEAUDIO.
 
 20121010:
   AFFECTS: users of CURRENT (OSVERSION >= 1000017)

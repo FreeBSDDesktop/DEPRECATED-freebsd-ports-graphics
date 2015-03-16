@@ -15,7 +15,7 @@ Ruby_Include_MAINTAINER=	ruby@FreeBSD.org
 # [variables that a user may define]
 #
 # RUBY_VER		- (See below)
-# RUBY_DEFAULT_VER	- Set to (e.g.) "1.9" if you want to refer to "ruby19"
+# RUBY_DEFAULT_VER	- Set to (e.g.) "2.0" if you want to refer to "ruby20"
 #			  just as "ruby".
 # RUBY_ARCH		- (See below)
 # RUBY_RD_HTML		- Define if you want HTML files generated from RD files.
@@ -46,9 +46,6 @@ Ruby_Include_MAINTAINER=	ruby@FreeBSD.org
 #			  (default: setup.rb).
 # USE_RUBY_RDTOOL	- Says that the port uses rdtool to generate documents.
 # USE_RUBY_RDOC		- Says that the port uses rdoc to generate documents.
-# USE_RUBY_FEATURES	- Says that the port requires some of the following
-#			  features for building and/or running (default: none):
-#			  iconv
 # RUBY_REQUIRE		- Set to a Ruby expression to evaluate before building
 #			  the port.  The constant "Ruby" is set to the integer
 #			  version number of ruby, and the result of the
@@ -110,13 +107,11 @@ Ruby_Include_MAINTAINER=	ruby@FreeBSD.org
 # RUBY_PORT		- Port path of ruby without PORTSDIR.
 # RUBY_RDTOOL_PORT	- Port path of rdtool without PORTSDIR.
 # RUBY_RDOC_PORT	- Port path of rdoc without PORTSDIR.
-# RUBY_ICONV_PORT	- Port path of ruby-iconv without PORTSDIR.
 #
 # DEPEND_LIBRUBY	- LIB_DEPENDS entry for libruby.
 # DEPEND_RUBY		- BUILD_DEPENDS/RUN_DEPENDS entry for ruby.
 # DEPEND_RUBY_RDTOOL	- BUILD_DEPENDS entry for rdtool.
 # DEPEND_RUBY_RDOC	- BUILD_DEPENDS entry for rdoc.
-# DEPEND_RUBY_ICONV	- BUILD_DEPENDS/RUN_DEPENDS entry for ruby-iconv.
 #
 # RUBY_LIBDIR		- Installation path for architecture independent
 #			  libraries.
@@ -172,61 +167,47 @@ _RUBY_VENDORDIR!=	${_RUBY_CONFIG} 'puts C["vendordir"]'
 RUBY?=			${LOCALBASE}/bin/${RUBY_NAME}
 
 .if defined(RUBY_VER)
-. if ${RUBY_VER} == 1.9
-#
-# Ruby 1.9
-#
-RUBY_RELVERSION=	1.9.3
-RUBY_PORTREVISION=	0
-RUBY_PORTEPOCH=		1
-RUBY_PATCHLEVEL=	551
-
-#
-# PLIST_SUB helpers
-#
-RUBY19=			""
-RUBY20=			"@comment "
-RUBY21=			"@comment "
-
-. elif ${RUBY_VER} == 2.0
+. if ${RUBY_VER} == 2.0
 #
 # Ruby 2.0
 #
 RUBY_RELVERSION=	2.0.0
 RUBY_PORTREVISION=	0
 RUBY_PORTEPOCH=		1
-RUBY_PATCHLEVEL=	598
-
-#
-# PLIST_SUB helpers
-#
-RUBY19=			"@comment "
-RUBY20=			""
-RUBY21=			"@comment "
+RUBY_PATCHLEVEL=	643
+RUBY20=			""	# PLIST_SUB helpers
 
 . elif ${RUBY_VER} == 2.1
 #
 # Ruby 2.1
 #
 RUBY_RELVERSION=	2.1.5
+RUBY_PORTREVISION=	2
+RUBY_PORTEPOCH=		1
+RUBY_PATCHLEVEL=	0
+RUBY21=			""	# PLIST_SUB helpers
+
+. elif ${RUBY_VER} == 2.2
+#
+# Ruby 2.2
+#
+RUBY_RELVERSION=	2.2.1
 RUBY_PORTREVISION=	0
 RUBY_PORTEPOCH=		1
 RUBY_PATCHLEVEL=	0
-
-#
-# PLIST_SUB helpers
-#
-RUBY19=			"@comment "
-RUBY20=			"@comment "
-RUBY21=			""
+RUBY22=			""	# PLIST_SUB helpers
 
 . else
 #
 # Other versions
 #
-IGNORE=	Only ruby 1.9, 2.0 and 2.1 are supported
+IGNORE=	Only ruby 2.0, 2.1 and 2.2 are supported
 . endif
 .endif # defined(RUBY_VER)
+
+RUBY20?=		"@comment "
+RUBY21?=		"@comment "
+RUBY22?=		"@comment "
 
 .if ${RUBY_PATCHLEVEL} == 0
 RUBY_VERSION?=		${RUBY_RELVERSION}
@@ -308,14 +289,11 @@ RUBY_RDOC?=		${LOCALBASE}/bin/rdoc${RUBY_VER:S/.//}
 RUBY_BASE_PORT?=	lang/ruby${RUBY_VER:S/.//}
 RUBY_PORT?=		${RUBY_BASE_PORT}
 RUBY_RDTOOL_PORT?=	textproc/ruby-rdtool
-RUBY_RDOC_PORT?=	textproc/ruby-rdoc
-RUBY_ICONV_PORT?=	converters/ruby-iconv
 
 # Depends
 DEPEND_LIBRUBY?=	lib${RUBY_NAME}.so.${RUBY_SHLIBVER}:${PORTSDIR}/${RUBY_PORT}
 DEPEND_RUBY?=		${RUBY}:${PORTSDIR}/${RUBY_PORT}
 DEPEND_RUBY_RDTOOL?=	${RUBY_RD2}:${PORTSDIR}/${RUBY_RDTOOL_PORT}
-DEPEND_RUBY_ICONV=	${RUBY_ARCHLIBDIR}/iconv.so:${PORTSDIR}/${RUBY_ICONV_PORT}
 
 # Directories
 RUBY_LIBDIR?=		${_RUBY_SYSLIBDIR}/ruby/${RUBY_VER}
@@ -355,9 +333,9 @@ PLIST_SUB+=		${PLIST_RUBY_DIRS:C,DIR="(${LOCALBASE}|${PREFIX})/,DIR=",} \
 			RUBY_SUFFIX="${RUBY_SUFFIX}" \
 			RUBY_NAME="${RUBY_NAME}" \
 			RUBY_DEFAULT_SUFFIX="${RUBY_DEFAULT_SUFFIX}" \
-			RUBY19=${RUBY19} \
 			RUBY20=${RUBY20} \
-			RUBY21=${RUBY21}
+			RUBY21=${RUBY21} \
+			RUBY22=${RUBY22}
 
 .if defined(USE_RUBY_RDOC)
 MAKE_ENV+=	RUBY_RDOC=${RUBY_RDOC}
@@ -581,19 +559,6 @@ BUILD_DEPENDS+=		${DEPEND_RUBY}
 .if !defined(RUBY_NO_RUN_DEPENDS)
 RUN_DEPENDS+=		${DEPEND_RUBY}
 .endif
-.endif
-
-.if defined(USE_RUBY_FEATURES)
-
-_use=	${USE_RUBY_FEATURES:Miconv}
-.if !empty(_use)
-.if (${RUBY_VER} == 1.9)
-BUILD_DEPENDS+=		${DEPEND_RUBY_ICONV}
-RUN_DEPENDS+=		${DEPEND_RUBY_ICONV}
-.endif
-.endif
-
-.undef _use
 .endif
 
 .if defined(USE_RAKE)

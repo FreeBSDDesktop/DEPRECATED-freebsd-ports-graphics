@@ -3,10 +3,11 @@
 
 PORTNAME=	libssh
 DISTVERSION=	0.6.3
+PORTREVISION=	1
 CATEGORIES=	security devel
 MASTER_SITES=	https://red.libssh.org/attachments/download/87/
 
-MAINTAINER=	fluffy@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library implementing the SSH1 and SSH2 protocol
 
 LICENSE=	LGPL21
@@ -48,5 +49,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|-lssh_threads|-lssh_threads ${PTHREAD_LIBS}|' \
 		-e 's|$${INCLUDE_INSTALL_DIR}|$${INCLUDE_INSTALL_DIR} ${PTHREAD_CFLAGS}|' \
 		${WRKSRC}/libssh_threads.pc.cmake
+	@${REINPLACE_CMD} -e 's| -pedantic-errors||' \
+		${WRKSRC}/cmake/Modules/DefineCompilerFlags.cmake
 
 .include <bsd.port.mk>

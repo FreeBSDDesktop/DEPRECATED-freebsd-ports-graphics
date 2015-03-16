@@ -3,12 +3,18 @@
 
 PORTNAME=	simage
 PORTVERSION=	1.7.0
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	graphics
 MASTER_SITES=	https://bitbucket.org/Coin3D/coin/downloads/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library with image format loaders and front-ends
+
+LICENSE=	MIT unknown
+LICENSE_COMB=	dual
+LICENSE_NAME_unknown=	mpeg2enc
+LICENSE_TEXT_unknown=	${FILESDIR}/LICENSE.mpeg2enc
+LICENSE_PERMS_unknown=	no-dist-sell no-pkg-sell
 
 LIB_DEPENDS=	libsndfile.so:${PORTSDIR}/audio/libsndfile \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis \

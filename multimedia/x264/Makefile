@@ -34,7 +34,7 @@ COMMENT=	Front-end for encoding H.264/MPEG-4 AVC video
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	yasm>=0.6.0:${PORTSDIR}/devel/yasm \
+BUILD_DEPENDS=	yasm>=1.2.0:${PORTSDIR}/devel/yasm \
 		bash:${PORTSDIR}/shells/bash
 LIB_DEPENDS=	libx264.so:${PORTSDIR}/multimedia/libx264
 
@@ -45,7 +45,6 @@ X264_GITVER=	${X264_COMMIT:C/^(.......).*$/\1/g}
 X264_SNAPSHOT=	20140827
 
 USES=		gmake pkgconfig tar:bzip2
-WRKSRC=		${WRKDIR}/${DISTNAME}
 USE_LDCONFIG=	yes
 HAS_CONFIGURE=	yes
 
@@ -70,6 +69,8 @@ CONFIGURE_ARGS+=	--extra-cflags="-I${LOCALBASE}/include" \
 			--extra-ldflags="-L${LOCALBASE}/lib" \
 			--disable-opencl \
 			--system-libx264
+
+CFLAGS_armv6+=		-mcpu=arm1136jf-s
 
 PLIST_FILES=	bin/x264
 PLIST_SUB+=	X264_BUILD=${X264_BUILD}

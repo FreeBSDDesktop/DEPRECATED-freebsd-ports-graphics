@@ -72,12 +72,8 @@ DEV_WARNING+=	"USE_GNOME=gnomehack is deprecated, please use USES=pathfix"
 DEV_WARNING+=	"USE_GNOME=desktopfileutils is deprecated, please use USES=desktop-file-utils"
 .endif
 
-.if defined(USE_KDE4) && ${USE_KDE4:Mkdehier}
-DEV_WARNING+=	"USE_KDE4=kdehier is deprecated, please use USE_KDE4=kdeprefix"
-.endif
-
 .if defined(LIB_DEPENDS) && ${LIB_DEPENDS:Nlib*}
-DEV_ERROR+=	"Please use the new format for LIB_DEPENDS, see handbook for details"
+DEV_ERROR+=	"All LIB_DEPENDS should use the new format and start out with lib.  (libfoo.so vs foo.so)"
 .endif
 
 .if defined(USE_TCL) || defined(USE_TCL_BUILD) || defined(USE_TCL_RUN) || defined(USE_TCL_WRAPPER) || \
@@ -101,10 +97,6 @@ DEV_WARNING+=	"MAN${a} macros are deprecated when using stage directory"
 DEV_WARNING+=	"MLINKS macros are deprecated when using stage directory"
 .endif
 
-.if defined(PYDISTUTILS_AUTOPLIST) && defined(PYTHON_PY3K_PLIST_HACK)
-DEV_WARNING+=	"PYDISTUTILS_AUTOPLIST features Python 3.x support, PYTHON_PY3K_PLIST_HACK is not required"
-.endif
-
 .if defined(_PREMKINCLUDED)
 DEV_ERROR+=	"you cannot include bsd.port[.pre].mk twice"
 .endif
@@ -123,30 +115,26 @@ DEV_WARNING+=	"LICENSE must not contain BSD, instead use BSD[234]CLAUSE"
 DEV_ERROR+=	"USE_PYDISTUTILS=easy_install is no longer supported, please use USE_PYDISTUTILS=yes"
 .endif
 
-.if defined(USE_PYDISTUTILS) && defined(PYDISTUTILS_AUTOPLIST) && defined(PYDISTUTILS_PKGNAME)
-DEV_WARNING+=	"PYDISTUTILS_PKGNAME has no effect for USE_PYDISTUTILS=yes and PYDISTUTILS_AUTOPLIST=yes"
-.endif
-
 .if defined(USE_PYTHON) && (${USE_PYTHON} == "yes" || ${USE_PYTHON:C/[-0-9.+]*//} == "")
 _PYTHON_VAL := ${USE_PYTHON}
 .if ${_PYTHON_VAL} != "yes"
-DEV_WARNING+=	"USE_PYTHON=${_PYTHON_VAL} is deprecated, please use USES=python:${_PYTHON_VAL}"
+DEV_ERROR+=	"USE_PYTHON=${_PYTHON_VAL} is no longer supported, please use USES=python:${_PYTHON_VAL}"
 .else
-DEV_WARNING+=	"USE_PYTHON=yes is deprecated, please use USES=python"
+DEV_ERROR+=	"USE_PYTHON=yes is no longer supported, please use USES=python"
 .endif
 .endif
 .if defined(USE_PYTHON_RUN)
 .if ${USE_PYTHON_RUN} != "yes"
-DEV_WARNING+=	"USE_PYTHON_RUN is deprecated, please use USES=python:${USE_PYTHON_RUN},run"
+DEV_ERROR+=	"USE_PYTHON_RUN is no longer supported, please use USES=python:${USE_PYTHON_RUN},run"
 .else
-DEV_WARNING+=	"USE_PYTHON_RUN is deprecated, please use USES=python:run"
+DEV_ERROR+=	"USE_PYTHON_RUN is no longer supported, please use USES=python:run"
 .endif
 .endif
 .if defined(USE_PYTHON_BUILD)
 .if ${USE_PYTHON_BUILD} != "yes"
-DEV_WARNING+=	"USE_PYTHON_BUILD is deprecated, please use USES=python:${USE_PYTHON_BUILD},build"
+DEV_ERROR+=	"USE_PYTHON_BUILD is no longer supported, please use USES=python:${USE_PYTHON_BUILD},build"
 .else
-DEV_WARNING+=	"USE_PYTHON_BUILD is deprecated, please use USES=python:build"
+DEV_ERROR+=	"USE_PYTHON_BUILD is no longer supported, please use USES=python:build"
 .endif
 .endif
 
@@ -162,10 +150,10 @@ SANITY_UNSUPPORTED=	USE_OPENAL USE_FAM USE_MAKESELF USE_ZIP USE_LHA USE_CMAKE \
 		USE_READLINE USE_ICONV PERL_CONFIGURE PERL_MODBUILD \
 		USE_PERL5_BUILD USE_PERL5_RUN USE_DISPLAY USE_FUSE \
 		USE_GETTEXT USE_GMAKE USE_SCONS USE_DRUPAL NO_INSTALL_MANPAGES \
-		INSTALLS_SHLIB
-SANITY_DEPRECATED=	USE_XZ USE_BZIP2 USE_PYDISTUTILS PYTHON_CONCURRENT_INSTALL \
+		INSTALLS_SHLIB USE_PYDISTUTILS PYTHON_CONCURRENT_INSTALL \
 		PYDISTUTILS_AUTOPLIST PYTHON_PY3K_PLIST_HACK PYDISTUTILS_NOEGGINFO \
-		USE_PYTHON_PREFIX PYTHON_PKGNAMESUFFIX
+		USE_PYTHON_PREFIX
+SANITY_DEPRECATED=	USE_XZ USE_BZIP2 PYTHON_PKGNAMESUFFIX
 
 USE_OPENAL_ALT=		USES=openal
 USE_FAM_ALT=		USES=fam

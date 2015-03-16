@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	squid
-PORTVERSION=	3.4.10
-PORTREVISION=	2
+PORTVERSION=	3.4.12
 CATEGORIES=	www ipv6
 MASTER_SITES=	http://www.squid-cache.org/Versions/v3/${PORTVERSION:R}/ \
 		http://www2.us.squid-cache.org/Versions/v3/${PORTVERSION:R}/ \
@@ -10,7 +9,7 @@ MASTER_SITES=	http://www.squid-cache.org/Versions/v3/${PORTVERSION:R}/ \
 		http://www.eu.squid-cache.org/Versions/v3/${PORTVERSION:R}/ \
 		http://www1.jp.squid-cache.org/Versions/v3/${PORTVERSION:R}/
 MASTER_SITE_SUBDIR=	squid
-DIST_SUBDIR=	squid3.4
+DIST_SUBDIR=	squid${PORTVERSION:R}
 
 PATCH_SITES=	http://www.squid-cache.org/%SUBDIR%/ \
 		http://www2.us.squid-cache.org/%SUBDIR%/ \
@@ -19,7 +18,7 @@ PATCH_SITES=	http://www.squid-cache.org/%SUBDIR%/ \
 		http://www1.jp.squid-cache.org/%SUBDIR%/ \
 		http://master.squid-cache.org/~amosjeffries/patches/:nosid
 PATCH_SITE_SUBDIR=	Versions/v3/${PORTVERSION:R}/changesets
-#PATCHFILES=	
+PATCHFILES=	# empty
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	HTTP Caching Proxy
@@ -98,6 +97,7 @@ SSL_CONFIGURE_ENABLE=		ssl
 SSL_CRTD_CONFIGURE_ENABLE=	ssl-crtd
 STACKTRACES_CONFIGURE_ENABLE=	stacktraces
 STACKTRACES_LIB_DEPENDS=	libunwind.so:${PORTSDIR}/devel/libunwind
+STACKTRACES_CONFIGURE_ON=	--disable-strict-error-checking
 TP_IPFW_CONFIGURE_ENABLE=	ipfw-transparent
 TP_IPF_CONFIGURE_ENABLE=	ipf-transparent
 TP_PF_CONFIGURE_ENABLE=		pf-transparent
@@ -267,7 +267,6 @@ diskio_modules+=	DiskDaemon
 .if ${PORT_OPTIONS:MFS_ROCK}
 storage_schemes+=	rock
 .endif
-
 
 CONFIGURE_ARGS+=	--enable-storeio="${storage_schemes}" \
 			--enable-disk-io="${diskio_modules}"

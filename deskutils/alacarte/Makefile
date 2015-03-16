@@ -4,12 +4,12 @@
 
 PORTNAME=	alacarte
 PORTVERSION=	3.11.91
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
 
-MAINTAINER=	gnome@freebsd.org
+MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Freedesktop compliant menu editor for GNOME
 
 BUILD_DEPENDS=	docbook-xsl>=0:${PORTSDIR}/textproc/docbook-xsl
@@ -21,6 +21,8 @@ INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
+
+PLIST_SUB+=	PYVER=${PYTHON_VER:S/.//}
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|from gi._glib import|from gi.repository.GLib import|g' \

@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	cups-filters
-PORTVERSION=	1.0.61
-PORTREVISION=	2
+PORTVERSION=	1.0.67
 CATEGORIES=	print
 MASTER_SITES=	http://www.openprinting.org/download/cups-filters/
 
@@ -19,6 +18,7 @@ LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libqpdf.so:${PORTSDIR}/print/qpdf \
 		libdbus-1.so:${PORTSDIR}/devel/dbus \
 		libcups.so:${PORTSDIR}/print/cups-client \
+		libcupsimage.so:${PORTSDIR}/print/cups-image \
 		libfreetype.so:${PORTSDIR}/print/freetype2 \
 		libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig \
 		libpoppler.so:${PORTSDIR}/graphics/poppler
@@ -34,6 +34,7 @@ CUPS_SOCKET?=	/var/run/cups.sock
 CONFIGURE_ARGS=	--with-cups-domainsocket=${CUPS_SOCKET}
 CONFIGURE_ENV=	ZLIB_CFLAGS="-I/usr/include" ZLIB_LIBS="-lz" \
 		LIBQPDF_CFLAGS="-I${LOCALBASE}/include" LIBQPDF_LIBS="-lqpdf"
+INSTALL_TARGET=	install-strip
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -59,8 +60,7 @@ post-configure:
 
 post-install:
 	@${RM} -rf ${STAGEDIR}${PREFIX}/libexec/cups/filter/foomatic-rip \
+		${STAGEDIR}${PREFIX}/bin/foomatic-rip \
 		${STAGEDIR}${PREFIX}/man/man1/foomatic-rip.1
-	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcupsfilters.so.1 \
-		${STAGEDIR}${PREFIX}/lib/libfontembed.so.1
 
 .include <bsd.port.mk>

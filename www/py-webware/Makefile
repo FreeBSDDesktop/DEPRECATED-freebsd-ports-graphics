@@ -13,7 +13,7 @@ COMMENT=	Versatile web application server written in Python
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mx-base>0:${PORTSDIR}/lang/py-mx-base
 
-USE_PYTHON=	2
+USES=		python:2
 NO_BUILD=	yes
 
 WEBWARE_USER?=	webkit
@@ -49,8 +49,7 @@ do-install:
 	${SED} -e "s|%%WEBKIT_HOME_DIR%%|${WEBKIT_HOME_DIR}|g" \
 		< ${FILESDIR}/webkit.sh.tmpl \
 		> ${STAGEDIR}${PREFIX}/etc/rc.d/webkit.sh-dist
-	${CHMOD} 755 ${STAGEDIR}${PREFIX}/etc/rc.d/webkit.sh-dist && \
-	${CHOWN} root:wheel ${STAGEDIR}${PREFIX}/etc/rc.d/webkit.sh-dist
+	${CHMOD} 755 ${STAGEDIR}${PREFIX}/etc/rc.d/webkit.sh-dist
 
 post-install:
 	@ ${ECHO} '---> Compiling Python files and making webkit home directory'

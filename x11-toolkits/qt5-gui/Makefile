@@ -2,7 +2,7 @@
 
 PORTNAME=	gui
 DISTVERSION=	${QT5_VERSION}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	x11-toolkits graphics
 PKGNAMEPREFIX=	qt5-
 
@@ -58,7 +58,7 @@ QT_CONFIG=	accessibility accessibility-atspi-bridge dbus \
 # Inherited from Qt 4.
 .if defined(PACKAGE_BUILDING)
 RUN_DEPENDS+=	${LOCALBASE}/lib/X11/fonts/encodings/encodings.dir:${PORTSDIR}/x11-fonts/encodings \
-		${LOCALBASE}/lib/X11/fonts/TTF/luximb.ttf:${PORTSDIR}/x11-fonts/xorg-fonts-truetype
+		xorg-fonts-truetype>0:${PORTSDIR}/x11-fonts/xorg-fonts-truetype
 .endif
 
 CFLAGS_powerpc64=	-mminimal-toc

@@ -3,7 +3,7 @@
 
 PORTNAME=	gnustep-base
 PORTVERSION=	1.24.6
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	lang devel gnustep
 MASTER_SITES=	${MASTER_SITE_GNUSTEP}
 MASTER_SITE_SUBDIR=	core
@@ -53,6 +53,7 @@ CFLAGS+=	-I${LOCALBASE}/include/libxml2/libxml -DHAVE_DLADDR=1
 BREAKS_IF_PEDANTIC=	yes
 PLIST_SUB+=	LOCALBASE=${LOCALBASE}
 ETCDIR=		${LOCALBASE}/etc
+STAGEHEADER=	${STAGEDIR}${PREFIX}/GNUstep/System/Library/Headers
 
 PLIST_SUB+=	BASEVERSION=${PORTVERSION:C/[.][0-9]*$//1}
 
@@ -74,5 +75,7 @@ post-extract:
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/gdomap_if ${STAGEDIR}${ETCDIR}
+	${RMDIR} ${STAGEHEADER}/gnustep/base
+	${RMDIR} ${STAGEHEADER}/GNUstepBase/unicode
 
 .include <bsd.port.mk>

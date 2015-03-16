@@ -134,8 +134,6 @@
     SUBDIR += edje_viewer
     SUBDIR += electrix
     SUBDIR += enblend
-    SUBDIR += ender
-    SUBDIR += enesim
     SUBDIR += entangle
     SUBDIR += eog
     SUBDIR += eog-plugins
@@ -146,7 +144,6 @@
     SUBDIR += epix
     SUBDIR += eps2png
     SUBDIR += epstool
-    SUBDIR += etch
     SUBDIR += eterm-bg
     SUBDIR += evas_generic_loaders
     SUBDIR += evas_generic_loaders-gst
@@ -401,11 +398,13 @@
     SUBDIR += kipi-plugin-calendar
     SUBDIR += kipi-plugin-debianscreenshots
     SUBDIR += kipi-plugin-dngconverter
+    SUBDIR += kipi-plugin-dropbox
     SUBDIR += kipi-plugin-expoblending
     SUBDIR += kipi-plugin-facebook
     SUBDIR += kipi-plugin-flashexport
     SUBDIR += kipi-plugin-flickrexport
     SUBDIR += kipi-plugin-galleryexport
+    SUBDIR += kipi-plugin-googledrive
     SUBDIR += kipi-plugin-gpssync
     SUBDIR += kipi-plugin-htmlexport
     SUBDIR += kipi-plugin-imageshackexport
@@ -465,6 +464,7 @@
     SUBDIR += libart_lgpl
     SUBDIR += libaux
     SUBDIR += libboard
+    SUBDIR += libbpg
     SUBDIR += libcaca
     SUBDIR += libcdr01
     SUBDIR += libchamplain
@@ -513,6 +513,7 @@
     SUBDIR += libpuzzle
     SUBDIR += libqrencode
     SUBDIR += librasterlite
+    SUBDIR += librasterlite2
     SUBDIR += libraw
     SUBDIR += libreatlas
     SUBDIR += librsvg2
@@ -621,6 +622,7 @@
     SUBDIR += osgearth
     SUBDIR += oyranos
     SUBDIR += p5-Acme-Steganography-Image-Png
+    SUBDIR += p5-Barcode-ZBar
     SUBDIR += p5-CAD-Drawing
     SUBDIR += p5-CAD-Drawing-Template
     SUBDIR += p5-Cairo
@@ -651,7 +653,6 @@
     SUBDIR += p5-Geo-GDAL
     SUBDIR += p5-Geo-GML
     SUBDIR += p5-Geo-Gpx
-    SUBDIR += p5-Geo-KML
     SUBDIR += p5-Geo-Point
     SUBDIR += p5-Geo-Proj4
     SUBDIR += p5-Geometry-Primitive
@@ -945,6 +946,7 @@
     SUBDIR += sdl_gfx
     SUBDIR += sdl_image
     SUBDIR += sdl_ttf
+    SUBDIR += sdump
     SUBDIR += seam-carving-gui
     SUBDIR += seejpeg
     SUBDIR += seom
@@ -1002,6 +1004,7 @@
     SUBDIR += uniconvw
     SUBDIR += unpaper
     SUBDIR += urt
+    SUBDIR += variety
     SUBDIR += vcg
     SUBDIR += viewnior
     SUBDIR += vigra
@@ -1009,6 +1012,7 @@
     SUBDIR += visprint
     SUBDIR += volpack
     SUBDIR += vp
+    SUBDIR += waffle
     SUBDIR += webp
     SUBDIR += whirlgif
     SUBDIR += white_dune
@@ -1048,9 +1052,11 @@
     SUBDIR += yed
     SUBDIR += yukon
     SUBDIR += zathura
+    SUBDIR += zathura-cb
     SUBDIR += zathura-djvu
     SUBDIR += zathura-pdf-mupdf
     SUBDIR += zathura-pdf-poppler
+    SUBDIR += zathura-ps
     SUBDIR += zbar
     SUBDIR += zgv
     SUBDIR += zimg

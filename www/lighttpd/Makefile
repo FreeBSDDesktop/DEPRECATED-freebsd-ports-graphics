@@ -7,7 +7,7 @@ PORTREVISION=	5
 CATEGORIES?=	www
 MASTER_SITES?=	http://download.lighttpd.net/lighttpd/releases-1.4.x/
 
-MAINTAINER?=	mm@FreeBSD.org
+MAINTAINER?=	mat@FreeBSD.org
 COMMENT?=	Secure, fast, compliant, and flexible Web Server
 
 .if !defined(_BUILDING_LIGHTTPD_MODULE)
@@ -18,7 +18,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS+=	libpcre.so:${PORTSDIR}/devel/pcre
 
 GNU_CONFIGURE=	yes
-USES=		gmake libtool pkgconfig tar:bzip2
+USES=		gmake libtool pkgconfig tar:xz
 
 USE_AUTOTOOLS=	autoconf autoheader aclocal automake
 AUTOMAKE_ARGS=	-a -c -f

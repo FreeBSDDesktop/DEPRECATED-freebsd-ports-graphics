@@ -2,12 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	ntp
-PORTVERSION=	4.2.8
-PORTREVISION=	3
+PORTVERSION=	4.2.8p1
 CATEGORIES=	net ipv6
-MASTER_SITES=	ftp://ftp.udel.edu/pub/ntp/ntp4/ \
-		http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ \
-		ftp://ftp.archive.de.uu.net/pub/unix/ntp/ntp4/ \
+MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ \
+		http://archive.ntp.org/ntp4/ntp-4.2/ \
 		ftp://ftp.netlab.is.tsukuba.ac.jp/pub/network/ntp/ntp4/
 DISTNAME=	${PORTNAME}-${PORTVERSION:S/P/p/:S/.r/-RC/}
 
@@ -47,8 +45,6 @@ CONFIGURE_ARGS+=	--with-openssl-incdir=${OPENSSLINC} \
 CONFIGURE_ARGS+=	--enable-${D}
 .endif
 .endfor
-
-DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}4
 
 # XXX Temporary hack. Remember to remove this next commit.
 post-extract:

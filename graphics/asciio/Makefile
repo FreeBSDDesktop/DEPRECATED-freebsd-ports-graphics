@@ -3,10 +3,10 @@
 
 PORTNAME=	asciio
 PORTVERSION=	1.02.71
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	http://mirror.switch.ch/ftp/mirror/CPAN/authors/id/N/NK/NKH/ \
-		CRITICAL
+		LOCAL/ehaupt
 DISTNAME=	App-Asciio-${PORTVERSION}
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -31,7 +31,8 @@ BUILD_DEPENDS=	p5-Directory-Scratch>=0:${PORTSDIR}/devel/p5-Directory-Scratch \
 		p5-Sub-Exporter>=0:${PORTSDIR}/devel/p5-Sub-Exporter \
 		p5-Eval-Context>=0:${PORTSDIR}/devel/p5-Eval-Context \
 		p5-Check-ISA>=0:${PORTSDIR}/devel/p5-Check-ISA
-RUN_DEPENDS:=	${BUILD_DEPENDS}
+RUN_DEPENDS:=	${BUILD_DEPENDS} \
+		p5-Class-ISA>=0:${PORTSDIR}/devel/p5-Class-ISA
 
 USES=		perl5
 USE_PERL5=	modbuild

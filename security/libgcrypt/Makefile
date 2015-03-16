@@ -1,13 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	libgcrypt
-PORTVERSION=	1.6.1
-PORTREVISION=	5
+PORTVERSION=	1.6.3
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GNUPG}
 MASTER_SITE_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	umq@ueo.co.jp
+MAINTAINER=	cpm@fbsd.es
 COMMENT=	General purpose crypto library based on code used in GnuPG
 
 LICENSE=	GPLv2 LGPL21
@@ -22,7 +21,6 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-drng-support
 CONFIGURE_ENV=	MAKEINFO="makeinfo --no-split"
 CONFIGURE_TARGET=${ARCH:S/amd64/x86_64/}-portbld-${OPSYS:tl}${OSREL}
-INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
 
 DOCS=		AUTHORS ChangeLog ChangeLog-2011 INSTALL NEWS README \
@@ -54,8 +52,15 @@ USE_GCC=	any
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-configure
 .endif
 
-.if ${PORT_OPTIONS:MDOCS}
+# Fix crash at cipher/salsa20.c module on amd64
+.if ${ARCH} == "amd64" && exists(/usr/bin/clang)
+CFLAGS:=	${CFLAGS:N-O*} -O2
+.endif
+
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${PORTNAME}.so.20.0.3
+
+.if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
 .endif

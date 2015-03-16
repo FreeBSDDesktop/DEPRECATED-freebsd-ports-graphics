@@ -3,7 +3,7 @@
 #   $MCom: ports/trunk/x11/gnome-shell/Makefile 20036 2014-11-03 08:23:27Z kwm $
 
 PORTNAME=	gnome-shell
-PORTVERSION=	3.14.2
+PORTVERSION=	3.14.3
 CATEGORIES=	x11 gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -31,6 +31,8 @@ RUN_DEPENDS=	py*-dbus>=0:${PORTSDIR}/devel/py-dbus \
 		gdm>=0:${PORTSDIR}/x11/gdm \
 		gnome-control-center:${PORTSDIR}/sysutils/gnome-control-center \
 		ca_root_nss>=0:${PORTSDIR}/security/ca_root_nss
+
+PORTSCOUT=	limitw:1,even
 
 USES=		compiler:c11 gettext gmake libtool pathfix pkgconfig \
 		tar:xz webplugin:native

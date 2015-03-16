@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	exabgp
-PORTVERSION=	3.4.3
+PORTVERSION=	3.4.8
 CATEGORIES=	net
 MASTER_SITES=	GH GHC \
 		http://mirrors.rit.edu/zi/
@@ -15,8 +15,9 @@ LICENSE=	BSD3CLAUSE
 USE_GITHUB=	yes
 GH_ACCOUNT=	Exa-Networks
 GH_TAGNAME=	${PORTVERSION}
-GH_COMMIT=	500b9b1
-USES=		tar:tgz python
+GH_COMMIT=	70c4305
+GH_REVNUM=	5375472
+USES=		tar:tgz python:2
 SUB_FILES=	pkg-message exabgp.sh
 SUB_LIST=	PYTHON_LIBDIR=${PYTHON_LIBDIR} PYTHON_CMD=${PYTHON_CMD} \
 		PYTHON_SITELIBDIR=${PYTHON_SITELIBDIR}
@@ -30,6 +31,8 @@ OPTIONS_DEFINE=	EXAMPLES
 .include <bsd.port.options.mk>
 
 post-extract:
+	@${LN} -s ${WRKDIR}/${GH_ACCOUNT}-${PORTNAME}-${GH_REVNUM} \
+		${WRKSRC}
 	@${MV} -f ${WRKSRC}/etc/systemd ${WRKSRC}
 
 do-build:

@@ -3,7 +3,7 @@
 #    $MCom: ports/trunk/x11/gnome-shell-extensions/Makefile 20075 2014-11-13 06:53:37Z gusi $
 
 PORTNAME=	gnome-shell-extensions
-PORTVERSION=	3.14.2
+PORTVERSION=	3.14.3
 CATEGORIES=	x11 gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -13,6 +13,8 @@ COMMENT=	GNOME desktop shell extensions
 
 LIB_DEPENDS=	libgtop-2.0.so:${PORTSDIR}/devel/libgtop
 RUN_DEPENDS=	gnome-shell>=3.12.0:${PORTSDIR}/x11/gnome-shell
+
+PORTSCOUT=	limitw:1,even
 
 USES=		gettext gmake pathfix pkgconfig tar:xz
 USE_GNOME=	glib20 gnomedesktop3 intlhack

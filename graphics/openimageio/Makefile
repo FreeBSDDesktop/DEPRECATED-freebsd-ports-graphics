@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	openimageio
-PORTVERSION=	1.4.14
-PORTREVISION?=	1
+PORTVERSION=	1.4.15
+PORTREVISION?=	0
 CATEGORIES?=	graphics multimedia
 
 MAINTAINER?=	FreeBSD@Shaneware.biz
@@ -15,12 +15,12 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	OpenImageIO
 GH_PROJECT=	oiio
 GH_TAGNAME=	Release-${PORTVERSION}
-GH_COMMIT=	08ce694
+GH_COMMIT=	99a9988
 
 # fbm also installs bin/idiff
 CONFLICTS=	fbm-[0-9]*
 
-USES=		cmake:outsource
+USES=		cmake:outsource compiler
 CMAKE_ARGS=	-DBUILDSTATIC:BOOL=OFF \
 		-DLINKSTATIC:BOOL=OFF \
 		-DNOTHREADS:BOOL=OFF \
@@ -71,6 +71,13 @@ CMAKE_ENV+=	QTDIR=${QT_PREFIX} QT_INCLUDES=${QT_INCDIR}
 CMAKE_ARGS+=	-DUSE_OPENGL:BOOL=OFF -DUSE_QT:BOOL=OFF
 .endif
 
+.include <bsd.port.pre.mk>
+
+.if ${COMPILER_TYPE} == gcc
+# GCC 4.2 does not link with other ports that now use GCC 4.9 or later.
+USE_GCC=	yes
+.endif
+
 post-patch:
 	@${REINPLACE_CMD} -e 's|share/doc/OpenImageIO|${DOCSDIR}|g' \
 		${WRKSRC}/CMakeLists.txt
@@ -81,4 +88,4 @@ post-install:
 	${LN} -sf libOpenImageIO_Util.so.1.4 ${STAGEDIR}${PREFIX}/lib/libOpenImageIO_Util.so.1
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

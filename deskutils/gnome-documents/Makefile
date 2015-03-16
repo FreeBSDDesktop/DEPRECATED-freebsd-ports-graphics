@@ -1,9 +1,8 @@
 # Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
 # $FreeBSD$
-#    $MCom: ports/trunk/deskutils/gnome-documents/Makefile 20001 2014-10-20 11:22:53Z gusi $
 
 PORTNAME=	gnome-documents
-PORTVERSION=	3.14.1
+PORTVERSION=	3.14.2
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -24,7 +23,7 @@ LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
 		libgjs.so:${PORTSDIR}/lang/gjs \
 		libtracker-sparql-1.0.so:${PORTSDIR}/sysutils/tracker \
 		libzapojit-0.0.so:${PORTSDIR}/net/libzapojit
-RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/dbus-python.pc:${PORTSDIR}/devel/py-dbus \
+RUN_DEPENDS=	py2?-dbus>0:${PORTSDIR}/devel/py-dbus \
 		${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss \
 		unoconv:${PORTSDIR}/textproc/unoconv
 

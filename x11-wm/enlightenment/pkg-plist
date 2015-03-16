@@ -225,7 +225,9 @@ lib/enlightenment/modules/conf_window_remembers/e-module-conf_window_remembers.e
 lib/enlightenment/modules/conf_window_remembers/%%ENLIGHTENMENT_ARCH%%/module.so
 lib/enlightenment/modules/conf_window_remembers/module.desktop
 lib/enlightenment/modules/cpufreq/e-module-cpufreq.edj
+@mode 4555
 lib/enlightenment/modules/cpufreq/%%ENLIGHTENMENT_ARCH%%/freqset
+@mode
 lib/enlightenment/modules/cpufreq/%%ENLIGHTENMENT_ARCH%%/module.so
 lib/enlightenment/modules/cpufreq/module.desktop
 lib/enlightenment/modules/everything/e-module-everything-start.edj
@@ -292,6 +294,10 @@ lib/enlightenment/modules/tasks/module.desktop
 lib/enlightenment/modules/teamwork/e-module-teamwork.edj
 lib/enlightenment/modules/teamwork/%%ENLIGHTENMENT_ARCH%%/module.so
 lib/enlightenment/modules/teamwork/module.desktop
+lib/enlightenment/modules/temperature/e-module-temperature.edj
+lib/enlightenment/modules/temperature/%%ENLIGHTENMENT_ARCH%%/module.so
+lib/enlightenment/modules/temperature/%%ENLIGHTENMENT_ARCH%%/tempget
+lib/enlightenment/modules/temperature/module.desktop
 lib/enlightenment/modules/tiling/e-module-tiling.edj
 lib/enlightenment/modules/tiling/%%ENLIGHTENMENT_ARCH%%/module.so
 lib/enlightenment/modules/tiling/module.desktop

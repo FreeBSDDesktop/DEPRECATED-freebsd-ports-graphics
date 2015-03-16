@@ -907,7 +907,7 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  directories to be searched for shared libraries.
 #				  Otherwise, this is a list of directories to be added to that
 #				  list. The directory names are written to
-#				  ${PREFIX}/libdata/ldconfig/${UNIQUENAME} which is then
+#				  ${LOCALBASE}/libdata/ldconfig/${UNIQUENAME} which is then
 #				  used by the ldconfig startup script.
 #				  This mechanism replaces ldconfig scripts installed by some
 #				  ports, often under such names as 000.${UNQUENAME}.sh.
@@ -916,7 +916,7 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  version, and the directory list given will be ignored.
 # USE_LDCONFIG32
 # 				- Same as USE_LDCONFIG but the target file is
-# 				  ${PREFIX}/libdata/ldconfig32/${UNIQUENAME} instead.
+# 				  ${LOCALBASE}/libdata/ldconfig32/${UNIQUENAME} instead.
 # 				  Note: that should only be used on 64-bit architectures.
 #
 # DOCSDIR		- Name of the directory to install the packages docs in.
@@ -1416,10 +1416,6 @@ PKGCOMPATDIR?=		${LOCALBASE}/lib/compat/pkg
 .include "${PORTSDIR}/Mk/bsd.php.mk"
 .endif
 
-.if defined(USE_PYTHON) || defined(USE_PYTHON_BUILD) || defined(USE_PYTHON_RUN)
-USES+=	python
-.endif
-
 .if defined(USE_FPC) || defined(WANT_FPC_BASE) || defined(WANT_FPC_ALL)
 .include "${PORTSDIR}/Mk/bsd.fpc.mk"
 .endif
@@ -1470,10 +1466,6 @@ USES+=	python
 
 .if defined(USE_SDL) || defined(WANT_SDL)
 .include "${PORTSDIR}/Mk/bsd.sdl.mk"
-.endif
-
-.if defined(USE_XFCE)
-.include "${PORTSDIR}/Mk/bsd.xfce.mk"
 .endif
 
 .if defined(USE_KDE4) || defined(KDE4_BUILDENV)
@@ -1770,9 +1762,12 @@ RUN_DEPENDS+=	${LINUX_BASE_PORT}
 PKG_IGNORE_DEPENDS?=		'this_port_does_not_exist'
 
 _GL_gbm_LIB_DEPENDS=		libgbm.so:${PORTSDIR}/graphics/gbm
-_GL_glesv2_LIB_DEPENDS=		libGLESv2.so:${PORTSDIR}/graphics/libglesv2
-_GL_egl_LIB_DEPENDS=		libEGL.so:${PORTSDIR}/graphics/libEGL
-_GL_gl_LIB_DEPENDS=		libGL.so:${PORTSDIR}/graphics/libGL
+_GL_glesv2_BUILD_DEPENDS=		libglesv2>0:${PORTSDIR}/graphics/libglesv2
+_GL_glesv2_RUN_DEPENDS=		libglesv2>0:${PORTSDIR}/graphics/libglesv2
+_GL_egl_BUILD_DEPENDS=		libEGL>0:${PORTSDIR}/graphics/libEGL
+_GL_egl_RUN_DEPENDS=		libEGL>0:${PORTSDIR}/graphics/libEGL
+_GL_gl_BUILD_DEPENDS=		libGL>0:${PORTSDIR}/graphics/libGL
+_GL_gl_RUN_DEPENDS=		libGL>0:${PORTSDIR}/graphics/libGL
 _GL_gl_USE_XORG=		glproto dri2proto
 _GL_glew_LIB_DEPENDS=		libGLEW.so:${PORTSDIR}/graphics/glew
 _GL_glu_LIB_DEPENDS=		libGLU.so:${PORTSDIR}/graphics/libGLU
@@ -1904,10 +1899,6 @@ _FORCE_POST_PATTERNS=	rmdir kldxref mkfontscale mkfontdir fc-cache \
 
 .if defined(USE_MATE)
 .include "${PORTSDIR}/Mk/bsd.mate.mk"
-.endif
-
-.if defined(USE_XFCE)
-.include "${PORTSDIR}/Mk/bsd.xfce.mk"
 .endif
 
 .if defined(USE_KDE4)
@@ -4477,18 +4468,8 @@ lib-depends:
 		target="${DEPENDS_TARGET}"; \
 		depends_args="${DEPENDS_ARGS}"; \
 		${ECHO_MSG}  -n "===>   ${PKGNAME} depends on shared library: $${lib}" ; \
-		found=0 ; \
-		dirs="${LIB_DIRS} `${CAT} ${LOCALBASE}/libdata/ldconfig/* 2>/dev/null || : `" ; \
-		for libdir in $$dirs; do \
-			test -f $${libdir}/$${lib} || continue; \
-			if [ -x /usr/bin/file ]; then \
-				_LIB_FILE=`realpath $${libdir}/$${lib}`; \
-				[ `file -b -L --mime-type $${_LIB_FILE}` = "application/x-sharedlib" ] || continue ; \
-			fi ; \
-			found=1 ; \
-			${ECHO_MSG} -n " - found ($${_LIB_FILE})"; \
-		done ; \
-		if [ $${found} -eq 0 ]; then \
+		libfile=`${SETENV} LIB_DIRS="${LIB_DIRS}" LOCALBASE="${LOCALBASE}" ${SH} ${SCRIPTSDIR}/find-lib.sh $${lib}` ; \
+		if [ -z "$${libfile}" ]; then \
 			${ECHO_MSG} " - not found"; \
 			${ECHO_MSG} "===>    Verifying for $$lib in $$dir"; \
 			if [ ! -d "$$dir" ] ; then \
@@ -4497,7 +4478,7 @@ lib-depends:
 				${_INSTALL_DEPENDS} \
 			fi ; \
 		else \
-			${ECHO_MSG}; \
+			${ECHO_MSG} " - found ($${libfile})"; \
 		fi ; \
 	done
 .endif
@@ -4805,9 +4786,11 @@ PACKAGE-DEPENDS-LIST?= \
 	done
 
 ACTUAL-PACKAGE-DEPENDS?= \
-	if [ "${_LIB_RUN_DEPENDS}" != "  " ]; then \
-		${PKG_QUERY} "\"%n\": {origin: %o, version: \"%v\"}" " " ${_LIB_RUN_DEPENDS:C,[^:]*:([^:]*):?.*,\1,:C,${PORTSDIR}/,,} 2>/dev/null || : ; \
-	fi
+	depfiles="" ; \
+	for lib in ${LIB_DEPENDS:C/\:.*//}; do \
+		depfiles="$$depfiles `${SETENV} LIB_DIRS="${LIB_DIRS}" LOCALBASE="${LOCALBASE}" ${SH} ${SCRIPTSDIR}/find-lib.sh $${lib}`" ; \
+	done ; \
+	${SETENV} PKG_BIN="${PKG_BIN}" ${SH} ${SCRIPTSDIR}/actual-package-depends.sh $${depfiles} ${RUN_DEPENDS:C/(.*)\:.*/"\1"/}
 
 create-manifest:
 	@${MKDIR} ${METADIR}; \
@@ -5916,6 +5899,7 @@ _BUILD_SEQ=		build-message pre-build pre-build-script do-build \
 _STAGE_DEP=		build
 _STAGE_SEQ=		stage-message stage-dir run-depends lib-depends apply-slist pre-install generate-plist \
 				pre-su-install
+# ${POST_PLIST} must be after anything that modifies TMPPLIST
 .if defined(NEED_ROOT)
 _STAGE_SUSEQ=	create-users-groups do-install \
 				kmod-post-install fix-perl-things \
@@ -5924,7 +5908,7 @@ _STAGE_SUSEQ=	create-users-groups do-install \
 				install-rc-script install-ldconfig-file install-license \
 				install-desktop-entries add-plist-info add-plist-docs \
 				add-plist-examples add-plist-data add-plist-post \
-				move-uniquefiles-plist
+				move-uniquefiles-plist ${POST_PLIST}
 .if defined(DEVELOPER)
 _STAGE_SUSEQ+=	stage-qa
 .endif
@@ -5936,7 +5920,7 @@ _STAGE_SEQ+=	create-users-groups do-install \
 				install-rc-script install-ldconfig-file install-license \
 				install-desktop-entries add-plist-info add-plist-docs \
 				add-plist-examples add-plist-data add-plist-post \
-				move-uniquefiles-plist fix-perl-things
+				move-uniquefiles-plist ${POST_PLIST}
 .if defined(DEVELOPER)
 _STAGE_SEQ+=	stage-qa
 .endif

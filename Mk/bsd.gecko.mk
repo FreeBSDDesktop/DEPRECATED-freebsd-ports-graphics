@@ -91,6 +91,10 @@ CPE_VENDOR?=mozilla
 USE_PERL5=	build
 USE_XORG=	xext xrender xt
 
+.if ${MOZILLA} != "libxul"
+BUNDLE_LIBS=	yes
+.endif
+
 MOZILLA_SUFX?=	none
 MOZSRC?=	${WRKSRC}
 WRKSRC?=	${WRKDIR}/mozilla
@@ -126,7 +130,7 @@ LDFLAGS+=		-L${LOCALBASE}/lib -Wl,-rpath,${PREFIX}/lib/${MOZILLA}
 
 # use jemalloc 3.0.0 API for stats/tuning
 MOZ_EXPORT+=	MOZ_JEMALLOC3=1
-.if ${OSVERSION} < 1000012
+.if ${OSVERSION} < 1000012 || ${MOZILLA_VER:R:R} >= 37
 MOZ_OPTIONS+=	--enable-jemalloc
 .endif
 
@@ -142,7 +146,7 @@ event_MOZ_OPTIONS=	--with-system-libevent
 ffi_LIB_DEPENDS=	libffi.so:${PORTSDIR}/devel/libffi
 ffi_MOZ_OPTIONS=	--enable-system-ffi
 
-.if exists(${FILESDIR}/patch-bug847568) || exists(${FILESDIR}/patch-z-bug847568)
+.if exists(${FILESDIR}/patch-bug847568)
 graphite_LIB_DEPENDS=	libgraphite2.so:${PORTSDIR}/graphics/graphite2
 graphite_MOZ_OPTIONS=	--with-system-graphite2
 
@@ -168,7 +172,7 @@ nspr_MOZ_OPTIONS=	--with-system-nspr
 nss_LIB_DEPENDS=	libnss3.so:${PORTSDIR}/security/nss
 nss_MOZ_OPTIONS=	--with-system-nss
 
-.if exists(${FILESDIR}/patch-z-bug517422) || exists(${FILESDIR}/patch-zz-bug517422)
+.if exists(${FILESDIR}/patch-z-bug517422)
 opus_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
 opus_MOZ_OPTIONS=	--with-system-opus
 .endif
@@ -179,7 +183,7 @@ pixman_MOZ_OPTIONS=	--enable-system-pixman
 png_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 png_MOZ_OPTIONS=	--with-system-png=${LOCALBASE}
 
-.if exists(${FILESDIR}/patch-z-bug517422) || exists(${FILESDIR}/patch-zz-bug517422)
+.if exists(${FILESDIR}/patch-z-bug517422)
 soundtouch_LIB_DEPENDS=	libSoundTouch.so:${PORTSDIR}/audio/soundtouch
 soundtouch_MOZ_OPTIONS=	--with-system-soundtouch
 
@@ -191,7 +195,7 @@ speex_MOZ_OPTIONS=	--with-system-speex
 sqlite_LIB_DEPENDS=	libsqlite3.so:${PORTSDIR}/databases/sqlite3
 sqlite_MOZ_OPTIONS=	--enable-system-sqlite
 
-.if exists(${FILESDIR}/patch-z-bug517422) || exists(${FILESDIR}/patch-zz-bug517422)
+.if exists(${FILESDIR}/patch-z-bug517422)
 # XXX disabled: update to 1.2.x or review backported fixes
 theora_LIB_DEPENDS=	libtheora.so:${PORTSDIR}/multimedia/libtheora
 theora_MOZ_OPTIONS=	--with-system-theora
@@ -280,6 +284,10 @@ MOZ_OPTIONS+=	--enable-optimize
 MOZ_OPTIONS+=	--disable-optimize
 .endif
 
+.if ${PORT_OPTIONS:MCANBERRA}
+RUN_DEPENDS+=	libcanberra>0:${PORTSDIR}/audio/libcanberra
+.endif
+
 .if ${PORT_OPTIONS:MDBUS}
 BUILD_DEPENDS+=	libnotify>0:${PORTSDIR}/devel/libnotify
 LIB_DEPENDS+=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
@@ -316,15 +324,6 @@ USE_GNOME+=		libgnomeui:build
 MOZ_OPTIONS+=	--enable-gnomeui
 .else
 MOZ_OPTIONS+=	--disable-gnomeui
-.endif
-
-.if ${PORT_OPTIONS:MGNOMEVFS2}
-BUILD_DEPENDS+=	${gnomevfs2_DETECT}:${gnomevfs2_LIB_DEPENDS:C/.*://}
-USE_GNOME+=		gnomevfs2:build
-MOZ_OPTIONS+=	--enable-gnomevfs
-MOZ_OPTIONS:=	${MOZ_OPTIONS:C/(extensions)=(.*)/\1=\2,gnomevfs/}
-.else
-MOZ_OPTIONS+=	--disable-gnomevfs
 .endif
 
 .if ${PORT_OPTIONS:MLIBPROXY}
@@ -534,10 +533,9 @@ gecko-post-patch:
 	@if [ -f ${WRKSRC}/config/baseconfig.mk ] ; then \
 		${REINPLACE_CMD} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
 			${WRKSRC}/config/baseconfig.mk; \
-	else \
-		${REINPLACE_CMD} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
-			${WRKSRC}/config/autoconf.mk.in; \
 	fi
+	@${REINPLACE_CMD} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
+			${MOZSRC}/config/baseconfig.mk
 	@${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g ; \
 		s|%%LOCALBASE%%|${LOCALBASE}|g' \
 			${MOZSRC}/build/unix/run-mozilla.sh

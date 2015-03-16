@@ -2,12 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	worker
-PORTVERSION=	3.5.1
+PORTVERSION=	3.6.1
 CATEGORIES=	x11-fm
 MASTER_SITES=	http://www.boomerangsworld.de/cms/worker/downloads/
-EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	simond@irrelevant.org
+MAINTAINER=	mp39590@gmail.com
 COMMENT=	X11 File Manager based on Directory Opus
 
 LICENSE=	GPLv2
@@ -16,21 +15,22 @@ RUN_DEPENDS+=	bash:${PORTSDIR}/shells/bash
 
 GNU_CONFIGURE=	yes
 USE_XORG=	x11
-USE_GCC=	yes
 
 USES=	shebangfix tar:bzip2
 SHEBANG_FILES=	${WRKSRC}/scripts/*.sh \
 		${WRKSRC}/scripts/xeditor
 
-CFLAGS+=	${PTHREAD_CFLAGS}
+OPTIONS_DEFINE=	XFT AVFS
 
-OPTIONS_DEFINE=	XFT
-
+AVFS_DESC=	Use AVFS library to access an archives
+AVFS_LIB_DEPENDS=	libavfs.so:${PORTSDIR}/sysutils/avfs
 XFT_CONFIGURE_ENABLE=	xft
 XFT_USE=	XORG=xft
 
-pre-configure:
-	@${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|g' \
-		${WRKSRC}/configure
+.include <bsd.port.pre.mk>
 
-.include <bsd.port.mk>
+.if ${OSVERSION} < 1000024
+USE_GCC=	yes
+.endif
+
+.include <bsd.port.post.mk>

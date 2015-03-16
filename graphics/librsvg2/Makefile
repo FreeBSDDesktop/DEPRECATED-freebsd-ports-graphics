@@ -3,7 +3,8 @@
 #   $MCom: ports/trunk/graphics/librsvg2/Makefile 20031 2014-11-02 21:47:55Z kwm $
 
 PORTNAME=	librsvg
-PORTVERSION=	2.40.4
+PORTVERSION=	2.40.6
+PORTREVISION=	1
 CATEGORIES=	graphics gnome
 MASTER_SITES=	GNOME
 PKGNAMESUFFIX=	2
@@ -13,6 +14,7 @@ MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Library for parsing and rendering SVG vector-graphic files
 
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2 \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libcroco-0.6.so:${PORTSDIR}/textproc/libcroco
 RUN_DEPENDS=	gtk-engines2>=2.7.5_1:${PORTSDIR}/x11-themes/gtk-engines2
 

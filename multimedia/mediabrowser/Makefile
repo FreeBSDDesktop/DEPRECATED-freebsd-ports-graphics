@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	mediabrowser
-PORTVERSION=	3.0.5464.40000
+PORTVERSION=	3.0.5518.7
 CATEGORIES=	multimedia
 
 MAINTAINER=	woodsb02@gmail.com
@@ -18,7 +18,7 @@ LIB_DEPENDS=	libavformat.so:${PORTSDIR}/multimedia/ffmpeg \
 USE_GITHUB=	yes
 GH_ACCOUNT=	MediaBrowser
 GH_PROJECT=	MediaBrowser
-GH_COMMIT=	1616e34
+GH_COMMIT=	bece87a
 GH_TAGNAME=	${PORTVERSION}
 
 USES=		mono pkgconfig
@@ -30,7 +30,7 @@ GROUPS=		mediabrowser
 
 do-build:
 	(cd ${WRKSRC} && \
-		${LOCALBASE}/bin/xbuild /t:build /p:Configuration="Release Mono" \
+		${SETENV} ${MAKE_ENV} ${LOCALBASE}/bin/xbuild /t:build /p:Configuration="Release Mono" \
 			/p:Platform="Any CPU" MediaBrowser.Mono.sln)
 
 do-install:

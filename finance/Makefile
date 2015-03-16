@@ -44,7 +44,6 @@
     SUBDIR += moneymanagerex
     SUBDIR += mybudget
     SUBDIR += myphpmoney
-    SUBDIR += openerp-server
     SUBDIR += openerp-web
     SUBDIR += openhbci
     SUBDIR += p5-Business-CreditCard
@@ -95,6 +94,7 @@
     SUBDIR += prestashop
     SUBDIR += py-stripe
     SUBDIR += py-vatnumber
+    SUBDIR += py-ystockquote
     SUBDIR += qhacc
     SUBDIR += rubygem-money
     SUBDIR += sabernetdcs-client

@@ -94,7 +94,7 @@ GVEDIT_USE=	qt4=qmake_build,moc_build,rcc_build,uic_build \
 GHOSTSCRIPT_USE=GHOSTSCRIPT=yes
 PERL_USES=	perl5
 PHP_USE=	PHP=yes PHP_BUILD=yes
-PYTHON_USE=	PYTHON_BUILD=2.7
+PYTHON_USES=	python:2.7,build
 RUBY_USE=	RUBY=yes
 LUA_USES=	lua
 TCL_USES=	tcl:build
@@ -172,10 +172,6 @@ BROKEN=	guile is too old
 
 .if ${PORT_OPTIONS:MMING}
 BROKEN=	Ming incomplete, uses removed libgraph
-.endif
-
-.if ${PORT_OPTIONS:MRUBY}
-BROKEN=	illegal macro in libdata/pkgconfig/ruby-1.9.pc
 .endif
 
 .if ${OSVERSION} > 1100000
@@ -303,6 +299,7 @@ post-patch:
 	${REINPLACE_CMD} -e "s|/usr/include/php|${LOCALBASE}/include/php|g" \
 		-e "s|vendorarchdir|sitearchdir|g" \
 		-e "s|-lruby|-lruby${RUBY_SUFFIX}|g" \
+		-e "s|ruby-1[.]9|ruby-${RUBY_VER}|g" \
 		-e "s|Config::|RbConfig::|" \
 		-e 's|PHP_INSTALL_DIR=.*|PHP_INSTALL_DIR="${PREFIX}/lib/php/${PHP_EXT_DIR}"|' \
 		-e 's|PHP_INSTALL_DATADIR=.*|PHP_INSTALL_DATADIR="${PREFIX}/share/php"|' \

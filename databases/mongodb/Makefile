@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mongodb
-PORTVERSION=	2.6.6
+PORTVERSION=	2.6.7
 CATEGORIES=	databases net
 MASTER_SITES=	http://downloads.mongodb.org/src/
 DISTNAME=	${PORTNAME}-src-r${PORTVERSION}
@@ -65,7 +65,7 @@ ALL_TARGET=	core tools
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} 's/\["-O3"\]/"${CFLAGS}"/' \
+	@${REINPLACE_CMD} 's/\["-O3"\]/"${CXXFLAGS}"/' \
 		${WRKSRC}/SConstruct
 
 .if ${PORT_OPTIONS:MTEST}

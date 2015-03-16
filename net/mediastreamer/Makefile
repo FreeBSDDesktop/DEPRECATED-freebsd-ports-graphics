@@ -7,7 +7,7 @@ PORTREVISION=	8
 CATEGORIES=	net
 MASTER_SITES=	SAVANNAH/linphone/mediastreamer
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	tijl@FreeBSD.org
 COMMENT=	Real-time audio and video streaming and processing
 
 LICENSE=	GPLv2
@@ -24,7 +24,7 @@ CONFIGURE_ARGS=	--disable-alsa --disable-pulseaudio \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
-USES=		gmake libtool pathfix pkgconfig
+USES=		gettext-tools gmake libtool pathfix pkgconfig
 USE_GNOME=	intlhack
 USE_LDCONFIG=	yes
 
@@ -51,7 +51,7 @@ GSM_LIB_DEPENDS=	libgsm.so:${PORTSDIR}/audio/gsm
 IPV6_CONFIGURE_ENABLE=	ipv6
 
 NLS_CONFIGURE_ENABLE=	nls
-NLS_USES=		gettext
+NLS_USES=		gettext-runtime
 
 OPUS_CONFIGURE_ENABLE=	opus
 OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
@@ -69,6 +69,8 @@ UPNP_CONFIGURE_ENABLE=	upnp
 UPNP_LIB_DEPENDS=	libupnp.so:${PORTSDIR}/devel/upnp
 
 V4L_CONFIGURE_ENABLE=	libv4l1 libv4l2
+V4L_CONFIGURE_OFF=	ac_cv_header_linux_videodev_h=no \
+			ac_cv_header_linux_videodev2_h=no
 V4L_BUILD_DEPENDS=	v4l_compat>=1.0.20120501:${PORTSDIR}/multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:${PORTSDIR}/multimedia/libv4l
 

@@ -27,6 +27,7 @@
     SUBDIR += asio
     SUBDIR += aslookup
     SUBDIR += asterisk
+    SUBDIR += asterisk-g72x
     SUBDIR += asterisk11
     SUBDIR += asterisk13
     SUBDIR += avahi
@@ -40,6 +41,7 @@
     SUBDIR += avahi-sharp
     SUBDIR += axa
     SUBDIR += babeld
+    SUBDIR += balance
     SUBDIR += beacon
     SUBDIR += beanstalkd
     SUBDIR += belle-sip
@@ -106,6 +108,7 @@
     SUBDIR += drawterm
     SUBDIR += dropbox-api-command
     SUBDIR += dropbox-uploader
+    SUBDIR += dshell
     SUBDIR += dtcp
     SUBDIR += dtcpclient
     SUBDIR += e169-stats
@@ -133,6 +136,7 @@
     SUBDIR += freerdp
     SUBDIR += freevrrpd
     SUBDIR += fspclient
+    SUBDIR += fspd
     SUBDIR += fsplib
     SUBDIR += g2ipmsg
     SUBDIR += geoclue
@@ -151,6 +155,7 @@
     SUBDIR += gnome-online-miners
     SUBDIR += gnu-dico
     SUBDIR += gnu-radius
+    SUBDIR += go-amqp
     SUBDIR += go-cs
     SUBDIR += go.net
     SUBDIR += gofish
@@ -299,6 +304,7 @@
     SUBDIR += libkfbapi
     SUBDIR += libkvkontakte
     SUBDIR += libmateweather
+    SUBDIR += libmaxminddb
     SUBDIR += libmediawiki
     SUBDIR += libmms
     SUBDIR += libmxp
@@ -464,7 +470,7 @@
     SUBDIR += ossp-sa
     SUBDIR += ostinato
     SUBDIR += owamp
-    SUBDIR += owncloud-csync
+    SUBDIR += p5-Acme-HTTP
     SUBDIR += p5-AddressBook
     SUBDIR += p5-Amazon-SQS-Simple
     SUBDIR += p5-AnyEvent-MPRPC
@@ -503,12 +509,15 @@
     SUBDIR += p5-IO-Socket-IP
     SUBDIR += p5-IO-Socket-Multicast
     SUBDIR += p5-IO-Socket-Multicast6
+    SUBDIR += p5-IO-Socket-UNIX-Util
     SUBDIR += p5-IP-Anonymous
     SUBDIR += p5-IP-Country
     SUBDIR += p5-IPC-Session
     SUBDIR += p5-JavaScript-RPC
+    SUBDIR += p5-Kafka
     SUBDIR += p5-MaxMind-DB-Common
     SUBDIR += p5-MaxMind-DB-Reader
+    SUBDIR += p5-MaxMind-DB-Writer
     SUBDIR += p5-Net
     SUBDIR += p5-Net-AMQP
     SUBDIR += p5-Net-APNS
@@ -690,6 +699,7 @@
     SUBDIR += p5-Net-sFlow
     SUBDIR += p5-Net-uFTP
     SUBDIR += p5-NetAddr-IP-Count
+    SUBDIR += p5-NetAddr-MAC
     SUBDIR += p5-NetPacket
     SUBDIR += p5-OAI-Harvester
     SUBDIR += p5-OurNet-BBS
@@ -746,6 +756,7 @@
     SUBDIR += p5-URI-SmartURI
     SUBDIR += p5-URI-Template
     SUBDIR += p5-URI-Template-Restrict
+    SUBDIR += p5-URI-ws
     SUBDIR += p5-Validate-Net
     SUBDIR += p5-WebService-Dropbox
     SUBDIR += p5-WebService-Prowl
@@ -755,6 +766,7 @@
     SUBDIR += p5-XML-Compile-SOAP-AnyEvent
     SUBDIR += p5-XML-Compile-SOAP-Daemon
     SUBDIR += p5-XML-Compile-SOAP-WSA
+    SUBDIR += p5-XML-Compile-WSDL11
     SUBDIR += p5-XML-Fast
     SUBDIR += p5-XML-RPC
     SUBDIR += p5-XML-RPC-Fast
@@ -830,6 +842,7 @@
     SUBDIR += pecl-radius
     SUBDIR += pecl-yaz
     SUBDIR += pecl-yp
+    SUBDIR += pecl-zmq
     SUBDIR += pen
     SUBDIR += pfinger
     SUBDIR += phamm
@@ -850,6 +863,7 @@
     SUBDIR += php56-sockets
     SUBDIR += php56-xmlrpc
     SUBDIR += phpldapadmin
+    SUBDIR += pimd
     SUBDIR += pimdd
     SUBDIR += pipsecd
     SUBDIR += pjsip
@@ -914,6 +928,7 @@
     SUBDIR += py-pcs
     SUBDIR += py-port-for
     SUBDIR += py-pybeanstalk
+    SUBDIR += py-pygeoip
     SUBDIR += py-pynsq
     SUBDIR += py-pypcap
     SUBDIR += py-pysendfile
@@ -937,6 +952,7 @@
     SUBDIR += py-twitter
     SUBDIR += py-twitter-tools
     SUBDIR += py-txamqp
+    SUBDIR += py-uritemplate
     SUBDIR += py-urllib3
     SUBDIR += py-wolframalpha
     SUBDIR += py-xmlrpc
@@ -1009,16 +1025,25 @@
     SUBDIR += rubygem-amqp-utils
     SUBDIR += rubygem-amqp067
     SUBDIR += rubygem-aws-s3
+    SUBDIR += rubygem-aws-ses
     SUBDIR += rubygem-bunny
     SUBDIR += rubygem-bunny060
     SUBDIR += rubygem-connection_pool
+    SUBDIR += rubygem-dogapi
     SUBDIR += rubygem-domain_name
     SUBDIR += rubygem-dropbox-sdk
+    SUBDIR += rubygem-epp-client-afnic
+    SUBDIR += rubygem-epp-client-base
+    SUBDIR += rubygem-epp-client-rgp
+    SUBDIR += rubygem-epp-client-secdns
+    SUBDIR += rubygem-epp-client-smallregistry
     SUBDIR += rubygem-fog-atmos
+    SUBDIR += rubygem-fog-aws
     SUBDIR += rubygem-fog-ecloud
     SUBDIR += rubygem-fog-profitbricks
     SUBDIR += rubygem-fog-radosgw
     SUBDIR += rubygem-fog-sakuracloud
+    SUBDIR += rubygem-fog-serverlove
     SUBDIR += rubygem-fog-softlayer
     SUBDIR += rubygem-fog-storm_on_demand
     SUBDIR += rubygem-fog-terremark
@@ -1048,7 +1073,6 @@
     SUBDIR += rubygem-omniauth-openid
     SUBDIR += rubygem-omniauth-twitter
     SUBDIR += rubygem-open-uri-cached
-    SUBDIR += rubygem-openid
     SUBDIR += rubygem-opennebula
     SUBDIR += rubygem-packetfu
     SUBDIR += rubygem-pcaprub
@@ -1060,6 +1084,7 @@
     SUBDIR += rubygem-righthttpconnection
     SUBDIR += rubygem-rightslicehost
     SUBDIR += rubygem-ruby-growl
+    SUBDIR += rubygem-ruby-openid
     SUBDIR += rubygem-rubyntlm
     SUBDIR += rubygem-rubyntlm01
     SUBDIR += rubygem-rubytter
@@ -1132,7 +1157,6 @@
     SUBDIR += spread-j
     SUBDIR += spread4
     SUBDIR += sprinkle
-    SUBDIR += spserver
     SUBDIR += sqtop
     SUBDIR += ss5
     SUBDIR += ssldump
@@ -1166,6 +1190,7 @@
     SUBDIR += tcpick
     SUBDIR += tcpillust
     SUBDIR += tcping
+    SUBDIR += tcpkali
     SUBDIR += tcpmssd
     SUBDIR += tcpproxy
     SUBDIR += tcpreen
@@ -1222,6 +1247,7 @@
     SUBDIR += unison-devel
     SUBDIR += unison-nox11
     SUBDIR += unison232
+    SUBDIR += unison240
     SUBDIR += unix2tcp
     SUBDIR += uplog
     SUBDIR += urelay
@@ -1248,6 +1274,7 @@
     SUBDIR += widentd
     SUBDIR += wireshark
     SUBDIR += wireshark-lite
+    SUBDIR += wireshark-qt5
     SUBDIR += wizd
     SUBDIR += wlan2eth
     SUBDIR += wmlj
@@ -1276,9 +1303,10 @@
     SUBDIR += xorp
     SUBDIR += xprobe
     SUBDIR += xpvm
-    SUBDIR += xrdesktop
+    SUBDIR += xrdesktop2
     SUBDIR += xrdp
     SUBDIR += xrdp-devel
+    SUBDIR += yami4
     SUBDIR += yaph
     SUBDIR += yate
     SUBDIR += yaz

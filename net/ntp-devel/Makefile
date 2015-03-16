@@ -2,17 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	ntp
-PORTVERSION=	4.2.7p486
+PORTVERSION=	4.3.8
 CATEGORIES=	net ipv6
 MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-dev/ \
 		http://archive.ntp.org/ntp4/ntp-dev/
 PKGNAMESUFFIX=	-devel
-DISTNAME=	${PORTNAME}-dev-${PORTVERSION}-RC
+DISTNAME=	${PORTNAME}-dev-${PORTVERSION:S/P/p/:S/r/-RC/:S/b/-beta/}
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	The Network Time Protocol Distribution
-
-FORBIDDEN=	http://www.kb.cert.org/vuls/id/852879
 
 GNU_CONFIGURE=	yes
 OPTIONS_SUB=	yes
@@ -47,12 +45,6 @@ CONFIGURE_ARGS+=	--with-openssl-incdir=${OPENSSLINC} \
 CONFIGURE_ARGS+=	--enable-${D}
 .endif
 .endfor
-
-.if ${PORT_OPTIONS:MMX4200}
-BROKEN=		Fails to compile when MX4200 is enabled.
-.endif
- 
-DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}4
 
 # XXX Temporary hack. Remember to remove this next commit.
 post-extract:

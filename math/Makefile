@@ -88,6 +88,7 @@
     SUBDIR += cln
     SUBDIR += cloog
     SUBDIR += clp
+    SUBDIR += cminpack
     SUBDIR += coinmp
     SUBDIR += concorde
     SUBDIR += convertall
@@ -184,7 +185,6 @@
     SUBDIR += hs-vector-space
     SUBDIR += igraph
     SUBDIR += ipopt
-    SUBDIR += isabelle
     SUBDIR += ised
     SUBDIR += jacal
     SUBDIR += jags
@@ -303,8 +303,10 @@
     SUBDIR += octave-forge-image
     SUBDIR += octave-forge-informationtheory
     SUBDIR += octave-forge-integration
+    SUBDIR += octave-forge-interval
     SUBDIR += octave-forge-io
     SUBDIR += octave-forge-irsa
+    SUBDIR += octave-forge-level-set
     SUBDIR += octave-forge-linear-algebra
     SUBDIR += octave-forge-lssa
     SUBDIR += octave-forge-ltfat
@@ -580,6 +582,7 @@
     SUBDIR += py-svgmath
     SUBDIR += py-symeig
     SUBDIR += py-sympy
+    SUBDIR += py-theano
     SUBDIR += py-ufl
     SUBDIR += py-viper
     SUBDIR += qalculate
@@ -602,12 +605,12 @@
     SUBDIR += rpy
     SUBDIR += rpy2
     SUBDIR += ruby-algebra
-    SUBDIR += ruby-numru_units
     SUBDIR += rubygem-fftw3
     SUBDIR += rubygem-narray
     SUBDIR += rubygem-narray_miss
     SUBDIR += rubygem-numru-misc
     SUBDIR += rubygem-numru-units
+    SUBDIR += rubygem-rb-gsl
     SUBDIR += saga
     SUBDIR += sage
     SUBDIR += sc
@@ -649,6 +652,7 @@
     SUBDIR += ump
     SUBDIR += units
     SUBDIR += unuran
+    SUBDIR += vowpal_wabbit
     SUBDIR += vtk5
     SUBDIR += vtk5-data
     SUBDIR += vtk6

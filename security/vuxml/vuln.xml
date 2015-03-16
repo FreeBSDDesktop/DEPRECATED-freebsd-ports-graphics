@@ -57,6 +57,2313 @@ Notes:
 
 -->
 <vuxml xmlns="http://www.vuxml.org/apps/vuxml-1">
+  <vuln vid="8b3ecff5-c9b2-11e4-b71f-00bd5af88c00">
+    <topic>Adobe Flash Player -- critical vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>linux-c6-flashplugin11</name>
+	<range><le>11.2r202.442</le></range>
+      </package>
+      <package>
+	<name>linux-f10-flashplugin11</name>
+	<range><le>11.2r202.442</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe reports:</p>
+	<blockquote cite="https://helpx.adobe.com/security/products/flash-player/apsb15-05.html">
+	  <p>
+	    Adobe has released security updates for Adobe Flash Player for
+	    Windows, Macintosh and Linux. These updates address vulnerabilities
+	    that could potentially allow an attacker to take control of the
+	    affected system.
+	    These updates resolve memory corruption vulnerabilities that could
+	    lead to code execution (CVE-2015-0332, CVE-2015-0333, CVE-2015-0335,
+	    CVE-2015-0339).
+	    These updates resolve type confusion vulnerabilities that could lead
+	    to code execution (CVE-2015-0334, CVE-2015-0336).
+	    These updates resolve a vulnerability that could lead to a
+	    cross-domain policy bypass (CVE-2015-0337).
+	    These updates resolve a vulnerability that could lead to a file
+	    upload restriction bypass (CVE-2015-0340).
+	    These updates resolve an integer overflow vulnerability that could
+	    lead to code execution (CVE-2015-0338).
+	    These updates resolve use-after-free vulnerabilities that could lead
+	    to code execution (CVE-2015-0341, CVE-2015-0342).
+	  </p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://helpx.adobe.com/security/products/flash-player/apsb15-05.html</url>
+      <cvename>CVE-2015-0332</cvename>
+      <cvename>CVE-2015-0333</cvename>
+      <cvename>CVE-2015-0334</cvename>
+      <cvename>CVE-2015-0335</cvename>
+      <cvename>CVE-2015-0336</cvename>
+      <cvename>CVE-2015-0337</cvename>
+      <cvename>CVE-2015-0338</cvename>
+      <cvename>CVE-2015-0339</cvename>
+      <cvename>CVE-2015-0340</cvename>
+      <cvename>CVE-2015-0341</cvename>
+      <cvename>CVE-2015-0342</cvename>
+    </references>
+    <dates>
+      <discovery>2015-03-12</discovery>
+      <entry>2015-03-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="451a6c79-c92b-11e4-a835-000c292ee6b8">
+    <topic>sympa -- Remote attackers can read arbitrary files</topic>
+    <affects>
+      <package>
+	<name>sympa</name>
+	<range><lt>6.1.24</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Sympa Project reports:</p>
+	<blockquote cite="https://www.sympa.org/security_advisories">
+	  <p>The newsletter posting area in the web interface in Sympa 6.0.x before 6.0.10 and 6.1.x before 6.1.24 allows remote attackers to read arbitrary files via unspecified vectors.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.sympa.org/security_advisories</url>
+      <cvename>CVE-2015-1306</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-13</discovery>
+      <entry>2015-03-13</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="d08f6002-c588-11e4-8495-6805ca0b3d42">
+    <topic>rt -- Remote DoS, Information disclosure and Session Hijackingvulnerabilities</topic>
+    <affects>
+      <package>
+	<name>rt42</name>
+	<range><ge>4.2.0</ge><lt>4.2.10</lt></range>
+      </package>
+      <package>
+	<name>rt40</name>
+	<range><ge>4.0.0</ge><lt>4.0.23</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Best Practical reports:</p>
+	<blockquote cite="http://blog.bestpractical.com/2015/02/security-vulnerabilities-in-rt.html">
+	  <p>RT 3.0.0 and above, if running on Perl 5.14.0 or higher,
+	    are vulnerable to a remote denial-of-service via the email
+	    gateway; any installation which accepts mail from untrusted
+	    sources is vulnerable, regardless of the permissions
+	    configuration inside RT. This denial-of-service may
+	    encompass both CPU and disk usage, depending on RT's logging
+	    configuration. This vulnerability is assigned
+	    CVE-2014-9472.</p>
+	  <p>RT 3.8.8 and above are vulnerable to an information
+	    disclosure attack which may reveal RSS feeds URLs, and thus
+	    ticket data; this vulnerability is assigned
+	    CVE-2015-1165. RSS feed URLs can also be leveraged to
+	    perform session hijacking, allowing a user with the URL to
+	    log in as the user that created the feed; this vulnerability
+	    is assigned CVE-2015-1464.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://blog.bestpractical.com/2015/02/security-vulnerabilities-in-rt.html</url>
+      <cvename>CVE-2014-9472</cvename>
+      <cvename>CVE-2015-1165</cvename>
+      <cvename>CVE-2015-1464</cvename>
+    </references>
+    <dates>
+      <discovery>2015-02-26</discovery>
+      <entry>2015-03-08</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="81b4c118-c586-11e4-8495-6805ca0b3d42">
+    <topic>phpMyAdmin -- Risk of BREACH attack due to reflected parameter</topic>
+    <affects>
+      <package>
+	<name>phpMyAdmin</name>
+	<range><ge>4.3.0</ge><lt>4.3.11.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The phpMyAdmin development team reports:</p>
+	<blockquote cite="http://www.phpmyadmin.net/home_page/security/PMASA-2015-1.php">
+	  <p>Risk of BREACH attack due to reflected parameter.</p>
+	  <p>With a large number of crafted requests it was possible to infer
+	    the CSRF token by a BREACH attack.</p>
+	  <p>Mitigation factor: this vulnerability can only be exploited in
+	    the presence of another vulnerability that allows the attacker to
+	    inject JavaScript into victim's browser.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.phpmyadmin.net/home_page/security/PMASA-2015-1.php</url>
+      <cvename>CVE-2015-2206</cvename>
+    </references>
+    <dates>
+      <discovery>2015-03-04</discovery>
+      <entry>2015-03-08</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="c0cae920-c4e9-11e4-898e-90e6ba741e35">
+    <topic>mono -- TLS bugs</topic>
+    <affects>
+      <package>
+	<name>mono</name>
+	<range><lt>3.10.1</lt></range>
+	<range><ge>3.12</ge><lt>3.12.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mono project reports:</p>
+	<blockquote cite="http://www.mono-project.com/docs/about-mono/vulnerabilities/#tls-bugs">
+	  <p>Mono’s implementation of the SSL/TLS stack failed to check the order of the handshake messages. Which would allow various attacks on the protocol to succeed. Details of this vulnerability are discussed in <a href="https://www.smacktls.com/#skip">SKIP-TLS post</a>.</p>
+	  <p>Mono’s implementation of SSL/TLS also contained support for the weak EXPORT cyphers and was susceptible to the <a href="https://www.smacktls.com/#freak">FREAK</a> attack.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.mono-project.com/docs/about-mono/vulnerabilities/#tls-bugs</url>
+    </references>
+    <dates>
+      <discovery>2015-03-06</discovery>
+      <entry>2015-03-07</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="92fc2e2b-c383-11e4-8ef7-080027ef73ec">
+    <topic>PuTTY -- fails to scrub private keys from memory after use</topic>
+    <affects>
+      <package>
+	<name>putty</name>
+	<range><lt>0.64</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Simon Tatham reports:</p>
+	<blockquote cite="http://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/private-key-not-wiped-2.html">
+	  <p>When PuTTY has sensitive data in memory and has no further need for
+	    it, it should wipe the data out of its memory, in case malware later
+	    gains access to the PuTTY process or the memory is swapped out to
+	    disk or written into a crash dump file. An obvious example of this
+	    is the password typed during SSH login; other examples include
+	    obsolete session keys, public-key passphrases, and the private
+	    halves of public keys.</p>
+	    <p>PuTTY 0.63 and earlier versions, after loading a private key
+	      from a disk file, mistakenly leak a memory buffer containing a
+	      copy of the private key, in the function ssh2_load_userkey. The
+	      companion function ssh2_save_userkey (only called by PuTTYgen) can
+	      also leak a copy, but only in the case where the file it tried to
+	      save to could not be created.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.chiark.greenend.org.uk/~sgtatham/putty/wishlist/private-key-not-wiped-2.html</url>
+      <cvename>CVE-2015-2157</cvename>
+    </references>
+    <dates>
+      <discovery>2015-02-28</discovery>
+      <entry>2015-03-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="8505e013-c2b3-11e4-875d-000c6e25e3e9">
+    <topic>chromium -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>chromium</name>
+	<range><lt>41.0.2272.76</lt></range>
+      </package>
+      <package>
+	<name>chromium-npapi</name>
+	<range><lt>41.0.2272.76</lt></range>
+      </package>
+      <package>
+	<name>chromium-pulse</name>
+	<range><lt>41.0.2272.76</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Chrome Releases reports:</p>
+	<blockquote cite="http://googlechromereleases.blogspot.nl">
+	  <p>51 security fixes in this release, including:</p>
+	  <ul>
+	    <li>[456516] High CVE-2015-1212: Out-of-bounds write in media.
+	      Credit to anonymous.</li>
+	    <li>[448423] High CVE-2015-1213: Out-of-bounds write in skia
+	      filters.  Credit to cloudfuzzer.</li>
+	    <li>[445810] High CVE-2015-1214: Out-of-bounds write in skia
+	      filters.  Credit to cloudfuzzer.</li>
+	    <li>[445809] High CVE-2015-1215: Out-of-bounds write in skia
+	      filters.  Credit to cloudfuzzer.</li>
+	    <li>[454954] High CVE-2015-1216: Use-after-free in v8 bindings.
+	      Credit to anonymous.</li>
+	    <li>[456192] High CVE-2015-1217: Type confusion in v8 bindings.
+	      Credit to anonymous.</li>
+	    <li>[456059] High CVE-2015-1218: Use-after-free in dom.
+	      Credit to cloudfuzzer.</li>
+	    <li>[446164] High CVE-2015-1219: Integer overflow in webgl.
+	      Credit to Chen Zhang (demi6od) of NSFOCUS Security Team.</li>
+	    <li>[437651] High CVE-2015-1220: Use-after-free in gif decoder.
+	      Credit to Aki Helin of OUSPG.</li>
+	    <li>[455368] High CVE-2015-1221: Use-after-free in web databases.
+	      Credit to Collin Payne.</li>
+	    <li>[448082] High CVE-2015-1222: Use-after-free in service workers.
+	      Credit to Collin Payne.</li>
+	    <li>[454231] High CVE-2015-1223: Use-after-free in dom.
+	      Credit to Maksymillian Motyl.</li>
+	    <li>High CVE-2015-1230: Type confusion in v8.
+	      Credit to Skylined working with HP's Zero Day Initiative.</li>
+	    <li>[449958] Medium CVE-2015-1224: Out-of-bounds read in vpxdecoder.
+	      Credit to Aki Helin of OUSPG.</li>
+	    <li>[446033] Medium CVE-2015-1225: Out-of-bounds read in pdfium.
+	      Credit to cloudfuzzer.</li>
+	    <li>[456841] Medium CVE-2015-1226: Validation issue in debugger.
+	      Credit to Rob Wu.</li>
+	    <li>[450389] Medium CVE-2015-1227: Uninitialized value in blink.
+	      Credit to Christoph Diehl.</li>
+	    <li>[444707] Medium CVE-2015-1228: Uninitialized value in rendering.
+	      Credit to miaubiz.</li>
+	    <li>[431504] Medium CVE-2015-1229: Cookie injection via proxies.
+	      Credit to iliwoy.</li>
+	    <li>[463349] CVE-2015-1231: Various fixes from internal audits,
+	      fuzzing, and other initiatives.</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1212</cvename>
+      <cvename>CVE-2015-1213</cvename>
+      <cvename>CVE-2015-1214</cvename>
+      <cvename>CVE-2015-1215</cvename>
+      <cvename>CVE-2015-1216</cvename>
+      <cvename>CVE-2015-1217</cvename>
+      <cvename>CVE-2015-1218</cvename>
+      <cvename>CVE-2015-1219</cvename>
+      <cvename>CVE-2015-1220</cvename>
+      <cvename>CVE-2015-1221</cvename>
+      <cvename>CVE-2015-1222</cvename>
+      <cvename>CVE-2015-1223</cvename>
+      <cvename>CVE-2015-1224</cvename>
+      <cvename>CVE-2015-1225</cvename>
+      <cvename>CVE-2015-1226</cvename>
+      <cvename>CVE-2015-1227</cvename>
+      <cvename>CVE-2015-1228</cvename>
+      <cvename>CVE-2015-1229</cvename>
+      <cvename>CVE-2015-1230</cvename>
+      <cvename>CVE-2015-1231</cvename>
+      <url>http://googlechromereleases.blogspot.nl</url>
+    </references>
+    <dates>
+      <discovery>2015-03-03</discovery>
+      <entry>2015-03-04</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="c9c3374d-c2c1-11e4-b236-5453ed2e2b49">
+    <topic>qt4-gui, qt5-gui -- DoS vulnerability in the BMP image handler</topic>
+    <affects>
+      <package>
+	<name>qt4-gui</name>
+	<range><lt>4.8.6_4</lt></range>
+      </package>
+      <package>
+	<name>qt5-gui</name>
+	<range><lt>5.3.2_2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Richard J. Moore reports:</p>
+	<blockquote cite="http://lists.qt-project.org/pipermail/announce/2015-February/000059.html">
+	  <p>The builtin BMP decoder in QtGui prior to Qt 5.5 contained a bug
+	    that would lead to a divsion by zero when loading certain corrupt
+	    BMP files. This in turn would cause the application loading these
+	    hand crafted BMPs to crash.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0295</cvename>
+      <mlist>http://lists.qt-project.org/pipermail/announce/2015-February/000059.html</mlist>
+    </references>
+    <dates>
+      <discovery>2015-02-22</discovery>
+      <entry>2015-03-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="7480b6ac-adf1-443e-a33c-3a3c0becba1e">
+    <topic>jenkins -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>jenkins</name>
+	<range><le>1.600</le></range>
+      </package>
+      <package>
+	<name>jenkins-lts</name>
+	<range><le>1.580.3</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Kohsuke Kawaguchi from Jenkins team reports:</p>
+	<blockquote cite="https://wiki.jenkins-ci.org/display/SECURITY/Jenkins+Security+Advisory+2015-02-27">
+	  <h1>Description</h1>
+	  <h5>SECURITY-125 (Combination filter Groovy script unsecured)</h5>
+	  <p>This vulnerability allows users with the job configuration
+	    privilege to escalate his privileges, resulting in arbitrary code
+	    execution to the master.</p>
+	  <h5>SECURITY-162 (directory traversal from artifacts via symlink)</h5>
+	  <p>This vulnerability allows users with the job configuration
+	    privilege or users with commit access to the build script to
+	    access arbitrary files/directories on the master, resulting in
+	    the exposure of sensitive information, such as encryption keys.</p>
+	  <h5>SECURITY-163 (update center metadata retrieval DoS attack)</h5>
+	  <p>This vulnerability allows authenticated users to disrupt the
+	    operation of Jenkins by feeding malicious update center data into
+	    Jenkins, affecting plugin installation and tool installation.</p>
+	  <h5>SECURITY-165 (external entity injection via XPath)</h5>
+	  <p>This vulnerability allows users with the read access to Jenkins
+	    to retrieve arbitrary XML document on the server, resulting in
+	    the exposure of sensitive information inside/outside Jenkins.</p>
+	  <h5>SECURITY-166 (HudsonPrivateSecurityRealm allows creation of
+	    reserved names)</h5>
+	  <p>For users using "Jenkins' own user database" setting, Jenkins
+	    doesn't refuse reserved names, thus allowing privilege escalation.</p>
+	  <h5>SECURITY-167 (External entity processing in XML can reveal
+	    sensitive local files)</h5>
+	  <p>This vulnerability allows attackers to create malicious XML
+	    documents and feed that into Jenkins, which causes Jenkins to
+	    retrieve arbitrary XML document on the server, resulting in the
+	    exposure of sensitive information inside/outside Jenkins.</p>
+	  <h1>Severity</h1>
+	  <p>SECURITY-125 is rated <strong>critical</strong>. This attack can be
+	    only mounted by users with some trust, but it results in arbitrary
+	    code execution on the master.</p>
+	  <p>SECURITY-162 is rated <strong>critical</strong>. This attack can be
+	    only mounted by users with some trust, but it results in the
+	    exposure of sensitive information.</p>
+	  <p>SECURITY-163 is rated <strong>medium</strong>, as it results in the
+	    loss of functionality.</p>
+	  <p>SECURITY-165 is rated <strong>critical</strong>. This attack is
+	    easy to mount, and it results in the exposure of sensitive
+	    information.</p>
+	  <p>SECURITY-166 is rated <strong>critical</strong>. For users who use
+	    the affected feature, this attack results in arbitrary code
+	    execution on the master.</p>
+	  <p>SECURITY-167 is rated <strong>critical</strong>. This attack is
+	    easy to mount, and it results in the exposure of sensitive information.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://wiki.jenkins-ci.org/display/SECURITY/Jenkins+Security+Advisory+2015-02-27</url>
+    </references>
+    <dates>
+      <discovery>2015-03-01</discovery>
+      <entry>2015-03-01</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="99029172-8253-407d-9d8b-2cfeab9abf81">
+    <topic>mozilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>firefox</name>
+	<range><lt>36.0,1</lt></range>
+      </package>
+      <package>
+	<name>firefox-esr</name>
+	<range><lt>31.5.0,1</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>36.0,1</lt></range>
+      </package>
+      <package>
+	<name>linux-seamonkey</name>
+	<range><lt>2.33</lt></range>
+      </package>
+      <package>
+	<name>linux-thunderbird</name>
+	<range><lt>31.5.0</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.33</lt></range>
+      </package>
+      <package>
+	<name>thunderbird</name>
+	<range><lt>31.5.0</lt></range>
+      </package>
+      <package>
+	<name>libxul</name>
+	<range><lt>31.5.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mozilla Project reports:</p>
+	<blockquote cite="https://www.mozilla.org/en-US/security/known-vulnerabilities/">
+	  <p>MFSA-2015-11 Miscellaneous memory safety hazards (rv:36.0
+	    / rv:31.5)</p>
+	  <p>MFSA-2015-12 Invoking Mozilla updater will load locally
+	    stored DLL files</p>
+	  <p>MFSA-2015-13 Appended period to hostnames can bypass HPKP
+	    and HSTS protections</p>
+	  <p>MFSA-2015-14 Malicious WebGL content crash when writing
+	    strings</p>
+	  <p>MFSA-2015-15 TLS TURN and STUN connections silently fail
+	    to simple TCP connections</p>
+	  <p>MFSA-2015-16 Use-after-free in IndexedDB</p>
+	  <p>MFSA-2015-17 Buffer overflow in libstagefright during MP4
+	    video playback</p>
+	  <p>MFSA-2015-18 Double-free when using non-default memory
+	    allocators with a zero-length XHR</p>
+	  <p>MFSA-2015-19 Out-of-bounds read and write while rendering
+	    SVG content</p>
+	  <p>MFSA-2015-20 Buffer overflow during CSS restyling</p>
+	  <p>MFSA-2015-21 Buffer underflow during MP3 playback</p>
+	  <p>MFSA-2015-22 Crash using DrawTarget in Cairo graphics
+	    library</p>
+	  <p>MFSA-2015-23 Use-after-free in Developer Console date
+	    with OpenType Sanitiser</p>
+	  <p>MFSA-2015-24 Reading of local files through manipulation
+	    of form autocomplete</p>
+	  <p>MFSA-2015-25 Local files or privileged URLs in pages can
+	    be opened into new tabs</p>
+	  <p>MFSA-2015-26 UI Tour whitelisted sites in background tab
+	    can spoof foreground tabs</p>
+	  <p>MFSA-2015-27 Caja Compiler JavaScript sandbox bypass</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0819</cvename>
+      <cvename>CVE-2015-0820</cvename>
+      <cvename>CVE-2015-0821</cvename>
+      <cvename>CVE-2015-0822</cvename>
+      <cvename>CVE-2015-0823</cvename>
+      <cvename>CVE-2015-0824</cvename>
+      <cvename>CVE-2015-0825</cvename>
+      <cvename>CVE-2015-0826</cvename>
+      <cvename>CVE-2015-0827</cvename>
+      <cvename>CVE-2015-0828</cvename>
+      <cvename>CVE-2015-0829</cvename>
+      <cvename>CVE-2015-0830</cvename>
+      <cvename>CVE-2015-0831</cvename>
+      <cvename>CVE-2015-0832</cvename>
+      <cvename>CVE-2015-0833</cvename>
+      <cvename>CVE-2015-0834</cvename>
+      <cvename>CVE-2015-0835</cvename>
+      <cvename>CVE-2015-0836</cvename>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-11/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-12/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-13/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-14/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-15/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-16/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-17/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-18/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-19/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-20/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-21/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-22/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-23/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-24/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-25/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-26/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-27/</url>
+      <url>https://www.mozilla.org/security/advisories/</url>
+    </references>
+    <dates>
+      <discovery>2015-02-24</discovery>
+      <entry>2015-02-27</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="f7a9e415-bdca-11e4-970c-000c292ee6b8">
+    <topic>php5 -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>php5</name>
+	<range><lt>5.4.38</lt></range>
+      </package>
+      <package>
+	<name>php55</name>
+	<range><lt>5.5.22</lt></range>
+      </package>
+      <package>
+	<name>php56</name>
+	<range><lt>5.6.6</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The PHP Project reports:</p>
+	<blockquote cite="http://www.php.net/ChangeLog-5.php">
+	  <p>Use after free vulnerability in unserialize() with DateTimeZone.</p>
+	  <p>Mitigation for CVE-2015-0235 -- GHOST: glibc gethostbyname buffer
+	   overflow.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0235</cvename>
+      <cvename>CVE-2015-0273</cvename>
+      <url>http://php.net/ChangeLog-5.php#5.4.38</url>
+      <url>http://php.net/ChangeLog-5.php#5.5.22</url>
+      <url>http://php.net/ChangeLog-5.php#5.6.6</url>
+    </references>
+    <dates>
+      <discovery>2015-02-18</discovery>
+      <entry>2015-02-26</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="dbf9e66c-bd50-11e4-a7ba-206a8a720317">
+    <topic>krb5 1.11 -- New release/fix multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>krb5-111</name>
+	<range><lt>1.11.6</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The MIT Kerberos team announces the availability of MIT Kerberos 5 Release 1.11.6:</p>
+	<blockquote cite="http://web.mit.edu/kerberos/krb5-1.11/README-1.11.6.txt">
+	  <p>Handle certain invalid RFC 1964 GSS tokens correctly to avoid
+	     invalid memory reference vulnerabilities.  [CVE-2014-4341</p>
+	  <p>Fix memory management vulnerabilities in GSSAPI SPNEGO.
+	     [CVE-2014-4343 CVE-2014-4344]</p>
+	  <p>Fix buffer overflow vulnerability in LDAP KDB back end.
+	     [CVE-2014-4345]</p>
+	  <p>Fix multiple vulnerabilities in the LDAP KDC back end.
+	     [CVE-2014-5354 CVE-2014-5353]</p>
+	  <p>Fix multiple kadmind vulnerabilities, some of which are based
+	     in the gssrpc library. [CVE-2014-5352 CVE-2014-9421
+	     CVE-2014-9422 CVE-2014-9423]</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://web.mit.edu/kerberos/krb5-1.11/README-1.11.6.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-02-25</discovery>
+      <entry>2015-02-25</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="996c219c-bbb1-11e4-88ae-d050992ecde8">
+    <topic>samba -- Unexpected code execution in smbd</topic>
+    <affects>
+      <package>
+	<name>samba4</name>
+	<range><ge>4.0.0</ge><lt>4.0.25</lt></range>
+      </package>
+      <package>
+	<name>samba41</name>
+	<range><ge>4.1.0</ge><lt>4.1.17</lt></range>
+      </package>
+      <package>
+	<name>samba36</name>
+	<range><ge>3.6.0</ge><lt>3.6.25</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Samba developement team reports:</p>
+	<blockquote cite="https://www.samba.org/samba/security/CVE-2015-0240">
+	  <p>All versions of Samba from 3.5.0 to 4.2.0rc4 are
+	    vulnerable to an unexpected code execution vulnerability
+	    in the smbd file server daemon.</p>
+	  <p>A malicious client could send packets that may set up the
+	    stack in such a way that the freeing of memory in a
+	    subsequent anonymous netlogon packet could allow execution
+	    of arbitrary code. This code would execute with root
+	    privileges.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0240</cvename>
+      <url>https://www.samba.org/samba/security/CVE-2015-0240</url>
+    </references>
+    <dates>
+      <discovery>2015-02-23</discovery>
+      <entry>2015-02-23</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="0f488b7b-bbb9-11e4-903c-080027ef73ec">
+    <topic>e2fsprogs -- buffer overflow if s_first_meta_bg too big</topic>
+    <affects>
+      <package>
+	<name>e2fsprogs</name>
+	<range><lt>1.42.12</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Theodore Ts'o reports:</p>
+	<blockquote cite="http://git.kernel.org/cgit/fs/ext2/e2fsprogs.git/commit/?id=f66e6ce4">
+	  <p>If s_first_meta_bg is greater than the of number block group descriptor blocks, then reading or writing the block group descriptors will end up overruning the memory buffer allocated for the descriptors.</p>
+	  <p>The finding is credited to a vulnerability report from Jose Duart of Google Security Team &lt;jduart AT google.com&gt; and was reported through oCERT-2015-002.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://git.kernel.org/cgit/fs/ext2/e2fsprogs.git/commit/?id=f66e6ce4</url>
+      <url>http://www.ocert.org/advisories/ocert-2015-002.html</url>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=1187032</url>
+      <cvename>CVE-2015-0247</cvename>
+    </references>
+    <dates>
+      <discovery>2014-08-09</discovery>
+      <entry>2015-02-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="2a4bcd7d-bbb8-11e4-903c-080027ef73ec">
+    <topic>e2fsprogs -- potential buffer overflow in closefs()</topic>
+    <affects>
+      <package>
+	<name>e2fsprogs</name>
+	<range><lt>1.42.12_2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Theodore Ts'o reports:</p>
+	<blockquote cite="http://git.kernel.org/cgit/fs/ext2/e2fsprogs.git/commit/?h=maint&amp;id=49d0fe2a14f2a23da2fe299643379b8c1d37df73">
+	  <p>On a carefully crafted filesystem that gets modified through
+	    tune2fs or debugfs, it is possible to trigger a buffer overrun when
+	    the file system is closed via closefs().</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://git.kernel.org/cgit/fs/ext2/e2fsprogs.git/commit/?h=maint&amp;id=49d0fe2a14f2a23da2fe299643379b8c1d37df73</url>
+      <cvename>CVE-2015-1572</cvename>
+    </references>
+    <dates>
+      <discovery>2015-02-06</discovery>
+      <entry>2015-02-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="58033a95-bba8-11e4-88ae-d050992ecde8">
+    <topic>bind -- denial of service vulnerability</topic>
+    <affects>
+      <package>
+	<name>bind910</name>
+	<name>bind910-base</name>
+	<range><lt>9.10.1P2</lt></range>
+      </package>
+      <package>
+	<name>bind99</name>
+	<name>bind99-base</name>
+	<range><lt>9.9.6P2</lt></range>
+      </package>
+      <package>
+	<name>FreeBSD</name>
+	<range><gt>9.3</gt><lt>9.3_10</lt></range>
+	<range><gt>8.4</gt><lt>8.4_24</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>ISC reports:</p>
+	<blockquote cite="https://kb.isc.org/article/AA-01235">
+	  <p>When configured to perform DNSSEC validation, named can
+	    crash when encountering a rare set of conditions in the
+	    managed trust anchors.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1349</cvename>
+      <url>https://kb.isc.org/article/AA-01235</url>
+    </references>
+    <dates>
+      <discovery>2015-02-18</discovery>
+      <entry>2015-02-23</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="63527d0d-b9de-11e4-8a48-206a8a720317">
+    <topic>krb5 1.12 -- New release/fix multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>krb5-112</name>
+	<range><lt>1.12.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The MIT Kerberos team announces the availability of MIT Kerberos 5 Release 1.12.3:</p>
+	<blockquote cite="http://web.mit.edu/kerberos/advisories/MITKRB5-SA-2015-001.txt">
+	  <p>Fix multiple vulnerabilities in the LDAP KDC back end.
+	     [CVE-2014-5354] [CVE-2014-5353]</p>
+	  <p>Fix multiple kadmind vulnerabilities, some of which are based
+	     in the gssrpc library. [CVE-2014-5352 CVE-2014-5352
+	     CVE-2014-9421 CVE-2014-9422 CVE-2014-9423]</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://web.mit.edu/kerberos/krb5-1.12/README-1.12.3.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-02-20</discovery>
+      <entry>2015-02-21</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="3680b234-b6f0-11e4-b7cc-d050992ecde8">
+    <topic>unzip -- heap based buffer overflow in iconv patch</topic>
+    <affects>
+      <package>
+	<name>unzip</name>
+	<range><lt>6.0_5</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Ubuntu Security Notice USN-2502-1 reports:</p>
+	<blockquote cite="http://www.ubuntu.com/usn/usn-2502-1/">
+	  <p>unzip could be made to run programs if it opened a specially crafted file.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1315</cvename>
+      <url>http://people.canonical.com/~ubuntu-security/cve/2015/CVE-2015-1315.html</url>
+      <url>https://security-tracker.debian.org/tracker/CVE-2015-1315</url>
+      <url>http://www.ubuntu.com/usn/usn-2502-1/</url>
+    </references>
+    <dates>
+      <discovery>2015-02-17</discovery>
+      <entry>2015-02-17</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="3a888a1e-b321-11e4-83b2-206a8a720317">
+    <topic>krb5 -- Vulnerabilities in kadmind, libgssrpc, gss_process_context_token VU#540092</topic>
+    <affects>
+      <package>
+	<name>krb5</name>
+	<range><lt>1.13.1</lt></range>
+      </package>
+      <package>
+	<name>krb5-112</name>
+	<range><lt>1.12.2_2</lt></range>
+      </package>
+      <package>
+	<name>krb5-111</name>
+	<range><lt>1.11.5_5</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The MIT Kerberos team reports:</p>
+	<blockquote cite="http://web.mit.edu/kerberos/advisories/MITKRB5-SA-2015-001.txt">
+	  <p>CVE-2014-5353: The krb5_ldap_get_password_policy_from_dn
+	     function in plugins/kdb/ldap/libkdb_ldap/ldap_pwd_policy.c in
+	     MIT Kerberos 5 (aka krb5) before 1.13.1, when the KDC uses LDAP,
+	     allows remote authenticated users to cause a denial of service
+	     (daemon crash) via a successful LDAP query with no results, as
+	     demonstrated by using an incorrect object type for a password
+	     policy.</p>
+	  <p>CVE-2014-5354: plugins/kdb/ldap/libkdb_ldap/ldap_principal2.c in
+	     MIT Kerberos 5 (aka krb5) 1.12.x and 1.13.x before 1.13.1, when
+	     the KDC uses LDAP, allows remote authenticated users to cause a
+	     denial of service (NULL pointer dereference and daemon crash) by
+	     creating a database entry for a keyless principal, as
+	     demonstrated by a kadmin "add_principal -nokey" or "purgekeys
+	     -all" command.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-5353</cvename>
+      <cvename>CVE-2014-5354</cvename>
+      <url>http://web.mit.edu/kerberos/advisories/MITKRB5-SA-2015-001.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-02-12</discovery>
+      <entry>2015-02-12</entry>
+      <modified>2015-02-13</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="54a69cf7-b2ef-11e4-b1f1-bcaec565249c">
+    <topic>xorg-server -- Information leak in the XkbSetGeometry request of X servers.</topic>
+    <affects>
+      <package>
+	<name>xorg-server</name>
+	<range><lt>1.14.7_2,1</lt></range>
+      </package>
+      <package>
+	<name>xorg-server</name>
+	<range><ge>1.15.0,1</ge><lt>1.16.4,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Peter Hutterer reports:</p>
+	<blockquote cite="http://lists.freedesktop.org/archives/xorg/2015-February/057158.html">
+	  <p>Olivier Fourdan from Red Hat has discovered a protocol handling
+	    issue in the way the X server code base handles the XkbSetGeometry
+	    request.</p>
+	  <p>The issue stems from the server trusting the client to send valid
+	    string lengths in the request data. A malicious client with string
+	    lengths exceeding the request length can cause the server to copy
+	    adjacent memory data into the XKB structs. This data is then
+	    available to the client via the XkbGetGeometry request. The
+	    data length is at least up to 64k, it is possible to obtain
+	    more data by chaining strings, each string length is then
+	    determined by whatever happens to be in that 16-bit region of
+	    memory.</p>
+	  <p>A similarly crafted request can likely cause the X server
+	    to crash.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0255</cvename>
+      <url>http://lists.freedesktop.org/archives/xorg/2015-February/057158.html</url>
+    </references>
+    <dates>
+      <discovery>2015-02-10</discovery>
+      <entry>2015-02-12</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="a0c45e53-ae51-11e4-8ac7-d050992ecde8">
+    <topic>openldap -- two remote denial of service vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>openldap-server</name>
+	<range><lt>2.4.40_3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Ryan Tandy reports:</p>
+	<blockquote cite="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=776988">
+	  <p>With the deref overlay enabled, ldapsearch with '-E deref=member:'
+	    causes slapd to crash.</p>
+	</blockquote>
+	<blockquote cite="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=776991">
+	  <p>Bill MacAllister discovered that certain queries cause slapd
+	    to crash while freeing operation controls.  This is a 2.4.40 regression.
+	    Earlier releases are not affected.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=776988</url>
+      <url>https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=776991</url>
+    </references>
+    <dates>
+      <discovery>2015-02-02</discovery>
+      <entry>2015-02-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="a6eb239f-adbe-11e4-9fce-080027593b9a">
+    <topic>chromium -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>chromium</name>
+	<range><lt>40.0.2214.111</lt></range>
+      </package>
+      <package>
+	<name>chromium-pulse</name>
+	<range><lt>40.0.2214.111</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Chrome Releases reports:</p>
+	<blockquote cite="http://googlechromereleases.blogspot.nl">
+	  <p>11 security fixes in this release, including:</p>
+	  <ul>
+	    <li>[447906] High CVE-2015-1209: Use-after-free in DOM. Credit to
+	      Maksymillian.</li>
+	    <li>[453979] High CVE-2015-1210: Cross-origin-bypass in V8
+	      bindings. Credit to anonymous.</li>
+	    <li>[453982] High CVE-2015-1211: Privilege escalation using service
+	      workers. Credit to anonymous.</li>
+	    <li>[455225] CVE-2015-1212: Various fixes from internal audits,
+	      fuzzing and other initiatives.</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1209</cvename>
+      <cvename>CVE-2015-1210</cvename>
+      <cvename>CVE-2015-1211</cvename>
+      <cvename>CVE-2015-1212</cvename>
+      <url>http://googlechromereleases.blogspot.nl</url>
+    </references>
+    <dates>
+      <discovery>2015-02-05</discovery>
+      <entry>2015-02-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="3b40bf2c-ad83-11e4-a2b2-0026551a22dc">
+    <topic>PostgreSQL -- multiple buffer overflows and memory issues</topic>
+    <affects>
+      <package>
+	<name>postgresql90-server</name>
+	<range><ge>9.0.0</ge><lt>9.0.19</lt></range>
+      </package>
+      <package>
+	<name>postgresql91-server</name>
+	<range><ge>9.1.0</ge><lt>9.1.15</lt></range>
+      </package>
+      <package>
+	<name>postgresql92-server</name>
+	<range><ge>9.2.0</ge><lt>9.2.10</lt></range>
+      </package>
+      <package>
+	<name>postgresql93-server</name>
+	<range><ge>9.3.0</ge><lt>9.3.6</lt></range>
+      </package>
+      <package>
+	<name>postgresql94-server</name>
+	<range><ge>9.4.0</ge><lt>9.4.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>PostgreSQL Project reports:</p>
+	<blockquote cite="http://www.postgresql.org/about/news/1569/">
+	  <p>This update fixes multiple security issues reported in PostgreSQL
+	    over the past few months.  All of these issues require prior
+	    authentication, and some require additional conditions, and as such
+	    are not considered generally urgent.  However, users should examine
+	    the list of security holes patched below in case they are particularly
+	    vulnerable.</p>
+	  <ol>
+	    <li>CVE-2015-0241 Buffer overruns in "to_char" functions.</li>
+	    <li>CVE-2015-0242 Buffer overrun in replacement printf family of
+		functions.</li>
+	    <li>CVE-2015-0243 Memory errors in functions in the pgcrypto extension.</li>
+	    <li>CVE-2015-0244 An error in extended protocol message reading.</li>
+	    <li>CVE-2014-8161 Constraint violation errors can cause display of values in columns
+		which the user would not normally have rights to see.</li>
+	  </ol>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0241</cvename>
+      <cvename>CVE-2015-0242</cvename>
+      <cvename>CVE-2015-0243</cvename>
+      <cvename>CVE-2015-0244</cvename>
+      <cvename>CVE-2014-8161</cvename>
+    </references>
+    <dates>
+      <discovery>2015-02-05</discovery>
+      <entry>2015-02-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="24ce5597-acab-11e4-a847-206a8a720317">
+    <topic>krb5 -- Vulnerabilities in kadmind, libgssrpc, gss_process_context_token VU#540092</topic>
+    <affects>
+      <package>
+	<name>krb5</name>
+	<range><lt>1.13_1</lt></range>
+      </package>
+      <package>
+	<name>krb5-112</name>
+	<range><lt>1.12.2_1</lt></range>
+      </package>
+      <package>
+	<name>krb5-111</name>
+	<range><lt>1.11.5_4</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>SO-AND-SO reports:</p>
+	<blockquote cite="http://web.mit.edu/kerberos/advisories/MITKRB5-SA-2015-001.txt">
+	  <p>CVE-2014-5352: In the MIT krb5 libgssapi_krb5 library, after
+	     gss_process_context_token() is used to process a valid context
+	     deletion token, the caller is left with a security context handle
+	     containing a dangling pointer.  Further uses of this handle will
+	     result in use-after-free and double-free memory access violations.
+	     libgssrpc server applications such as kadmind are vulnerable as
+	     they can be instructed to call gss_process_context_token().</p>
+	  <p>CVE-2014-9421: If the MIT krb5 kadmind daemon receives invalid XDR
+	     data from an authenticated user, it may perform use-after-free and
+	     double-free memory access violations while cleaning up the partial
+	     deserialization results.  Other libgssrpc server applications may
+	     also be vulnerable if they contain insufficiently defensive XDR
+	     functions.</p>
+	  <p>CVE-2014-9422: The MIT krb5 kadmind daemon incorrectly accepts
+	     authentications to two-component server principals whose first
+	     component is a left substring of "kadmin" or whose realm is a left
+	     prefix of the default realm.</p>
+	  <p>CVE-2014-9423: libgssrpc applications including kadmind output
+	     four or eight bytes of uninitialized memory to the network as
+	     part of an unused "handle" field in replies to clients.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-5352</cvename>
+      <cvename>CVE-2014-9421</cvename>
+      <cvename>CVE-2014-9422</cvename>
+      <cvename>CVE-2014-9423</cvename>
+      <url>http://web.mit.edu/kerberos/advisories/MITKRB5-SA-2015-001.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-02-03</discovery>
+      <entry>2015-02-04</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="e543c6f8-abf2-11e4-8ac7-d050992ecde8">
+    <topic>unzip -- out of boundary access issues in test_compr_eb</topic>
+    <affects>
+      <package>
+	<name>unzip</name>
+	<range><lt>6.0_4</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Ubuntu Security Notice USN-2489-1 reports:</p>
+	<blockquote cite="http://www.ubuntu.com/usn/usn-2489-1/">
+	  <p>Michal Zalewski discovered that unzip incorrectly handled
+	    certain malformed zip archives. If a user or automated system
+	    were tricked into processing a specially crafted zip archive,
+	    an attacker could possibly execute arbitrary code.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-9636</cvename>
+      <url>http://www.ubuntu.com/usn/usn-2489-1/</url>
+      <url>http://people.canonical.com/~ubuntu-security/cve/2014/CVE-2014-9636.html</url>
+      <url>http://seclists.org/oss-sec/2014/q4/489</url>
+      <url>http://www.info-zip.org/phpBB3/viewtopic.php?f=7&amp;t=450</url>
+    </references>
+    <dates>
+      <discovery>2014-11-02</discovery>
+      <entry>2015-02-03</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="1c7cfd05-aaee-11e4-83b4-14dae9d210b8">
+    <topic>Xymon -- buffer overrun</topic>
+    <affects>
+      <package>
+	<name>xymon-server</name>
+	<range><ge>4.3.4</ge><lt>4.3.18</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Debian reports:</p>
+	<blockquote cite="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=776007">
+	  <p>web/acknowledge.c uses a string twice in a format string, but only
+	    allocates memory for one copy.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.openwall.com/lists/oss-security/2015/01/31/4</url>
+      <url>https://security-tracker.debian.org/tracker/CVE-2015-1430</url>
+      <cvename>CVE-2015-1430</cvename>
+    </references>
+    <dates>
+      <discovery>2014-09-28</discovery>
+      <entry>2015-02-02</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="8469d41c-a960-11e4-b18e-bcaec55be5e5">
+    <topic>rabbitmq -- Security issues in management plugin</topic>
+    <affects>
+      <package>
+	<name>rabbitmq</name>
+	<range><lt>3.4.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The RabbitMQ project reports:</p>
+	<blockquote cite="http://www.rabbitmq.com/news.html#2015-01-08T10:14:05+0100">
+	  <p>Some user-controllable content was not properly HTML-escaped
+	  before being presented to a user in the management web UI:</p>
+	  <ul>
+	    <li>When a user unqueued a message from the management UI,
+	    message details (header names, arguments, etc.) were displayed
+	    unescaped. An attacker could publish a specially crafted
+	    message to add content or execute arbitrary Javascript code on
+	    behalf of a user, if this user unqueued the message from the
+	    management UI.</li>
+	    <li>When viewing policies, their name was displayed unescaped.
+	    An attacker could create a policy with a specially crafted name
+	    to add content or execute arbitrary Javascript code on behalf
+	    of a user who is viewing policies.</li>
+	    <li>When listing connected AMQP network clients, client details
+	    such as its version were displayed unescaped. An attacker could
+	    use a client with a specially crafted version field to add
+	    content or execute arbitrary Javascript code on behalf of a
+	    user who is viewing connected clients.</li>
+	  </ul>
+	  <p>In all cases, the attacker needs a valid user account on the
+	  targetted RabbitMQ cluster.</p>
+	  <p>Furthermore, some admin-controllable content was not properly
+	  escaped:</p>
+	  <ul>
+	    <li>user names;</li>
+	    <li>the cluster name.</li>
+	  </ul>
+	  <p>Likewise, an attacker could add content or execute arbitrary
+	  Javascript code on behalf of a user using the management web UI.
+	  However, the attacker must be an administrator on the RabbitMQ
+	  cluster, thus a trusted user.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.rabbitmq.com/news.html#2015-01-08T10:14:05+0100</url>
+      <url>http://www.rabbitmq.com/release-notes/README-3.4.3.txt</url>
+      <cvename>CVE-2015-0862</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-08</discovery>
+      <entry>2015-01-31</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="5804b9d4-a959-11e4-9363-20cf30e32f6d">
+    <topic>apache24 -- several vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>apache24</name>
+	<range><lt>2.4.12</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<h1>Apache HTTP SERVER PROJECT reports:</h1>
+	<blockquote cite="http://www.apache.org/dist/httpd/Announcement2.4.html">
+	  <p>mod_proxy_fcgi: Fix a potential crash due to buffer over-read,
+	    with response headers' size above 8K.</p>
+	  <p>mod_cache: Avoid a crash when Content-Type has an empty value. PR 56924.</p>
+	  <p>mod_lua: Fix handling of the Require line when a LuaAuthzProvider is used
+	    in multiple Require directives with different arguments. PR57204.</p>
+	  <p>core: HTTP trailers could be used to replace HTTP headers late during
+	    request processing, potentially undoing or otherwise confusing modules
+	    that examined or modified request headers earlier. Adds "MergeTrailers"
+	    directive to restore legacy behavior.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-3583</cvename>
+      <cvename>CVE-2014-3581</cvename>
+      <cvename>CVE-2014-8109</cvename>
+      <cvename>CVE-2013-5704</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-29</discovery>
+      <entry>2015-01-31</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="7656fc62-a7a7-11e4-96ba-001999f8d30b">
+    <topic>asterisk -- Mitigation for libcURL HTTP request injection vulnerability</topic>
+    <affects>
+      <package>
+	<name>asterisk</name>
+	<range><lt>1.8.32.2</lt></range>
+      </package>
+      <package>
+	<name>asterisk11</name>
+	<range><lt>11.15.1</lt></range>
+      </package>
+      <package>
+	<name>asterisk13</name>
+	<range><lt>13.1.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Asterisk project reports:</p>
+	<blockquote cite="http://www.asterisk.org/downloads/security-advisories">
+	  <p>CVE-2014-8150 reported an HTTP request injection
+	  vulnerability in libcURL. Asterisk uses libcURL in its
+	  func_curl.so module (the CURL() dialplan function), as
+	  well as its res_config_curl.so (cURL realtime backend)
+	  modules.</p>
+	  <p>Since Asterisk may be configured to allow for user-supplied
+	  URLs to be passed to libcURL, it is possible that an
+	  attacker could use Asterisk as an attack vector to inject
+	  unauthorized HTTP requests if the version of libcURL
+	  installed on the Asterisk server is affected by
+	  CVE-2014-8150.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://downloads.asterisk.org/pub/security/AST-2015-002.html</url>
+    </references>
+    <dates>
+      <discovery>2015-01-12</discovery>
+      <entry>2015-01-29</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="2eeb6652-a7a6-11e4-96ba-001999f8d30b">
+    <topic>asterisk -- File descriptor leak when incompatible codecs are offered</topic>
+    <affects>
+      <package>
+	<name>asterisk13</name>
+	<range><lt>13.1.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Asterisk project reports:</p>
+	<blockquote cite="http://www.asterisk.org/downloads/security-advisories">
+	  <p>Asterisk may be configured to only allow specific audio
+	  or video codecs to be used when communicating with a
+	  particular endpoint. When an endpoint sends an SDP offer
+	  that only lists codecs not allowed by Asterisk, the offer
+	  is rejected. However, in this case, RTP ports that are
+	  allocated in the process are not reclaimed.</p>
+	  <p>This issue only affects the PJSIP channel driver in
+	  Asterisk. Users of the chan_sip channel driver are not
+	  affected.</p>
+	  <p>As the resources are allocated after authentication,
+	  this issue only affects communications with authenticated
+	  endpoints.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://downloads.asterisk.org/pub/security/AST-2015-001.html</url>
+      <cvename>CVE-2015-1558</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-06</discovery>
+      <entry>2015-01-29</entry>
+      <modified>2015-02-17</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="0765de84-a6c1-11e4-a0c1-c485083ca99c">
+    <topic>glibc -- gethostbyname buffer overflow</topic>
+    <affects>
+      <package>
+	<name>linux_base-c6</name>
+	<range><lt>6.6_2</lt></range>
+      </package>
+      <package>
+	<name>linux_base-f10</name>
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>linux-c6-devtools</name>
+	<range><lt>6.6_3</lt></range>
+      </package>
+      <package>
+	<name>linux-f10-devtools</name>
+	<range><ge>0</ge></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Robert Krátký reports:</p>
+	<blockquote cite="https://access.redhat.com/discussions/1332403">
+	  <p>
+	    GHOST is a 'buffer overflow' bug affecting the gethostbyname() and
+	    gethostbyname2() function calls in the glibc library. This
+	    vulnerability allows a remote attacker that is able to make an
+	    application call to either of these functions to execute arbitrary
+	    code with the permissions of the user running the application.
+	    The gethostbyname() function calls are used for DNS resolving, which
+	    is a very common event. To exploit this vulnerability, an attacker
+	    must trigger a buffer overflow by supplying an invalid hostname
+	    argument to an application that performs a DNS resolution.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0235</cvename>
+      <url>https://access.redhat.com/articles/1332213</url>
+      <url>http://www.openwall.com/lists/oss-security/2015/01/27/9</url>
+    </references>
+    <dates>
+      <discovery>2015-01-27</discovery>
+      <entry>2015-01-28</entry>
+      <modified>2015-02-02</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="37a87ade-a59f-11e4-958e-0011d823eebd">
+    <topic>Adobe Flash Player -- critical vulnerability</topic>
+    <affects>
+      <package>
+	<name>linux-c6-flashplugin11</name>
+	<range><le>11.2r202.438</le></range>
+      </package>
+      <package>
+	<name>linux-f10-flashplugin11</name>
+	<range><le>11.2r202.438</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe reports:</p>
+	<blockquote cite="https://helpx.adobe.com/security/products/flash-player/apsa15-01.html">
+	  <p>Successful exploitation could cause a crash and potentially allow
+	    an attacker to take control of the affected system.  We are aware
+	    of reports that this vulnerability is being actively exploited in
+	    the wild via drive-by-download attacks against systems running
+	    Internet Explorer and Firefox on Windows 8.1 and below.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0311</cvename>
+      <url>https://helpx.adobe.com/security/products/flash-player/apsa15-01.html</url>
+    </references>
+    <dates>
+      <discovery>2015-01-22</discovery>
+      <entry>2015-01-26</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="dc2d76df-a595-11e4-9363-20cf30e32f6d">
+    <topic>Bugzilla multiple security issues</topic>
+    <affects>
+      <package>
+	<name>bugzilla44</name>
+	<range><lt>4.4.7</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Bugzilla Security Advisory</p>
+	<blockquote cite="http://www.bugzilla.org/security/4.0.15/">
+	  <h5>Command Injection</h5>
+	  <p>Some code in Bugzilla does not properly utilize 3 arguments form
+	    for open() and it is possible for an account with editcomponents
+	    permissions to inject commands into product names and other
+	    attributes.</p>
+	  <h5>Information Leak</h5>
+	  <p>Using the WebServices API, a user can possibly execute imported
+	    functions from other non-WebService modules. A whitelist has now
+	    been added that lists explicit methods that can be executed via the
+	    API.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8630</cvename>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=1079065</url>
+      <url>https://bugzilla.mozilla.org/show_bug.cgi?id=1090275</url>
+    </references>
+    <dates>
+      <discovery>2015-01-21</discovery>
+      <entry>2015-01-26</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="9c7b6c20-a324-11e4-879c-00e0814cab4e">
+    <topic>django -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>py27-django</name>
+	<range><ge>1.4</ge><lt>1.4.18</lt></range>
+	<range><ge>1.5</ge><le>1.5.12</le></range>
+	<range><ge>1.6</ge><lt>1.6.10</lt></range>
+	<range><ge>1.7</ge><lt>1.7.3</lt></range>
+      </package>
+      <package>
+	<name>py32-django</name>
+	<range><ge>1.4</ge><lt>1.4.18</lt></range>
+	<range><ge>1.5</ge><le>1.5.12</le></range>
+	<range><ge>1.6</ge><lt>1.6.10</lt></range>
+	<range><ge>1.7</ge><lt>1.7.3</lt></range>
+      </package>
+      <package>
+	<name>py33-django</name>
+	<range><ge>1.4</ge><lt>1.4.18</lt></range>
+	<range><ge>1.5</ge><le>1.5.12</le></range>
+	<range><ge>1.6</ge><lt>1.6.10</lt></range>
+	<range><ge>1.7</ge><lt>1.7.3</lt></range>
+      </package>
+      <package>
+	<name>py34-django</name>
+	<range><ge>1.4</ge><lt>1.4.18</lt></range>
+	<range><ge>1.5</ge><le>1.5.12</le></range>
+	<range><ge>1.6</ge><lt>1.6.10</lt></range>
+	<range><ge>1.7</ge><lt>1.7.3</lt></range>
+      </package>
+      <package>
+	<name>py27-django-devel</name>
+	<range><lt>20150124,1</lt></range>
+      </package>
+      <package>
+	<name>py32-django-devel</name>
+	<range><lt>20150124,1</lt></range>
+      </package>
+      <package>
+	<name>py33-django-devel</name>
+	<range><lt>20150124,1</lt></range>
+      </package>
+      <package>
+	<name>py34-django-devel</name>
+	<range><lt>20150124,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Django project reports:</p>
+	<blockquote cite="https://www.djangoproject.com/weblog/2015/jan/13/security/">
+	  <p>Today the Django team is issuing multiple releases --
+	    Django 1.4.18, Django 1.6.10, and Django 1.7.3 -- as part of our
+	    security process. These releases are now available on PyPI and our
+	    download page.</p>
+	  <p>These releases address several security issues. We encourage all
+	    users of Django to upgrade as soon as possible.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.djangoproject.com/weblog/2015/jan/13/security/</url>
+      <cvename>CVE-2015-0219</cvename>
+      <cvename>CVE-2015-0220</cvename>
+      <cvename>CVE-2015-0221</cvename>
+      <cvename>CVE-2015-0222</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-13</discovery>
+      <entry>2015-01-23</entry>
+      <modified>2015-01-24</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="0523fb7e-8444-4e86-812d-8de05f6f0dce">
+    <topic>libutp -- remote denial of service or arbitrary code execution</topic>
+    <affects>
+      <package>
+	<name>bittorrent-libutp</name>
+	<range><lt>0.20130514_1</lt></range>
+      </package>
+      <package>
+	<name>transmission-cli</name>
+	<name>transmission-deamon</name>
+	<name>transmission-gtk</name>
+	<name>transmission-qt4</name>
+	<range><lt>2.74</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>NVD reports:</p>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-6129">
+	  <p>Stack-based buffer overflow in utp.cpp in libutp, as used
+	    in Transmission before 2.74 and possibly other products,
+	    allows remote attackers to cause a denial of service (crash)
+	    and possibly execute arbitrary code via crafted "micro
+	    transport protocol packets."</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2012-6129</cvename>
+      <url>https://github.com/bittorrent/libutp/issues/38</url>
+      <url>https://trac.transmissionbt.com/ticket/5002</url>
+    </references>
+    <dates>
+      <discovery>2012-08-01</discovery>
+      <entry>2014-12-29</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="f9c388c5-a256-11e4-992a-7b2a515a1247">
+    <topic>LibreSSL -- DTLS vulnerability</topic>
+    <affects>
+      <package>
+	<name>libressl</name>
+	<range><lt>2.1.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OpenSSL Security Advisory:</p>
+	<blockquote cite="https://www.openssl.org/news/secadv_20150108.txt">
+	<p>
+	A memory leak can occur in the dtls1_buffer_record function under certain
+	conditions. In particular this could occur if an attacker sent repeated DTLS
+	records with the same sequence number but for the next epoch. The memory leak
+	could be exploited by an attacker in a Denial of Service attack through memory
+	exhaustion.
+	</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+		<cvename>CVE-2015-0206</cvename>
+		<url>https://www.openssl.org/news/secadv_20150108.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-01-08</discovery>
+      <entry>2015-01-22</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="cc294a2c-a232-11e4-8e9f-0011d823eebd">
+    <topic>Adobe Flash Player -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>linux-c6-flashplugin11</name>
+	<range><lt>11.2r202.429</lt></range>
+      </package>
+      <package>
+	<name>linux-f10-flashplugin11</name>
+	<range><lt>11.2r202.429</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe reports:</p>
+	<blockquote cite="http://helpx.adobe.com/security/products/flash-player/apsb15-01.html">
+	  <p>These updates address vulnerabilities that could potentially allow
+	    an attacker to take control of the affected system.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0301</cvename>
+      <cvename>CVE-2015-0302</cvename>
+      <cvename>CVE-2015-0303</cvename>
+      <cvename>CVE-2015-0304</cvename>
+      <cvename>CVE-2015-0305</cvename>
+      <cvename>CVE-2015-0306</cvename>
+      <cvename>CVE-2015-0307</cvename>
+      <cvename>CVE-2015-0308</cvename>
+      <cvename>CVE-2015-0309</cvename>
+      <url>http://helpx.adobe.com/security/products/flash-player/apsb15-01.html</url>
+    </references>
+    <dates>
+      <discovery>2015-01-13</discovery>
+      <entry>2015-01-22</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="e30e0c99-a1b7-11e4-b85c-00262d5ed8ee">
+    <topic>chromium -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>chromium</name>
+	<range><lt>40.0.2214.91</lt></range>
+      </package>
+      <package>
+	<name>chromium-pulse</name>
+	<range><lt>40.0.2214.91</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Google Chrome Releases reports:</p>
+	<blockquote cite="http://googlechromereleases.blogspot.nl/">
+	  <p>62 security fixes in this release, including:</p>
+	  <ul>
+	    <li>[430353] High CVE-2014-7923: Memory corruption in ICU. Credit
+	      to yangdingning.</li>
+	    <li>[435880] High CVE-2014-7924: Use-after-free in IndexedDB.
+	      Credit to Collin Payne.</li>
+	    <li>[434136] High CVE-2014-7925: Use-after-free in WebAudio. Credit
+	      to mark.buer.</li>
+	    <li>[422824] High CVE-2014-7926: Memory corruption in ICU. Credit
+	      to yangdingning.</li>
+	    <li>[444695] High CVE-2014-7927: Memory corruption in V8. Credit to
+	      Christian Holler.</li>
+	    <li>[435073] High CVE-2014-7928: Memory corruption in V8. Credit to
+	      Christian Holler.</li>
+	    <li>[442806] High CVE-2014-7930: Use-after-free in DOM. Credit to
+	      cloudfuzzer.</li>
+	    <li>[442710] High CVE-2014-7931: Memory corruption in V8. Credit to
+	      cloudfuzzer.</li>
+	    <li>[443115] High CVE-2014-7929: Use-after-free in DOM. Credit to
+	      cloudfuzzer.</li>
+	    <li>[429666] High CVE-2014-7932: Use-after-free in DOM. Credit to
+	      Atte Kettunen of OUSPG.</li>
+	    <li>[427266] High CVE-2014-7933: Use-after-free in FFmpeg. Credit
+	      to aohelin.</li>
+	    <li>[427249] High CVE-2014-7934: Use-after-free in DOM. Credit to
+	      cloudfuzzer.</li>
+	    <li>[402957] High CVE-2014-7935: Use-after-free in Speech. Credit
+	      to Khalil Zhani.</li>
+	    <li>[428561] High CVE-2014-7936: Use-after-free in Views. Credit
+	      to Christoph Diehl.</li>
+	    <li>[419060] High CVE-2014-7937: Use-after-free in FFmpeg. Credit
+	      to Atte Kettunen of OUSPG.</li>
+	    <li>[416323] High CVE-2014-7938: Memory corruption in Fonts. Credit
+	      to Atte Kettunen of OUSPG.</li>
+	    <li>[399951] High CVE-2014-7939: Same-origin-bypass in V8. Credit
+	      to Takeshi Terada.</li>
+	    <li>[433866] Medium CVE-2014-7940: Uninitialized-value in ICU.
+	      Credit to miaubiz.</li>
+	    <li>[428557] Medium CVE-2014-7941: Out-of-bounds read in UI. Credit
+	      to Atte Kettunen of OUSPG and Christoph Diehl.</li>
+	    <li>[426762] Medium CVE-2014-7942: Uninitialized-value in Fonts.
+	      Credit to miaubiz.</li>
+	    <li>[422492] Medium CVE-2014-7943: Out-of-bounds read in Skia.
+	      Credit to Atte Kettunen of OUSPG.</li>
+	    <li>[418881] Medium CVE-2014-7944: Out-of-bounds read in PDFium.
+	      Credit to cloudfuzzer.</li>
+	    <li>[414310] Medium CVE-2014-7945: Out-of-bounds read in PDFium.
+	      Credit to cloudfuzzer.</li>
+	    <li>[414109] Medium CVE-2014-7946: Out-of-bounds read in Fonts.
+	      Credit to miaubiz.</li>
+	    <li>[430566] Medium CVE-2014-7947: Out-of-bounds read in PDFium.
+	      Credit to fuzztercluck.</li>
+	    <li>[414026] Medium CVE-2014-7948: Caching error in AppCache.
+	      Credit to jiayaoqijia.</li>
+	    <li>[449894] CVE-2015-1205: Various fixes from internal audits,
+	      fuzzing and other initiatives.</li>
+	    <li>Multiple vulnerabilities in V8 fixed at the tip of the 3.30
+	      branch (currently 3.30.33.15).</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-7923</cvename>
+      <cvename>CVE-2014-7924</cvename>
+      <cvename>CVE-2014-7925</cvename>
+      <cvename>CVE-2014-7926</cvename>
+      <cvename>CVE-2014-7927</cvename>
+      <cvename>CVE-2014-7928</cvename>
+      <cvename>CVE-2014-7929</cvename>
+      <cvename>CVE-2014-7930</cvename>
+      <cvename>CVE-2014-7931</cvename>
+      <cvename>CVE-2014-7932</cvename>
+      <cvename>CVE-2014-7933</cvename>
+      <cvename>CVE-2014-7934</cvename>
+      <cvename>CVE-2014-7935</cvename>
+      <cvename>CVE-2014-7936</cvename>
+      <cvename>CVE-2014-7937</cvename>
+      <cvename>CVE-2014-7938</cvename>
+      <cvename>CVE-2014-7939</cvename>
+      <cvename>CVE-2014-7940</cvename>
+      <cvename>CVE-2014-7941</cvename>
+      <cvename>CVE-2014-7942</cvename>
+      <cvename>CVE-2014-7943</cvename>
+      <cvename>CVE-2014-7944</cvename>
+      <cvename>CVE-2014-7945</cvename>
+      <cvename>CVE-2014-7946</cvename>
+      <cvename>CVE-2014-7947</cvename>
+      <cvename>CVE-2014-7948</cvename>
+      <cvename>CVE-2015-1205</cvename>
+      <url>http://googlechromereleases.blogspot.nl</url>
+    </references>
+    <dates>
+      <discovery>2015-01-21</discovery>
+      <entry>2015-01-21</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="a5856eba-a015-11e4-a680-1c6f65c3c4ff">
+    <topic>polarssl -- Remote attack using crafted certificates</topic>
+    <affects>
+      <package>
+	<name>polarssl</name>
+	<range><ge>1.2.0</ge><lt>1.2.12_1</lt></range>
+      </package>
+      <package>
+	<name>polarssl13</name>
+	<range><ge>1.3.0</ge><lt>1.3.9_1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>PolarSSL team reports:</p>
+	<blockquote cite="https://polarssl.org/tech-updates/security-advisories/polarssl-security-advisory-2014-04">
+	  <p>During the parsing of a ASN.1 sequence, a pointer in the linked list of asn1_sequence is not
+	    initialized by asn1_get_sequence_of(). In case an error occurs during parsing of the list, a
+	    situation is created where the uninitialized pointer is passed to polarssl_free().</p>
+	  <p>This sequence can be triggered when a PolarSSL entity is parsing a certificate. So practically this
+	    means clients when receiving a certificate from the server or servers in case they are actively
+	    asking for a client certificate.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1182</cvename>
+      <url>https://polarssl.org/tech-updates/security-advisories/polarssl-security-advisory-2014-04</url>
+      <url>https://www.certifiedsecure.com/polarssl-advisory/</url>
+    </references>
+    <dates>
+      <discovery>2015-01-14</discovery>
+      <entry>2015-01-19</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="d9360908-9d52-11e4-87fd-10bf48e1088e">
+    <topic>unzip -- input sanitization errors</topic>
+    <affects>
+      <package>
+	<name>unzip</name>
+	<range><le>6.0_2</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>oCERT reports:</p>
+	<blockquote cite="http://www.ocert.org/advisories/ocert-2014-011.html">
+	  <p>The UnZip tool is an open source extraction utility for archives
+	    compressed in the zip format.</p>
+	  <p>The unzip command line tool is affected by heap-based buffer
+	    overflows within the CRC32 verification, the test_compr_eb() and
+	    the getZip64Data() functions. The input errors may result in
+	    arbitrary code execution.</p>
+	  <p>A specially crafted zip file, passed to unzip -t, can be used to
+	    trigger the vulnerability.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8139</cvename>
+      <cvename>CVE-2014-8140</cvename>
+      <cvename>CVE-2014-8141</cvename>
+      <url>http://www.info-zip.org/UnZip.html</url>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=1174844</url>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2014-8140</url>
+      <url>https://bugzilla.redhat.com/show_bug.cgi?id=1174856</url>
+    </references>
+    <dates>
+      <discovery>2014-12-03</discovery>
+      <entry>2015-01-16</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="d4f45676-9d33-11e4-8275-000c292e4fd8">
+    <topic>samba -- Elevation of privilege to Active Directory Domain Controller</topic>
+    <affects>
+      <package>
+	<name>samba4</name>
+	<range><ge>4.0.0</ge><lt>4.0.23</lt></range>
+      </package>
+      <package>
+	<name>samba41</name>
+	<range><ge>4.1.0</ge><lt>4.1.15</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Samba team reports:</p>
+	<blockquote cite="https://www.samba.org/samba/security/CVE-2014-8143">
+	  <p>In Samba's AD DC we neglected to ensure that
+	  attempted modifications of the userAccountControl attribute
+	  did not allow the UF_SERVER_TRUST_ACCOUNT bit to be set.
+	  </p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8143</cvename>
+      <url>https://www.samba.org/samba/security/CVE-2014-8143</url>
+    </references>
+    <dates>
+      <discovery>2015-01-15</discovery>
+      <entry>2015-01-16</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="7a8a74d1-9c34-11e4-a40b-5453ed2e2b49">
+    <topic>kde-runtime -- incorrect CBC encryption handling</topic>
+    <affects>
+      <package>
+	<name>kde-runtime</name>
+	<range><lt>4.12_3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Valentin Rusu reports:</p>
+	<blockquote cite="https://www.kde.org/info/security/advisory-20150109-1.txt">
+	  <p>Until KDE Applications 14.12.0, kwalletd incorrectly handled CBC
+	    encryption blocks when encrypting secrets in kwl files. The secrets
+	    were still encrypted, but the result binary data corresponded to an
+	    ECB encrypted block instead of CBC.</p>
+	  <p>The ECB encryption algorithm, even if it'll scramble user data,
+	    will produce same encrypted byte sequence for the same input text.
+	    As a result, attackers may eventually find-out the encrypted
+	    text.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2013-7252</cvename>
+      <url>https://www.kde.org/info/security/advisory-20150109-1.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-01-09</discovery>
+      <entry>2015-01-14</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="bd62c640-9bb9-11e4-a5ad-000c297fb80f">
+    <topic>mozilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>firefox</name>
+	<range><lt>35.0,1</lt></range>
+      </package>
+      <package>
+	<name>firefox-esr</name>
+	<range><lt>31.4.0,1</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>35.0,1</lt></range>
+      </package>
+      <package>
+	<name>linux-seamonkey</name>
+	<range><lt>2.32</lt></range>
+      </package>
+      <package>
+	<name>linux-thunderbird</name>
+	<range><lt>31.4.0</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.32</lt></range>
+      </package>
+      <package>
+	<name>thunderbird</name>
+	<range><lt>31.4.0</lt></range>
+      </package>
+      <package>
+	<name>libxul</name>
+	<range><lt>31.4.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mozilla Project reports:</p>
+	<blockquote cite="https://www.mozilla.org/en-US/security/known-vulnerabilities/">
+	  <p>MFSA-2015-01 Miscellaneous memory safety hazards (rv:35.0
+	    / rv:31.4)</p>
+	  <p>MFSA-2015-02 Uninitialized memory use during bitmap
+	    rendering</p>
+	  <p>MFSA-2015-03 sendBeacon requests lack an Origin header</p>
+	  <p>MFSA-2015-04 Cookie injection through Proxy Authenticate
+	    responses</p>
+	  <p>MFSA-2015-05 Read of uninitialized memory in Web Audio</p>
+	  <p>MFSA-2015-06 Read-after-free in WebRTC</p>
+	  <p>MFSA-2015-07 Gecko Media Plugin sandbox escape</p>
+	  <p>MFSA-2015-08 Delegated OCSP responder certificates failure
+	    with id-pkix-ocsp-nocheck extension</p>
+	  <p>MFSA-2015-09 XrayWrapper bypass through DOM objects</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8634</cvename>
+      <cvename>CVE-2014-8635</cvename>
+      <cvename>CVE-2014-8637</cvename>
+      <cvename>CVE-2014-8638</cvename>
+      <cvename>CVE-2014-8639</cvename>
+      <cvename>CVE-2014-8640</cvename>
+      <cvename>CVE-2014-8641</cvename>
+      <cvename>CVE-2014-8642</cvename>
+      <cvename>CVE-2014-8643</cvename>
+      <cvename>CVE-2014-8636</cvename>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-01/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-02/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-03/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-04/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-05/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-06/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-07/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-08/</url>
+      <url>https://www.mozilla.org/en-US/security/advisories/mfsa2015-09/</url>
+      <url>https://www.mozilla.org/security/advisories/</url>
+    </references>
+    <dates>
+      <discovery>2015-01-13</discovery>
+      <entry>2015-01-14</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="daa8a49b-99b9-11e4-8f66-3085a9a4510d">
+    <topic>libevent -- integer overflow in evbuffers</topic>
+    <affects>
+      <package>
+	<name>libevent</name>
+	<range><lt>1.4.15</lt></range>
+      </package>
+      <package>
+	<name>libevent2</name>
+	<range><lt>2.0.22</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Debian Security Team reports:</p>
+	<blockquote cite="https://www.debian.org/security/2015/dsa-3119">
+	  <p>Andrew Bartlett of Catalyst reported a defect affecting certain
+	     applications using the Libevent evbuffer API. This defect leaves
+	     applications which pass insanely large inputs to evbuffers open
+	     to a possible heap overflow or infinite loop. In order to exploit
+	     this flaw, an attacker needs to be able to find a way to provoke
+	     the program into trying to make a buffer chunk larger than what
+	     will fit into a single size_t or off_t.
+	 </p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-6272</cvename>
+      <url>https://www.debian.org/security/2015/dsa-3119</url>
+    </references>
+    <dates>
+      <discovery>2015-01-05</discovery>
+      <entry>2015-01-11</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="caa98ffd-0a92-40d0-b234-fd79b429157e">
+    <topic>cURL -- URL request injection vulnerability</topic>
+    <affects>
+      <package>
+	<name>curl</name>
+	<range><lt>7.40.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>cURL reports:</p>
+	<blockquote cite="http://curl.haxx.se/docs/adv_20150108B.html">
+	  <p>When libcurl sends a request to a server via a HTTP proxy, it
+	    copies the entire URL into the request and sends if off.
+	    If the given URL contains line feeds and carriage returns those will
+	    be sent along to the proxy too, which allows the program to for
+	    example send a separate HTTP request injected embedded in the URL.
+	    Many programs allow some kind of external sources to set the URL or
+	    provide partial pieces for the URL to ask for, and if the URL as
+	    received from the user is not stripped good enough this flaw allows
+	    malicious users to do additional requests in a way that was not
+	    intended, or just to insert request headers into the request that
+	    the program didn't intend.
+	    We are not aware of any exploit of this flaw.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8150</cvename>
+      <url>http://curl.haxx.se/docs/adv_20150108B.html</url>
+    </references>
+    <dates>
+      <discovery>2014-12-25</discovery>
+      <entry>2015-01-09</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="e9ccdb28-9802-11e4-9d9c-bcaec565249c">
+    <topic>WebKit-gtk -- Multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>webkit-gtk2</name>
+	<range><lt>1.4.8</lt></range>
+      </package>
+      <package>
+	<name>webkit-gtk3</name>
+	<range><lt>1.4.8</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Webkit release team reports:</p>
+	<blockquote cite="http://webkitgtk.org/2015/01/07/webkitgtk2.4.8-released.html">
+	  <p>This release fixes the following security issues:
+	    CVE-2014-1344, CVE-2014-1384, CVE-2014-1385, CVE-2014-1386,
+	    CVE-2014-1387, CVE-2014-1388, CVE-2014-1389, CVE-2014-1390.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://webkitgtk.org/2015/01/07/webkitgtk2.4.8-released.html</url>
+      <cvename>CVE-2014-1344</cvename>
+      <cvename>CVE-2014-1384</cvename>
+      <cvename>CVE-2014-1385</cvename>
+      <cvename>CVE-2014-1386</cvename>
+      <cvename>CVE-2014-1387</cvename>
+      <cvename>CVE-2014-1388</cvename>
+      <cvename>CVE-2014-1389</cvename>
+      <cvename>CVE-2014-1390</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-07</discovery>
+      <entry>2015-01-09</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="4e536c14-9791-11e4-977d-d050992ecde8">
+    <topic>OpenSSL -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>openssl</name>
+	<range><ge>1.0.1</ge><lt>1.0.1_17</lt></range>
+      </package>
+      <package>
+	<name>mingw32-openssl</name>
+	<range><ge>1.0.1</ge><lt>1.0.1k</lt></range>
+      </package>
+      <package>
+	<name>linux-c6-openssl</name>
+	<range><lt>1.0.1e_3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OpenSSL project reports:</p>
+	<blockquote cite="https://www.openssl.org/news/secadv_20150108.txt">
+	  <p>DTLS segmentation fault in dtls1_get_record (CVE-2014-3571)</p>
+	  <p>DTLS memory leak in dtls1_buffer_record (CVE-2015-0206)</p>
+	  <p>no-ssl3 configuration sets method to NULL (CVE-2014-3569)</p>
+	  <p>ECDHE silently downgrades to ECDH [Client] (CVE-2014-3572)</p>
+	  <p>RSA silently downgrades to EXPORT_RSA [Client] (CVE-2015-0204)</p>
+	  <p>DH client certificates accepted without verification [Server] (CVE-2015-0205)</p>
+	  <p>Certificate fingerprints can be modified (CVE-2014-8275)</p>
+	  <p>Bignum squaring may produce incorrect results (CVE-2014-3570)</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-3569</cvename>
+      <cvename>CVE-2014-3570</cvename>
+      <cvename>CVE-2014-3571</cvename>
+      <cvename>CVE-2014-3572</cvename>
+      <cvename>CVE-2014-8275</cvename>
+      <cvename>CVE-2015-0204</cvename>
+      <cvename>CVE-2015-0205</cvename>
+      <cvename>CVE-2015-0206</cvename>
+      <url>https://www.openssl.org/news/secadv_20150108.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-01-08</discovery>
+      <entry>2015-01-08</entry>
+      <modified>2015-01-22</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="5e135178-8aeb-11e4-801f-0022156e8794">
+    <topic>wordpress -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>wordpress</name>
+	<range><lt>3.7.5,1</lt></range>
+	<range><ge>3.8,1</ge><lt>3.8.5,1</lt></range>
+	<range><ge>3.9,1</ge><lt>3.9.3,1</lt></range>
+	<range><ge>4.0,1</ge><lt>4.0.1,1</lt></range>
+      </package>
+      <package>
+	<name>zh-wordpress</name>
+	<range><lt>3.7.5</lt></range>
+	<range><ge>3.8</ge><lt>3.8.5</lt></range>
+	<range><ge>3.9</ge><lt>3.9.3</lt></range>
+	<range><ge>4.0</ge><lt>4.0.1</lt></range>
+      </package>
+      <package>
+	<name>de-wordpress</name>
+	<range><lt>3.7.5</lt></range>
+	<range><ge>3.8</ge><lt>3.8.5</lt></range>
+	<range><ge>3.9</ge><lt>3.9.3</lt></range>
+	<range><ge>4.0</ge><lt>4.0.1</lt></range>
+      </package>
+      <package>
+	<name>ja-wordpress</name>
+	<range><lt>3.7.5</lt></range>
+	<range><ge>3.8</ge><lt>3.8.5</lt></range>
+	<range><ge>3.9</ge><lt>3.9.3</lt></range>
+	<range><ge>4.0</ge><lt>4.0.1</lt></range>
+      </package>
+      <package>
+	<name>ru-wordpress</name>
+	<range><lt>3.7.5</lt></range>
+	<range><ge>3.8</ge><lt>3.8.5</lt></range>
+	<range><ge>3.9</ge><lt>3.9.3</lt></range>
+	<range><ge>4.0</ge><lt>4.0.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>MITRE reports:</p>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9039">
+	  <p>wp-login.php in WordPress before 3.7.5, 3.8.x before
+	    3.8.5, 3.9.x before 3.9.3, and 4.x before 4.0.1 might allow
+	    remote attackers to reset passwords by leveraging access to
+	    an e-mail account that received a password-reset message.</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9038">
+	  <p>wp-includes/http.php in WordPress before 3.7.5, 3.8.x
+	    before 3.8.5, 3.9.x before 3.9.3, and 4.x before 4.0.1
+	    allows remote attackers to conduct server-side request
+	    forgery (SSRF) attacks by referring to a 127.0.0.0/8
+	    resource.</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9037">
+	  <p>WordPress before 3.7.5, 3.8.x before 3.8.5, 3.9.x before
+	    3.9.3, and 4.x before 4.0.1 might allow remote attackers to
+	    obtain access to an account idle since 2008 by leveraging an
+	    improper PHP dynamic type comparison for an MD5 hash.</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9036">
+	  <p>Cross-site scripting (XSS) vulnerability in WordPress
+	    before 3.7.5, 3.8.x before 3.8.5, 3.9.x before 3.9.3, and
+	    4.x before 4.0.1 allows remote attackers to inject arbitrary
+	    web script or HTML via a crafted Cascading Style Sheets
+	    (CSS) token sequence in a post.</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9035">
+	  <p>Cross-site scripting (XSS) vulnerability in Press This in
+	    WordPress before 3.7.5, 3.8.x before 3.8.5, 3.9.x before
+	    3.9.3, and 4.x before 4.0.1 allows remote attackers to
+	    inject arbitrary web script or HTML via unspecified
+	    vectors</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9034">
+	  <p>wp-includes/class-phpass.php in WordPress before 3.7.5,
+	    3.8.x before 3.8.5, 3.9.x before 3.9.3, and 4.x before 4.0.1
+	    allows remote attackers to cause a denial of service (CPU
+	    consumption) via a long password that is improperly handled
+	    during hashing, a similar issue to CVE-2014-9016.</p>
+	</blockquote>
+	<blockquote cite="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-9033">
+	  <p>Cross-site request forgery (CSRF) vulnerability in
+	    wp-login.php in WordPress 3.7.4, 3.8.4, 3.9.2, and 4.0
+	    allows remote attackers to hijack the authentication of
+	    arbitrary users for requests that reset passwords.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-9033</cvename>
+      <cvename>CVE-2014-9034</cvename>
+      <cvename>CVE-2014-9035</cvename>
+      <cvename>CVE-2014-9036</cvename>
+      <cvename>CVE-2014-9037</cvename>
+      <cvename>CVE-2014-9038</cvename>
+      <cvename>CVE-2014-9039</cvename>
+    </references>
+    <dates>
+      <discovery>2014-11-25</discovery>
+      <entry>2015-01-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="c564f9bd-8ba7-11e4-801f-0022156e8794">
+    <topic>png -- heap overflow for 32-bit builds</topic>
+    <affects>
+      <package>
+	<name>png</name>
+	<range><ge>1.2.6</ge><lt>1.5.21</lt></range>
+	<range><ge>1.6</ge><lt>1.6.16</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>32-bit builds of PNG library are vulnerable to an unsigned
+	  integer overflow that is triggered by a crafted wide
+	  interlaced images.
+	  Overflow results in a heap corruption that will crash the
+	  application and may lead to the controlled overwrite of a
+	  selected portions of process address space.</p>
+      </body>
+    </description>
+    <references>
+      <url>http://tfpwn.com/files/libpng_heap_overflow_1.6.15.txt</url>
+      <url>http://codelabs.ru/security/vulns/analysis/libpng/2014-dec-libpng-1.6.15/</url>
+    </references>
+    <dates>
+      <discovery>2014-12-23</discovery>
+      <entry>2015-01-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="9575259a-92d5-11e4-bce6-d050992ecde8">
+    <topic>file -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>file</name>
+	<range><lt>5.21</lt></range>
+      </package>
+      <system>
+	<name>FreeBSD</name>
+	<range><ge>8.4</ge><lt>8.4_20</lt></range>
+	<range><ge>9.1</ge><lt>9.1_23</lt></range>
+	<range><ge>9.2</ge><lt>9.2_16</lt></range>
+	<range><ge>9.3</ge><lt>9.3_6</lt></range>
+	<range><ge>10.0</ge><lt>10.0_13</lt></range>
+	<range><ge>10.1</ge><lt>10.1_1</lt></range>
+      </system>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>RedHat reports:</p>
+	<blockquote cite="http://seclists.org/oss-sec/2014/q4/1056">
+	  <p>Thomas Jarosch of Intra2net AG reported a number of
+	    denial of service issues (resource consumption) in
+	    the ELF parser used by file(1). These issues were
+	    fixed in the 5.21 release of file(1), but by mistake
+	    are missing from the changelog.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-3710</cvename>
+      <cvename>CVE-2014-8116</cvename>
+      <cvename>CVE-2014-8117</cvename>
+      <freebsdsa>FreeBSD-SA-14:28.file</freebsdsa>
+      <url>http://seclists.org/oss-sec/2014/q4/1056</url>
+    </references>
+    <dates>
+      <discovery>2014-12-16</discovery>
+      <entry>2015-01-02</entry>
+    </dates>
+  </vuln>
+
   <vuln vid="c3d43001-8064-11e4-801f-0022156e8794">
     <topic>mutt -- denial of service via crafted mail message</topic>
     <affects>
@@ -402,10 +2709,12 @@ Notes:
     </description>
     <references>
       <url>http://downloads.asterisk.org/pub/security/AST-2014-019.html</url>
+      <cvename>CVE-2014-9374</cvename>
     </references>
     <dates>
       <discovery>2014-10-30</discovery>
       <entry>2014-12-11</entry>
+      <modified>2015-01-29</modified>
     </dates>
   </vuln>
 
@@ -614,17 +2923,17 @@ Notes:
 	<blockquote cite="http://www.mozilla.org/security/known-vulnerabilities/">
 	  <p>ASN.1 DER decoding of lengths is too permissive, allowing
 	    undetected smuggling of arbitrary data</p>
-	  <p>MSFA-2014-90 Apple CoreGraphics framework on OS X 10.10
+	  <p>MFSA-2014-90 Apple CoreGraphics framework on OS X 10.10
 	    logging input data to /tmp directory</p>
-	  <p>MSFA-2014-89 Bad casting from the BasicThebesLayer to
+	  <p>MFSA-2014-89 Bad casting from the BasicThebesLayer to
 	    BasicContainerLayer</p>
-	  <p>MSFA-2014-88 Buffer overflow while parsing media content</p>
-	  <p>MSFA-2014-87 Use-after-free during HTML5 parsing</p>
-	  <p>MSFA-2014-86 CSP leaks redirect data via violation reports</p>
-	  <p>MSFA-2014-85 XMLHttpRequest crashes with some input streams</p>
-	  <p>MSFA-2014-84 XBL bindings accessible via improper CSS
+	  <p>MFSA-2014-88 Buffer overflow while parsing media content</p>
+	  <p>MFSA-2014-87 Use-after-free during HTML5 parsing</p>
+	  <p>MFSA-2014-86 CSP leaks redirect data via violation reports</p>
+	  <p>MFSA-2014-85 XMLHttpRequest crashes with some input streams</p>
+	  <p>MFSA-2014-84 XBL bindings accessible via improper CSS
 	    declarations</p>
-	  <p>MSFA-2014-83 Miscellaneous memory safety hazards (rv:34.0
+	  <p>MFSA-2014-83 Miscellaneous memory safety hazards (rv:34.0
 	    / rv:31.3)</p>
 	</blockquote>
       </body>
@@ -2075,7 +4384,7 @@ Notes:
     <topic>Flash player -- Multiple security vulnerabilities in www/linux-*-flashplugin11</topic>
     <affects>
       <package>
-	<name>flashplugin11</name>
+	<name>linux-f10-flashplugin11</name>
 	<range><lt>11.2r202.400</lt></range>
       </package>
       <package>
@@ -2337,7 +4646,7 @@ Notes:
   </vuln>
 
   <vuln vid="38242d51-3e58-11e4-ac2f-bcaec565249c">
-    <topic>dbus -- multiple vulnabilities</topic>
+    <topic>dbus -- multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>dbus</name>
@@ -3713,7 +6022,7 @@ Notes:
   </vuln>
 
   <vuln vid="e6a7636a-02d0-11e4-88b6-080027671656">
-    <topic>dbus -- multiple vulnabilities</topic>
+    <topic>dbus -- multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>dbus</name>
@@ -3814,6 +6123,10 @@ Notes:
 	<name>lzo2</name>
 	<range><lt>2.07</lt></range>
       </package>
+      <package>
+	<name>busybox</name>
+	<range><lt>1.22.1_2</lt></range>
+      </package>
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
@@ -3833,10 +6146,12 @@ Notes:
     </description>
     <references>
       <url>http://www.oberhumer.com/opensource/lzo/download/lzo-2.07.tar.gz</url>
+      <cvename>CVE-2014-4608</cvename>
     </references>
     <dates>
       <discovery>2014-06-25</discovery>
       <entry>2014-06-26</entry>
+      <modified>2015-01-06</modified>
     </dates>
   </vuln>
 
@@ -4391,7 +6706,7 @@ Notes:
   </vuln>
 
   <vuln vid="02db20d7-e34a-11e3-bd92-bcaec565249c">
-    <topic>openjpeg -- Multiple vulnabilities</topic>
+    <topic>openjpeg -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>openjpeg</name>
@@ -5409,7 +7724,7 @@ Notes:
       <body xmlns="http://www.w3.org/1999/xhtml">
 	<p>Google Chrome Releases reports:</p>
 	<blockquote cite="http://googlechromereleases.blogspot.nl/">
-	  <p>31 vulnerabilies fixed in this release, including:</p>
+	  <p>31 vulnerabilities fixed in this release, including:</p>
 	  <ul>
 	    <li>[354123] High CVE-2014-1716: UXSS in V8. Credit to
 	      Anonymous.</li>
@@ -5961,7 +8276,7 @@ Notes:
   </vuln>
 
   <vuln vid="a70966a1-ac22-11e3-8d04-00262d5ed8ee">
-    <topic>www/chromium -- multiple vulnerabities</topic>
+    <topic>www/chromium -- multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>chromium</name>
@@ -5972,7 +8287,7 @@ Notes:
       <body xmlns="http://www.w3.org/1999/xhtml">
 	<p>Google Chrome Releases reports:</p>
 	<blockquote cite="http://googlechromereleases.blogspot.nl/">
-	  <p>New vulnerabilites after the Pwn2Own competition:</p>
+	  <p>New vulnerabilities after the Pwn2Own competition:</p>
 	  <ul>
 	    <li>[352369] Code execution outside sandbox. Credit to VUPEN.
 	      <ul>
@@ -20107,7 +22422,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="6dd5e45c-f084-11e1-8d0f-406186f3d89d">
-    <topic>coppermine -- Multiple vulnerabilites</topic>
+    <topic>coppermine -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>coppermine</name>
@@ -28426,7 +30741,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="f08e2c15-ffc9-11e0-b0f3-bcaec565249c">
-    <topic>cacti -- Multiple vulnabilites</topic>
+    <topic>cacti -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>cacti</name>
@@ -33492,7 +35807,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="06a12e26-142e-11e0-bea2-0015f2db7bde">
-    <topic>webkit-gtk2 -- Multiple vulnabilities</topic>
+    <topic>webkit-gtk2 -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>webkit-gtk2</name>
@@ -36436,7 +38751,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="9bcfd7b6-bcda-11df-9a6a-0015f2db7bde">
-    <topic>webkit-gtk2 -- Multiple vulnabilities</topic>
+    <topic>webkit-gtk2 -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>webkit-gtk2</name>
@@ -37400,7 +39715,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="19419b3b-92bd-11df-b140-0015f2db7bde">
-    <topic>webkit-gtk2 -- Multiple vulnabilities</topic>
+    <topic>webkit-gtk2 -- Multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>webkit-gtk2</name>
@@ -42818,7 +45133,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="f59dda75-5ff4-11de-a13e-00e0815b8da8">
-    <topic>tor-devel -- DNS resolution vulnerabiliity</topic>
+    <topic>tor-devel -- DNS resolution vulnerability</topic>
     <affects>
       <package>
 	<name>tor-devel</name>
@@ -45296,7 +47611,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="78f5606b-f9d1-11dd-b79c-0030843d3802">
-    <topic>tor -- multiple vulnerabilites</topic>
+    <topic>tor -- multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>tor</name>
@@ -50452,7 +52767,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="35e54755-54e4-11dd-ad8b-0030843d3802">
-    <topic>phpmyadmin -- cross site request forgery vulnerabilites</topic>
+    <topic>phpmyadmin -- cross site request forgery vulnerabilities</topic>
     <affects>
       <package>
 	<name>phpMyAdmin</name>
@@ -55455,7 +57770,7 @@ executed in your Internet Explorer while displaying the email.</p>
   </vuln>
 
   <vuln vid="a5f667db-7596-11dc-8b7a-0019b944b34e">
-    <topic>xfs -- multiple vulnerabilites</topic>
+    <topic>xfs -- multiple vulnerabilities</topic>
     <affects>
       <package>
 	<name>xfs</name>
@@ -70038,7 +72353,7 @@ executed in your Internet Explorer while displaying the email.</p>
 	    the webserver process are subject to disclosure.
 	    The vulnerability is *not* restricted to the webserver's
 	    document root but extends to the whole server file space.</p>
-	  <p>The vulnerabilty may be used by any anonymous user,
+	  <p>The vulnerability may be used by any anonymous user,
 	    there is no login to the application required.</p>
 	</blockquote>
       </body>
@@ -73618,7 +75933,7 @@ executed in your Internet Explorer while displaying the email.</p>
 	<blockquote cite="http://www.gentoo.org/security/en/glsa/glsa-200506-04.xml">
 	  <p>Due to a lack of input validation, WordPress is
 	    vulnerable to SQL injection and XSS attacks.</p>
-	  <p>An attacker could use the SQL injection vulnerabilites to
+	  <p>An attacker could use the SQL injection vulnerabilities to
 	    gain information from the database. Furthermore the
 	    cross-site scripting issues give an attacker the ability
 	    to inject and execute malicious script code or to steal
@@ -75179,7 +77494,7 @@ executed in your Internet Explorer while displaying the email.</p>
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
-	<p>Erik Sjölund discovered a vulnerabilitiy in Sympa.  The
+	<p>Erik Sjölund discovered a vulnerability in Sympa.  The
 	  <code>queue</code> application processes messages received via
 	  aliases.  It contains a buffer overflow in the usage of
 	  <code>sprintf</code>.  In some configurations, it may allow an
@@ -77808,7 +80123,7 @@ executed in your Internet Explorer while displaying the email.</p>
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
-	<p>Two separate SQL injection vulnerabilites have been
+	<p>Two separate SQL injection vulnerabilities have been
 	   identified in the PostNuke PHP content management
 	   system. An attacker can use this vulnerability to
 	   potentially insert executable PHP code into the content

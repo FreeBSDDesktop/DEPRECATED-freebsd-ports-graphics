@@ -2,7 +2,7 @@
 
 .include "${.CURDIR}/Makefile.common"
 
-PORTREVISION=	2
+PORTREVISION=	0
 
 COMMENT=	Full integrated office productivity suite
 
@@ -39,7 +39,7 @@ LIB_DEPENDS=	libapr-1.so:${PORTSDIR}/devel/apr1 \
 		libpng.so:${PORTSDIR}/graphics/png \
 		libpoppler.so:${PORTSDIR}/graphics/poppler \
 		liblpsolve55.so:${PORTSDIR}/math/lp_solve \
-		libcmis-0.4.so:${PORTSDIR}/net/libcmis \
+		libcmis-0.5.so:${PORTSDIR}/net/libcmis \
 		libharfbuzz.so:${PORTSDIR}/print/harfbuzz \
 		libmspub-0.1.so:${PORTSDIR}/print/libmspub01 \
 		libnss3.so:${PORTSDIR}/security/nss \
@@ -124,7 +124,7 @@ CONFIGURE_ARGS+=	--disable-coinmp \
 			--disable-epm \
 			--disable-firebird-sdbc \
 			--disable-gnome-vfs \
-			--disable-gstreamer \
+			--disable-gstreamer-0-10 \
 			--disable-kde \
 			--disable-kdeab \
 			--disable-mergelibs \
@@ -216,7 +216,7 @@ DEBUG_CONFIGURE_OFF=	--enable-release-build
 
 GNOME_LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib
 GNOME_USE=	GNOME=gconf2
-GNOME_CONFIGURE_ENABLE=	dbus gconf gio lockdown
+GNOME_CONFIGURE_ENABLE=	dbus gconf lockdown
 
 GTK3_USE=		GNOME=gtk30
 GTK3_CONFIGURE_ENABLE=	gtk3
@@ -255,15 +255,15 @@ JAVA_CONFIGURE_OFF=	--without-java
 JAVA_BUILD=	yes
 JAVA_USE=	JAVA=yes
 
-KDE4_USE=	KDE4=kdelibs QT4=moc_build QT4=qmake_build
+KDE4_USE=	KDE4=kdelibs QT4=moc_build,qmake_build
 KDE4_CONFIGURE_ENABLE=	kde4
 KDE4_CONFIGURE_ENV=	KDE4DIR="${KDE4_PREFIX}" \
 			QT4DIR="${QT_PREFIX}" \
 			QT4INC="${QT_INCDIR}" \
 			QT4LIB="${QT_LIBDIR}"
 
-MMEDIA_USE=	GSTREAMER=yes
-MMEDIA_CONFIGURE_ENABLE=	gstreamer-0-10
+MMEDIA_USE=	GSTREAMER1=yes
+MMEDIA_CONFIGURE_ENABLE=	gstreamer
 
 PGSQL_USES=	pgsql:9.0+
 PGSQL_CONFIGURE_ENABLE=	postgresql-sdbc
@@ -303,7 +303,10 @@ CONFIGURE_ARGS+=	--disable-gtk
 
 .if ${PORT_OPTIONS:MGNOME} || ${PORT_OPTIONS:MGTK2} || ${PORT_OPTIONS:MGTK3}
 USES+=		desktop-file-utils
+CONFIGURE_ARGS+=	--enable-gio
 INSTALLS_ICONS=	yes
+.else
+CONFIGURE_ARGS+=	--disable-gio
 .endif
 
 .if empty(PORT_OPTIONS:MTEST)

@@ -3,7 +3,7 @@
 
 PORTNAME=	ario
 PORTVERSION=	1.5.1
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	audio
 MASTER_SITES=	SF/ario-player/ario-player/${PORTVERSION}
 
@@ -29,6 +29,7 @@ USES=		gmake libtool pkgconfig
 USE_LDCONFIG=	yes
 USE_GNOME=	gtk20
 INSTALLS_ICONS=	yes
+INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	AVAHI NLS
 AVAHI_DESC=	Zeroconf support (Avahi)

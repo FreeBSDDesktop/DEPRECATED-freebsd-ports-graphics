@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	efl
-PORTVERSION=	1.12.2
-PORTREVISION=	2
+PORTVERSION=	1.13.1
 CATEGORIES=	devel enlightenment
 MASTER_SITES=	http://download.enlightenment.org/rel/libs/${PORTNAME}/
 
@@ -20,12 +19,12 @@ LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libfreetype.so:${PORTSDIR}/print/freetype2 \
 		libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig \
 		libdbus-1.so:${PORTSDIR}/devel/dbus \
-		libluajit-5.1.so:${PORTSDIR}/lang/luajit \
 		libsndfile.so:${PORTSDIR}/audio/libsndfile
 
 DIST_SUBDIR=	enlightenment
 GNU_CONFIGURE=	yes
-USES=		autoreconf compiler:c++11-lib gmake libtool pathfix pkgconfig shared-mime-info tar:xz
+USES=		autoreconf compiler:c++11-lib gettext-tools gmake libtool \
+		pathfix pkgconfig shared-mime-info tar:xz
 USE_XORG=	x11 xcursor xcomposite xdamage xext xinerama xp xrandr xtst xscrnsaver
 USE_LDCONFIG=	yes
 
@@ -61,7 +60,7 @@ FRIBIDI_CONFIGURE_ENABLE=	fribidi
 HARFBUZZ_LIB_DEPENDS=		libharfbuzz.so:${PORTSDIR}/print/harfbuzz
 HARFBUZZ_CONFIGURE_ENABLE=	harfbuzz
 
-NLS_USES=			gettext
+NLS_USES=			gettext-runtime
 NLS_CONFIGURE_ENABLE=		nls
 
 PHYSICS_LIB_DEPENDS=		libBulletDynamics.so:${PORTSDIR}/devel/bullet
@@ -110,7 +109,7 @@ PLIST_SUB+=			AUDIO="@comment "
 
 .if ${PORT_OPTIONS:MSSL}
 USE_OPENSSL=			yes
-. if ${OSVERSION} >= 1000000
+. if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1001000
 EXTRA_PATCHES+=			${FILESDIR}/extra-patch-configure.ac
 CONFIGURE_ENV+=			ECORE_CON_CFLAGS="-I${OPENSSLINC} -L${OPENSSLLIB}" ECORE_CON_LIBS="-lssl"
 . else
@@ -134,6 +133,15 @@ CONFIGURE_ARGS+=		--disable-ibus --with-glib=no
 
 .if empty(PORT_OPTIONS:MOPENGL)
 CONFIGURE_ARGS+=		--with-opengl=none
+.endif
+
+.if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
+USES+=				lua
+CONFIGURE_ARGS+=		--enable-lua-old
+PLIST_SUB+=			ELUA="@comment "
+.else
+LIB_DEPENDS+=			libluajit-5.1.so:${PORTSDIR}/lang/luajit
+PLIST_SUB+=			ELUA=""
 .endif
 
 pre-patch:

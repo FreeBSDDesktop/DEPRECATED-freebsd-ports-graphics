@@ -3,6 +3,7 @@
 
 PORTNAME=	dovecot-pigeonhole
 PORTVERSION=	0.4.6
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://pigeonhole.dovecot.org/releases/${DOVECOTVERSION}/
 DISTNAME=	${PORTNAME:C/-/-${DOVECOTVERSION}-/}-${PORTVERSION}
@@ -26,6 +27,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
 USES=		libtool
 USE_LDCONFIG=	${PREFIX}/lib/dovecot
+USE_OPENSSL=	yes
 
 PORTDOCS=	doc/extensions/* doc/plugins/* doc/rfc/*
 

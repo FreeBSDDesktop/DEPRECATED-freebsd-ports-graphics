@@ -2,7 +2,7 @@
 
 PORTNAME=	plexhometheater
 PORTVERSION=	1.2.2
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	multimedia
 
 MAINTAINER=	woodsb02@gmail.com
@@ -68,6 +68,7 @@ GH_ACCOUNT=	plexinc
 GH_PROJECT=	plex-home-theater-public
 GH_COMMIT=	2d6426d
 GH_TAGNAME=	pht-v1.2.2
+BUNDLE_LIBS=	yes
 
 USES=		cmake:outsource iconv:wchar_t pkgconfig python:2
 CMAKE_ARGS+=	-DENABLE_AUTOUPDATE:BOOL=false
@@ -99,6 +100,7 @@ CEC_DESC=	Control plexhometheater over HDMI with TV remote
 
 OPTIONS_DEFAULT=	CEC LIRC
 
+CEC_BUILD_DEPENDS=	libcec>=2.2.0:${PORTSDIR}/multimedia/libcec
 CEC_LIB_DEPENDS=	libcec.so:${PORTSDIR}/multimedia/libcec
 CEC_CMAKE_OFF=		-DCMAKE_DISABLE_FIND_PACKAGE_CEC:BOOL=true
 

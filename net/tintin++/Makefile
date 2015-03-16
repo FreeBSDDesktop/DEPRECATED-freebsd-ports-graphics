@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tintin++
-PORTVERSION=	2.01.0
+PORTVERSION=	2.01.1
 CATEGORIES+=	net games
 MASTER_SITES=	SF/tintin/TinTin%2B%2B%20Source%20Code/${PORTVERSION}/
 DISTNAME=	tintin-${PORTVERSION}
@@ -23,7 +23,7 @@ CONFIGURE_ARGS=	--includedir=${LOCALBASE}/include \
 CONFIGURE_ENV=	ac_cv_file__dev_ptmx=no
 CPPFLAGS+=	-I${LOCALBASE}/include
 GNU_CONFIGURE=	yes
-LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+LDFLAGS+=	-L${LOCALBASE}/lib -pthread
 USES=		gmake
 WRKSRC=		${WRKDIR}/tt/src
 

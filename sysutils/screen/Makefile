@@ -3,7 +3,7 @@
 
 PORTNAME=	screen
 PORTVERSION=	4.2.1
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	sysutils
 MASTER_SITES=	http://ftp.gnu.org/gnu/screen/ \
 		ftp://ftp.gnu.org/gnu/screen/ \
@@ -35,7 +35,9 @@ SYSTEM_SCREENRC_DESC=	Install system screenrc with helpful status line
 
 OPTIONS_SUB=
 
-USES=		gmake
+USES=		gmake cpe
+
+CPE_VENDOR=	gnu
 
 .include <bsd.port.options.mk>
 
@@ -89,6 +91,11 @@ post-configure:
 ETCDIR?=	${PREFIX}/etc
 
 post-install:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/etc/etcscreenrc \
+		${STAGEDIR}${EXAMPLESDIR}/screenrc.sample-1
+	${INSTALL_DATA} ${FILESDIR}/screenrc.sample \
+		${STAGEDIR}${EXAMPLESDIR}/screenrc.sample-2
 	@${MKDIR} ${STAGEDIR}${ETCDIR}
 .if ${PORT_OPTIONS:MSYSTEM_SCREENRC}
 	${INSTALL_DATA} ${FILESDIR}/screenrc.sample \
