@@ -22,7 +22,6 @@ PLIST_FILES=	bin/greylite \
 		%%UCSPI2SOCKET%%bin/ucspi2socket \
 		man/man8/greylite.8.gz
 
-MANCOMPRESSED=	yes
 SUB_FILES=	pkg-message
 
 OPTIONS_DEFINE=		GEOIP DNSBLENV UCSPI2SOCKET
@@ -56,9 +55,7 @@ PLIST_SUB+=	UCSPI2SOCKET="@comment "
 post-patch:
 	${CP} ${WRKSRC}/Makefile.bsdmake ${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e 's|PREFIX\?=.*|PREFIX=${STAGEDIR}${PREFIX}|g' \
+		-e 's,logmsg.c logmsg.h ucspi2socket.c,logmsg.o ucspi2socket.c,' \
 		${WRKSRC}/Makefile
-
-do-build:
-	${MAKE} -C ${WRKSRC} ${MAKE_ARGS}
 
 .include <bsd.port.post.mk>
