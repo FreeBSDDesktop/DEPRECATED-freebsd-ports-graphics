@@ -3,7 +3,7 @@
 
     COMMENT = X11 drivers
 
-    SUBDIR += drm-i915-kmod
+    SUBDIR += drm-kmod
     SUBDIR += xf86-input-acecad
     SUBDIR += xf86-input-egalax
     SUBDIR += xf86-input-elographics

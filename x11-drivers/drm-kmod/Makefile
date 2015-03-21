@@ -1,14 +1,14 @@
 # Created by:	Jean-Sebastien Pedron <dumbbell@FreeBSD.org>
 # $FreeBSD$
 
-PORTNAME=	drm-i915-kmod
-DISTVERSION=	9.275699
+PORTNAME=	drm-kmod
+DISTVERSION=	9.280208
 CATEGORIES=	x11-drivers
 MASTER_SITES=	LOCAL/dumbbell
-DISTNAME=	drm-i915-${DISTVERSION}
+DISTNAME=	drm-${DISTVERSION}
 
 MAINTAINER=	x11@FreeBSD.org
-COMMENT=	FreeBSD 9.3 Kernel DRM driver for i915 GPUs
+COMMENT=	FreeBSD 9.3 Kernel DRM driver
 
 LICENSE=	MIT
 
@@ -16,7 +16,8 @@ USES=		tar:xz kmod
 ONLY_FOR_ARCHS=	i386 amd64
 
 PLIST_FILES=	${KMODDIR}/drm2_port.ko \
-		${KMODDIR}/i915kms_port.ko
+		${KMODDIR}/i915kms_port.ko \
+		${KMODDIR}/radeonkms_port.ko \
 
 .include <bsd.port.options.mk>
 
