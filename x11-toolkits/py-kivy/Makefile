@@ -5,7 +5,7 @@ PORTNAME=	kivy
 PORTVERSION=	1.8.0
 PORTREVISION=	1
 CATEGORIES=	x11-toolkits python
-MASTER_SITES=	GH LOCAL/dbn/${PORTNAME}
+MASTER_SITES=	GHL LOCAL/dbn/${PORTNAME}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	dbn@FreeBSD.org
@@ -71,8 +71,6 @@ TEST_BUILD_DEPENDS=	nosetests:${PORTSDIR}/devel/py-nose
 TEST_USES=		display:build
 X11_MAKE_ENV=		USE_X11=1
 X11_USE=		XORG=x11
-
-BROKEN=		fails to build with cython-0.22
 
 .if !defined(ARCH)
 ARCH!=		uname -p

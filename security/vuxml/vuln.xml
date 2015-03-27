@@ -57,6 +57,347 @@ Notes:
 
 -->
 <vuxml xmlns="http://www.vuxml.org/apps/vuxml-1">
+  <vuln vid="62287f51-d43d-11e4-879c-00e0814cab4e">
+    <topic>django -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>py27-django</name>
+	<range><ge>1.4</ge><lt>1.4.20</lt></range>
+	<range><ge>1.6</ge><lt>1.6.11</lt></range>
+	<range><ge>1.7</ge><lt>1.7.7</lt></range>
+      </package>
+      <package>
+	<name>py32-django</name>
+	<range><ge>1.4</ge><lt>1.4.20</lt></range>
+	<range><ge>1.6</ge><lt>1.6.11</lt></range>
+	<range><ge>1.7</ge><lt>1.7.7</lt></range>
+      </package>
+      <package>
+	<name>py33-django</name>
+	<range><ge>1.4</ge><lt>1.4.20</lt></range>
+	<range><ge>1.6</ge><lt>1.6.11</lt></range>
+	<range><ge>1.7</ge><lt>1.7.7</lt></range>
+      </package>
+      <package>
+	<name>py34-django</name>
+	<range><ge>1.4</ge><lt>1.4.20</lt></range>
+	<range><ge>1.6</ge><lt>1.6.11</lt></range>
+	<range><ge>1.7</ge><lt>1.7.7</lt></range>
+      </package>
+      <package>
+	<name>py27-django-devel</name>
+	<range><lt>20150326,1</lt></range>
+      </package>
+      <package>
+	<name>py32-django-devel</name>
+	<range><lt>20150326,1</lt></range>
+      </package>
+      <package>
+	<name>py33-django-devel</name>
+	<range><lt>20150326,1</lt></range>
+      </package>
+      <package>
+	<name>py34-django-devel</name>
+	<range><lt>20150326,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Django project reports:</p>
+	<blockquote cite="https://www.djangoproject.com/weblog/2015/mar/18/security-releases/">
+	  <p>In accordance with our security release policy, the Django team
+	    is issuing multiple releases -- Django 1.4.20, 1.6.11, 1.7.7 and
+	    1.8c1. These releases are now available on PyPI and our download
+	    page. These releases address several security issues detailed
+	    below. We encourage all users of Django to upgrade as soon as
+	    possible. The Django master branch has also been updated.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.djangoproject.com/weblog/2015/mar/18/security-releases/</url>
+      <cvename>CVE-2015-2316</cvename>
+      <cvename>CVE-2015-2317</cvename>
+    </references>
+    <dates>
+      <discovery>2015-03-18</discovery>
+      <entry>2015-03-27</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="f6a014cd-d268-11e4-8339-001e679db764">
+    <topic>GNU binutils -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>cross-binutils</name>
+	<range><lt>2.25</lt></range>
+      </package>
+      <package>
+	<name>x86_64-pc-mingw32-binutils</name>
+	<range><lt>2.25</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>US-CERT/NIST reports:</p>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8501">
+	  <p>The _bfd_XXi_swap_aouthdr_in function in bfd/peXXigen.c in GNU
+	    binutils 2.24 and earlier allows remote attackers to cause a
+	    denial of service (out-of-bounds write) and possibly have other
+	    unspecified impact via a crafted NumberOfRvaAndSizes field in the
+	    AOUT header in a PE executable.</p>
+	</blockquote>
+	<p>US-CERT/NIST reports:</p>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8502">
+	  <p>Heap-based buffer overflow in the pe_print_edata function in
+	    bfd/peXXigen.c in GNU binutils 2.24 and earlier allows remote
+	    attackers to cause a denial of service (crash) and possibly have
+	    other unspecified impact via a truncated export table in a PE
+	    file.</p>
+	</blockquote>
+	<p>US-CERT/NIST reports:</p>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8503">
+	  <p>Stack-based buffer overflow in the ihex_scan function in
+	    bfd/ihex.c in GNU binutils 2.24 and earlier allows remote
+	    attackers to cause a denial of service (crash) and possibly have
+	    other unspecified impact via a crafted ihex file.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2014-8501</cvename>
+      <cvename>CVE-2014-8502</cvename>
+      <cvename>CVE-2014-8503</cvename>
+      <url>https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8501</url>
+      <url>https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8502</url>
+      <url>https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-8503</url>
+    </references>
+    <dates>
+      <discovery>2014-12-09</discovery>
+      <entry>2015-03-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="996bce94-d23d-11e4-9463-9cb654ea3e1c">
+    <topic>libuv -- incorrect revocation order while relinquishing privileges</topic>
+    <affects>
+      <package>
+	<name>node010</name>
+	<range><lt>0.10.36</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Nodejs releases reports:</p>
+	<blockquote cite="http://blog.nodejs.org/2015/03/14/node-v0-10-37-stable">
+	  <h5>CVE-2015-0278</h5>
+	  <p>This may potentially allow an attacker to gain elevated privileges.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://blog.nodejs.org/2015/03/14/node-v0-10-37-stable</url>
+      <freebsdpr>ports/198861</freebsdpr>
+      <cvename>CVE-2015-0278</cvename>
+    </references>
+    <dates>
+      <discovery>2015-03-14</discovery>
+      <entry>2015-03-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="22dc4a22-d1e5-11e4-879c-00e0814cab4e">
+    <topic>jenkins -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>jenkins</name>
+	<range><le>1.605</le></range>
+      </package>
+      <package>
+	<name>jenkins-lts</name>
+	<range><le>1.596.1</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Jenkins Security Advisory:</p>
+	<blockquote cite="https://wiki.jenkins-ci.org/display/SECURITY/Jenkins+Security+Advisory+2015-03-23">
+	  <h1>Description</h1>
+	  <h5>SECURITY-171, SECURITY-177 (Reflective XSS vulnerability)</h5>
+	  <p>An attacker without any access to Jenkins can navigate the user
+	    to a carefully crafted URL and have the user execute unintended
+	    actions. This vulnerability can be used to attack Jenkins inside
+	    firewalls from outside so long as the location of Jenkins is known
+	    to the attacker.</p>
+	  <h5>SECURITY-180 (forced API token change)</h5>
+	  <p>The part of Jenkins that issues a new API token was not
+	    adequately protected against anonymous attackers. This allows an
+	    attacker to escalate privileges on Jenkins.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://wiki.jenkins-ci.org/display/SECURITY/Jenkins+Security+Advisory+2015-03-23</url>
+    </references>
+    <dates>
+      <discovery>2015-03-23</discovery>
+      <entry>2015-03-24</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="76ff65f4-17ca-4d3f-864a-a3d6026194fb">
+    <topic>mozilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>firefox</name>
+	<range><lt>36.0.4,1</lt></range>
+      </package>
+      <package>
+	<name>firefox-esr</name>
+	<range><lt>31.5.3,1</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>36.0.4,1</lt></range>
+      </package>
+      <package>
+	<name>linux-seamonkey</name>
+	<range><lt>2.33.1</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.33.1</lt></range>
+      </package>
+      <package>
+	<name>libxul</name>
+	<range><lt>31.5.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mozilla Project reports:</p>
+	<blockquote cite="https://www.mozilla.org/en-US/security/known-vulnerabilities/">
+	  <p>MFSA-2015-28 Privilege escalation through SVG navigation</p>
+	  <p>MFSA-2015-29 Code execution through incorrect JavaScript
+	    bounds checking elimination</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-0817</cvename>
+      <cvename>CVE-2015-0818</cvename>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-28/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-29/</url>
+      <url>https://www.mozilla.org/security/advisories/</url>
+    </references>
+    <dates>
+      <discovery>2015-03-20</discovery>
+      <entry>2015-03-22</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="9d15355b-ce7c-11e4-9db0-d050992ecde8">
+    <topic>OpenSSL -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>openssl</name>
+	<range><ge>1.0.1</ge><lt>1.0.1_19</lt></range>
+      </package>
+      <package>
+	<name>mingw32-openssl</name>
+	<range><ge>1.0.1</ge><lt>1.0.1m</lt></range>
+      </package>
+      <package>
+	<name>linux-c6-openssl</name>
+	<range><lt>1.0.1e_4</lt></range>
+      </package>
+      <package>
+	<name>libressl</name>
+	<range><le>2.1.5_1</le></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OpenSSL project reports:</p>
+	<blockquote cite="https://www.openssl.org/news/secadv_20150319.txt">
+	  <ul>
+	    <li>Reclassified: RSA silently downgrades to EXPORT_RSA
+	      [Client] (CVE-2015-0204).  OpenSSL only.</li>
+	    <li>Segmentation fault in ASN1_TYPE_cmp (CVE-2015-0286)</li>
+	    <li>ASN.1 structure reuse memory corruption (CVE-2015-0287)</li>
+	    <li>PKCS7 NULL pointer dereferences (CVE-2015-0289)</li>
+	    <li>Base64 decode (CVE-2015-0292).  OpenSSL only.</li>
+	    <li>DoS via reachable assert in SSLv2 servers
+	      (CVE-2015-0293).  OpenSSL only.</li>
+	    <li>Use After Free following d2i_ECPrivatekey error
+	      (CVE-2015-0209)</li>
+	    <li>X509_to_X509_REQ NULL pointer deref (CVE-2015-0288)</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/198681</freebsdpr>
+      <cvename>CVE-2015-0204</cvename>
+      <cvename>CVE-2015-0286</cvename>
+      <cvename>CVE-2015-0287</cvename>
+      <cvename>CVE-2015-0289</cvename>
+      <cvename>CVE-2015-0292</cvename>
+      <cvename>CVE-2015-0293</cvename>
+      <cvename>CVE-2015-0209</cvename>
+      <cvename>CVE-2015-0288</cvename>
+      <url>https://www.openssl.org/news/secadv_20150319.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-03-19</discovery>
+      <entry>2015-03-19</entry>
+      <modified>2015-03-24</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="f7d79fac-cd49-11e4-898f-bcaec565249c">
+    <topic>libXfont -- BDF parsing issues</topic>
+    <affects>
+      <package>
+	<name>libXfont</name>
+	<range><lt>1.5.1</lt></range>
+      </package>
+      <package>
+	<name>libXfont</name>
+	<range><ge>1.4.99</ge><lt>1.5.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Alan Coopersmith reports:</p>
+	<blockquote cite="http://lists.x.org/archives/xorg-announce/2015-March/002550.html">
+	  <p>Ilja van Sprundel, a security researcher with IOActive, has
+	    discovered an issue in the parsing of BDF font files by libXfont.
+	    Additional testing by Alan Coopersmith and William Robinet with
+	    the American Fuzzy Lop (afl) tool uncovered two more issues in
+	    the parsing of BDF font files.</p>
+
+	  <p>As libXfont is used by the X server to read font files, and an
+	    unprivileged user with access to the X server can tell the X
+	    server to read a given font file from a path of their choosing,
+	    these vulnerabilities have the potential to allow unprivileged
+	    users to run code with the privileges of the X server
+	    (often root access).</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://lists.x.org/archives/xorg-announce/2015-March/002550.html</url>
+      <cvename>CVE-2015-1802</cvename>
+      <cvename>CVE-2015-1803</cvename>
+      <cvename>CVE-2015-1804</cvename>
+    </references>
+    <dates>
+      <discovery>2015-03-17</discovery>
+      <entry>2015-03-18</entry>
+    </dates>
+  </vuln>
+
   <vuln vid="8b3ecff5-c9b2-11e4-b71f-00bd5af88c00">
     <topic>Adobe Flash Player -- critical vulnerabilities</topic>
     <affects>

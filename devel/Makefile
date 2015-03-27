@@ -632,12 +632,12 @@
     SUBDIR += gtgt
     SUBDIR += gtkparasite
     SUBDIR += gtranslator
-    SUBDIR += gumbo
     SUBDIR += guichan
     SUBDIR += guikachu
     SUBDIR += guile-lib
     SUBDIR += guiloader
     SUBDIR += guiloader-c++
+    SUBDIR += gumbo
     SUBDIR += gvfs
     SUBDIR += gwenhywfar
     SUBDIR += gwenhywfar-fox16
@@ -1742,6 +1742,7 @@
     SUBDIR += p5-Config-Simple
     SUBDIR += p5-Config-Std
     SUBDIR += p5-Config-Tiny
+    SUBDIR += p5-Config-Validator
     SUBDIR += p5-Config-Versioned
     SUBDIR += p5-Config-Wrest
     SUBDIR += p5-Config-YAML
@@ -2600,7 +2601,6 @@
     SUBDIR += p5-PAR-Dist
     SUBDIR += p5-PAR-Packer
     SUBDIR += p5-PCSC-Card
-    SUBDIR += p5-PerlX-Maybe
     SUBDIR += p5-PHP-Serialization
     SUBDIR += p5-POE
     SUBDIR += p5-POE-API-Hooks
@@ -2714,6 +2714,7 @@
     SUBDIR += p5-PerlIO-via-MD5
     SUBDIR += p5-PerlIO-via-dynamic
     SUBDIR += p5-PerlIO-via-symlink
+    SUBDIR += p5-PerlX-Maybe
     SUBDIR += p5-Pid-File-Flock
     SUBDIR += p5-Pipeline
     SUBDIR += p5-Pithub
@@ -3880,6 +3881,7 @@
     SUBDIR += py-jsonpointer
     SUBDIR += py-jsonrpclib
     SUBDIR += py-jsonschema
+    SUBDIR += py-kaptan
     SUBDIR += py-kazoo
     SUBDIR += py-kid
     SUBDIR += py-kjbuckets
@@ -4056,6 +4058,7 @@
     SUBDIR += py-smmap
     SUBDIR += py-snack
     SUBDIR += py-snackwich
+    SUBDIR += py-sortedcontainers
     SUBDIR += py-spark
     SUBDIR += py-speaklater
     SUBDIR += py-sqlcc
@@ -4223,6 +4226,7 @@
     SUBDIR += pycount
     SUBDIR += pydbus-common
     SUBDIR += pygobject3-common
+    SUBDIR += pyinstaller
     SUBDIR += pylint
     SUBDIR += pymacs
     SUBDIR += pyobfuscate

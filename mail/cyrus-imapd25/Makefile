@@ -2,7 +2,7 @@
 
 PORTNAME=	cyrus-imapd
 PORTVERSION=	2.5.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	mail ipv6
 MASTER_SITES=	ftp://ftp.cyrusimap.org/cyrus-imapd/ \
 		http://cyrusimap.org/releases/
@@ -62,7 +62,7 @@ HTTP_DESC=		Enable HTTP (beta quality)
 HTTP_CONFIGURE_ENABLE=	http
 HTTP_LIB_DEPENDS=	libjansson.so:${PORTSDIR}/devel/jansson \
 			libical.so:${PORTSDIR}/devel/libical
-HTTP_USE=		GNOME=libxml2,glib20 SQLITE=yes
+HTTP_USE=		GNOME=libxml2,glib20
 IDLED_DESC=		Enable IMAP idled support
 IDLED_CONFIGURE_ENABLE=	idled
 LDAP_DESC=		Enable LDAP support (experimental)
@@ -70,8 +70,8 @@ LDAP_USE=		OPENLDAP=yes
 LDAP_CONFIGURE_ON=	--with-ldap=${LOCALBASE}
 MURDER_DESC=		Enable IMAP Murder support
 MURDER_CONFIGURE_ENABLE=murder
-MURDER_CFLAGS=		${PTHREAD_CFLAGS}
-MURDER_MAKE_ENV=	PTHREAD_LIBS=${PTHREAD_LIBS}
+MURDER_CFLAGS=
+MURDER_MAKE_ENV=	PTHREAD_LIBS="-lpthread"
 MYSQL_USE=		MYSQL=yes
 MYSQL_CONFIGURE_ON=	--with-mysql=yes \
 			--with-mysql-libdir=${LOCALBASE}/lib/mysql \
@@ -87,8 +87,25 @@ REPLICATION_CONFIGURE_ENABLE=replication
 SNMP_LIB_DEPENDS=	libnetsnmp.so:${PORTSDIR}/net-mgmt/net-snmp
 SNMP_CONFIGURE_ON=	--with-snmp=${LOCALBASE}
 SNMP_CONFIGURE_OFF=	--with-snmp=no
-SQLITE_USE=		SQLITE=yes
 SQLITE_CONFIGURE_ON=	--with-sqlite=${LOCALBASE}
+
+OPTIONS_RADIO=			GSSAPI
+OPTIONS_RADIO_GSSAPI=		GSSAPI_HEIMDAL GSSAPI_MIT
+.if exists(/usr/lib/libkrb5.a)
+OPTIONS_RADIO_GSSAPI+=		GSSAPI_BASE
+OPTIONS_DEFAULT+=		GSSAPI_BASE
+.endif
+GSSAPI_BASE_DESC=		Use Heimdal in base
+GSSAPI_BASE_USES=		gssapi
+GSSAPI_BASE_CONFIGURE_ON=	--enable-gssapi --with-gss_impl=heimdal
+GSSAPI_HEIMDAL_DESC=		Use Heimdal from ports
+GSSAPI_HEIMDAL_USES=		gssapi:heimdal,flags
+GSSAPI_HEIMDAL_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
+				--with-gss_impl=heimdal
+GSSAPI_MIT_DESC=		Use MIT Kerberos V5
+GSSAPI_MIT_USES=		gssapi:mit
+GSSAPI_MIT_CONFIGURE_ON=	--enable-gssapi="${GSSAPIBASEDIR}" \
+				--with-gss_impl=mit
 
 .include <bsd.port.pre.mk>
 
@@ -111,14 +128,19 @@ IGNORE=		DRAC is not available
 # USE_AUTOTOOLS=	autoconf autoheader
 .endif
 
+.if ${PORT_OPTIONS:MHTTP} || ${PORT_OPTIONS:MSQLITE}
+USE_SQLITE=yes
+.endif
+
+.if !${PORT_OPTIONS:MGSSAPI_BASE} && !${PORT_OPTIONS:MGSSAPI_HEIMDAL} && \
+    !${PORT_OPTIONS:MGSSAPI_MIT}
+CONFIGURE_ARGS+=--disable-gssapi
+.endif
+
 .if ${OSVERSION} >= 900022
 PLIST_SUB+=	MANCONF=""
 .else
 PLIST_SUB+=	MANCONF="@comment "
-.endif
-
-.if !exists(/usr/lib/libkrb5.a)
-CONFIGURE_ARGS+=--disable-gssapi
 .endif
 
 CYRUS_USER?=	cyrus
@@ -182,7 +204,7 @@ post-patch:
 	@${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|g" \
 			  -e "s|/usr/sieve|/var/imap/sieve|g" \
 		${WRKSRC}/tools/masssievec
-	${REINPLACE_CMD} \
+	@${REINPLACE_CMD} \
 		-e 's|$$(libdir)/\(pkgconfig\)|${PREFIX}/libdata/\1|g' \
 		-e 's|$$(mandir)/\(man[8]\)|${PREFIX}/cyrus/man/\1|g' \
 		${WRKSRC}/Makefile.in

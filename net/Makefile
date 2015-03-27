@@ -932,6 +932,7 @@
     SUBDIR += py-pynsq
     SUBDIR += py-pypcap
     SUBDIR += py-pysendfile
+    SUBDIR += py-pysocks
     SUBDIR += py-pysphere
     SUBDIR += py-pyvmomi
     SUBDIR += py-pyzmq
@@ -970,6 +971,7 @@
     SUBDIR += qt5-network
     SUBDIR += qtweetlib
     SUBDIR += quagga
+    SUBDIR += quagga23
     SUBDIR += queso
     SUBDIR += quiterss
     SUBDIR += quoted
@@ -985,6 +987,7 @@
     SUBDIR += radvd
     SUBDIR += raggle
     SUBDIR += ranch
+    SUBDIR += rdapper
     SUBDIR += rdesktop
     SUBDIR += rdist6
     SUBDIR += recvnet

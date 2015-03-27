@@ -9,6 +9,11 @@ MASTER_SITES=	http://virtual-estates.net/skem/
 MAINTAINER=	mi@aldan.algebra.com
 COMMENT=	Cache earlier sendmail's verdicts for the relays
 
+.if !exists( /usr/include/libmilter/mfapi.h )
+BUILD_DEPENDS+=	${LOCALBASE}/include/libmilter/mfapi.h:${PORTSDIR}/mail/sendmail
+CFLAGS+=	-I${LOCALBASE}/include
+.endif
+
 USES=		tar:bzip2 uidfix
 
 PLIST_FILES=	sbin/skem \
@@ -33,12 +38,7 @@ BROKEN=		Does not compile on powerpc
 EXTRA_PATCHES=  files/timet.patch
 .endif
 
-.if defined(PTHREAD_LIBS)
-MAKE_ENV+=	PTHREAD_LIBS="${PTHREAD_LIBS}"
-.endif
-.if defined(PTHREAD_CFLAGS)
-MAKE_ENV+=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}"
-.endif
+MAKE_ENV+=	PTHREAD_LIBS="-lpthread"
 
 .for o in ${PORT_OPTIONS:MSKEM_*}
 .	if ${PORT_OPTIONS:M$o}

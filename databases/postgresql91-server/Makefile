@@ -12,6 +12,8 @@ PKGNAMESUFFIX?=	${DISTVERSION:R:S/.//}${COMPONENT}
 MAINTAINER?=	pgsql@FreeBSD.org
 COMMENT?=	The most advanced open-source database available anywhere
 
+USES+=	cpe
+
 #CONFLICTS?=	${PORTNAME}[^${PORTVERSION:R:R}]?-client* \
 #		${PORTNAME}${COMPONENT}-[^${PORTVERSION:R:R}].* \
 #		${PORTNAME}9[^${PORTVERSION:R:E}]-client* \
@@ -45,11 +47,9 @@ CONFIGURE_ARGS+=--with-libraries=${PREFIX}/lib \
 		--with-includes=${PREFIX}/include \
 		--enable-thread-safety
 CONFIGURE_ENV+=	INCLUDES="${INCLUDES}" \
-		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
-		PTHREAD_LIBS="${PTHREAD_LIBS}" \
+		PTHREAD_LIBS="-lpthread" \
 		LDFLAGS_SL="${LDFLAGS_SL}"
-CFLAGS+=	${PTHREAD_CFLAGS}
-LDFLAGS+=	${PTHREAD_LIBS}
+LDFLAGS+=	-lpthread
 
 PLIST=		${PKGDIR}/pkg-plist${COMPONENT}
 

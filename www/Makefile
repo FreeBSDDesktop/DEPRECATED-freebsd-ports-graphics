@@ -391,6 +391,7 @@
     SUBDIR += lynx
     SUBDIR += lynx-current
     SUBDIR += madsonic
+    SUBDIR += madsonic-standalone
     SUBDIR += magento
     SUBDIR += mahara
     SUBDIR += man2web
@@ -1988,6 +1989,7 @@
     SUBDIR += squidview
     SUBDIR += srg
     SUBDIR += subsonic
+    SUBDIR += subsonic-standalone
     SUBDIR += suphp
     SUBDIR += surf
     SUBDIR += surfraw

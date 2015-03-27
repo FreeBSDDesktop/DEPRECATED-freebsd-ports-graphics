@@ -26,6 +26,10 @@ LIB_DEPENDS=	libatlas.so:${PORTSDIR}/math/atlas \
 		libjpeg.so:${PORTSDIR}/graphics/jpeg
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
+.if OSVERSION>=1000000 && OSVERSION<1000717
+BROKEN=		https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=198893
+.endif
+
 pre-extract:
 	@${ECHO_MSG}
 	@${ECHO_MSG} Instead of installing the port, which will take a considerable amount of
@@ -54,8 +58,6 @@ LATEST_LINK=	sage-math	# Conflicts with graphics/sage.
 MAKE_ARGS+=	ARCH="${AR}"
 
 post-patch:
-	${REINPLACE_CMD} 's/$$MAKE $$gettext/$$MAKE PTHREAD_LIBS=${PTHREAD_LIBS} $$gettext/' ${WRKSRC}/build/pkgs/git/spkg-install
-
 # Create wrapper for invocation of make.
 	@${MKDIR} ${WRKSRC}/local/bin
 	@${LN} -s -f ${LOCALBASE}/bin/gmake ${WRKSRC}/local/bin/make

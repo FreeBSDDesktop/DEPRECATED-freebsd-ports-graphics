@@ -3,7 +3,7 @@
 
 PORTNAME=	bg5ps
 PORTVERSION=	1.3.0p3
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	chinese print
 MASTER_SITES=	http://ftp.jaist.ac.jp/pub/FreeBSD/distfiles/ \
 		http://www.gtlib.gatech.edu/pub/FreeBSD/distfiles/
@@ -18,6 +18,10 @@ USES=		python
 SUB_FILES=	pkg-message
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-patch:
+	@${REINPLACE_CMD} -e 's,/usr/share/fonts/ttf/,${PREFIX}/share/fonts/TrueType/,g' \
+	    ${WRKSRC}/gb2312-bg5ps.conf ${WRKSRC}/bg5ps.conf
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/bg5ps ${STAGEDIR}${PREFIX}/bin
