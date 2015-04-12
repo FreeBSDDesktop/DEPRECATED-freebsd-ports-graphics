@@ -3,8 +3,8 @@
 #   $MCom: ports/trunk/audio/rhythmbox/Makefile 20039 2014-11-03 13:42:48Z kwm $
 
 PORTNAME=	rhythmbox
-PORTVERSION=	3.1
-PORTREVISION=	2
+PORTVERSION=	3.2
+PORTREVISION=	1
 CATEGORIES=	audio gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -28,7 +28,8 @@ LIB_DEPENDS=	libmusicbrainz5.so:${PORTSDIR}/audio/libmusicbrainz5 \
 
 USES=		desktop-file-utils gettext gmake libtool pathfix \
 		pkgconfig tar:xz
-USE_GNOME=	intlhack gnomeprefix gtk30 introspection:build
+USE_GNOME=	intlhack gnomeprefix gtk30 introspection:build \
+		py3gobject3
 USE_XORG=	ice xproto
 GNU_CONFIGURE=	yes
 USE_GSTREAMER1=	flac lame jpeg cdparanoia vorbis

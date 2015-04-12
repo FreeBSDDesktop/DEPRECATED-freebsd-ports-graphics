@@ -5,7 +5,8 @@ PORTNAME=	jsdr
 PORTVERSION=	4.1
 PORTREVISION=	2
 CATEGORIES=	comms audio hamradio
-MASTER_SITES=	http://www.sdr-j.tk/
+MASTER_SITES=	http://www.sdr-j.tk/ \
+		LOCAL/nox/
 
 MAINTAINER=	nox@FreeBSD.org
 COMMENT=	SDR tools for RTL2832-based USB sticks

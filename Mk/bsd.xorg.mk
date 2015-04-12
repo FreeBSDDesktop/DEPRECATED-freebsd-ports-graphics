@@ -29,8 +29,8 @@ Xorg_Pre_Include=		bsd.xorg.mk
 
 .if defined(XORG_CAT)
 # Default variables, common to all new modular xorg ports.
-.if !defined(USE_TGZ) && !defined(USE_XZ)
-USE_BZIP2=    	yes
+.if !defined(USES) || ! ${USES:Mtar*}
+USES+=		tar:bzip2
 .endif
 GNU_CONFIGURE= 	yes
 # for some reason this makes mkfontscale and others fail in the install target

@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	ldraw
-PORTVERSION=	201302
+PORTVERSION=	201501
 PORTEPOCH=	1
 CATEGORIES=	cad
 MASTER_SITES=	http://www.ldraw.org/library/updates/
 DISTNAME=	complete
-DIST_SUBDIR=	${PORTNAME}
+DIST_SUBDIR=	ldraw/${PORTVERSION}
 
 MAINTAINER=	koalative@gmail.com
 COMMENT=	LDraw parts library

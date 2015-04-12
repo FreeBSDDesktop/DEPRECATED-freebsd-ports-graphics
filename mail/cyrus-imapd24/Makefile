@@ -23,7 +23,7 @@ PERLMAN=	${SITE_PERL_REL:S/site_perl\///}
 
 USE_RC_SUBR=	imapd
 
-USES=		perl5
+USES=		cpe perl5
 USE_OPENSSL=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc \
@@ -38,6 +38,9 @@ CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 MAKE_JOBS_UNSAFE=	yes
+
+CPE_VENDOR=	cmu
+CPE_PRODUCT=	cyrus_imap_server
 
 OPTIONS_DEFINE=		AUTOCREATE AUTOSIEVE BDB DRAC IDLED LDAP \
 			MURDER MYSQL NETSCAPEHACK NNTP PGSQL \
@@ -109,9 +112,7 @@ BDB_LIB_NAME=	no
 .endif
 
 .if ${PORT_OPTIONS:MDRAC}
-.if ${OSVERSION} >= 800037
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-cmulocal::sasl2.m4
-.endif
 USE_AUTOTOOLS=	autoconf autoheader
 .endif
 
@@ -123,10 +124,6 @@ PLIST_SUB+=	MANCONF="@comment "
 
 .if !exists(/usr/lib/libkrb5.a)
 CONFIGURE_ARGS+=--disable-gssapi
-.endif
-
-.if ${OSVERSION} >= 800037
-EXTRA_PATCHES+=	${FILESDIR}/extra-patch-configure
 .endif
 
 CYRUS_USER?=	cyrus

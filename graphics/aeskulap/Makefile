@@ -5,7 +5,7 @@ PORTNAME=	aeskulap
 PORTVERSION=	0.2.1
 PORTREVISION=	5
 CATEGORIES=	graphics
-MASTER_SITES=	http://www.bms-austria.com/%7Epipelka/${PORTNAME}/
+MASTER_SITES=	http://www.sourcefiles.org/Home_and_Education/Health/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Medical image viewer

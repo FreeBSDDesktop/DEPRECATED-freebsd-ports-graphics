@@ -22,11 +22,13 @@
     SUBDIR += bigloo
     SUBDIR += bsh
     SUBDIR += bwbasic
+    SUBDIR += c
     SUBDIR += ccl
     SUBDIR += cdent
     SUBDIR += cduce
     SUBDIR += ceylon
     SUBDIR += cfortran
+    SUBDIR += chibi-scheme
     SUBDIR += chicken
     SUBDIR += cint
     SUBDIR += cjs
@@ -93,7 +95,6 @@
     SUBDIR += ghc
     SUBDIR += gjs
     SUBDIR += gnat_util
-    SUBDIR += gnatdroid-armv5
     SUBDIR += gnatdroid-armv7
     SUBDIR += gnatdroid-binutils
     SUBDIR += gnatdroid-sysroot
@@ -168,7 +169,7 @@
     SUBDIR += newlisp-devel
     SUBDIR += nhc98
     SUBDIR += nickle
-    SUBDIR += nimrod
+    SUBDIR += nim
     SUBDIR += nml
     SUBDIR += nqc
     SUBDIR += nwcc

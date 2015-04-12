@@ -2,7 +2,7 @@
 
 PORTNAME=	bind
 PORTVERSION=	${ISCVERSION:S/-P/P/}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	dns net ipv6
 MASTER_SITES=	ISC/bind9/${ISCVERSION}
 PKGNAMESUFFIX=	99
@@ -157,7 +157,7 @@ CONFIGURE_ARGS+=	--disable-threads
 IGNORE=		REPLACE_BASE is no longer supported
 .endif # REPLACE_BASE
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000100
+.if ${OPSYS} == DragonFly || (${OPSYS} == FreeBSD && ${OSVERSION} >= 1000100)
 PKGINSTALL=	${NONEXISTENT}
 PLIST_SUB+=	NOBASE="" BASE="@comment "
 SUB_LIST+=	NOBASE="" BASE="@comment "
@@ -199,7 +199,7 @@ post-install:
 		${WRKSRC}/HISTORY ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
 .endif
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000100
+.if ${OPSYS} == DragonFly || (${OPSYS} == FreeBSD && ${OSVERSION} >= 1000100)
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mtree
 	${MKDIR} ${STAGEDIR}${ETCDIR}
 .for i in dynamic master slave working
