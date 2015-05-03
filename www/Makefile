@@ -331,6 +331,7 @@
     SUBDIR += interchange
     SUBDIR += iojs
     SUBDIR += ismail
+    SUBDIR += itop
     SUBDIR += iwebcal
     SUBDIR += jawstats
     SUBDIR += jdresolve
@@ -353,6 +354,7 @@
     SUBDIR += kplaylist
     SUBDIR += kwebkitpart
     SUBDIR += larbin
+    SUBDIR += lessc
     SUBDIR += libapreq2
     SUBDIR += libecap
     SUBDIR += libepc
@@ -516,7 +518,6 @@
     SUBDIR += monast
     SUBDIR += mongoose
     SUBDIR += mongrel2
-    SUBDIR += moodle26
     SUBDIR += moodle27
     SUBDIR += moodle28
     SUBDIR += mozplugger
@@ -851,7 +852,6 @@
     SUBDIR += p5-FurlX-Coro
     SUBDIR += p5-Gantry
     SUBDIR += p5-Geo-Caching
-    SUBDIR += p5-Google-Code-Upload
     SUBDIR += p5-Google-Search
     SUBDIR += p5-Gtk2-WebKit
     SUBDIR += p5-Gungho
@@ -1056,6 +1056,7 @@
     SUBDIR += p5-Mojolicious-Plugin-Authentication
     SUBDIR += p5-Mojolicious-Plugin-Database
     SUBDIR += p5-Mojolicious-Plugin-Mongodb
+    SUBDIR += p5-Mojolicious-Plugin-SetUserGroup
     SUBDIR += p5-Mojolicious-Plugin-TtRenderer
     SUBDIR += p5-Mojolicious-Plugin-YamlConfig
     SUBDIR += p5-Monoceros
@@ -1210,6 +1211,7 @@
     SUBDIR += p5-Text-MultiMarkdown-ApacheHandler
     SUBDIR += p5-Tie-TinyURL
     SUBDIR += p5-Toader
+    SUBDIR += p5-Toadfarm
     SUBDIR += p5-Twiggy
     SUBDIR += p5-Twiggy-TLS
     SUBDIR += p5-URI-Encode
@@ -1418,8 +1420,6 @@
     SUBDIR += php-templates
     SUBDIR += php5-session
     SUBDIR += php5-tidy
-    SUBDIR += php53-session
-    SUBDIR += php53-tidy
     SUBDIR += php55-opcache
     SUBDIR += php55-session
     SUBDIR += php55-tidy
@@ -1552,6 +1552,7 @@
     SUBDIR += py-flask-admin
     SUBDIR += py-flask-bootstrap
     SUBDIR += py-flask-cache
+    SUBDIR += py-flask-cors
     SUBDIR += py-flask-flatpages
     SUBDIR += py-flask-oauthlib
     SUBDIR += py-flask-restful
@@ -1573,6 +1574,7 @@
     SUBDIR += py-html5lib
     SUBDIR += py-http-parser
     SUBDIR += py-httplib2
+    SUBDIR += py-hyper
     SUBDIR += py-imdbpy
     SUBDIR += py-jonpy
     SUBDIR += py-jswebkit
@@ -1819,6 +1821,7 @@
     SUBDIR += rubygem-gitlab-flowdock-git-hook
     SUBDIR += rubygem-gitlab-gollum-lib
     SUBDIR += rubygem-gitlab-grack
+    SUBDIR += rubygem-gollum-grit_adapter
     SUBDIR += rubygem-gollum-lib
     SUBDIR += rubygem-gon
     SUBDIR += rubygem-gon-rails4

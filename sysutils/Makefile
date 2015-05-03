@@ -693,8 +693,6 @@
     SUBDIR += phantom
     SUBDIR += php5-fileinfo
     SUBDIR += php5-posix
-    SUBDIR += php53-fileinfo
-    SUBDIR += php53-posix
     SUBDIR += php55-fileinfo
     SUBDIR += php55-posix
     SUBDIR += php56-fileinfo
@@ -981,6 +979,7 @@
     SUBDIR += u-boot-duovero
     SUBDIR += u-boot-pandaboard
     SUBDIR += u-boot-rpi
+    SUBDIR += u-boot-rpi2
     SUBDIR += u-boot-wandboard
     SUBDIR += ua
     SUBDIR += ucspi-ipc
@@ -1030,10 +1029,11 @@
     SUBDIR += vpnc-scripts
     SUBDIR += vstrip
     SUBDIR += vttest
-    SUBDIR += warden
     SUBDIR += wait_on
+    SUBDIR += warden
     SUBDIR += watchdog
     SUBDIR += watchfolder
+    SUBDIR += watchman
     SUBDIR += watchmen
     SUBDIR += webjob
     SUBDIR += webmin

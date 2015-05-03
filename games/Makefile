@@ -15,6 +15,7 @@
     SUBDIR += CaribbeanStud
     SUBDIR += HeroesOfMightAndMagic
     SUBDIR += KnightCap
+    SUBDIR += abbayedesmorts
     SUBDIR += abe
     SUBDIR += abuse_sdl
     SUBDIR += acm
@@ -672,6 +673,7 @@
     SUBDIR += openarena-oax
     SUBDIR += openarena-server
     SUBDIR += openastromenace
+    SUBDIR += openbor
     SUBDIR += openbubbles
     SUBDIR += opencity
     SUBDIR += openclonk
@@ -907,10 +909,10 @@
     SUBDIR += spicetrade
     SUBDIR += spider
     SUBDIR += spring
-    SUBDIR += springlobby
     SUBDIR += starfighter
     SUBDIR += starlanes
     SUBDIR += steelstorm
+    SUBDIR += stendhal
     SUBDIR += stepmania-devel
     SUBDIR += stockfish
     SUBDIR += stonesoup
@@ -1032,7 +1034,6 @@
     SUBDIR += widelands
     SUBDIR += wizznic
     SUBDIR += wmeyes
-    SUBDIR += wmfortune
     SUBDIR += wmminichess
     SUBDIR += wmpuzzle
     SUBDIR += wmqstat

@@ -376,6 +376,7 @@
     SUBDIR += miniupnpc
     SUBDIR += miniupnpd
     SUBDIR += miredo
+    SUBDIR += miruo
     SUBDIR += mono-zeroconf
     SUBDIR += mopd
     SUBDIR += morebalance
@@ -435,7 +436,6 @@
     SUBDIR += ntopng
     SUBDIR += ntp
     SUBDIR += ntp-devel
-    SUBDIR += ntp-rc
     SUBDIR += ntraceroute
     SUBDIR += nusoap
     SUBDIR += nxproxy
@@ -760,6 +760,8 @@
     SUBDIR += p5-URI-Template
     SUBDIR += p5-URI-Template-Restrict
     SUBDIR += p5-URI-ws
+    SUBDIR += p5-VM-EC2
+    SUBDIR += p5-VM-EC2-Security-CredentialCache
     SUBDIR += p5-Validate-Net
     SUBDIR += p5-WebService-Dropbox
     SUBDIR += p5-WebService-Prowl
@@ -853,10 +855,6 @@
     SUBDIR += php5-soap
     SUBDIR += php5-sockets
     SUBDIR += php5-xmlrpc
-    SUBDIR += php53-ldap
-    SUBDIR += php53-soap
-    SUBDIR += php53-sockets
-    SUBDIR += php53-xmlrpc
     SUBDIR += php55-ldap
     SUBDIR += php55-soap
     SUBDIR += php55-sockets
@@ -975,7 +973,6 @@
     SUBDIR += qt5-network
     SUBDIR += qtweetlib
     SUBDIR += quagga
-    SUBDIR += quagga23
     SUBDIR += queso
     SUBDIR += quiterss
     SUBDIR += quoted

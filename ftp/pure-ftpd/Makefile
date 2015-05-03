@@ -3,6 +3,7 @@
 
 PORTNAME=	pure-ftpd
 PORTVERSION=	1.0.37
+PORTREVISION=	1
 CATEGORIES=	ftp ipv6
 MASTER_SITES=	http://download.pureftpd.org/pub/pure-ftpd/releases/ \
 		ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/ \
@@ -42,7 +43,9 @@ CONFIGURE_ARGS=	--localstatedir=/var --sysconfdir=${PREFIX}/etc \
 GNU_CONFIGURE=	yes
 USE_PERL5=	run
 USE_RC_SUBR=	pure-ftpd
-USES=		perl5 shebangfix tar:bzip2
+USES=		cpe perl5 shebangfix tar:bzip2
+
+CPE_VENDOR=	pureftpd
 
 PORTDOCS=	AUTHORS CONTACT COPYING HISTORY NEWS README \
 		README.Authentication-Modules README.Configuration-File \
@@ -62,9 +65,9 @@ PAM_TARGET?=	pure-ftpd
 PAM_TEMPL?=	${FILESDIR}/pam.conf.5
 TLS_CERTFILE?=	/etc/ssl/private/pure-ftpd.pem
 
-ANONDELETE_CFLAGS=	-DANON_CAN_DELETE
-ANONRENAME_CFLAGS=	-DANON_CAN_RENAME
-ANONRESUME_CFLAGS=	-DANON_CAN_RESUME
+ANONDELETE_CPPFLAGS=	-DANON_CAN_DELETE
+ANONRENAME_CPPFLAGS=	-DANON_CAN_RENAME
+ANONRESUME_CPPFLAGS=	-DANON_CAN_RESUME
 LARGEFILE_CONFIGURE_ENABLE=	largefile
 LDAP_CONFIGURE_WITH=	ldap
 LDAP_USE=		OPENLDAP=yes
@@ -84,6 +87,13 @@ UPLOADSCRIPT_CONFIGURE_WITH=	uploadscript
 UTF8_CONFIGURE_WITH=	rfc2640
 UTF8_USES=		iconv
 VIRTUALCHROOT_CONFIGURE_WITH=	virtualchroot
+
+.include <bsd.port.pre.mk>
+
+.if empty(ICONV_LIB)
+CONFIGURE_ARGS+=ac_cv_lib_iconv_iconv_open=no \
+		ac_cv_lib_iconv_libiconv_open=no
+.endif
 
 pre-fetch:
 	@${ECHO_MSG} "You can use the following additional options:"
@@ -116,4 +126,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PAM_DIR}/
 	${INSTALL_DATA} ${PAM_TEMPL} ${STAGEDIR}${PAM_DIR}/${PAM_TARGET}
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>
