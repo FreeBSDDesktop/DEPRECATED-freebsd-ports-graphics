@@ -158,6 +158,8 @@ rancid:*:286:
 backuppc:*:300:
 _sphinx:*:312:
 dkfilter:*:325:
+smfs:*:326:
+orthanc:*:330:
 daapd:*:337:
 murmur:*:338:
 wildfire:*:340:
@@ -178,6 +180,7 @@ condor:*:466:
 netmon:*:467:
 slurm:*:468:
 consul:*:469:
+serf:*:470:
 _bbstored:*:505:
 radmind:*:506:
 skkserv:*:507:
@@ -309,6 +312,7 @@ emby:*:989:
 oozie:*:990:
 sguil:*:991:
 hive:*:992:
+kannel:*:993:
 ebnetd:*:999:
 nogroup:*:65533:
 nobody:*:65534:

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	rocksdb
-PORTVERSION=	3.10
+PORTVERSION=	3.11.2
+DISTVERSIONPREFIX=	rocksdb-
 CATEGORIES=	databases
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -14,18 +15,17 @@ LIB_DEPENDS=	libgflags.so:${PORTSDIR}/devel/gflags \
 		libsnappy.so:${PORTSDIR}/archivers/snappy
 
 ALL_TARGET=	shared_lib all
-CFLAGS+=	-I${LOCALBASE}/include
+CFLAGS+=	-I${WRKSRC}/include -I${LOCALBASE}/include
 CPPFLAGS+=	-DOS_FREEBSD
 LDFLAGS+=	-L${LOCALBASE}/lib
+USE_CXXSTD=	c++11
 USE_LDCONFIG=	yes
 USES=		compiler:c++11-lib gmake
 
 GH_ACCOUNT=	facebook
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	v${PORTVERSION}
 USE_GITHUB=	yes
 
-PROGRAMS=	db_bench db_repl_stress db_sanity_test db_stress ldb log_and_apply_bench signal_test sst_dump table_reader_bench
+PROGRAMS=	db_bench db_repl_stress db_sanity_test db_stress ldb sst_dump table_reader_bench
 
 .include <bsd.port.pre.mk>
 
@@ -40,16 +40,19 @@ CXXFLAGS+=	-Wno-inconsistent-missing-override
 post-patch:
 	@${REINPLACE_CMD} -e '/^all: / s| $$(TESTS)||' ${WRKSRC}/Makefile
 	@${REINPLACE_CMD} -e 's| -fno-builtin-memcmp||; s| -ltcmalloc||' ${WRKSRC}/build_tools/build_detect_platform
-	@${REINPLACE_CMD} -e '/PLATFORM_IS_LITTLE_ENDIAN/ s|__|_|g' ${WRKSRC}/port/port_posix.h
 .if defined(WITHOUT_PROFILE)
-	@${REINPLACE_CMD} -e 's| -pg||' ${WRKSRC}/Makefile
+	@${REINPLACE_CMD} -e '/pg = / s| -pg||' ${WRKSRC}/Makefile
+.endif
+# Disable SSE4.2 on i386 architecture to fix i386 builds on FreeBSD package building cluster
+.if ${ARCH} == i386
+	@${REINPLACE_CMD} -e 's|#ifdef __SSE4_2__|&DISABLED__|' ${WRKSRC}/util/crc32c.cc
 .endif
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/rocksdb/ ${STAGEDIR}${DATADIR}/
 	cd ${WRKSRC}/ && ${INSTALL_PROGRAM} ${PROGRAMS} ${STAGEDIR}${PREFIX}/bin/
 	cd ${WRKSRC}/include/rocksdb/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/include/rocksdb/
-	${INSTALL_LIB} ${WRKSRC}/librocksdb.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_DATA} ${WRKSRC}/librocksdb.a ${STAGEDIR}${PREFIX}/lib/
 	${INSTALL_LIB} ${WRKSRC}/librocksdb.so ${STAGEDIR}${PREFIX}/lib/librocksdb.so.0
 	${LN} -fs librocksdb.so.0 ${STAGEDIR}${PREFIX}/lib/librocksdb.so
 	${INSTALL_DATA} ${WRKSRC}/make_config.mk ${STAGEDIR}${DATADIR}/

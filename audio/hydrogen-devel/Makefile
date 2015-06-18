@@ -1,11 +1,11 @@
 # Created by: Shane Ambler <FreeBSD@ShaneWare.Biz>
 # $FreeBSD$
 
-PORTNAME=	hydrogen-devel
+PORTNAME=	hydrogen
 PORTVERSION=	0.9.6r2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	audio
-MASTER_SITES=	GHL
+PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	FreeBSD@ShaneWare.Biz
 COMMENT=	Advanced drum machine
@@ -22,7 +22,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	hydrogen-music
 GH_PROJECT=	hydrogen
 GH_TAGNAME=	0.9.6-RC2
-GH_COMMIT=	2ff9010
+DATADIR=	${PREFIX}/share/${PORTNAME}${PKGNAMESUFFIX}
 
 MAJORVERSION=	0.9.6
 USE_QT4=	corelib gui qmake_build linguist_build moc_build network \
@@ -64,11 +64,9 @@ LIBARCHIVE_LIB_DEPENDS=	libarchive.so:${PORTSDIR}/archivers/libarchive
 OSS_CMAKE_ON=		-DWANT_OSS:BOOL=ON
 OSS_CMAKE_OFF=		-DWANT_OSS:BOOL=OFF
 
-PORTAUDIO_CMAKE_ON=	-DWANT_PORTAUDIO:BOOL=ON \
-			-DPORTAUDIO_INCLUDE_DIR:STRING=${LOCALBASE}/include/portaudio2 \
-			-DPORTAUDIO_LIBRARIES:STRING=${LOCALBASE}/lib/portaudio2/libportaudio.so
+PORTAUDIO_CMAKE_ON=	-DWANT_PORTAUDIO:BOOL=ON
 PORTAUDIO_CMAKE_OFF=	-DWANT_PORTAUDIO:BOOL=OFF
-PORTAUDIO_LIB_DEPENDS=	libportaudio.so.2:${PORTSDIR}/audio/portaudio2
+PORTAUDIO_LIB_DEPENDS=	libportaudio.so:${PORTSDIR}/audio/portaudio
 
 RDF_DESC=		RDF File support
 RDF_CMAKE_ON=		-DWANT_LRDF:BOOL=ON

@@ -2,14 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	progsreiserfs
-PORTVERSION=	0.3.1.r8
-PORTREVISION=	6
+DISTVERSION=	0.3.1-rc8
+PORTREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.cgsecurity.org/
-DISTNAME=	${PORTNAME}-${PORTVERSION:S/.r/-rc/}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Utilities and library to manipulate ReiserFS partitions
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		libtool
 USE_LDCONFIG=	yes
@@ -36,5 +38,8 @@ post-patch:
 		${WRKSRC}/demos/Makefile.in
 	@${REINPLACE_CMD} -e 's|sys/int_types.h|inttypes.h|' \
 		${WRKSRC}/libreiserfs/tools.c ${WRKSRC}/include/reiserfs/*
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
 .include <bsd.port.mk>

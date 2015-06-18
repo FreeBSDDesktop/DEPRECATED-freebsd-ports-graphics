@@ -6,6 +6,7 @@
 
 PORTNAME=	pulseaudio
 PORTVERSION=	6.0
+PORTREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	http://freedesktop.org/software/pulseaudio/releases/
 
@@ -24,7 +25,6 @@ LIB_DEPENDS=	libsndfile.so:${PORTSDIR}/audio/libsndfile \
 		libdbus-1.so:${PORTSDIR}/devel/dbus \
 		libltdl.so:${PORTSDIR}/devel/libltdl \
 		libck-connector.so:${PORTSDIR}/sysutils/consolekit
-RUN_DEPENDS=	freedesktop-sound-theme>=0:${PORTSDIR}/audio/freedesktop-sound-theme
 
 USE_GNOME=	glib20 intltool
 USE_XORG=	x11 sm xtst ice
@@ -84,6 +84,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/src/daemon/default.pa.in
 	@${REINPLACE_CMD} -e 's|-Wmissing-include-dirs||g' \
+		-e 's|/lib/dbus/machine-id|/db/dbus/machine-id|g' \
 		${WRKSRC}/configure
 
 post-install:

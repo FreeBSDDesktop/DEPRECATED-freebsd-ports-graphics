@@ -5,8 +5,7 @@ PORTNAME=	websh
 PORTVERSION=	3.6.0b5
 PORTREVISION=	4
 CATEGORIES=	www tcl
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=tcl/${PORTNAME}/source
+MASTER_SITES=	APACHE/tcl/${PORTNAME}/source
 EXTRACT_SUFX=	-src.tar.gz
 
 MAINTAINER=	mi@aldan.algebra.com
@@ -57,7 +56,7 @@ post-configure:
 		-e 's,-DPACKAGE_[^=]*=."[^"]*",,g' ${WRKSRC}/Makefile
 
 post-build test:
-	${SETENV} LANG=C ${MAKE_CMD} -C ${WRKSRC} test | ${AWK} '\
+	${SETENV} LANG=C HOME=${WRKDIR} ${MAKE_CMD} -C ${WRKSRC} test | ${AWK} '\
 		/Failed/ && $$NF {failed=1}	\
 		END {exit failed}	\
 		{print}'

@@ -10,14 +10,14 @@ MASTER_SITES=	http://www.winfield.demon.nl/linux/
 MAINTAINER=	leeym@FreeBSD.org
 COMMENT=	Application for displaying Microsoft(R) Word documents
 
-OPTIONS_DEFINE=	DEBUG
-
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/Docs/COPYING
 
 BUILD_DEPENDS=	${LOCALBASE}/share/ghostscript/fonts/n022003l.afm:${PORTSDIR}/print/gsfonts
 RUN_DEPENDS=	${LOCALBASE}/share/ghostscript/fonts/n022003l.afm:${PORTSDIR}/print/gsfonts
 
-USES=		gmake shebangfix perl5
+USES=		cpe gmake shebangfix perl5
+CPE_VENDOR=	antiword_project
 USE_PERL5=	build
 SHEBANG_FILES=	kantiword Unix-only/fontinfo.pl
 MAKE_JOBS_UNSAFE=yes
@@ -25,6 +25,8 @@ INSTALL_TARGET=	global_install
 
 PORTDOCS=	COPYING ChangeLog Emacs Exmh FAQ History Mozilla Mutt Netscape \
 		QandA ReadMe antiword.1 antiword.man antiword.php testdoc.doc
+
+OPTIONS_DEFINE=	DEBUG
 
 .include <bsd.port.options.mk>
 

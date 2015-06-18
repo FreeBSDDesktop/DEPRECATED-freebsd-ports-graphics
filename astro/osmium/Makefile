@@ -23,12 +23,12 @@ RUN_DEPENDS=	google-sparsehash>=2.0.2:${PORTSDIR}/devel/google-sparsehash
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	joto
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	1a5bb26
+GH_TAGNAME=	1a5bb26
 
 CXXFLAGS+=	-I${LOCALBASE}/include \
 		-L${LOCALBASE}/lib
 
+NO_ARCH=	yes
 PORTDOCS=	*
 
 OPTIONS_DEFINE=	JAVASCRIPT DOXYGEN DOCS

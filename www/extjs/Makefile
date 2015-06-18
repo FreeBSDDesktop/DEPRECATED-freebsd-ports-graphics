@@ -50,15 +50,11 @@ SUB_LIST+=	COMMENTEXAMPLES="\# "
 
 do-install:
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} "${WWW_SUB}" ${STAGEDIR}${WWWDIR}
-	@${CHOWN} -R ${WWWOWN}:${WWWGRP} ${STAGEDIR}${WWWDIR}
 .if ${PORT_OPTIONS:MDOCS}
 	@cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
 .endif
 .if ${PORT_OPTIONS:MEXAMPLES}
 	@cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
 .endif
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

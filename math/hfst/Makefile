@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	hfst
-PORTVERSION=	3.8.1
+PORTVERSION=	3.8.2
 CATEGORIES=	math
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE}
-MASTER_SITE_SUBDIR=${PORTNAME}/${PORTNAME}/archive
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/source
 
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	A toolkit for for processing natural language morphologies

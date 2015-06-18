@@ -6,7 +6,6 @@ DISTVERSION=	1.7.0
 PORTREVISION=	3
 CATEGORIES=	games emulators
 MASTER_SITES=	SF
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${DISTVERSION}
 
 MAINTAINER=	lme@FreeBSD.org
 COMMENT=	Interpreter for several adventure games
@@ -56,6 +55,10 @@ MT32EMU_CONFIGURE_OFF=	--disable-mt32emu
 
 .if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
 BROKEN=		Does not compile on ia64, powerpc, or sparc64
+.endif
+
+.if ${ARCH} == "armv6"
+CONFIGURE_ENV+=	ASFLAGS=-meabi=5
 .endif
 
 post-patch:

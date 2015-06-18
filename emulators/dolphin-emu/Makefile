@@ -3,13 +3,14 @@
 
 PORTNAME=	dolphin-emu
 PORTVERSION=	4.0.2
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	emulators
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	Gamecube and Wii Emulator
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/license.txt
 
 LIB_DEPENDS=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo \
 		libfreetype.so:${PORTSDIR}/print/freetype2 \
@@ -18,9 +19,7 @@ LIB_DEPENDS=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo \
 		libpolarssl.so.5:${PORTSDIR}/security/polarssl
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	${PORTNAME}
 GH_PROJECT=	dolphin
-GH_COMMIT=	88fabf7
 
 USE_SDL=	sdl
 USE_XORG=	ice xext x11 xrandr xi
@@ -48,7 +47,7 @@ PULSEAUDIO_LIB_DEPENDS=	libpulse.so:${PORTSDIR}/audio/pulseaudio
 PULSEAUDIO_CMAKE_ON=	-DDISABLE_PULSEAUDIO:BOOL=OFF
 PULSEAUDIO_CMAKE_OFF=	-DDISABLE_PULSEAUDIO:BOOL=ON
 PORTAUDIO_DESC=	Enable PortAudio (mic) support
-PORTAUDIO_LIB_DEPENDS=	libportaudio.so.2:${PORTSDIR}/audio/portaudio2
+PORTAUDIO_LIB_DEPENDS=	libportaudio.so:${PORTSDIR}/audio/portaudio
 PORTAUDIO_CMAKE_ON=	-DDISABLE_PORTAUDIO:BOOL=OFF
 PORTAUDIO_CMAKE_OFF=	-DDISABLE_PORTAUDIO:BOOL=ON
 DEBUG_MAKE_ENV=	VERBOSE=yes
@@ -69,6 +68,10 @@ NLS_CMAKE_ON=	-DDISABLE_NLS:BOOL=OFF
 NLS_CMAKE_OFF=	-DDISABLE_NLS:BOOL=ON
 
 .include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 900000
+BROKEN=		does not build: absence of xlocale.h
+.endif
 
 # XXX Temporary workaround for ports/184540
 .if ${PORT_OPTIONS:MDEBUG}

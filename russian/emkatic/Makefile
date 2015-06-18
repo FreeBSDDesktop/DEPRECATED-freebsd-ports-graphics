@@ -3,6 +3,7 @@
 
 PORTNAME=	emkatic
 PORTVERSION=	0.20
+PORTREVISION=	2
 CATEGORIES=	russian emulators
 MASTER_SITES=	SF/${PORTNAME}/eMKatic%20Source
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
@@ -20,7 +21,7 @@ USE_FPC=	yes
 WANT_GNOME=	yes
 
 PROJECT_FILE=	emkatic.lpi
-LAZARUS_VER=	1.2.6
+LAZARUS_VER=	1.4.0
 LAZBUILD_CMD=	${LOCALBASE}/bin/lazbuild -d --pcp=${WRKSRC}/tmppcp
 LAZARUS_DIR=	${LOCALBASE}/share/lazarus-${LAZARUS_VER}
 LCL_UNITS_DIR=	${LAZARUS_DIR}/lcl/units/${BUILDNAME}
@@ -36,7 +37,7 @@ OPTIONS_DEFAULT=	GTK2 PORTAUDIO
 GTK2_DESC=	Build with GTK+ 2 interface
 QT4_DESC=	Build with Qt 4 interface
 
-PORTAUDIO_RUN_DEPENDS=	${LOCALBASE}/lib/portaudio2/libportaudio.so.2:${PORTSDIR}/audio/portaudio2
+PORTAUDIO_LIB_DEPENDS=	libportaudio.so:${PORTSDIR}/audio/portaudio
 
 .include <bsd.port.pre.mk>
 

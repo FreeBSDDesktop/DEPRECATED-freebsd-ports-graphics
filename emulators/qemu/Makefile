@@ -3,18 +3,17 @@
 
 PORTNAME=	qemu
 PORTVERSION=	0.11.1
-PORTREVISION=	18
+PORTREVISION=	19
 CATEGORIES=	emulators
-MASTER_SITES=	${MASTER_SITE_SAVANNAH} \
+MASTER_SITES=	SAVANNAH \
 		http://bellard.org/qemu/
-MASTER_SITE_SUBDIR=	qemu
 DIST_SUBDIR=	qemu
 
 MAINTAINER=	nox@FreeBSD.org
 COMMENT=	QEMU CPU Emulator
 
 HAS_CONFIGURE=	yes
-USES=		gmake perl5 compiler:features
+USES=		cpe gmake perl5 compiler:features
 USE_PERL5=	build
 PATCH_STRIP=	-p1
 MAKE_ENV+=	BSD_MAKE="${MAKE}"

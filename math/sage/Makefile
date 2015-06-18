@@ -2,11 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	sage
-PORTVERSION=	6.6
+PORTVERSION=	6.7
 CATEGORIES=	math
 MASTER_SITES=	http://boxen.math.washington.edu/home/sagemath/sage-mirror/src/ \
 		http://mirrors.xmission.com/sage/src/ \
 		http://www-ftp.lip6.fr/pub/math/sagemath/src/ \
+		http://mirrors.mit.edu/sage/src/ \
 		http://www.sagemath.org/src-old/
 PKGNAMESUFFIX=	-math
 
@@ -36,7 +37,7 @@ pre-extract:
 
 PLIST_FILES=	bin/sage
 USE_TEX=	latex:build
-USES=		gmake iconv tk
+USES=		gmake iconv tk perl5
 MAKE_JOBS_SAFE=	yes
 
 # Optimization flags will be defined by the source
@@ -46,7 +47,8 @@ FFLAGS:=	${CFLAGS:C/^-O.*$//}
 MAKE_ENV+=	SAGE_PORT=yes \
 		SAGE_ATLAS_LIB=${LOCALBASE}/lib \
 		DOT_SAGE=${WRKSRC}/tmp/.sage \
-		SAGE_FAT_BINARY=yes
+		SAGE_FAT_BINARY=yes \
+		PERL=${PERL}
 
 LATEST_LINK=	sage-math	# Conflicts with graphics/sage.
 
@@ -72,6 +74,9 @@ check regression-test test: build
 	@${ECHO_MSG}
 	cd ${WRKSRC} && ${SETENV} DOT_SAGE=${WRKSRC}/tmp/.sage ./sage -testall
 	${RM} -f ${WRKSRC}/python*.core
+
+# Don't build docs (because of mysterious race conditions).
+ALL_TARGET=	build
 
 INSTALL_SAGE_DIR=	${PREFIX}/${PORTNAME}-${PORTVERSION}
 STAGED_SAGE_DIR=	${STAGEDIR}${INSTALL_SAGE_DIR}

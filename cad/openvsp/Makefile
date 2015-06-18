@@ -3,9 +3,9 @@
 
 PORTNAME=	openvsp
 PORTVERSION=	2.3.0
+DISTVERSIONPREFIX=	${GH_PROJECT}_
 PORTREVISION=	3
 CATEGORIES=	cad
-MASTER_SITES=	GHL
 
 MAINTAINER=	fernando.apesteguia@gmail.com
 COMMENT=	Create a 3D model of an aircraft defined by engineering parameters
@@ -28,8 +28,6 @@ LIB_DEPENDS=	libpthread-stubs.so:${PORTSDIR}/devel/libpthread-stubs \
 USE_GITHUB=	yes
 GH_PROJECT=	OpenVSP
 GH_ACCOUNT=	${GH_PROJECT}
-GH_TAGNAME=	${GH_PROJECT}_${PORTVERSION}
-GH_COMMIT=	568c424
 
 CMAKE_SOURCE_PATH=	${WRKSRC}/src
 USES=		cmake:outsource dos2unix iconv

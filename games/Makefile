@@ -12,6 +12,7 @@
     SUBDIR += 3omns
     SUBDIR += 4stattack
     SUBDIR += 54321
+    SUBDIR += 7kaa
     SUBDIR += CaribbeanStud
     SUBDIR += HeroesOfMightAndMagic
     SUBDIR += KnightCap
@@ -372,6 +373,7 @@
     SUBDIR += greed
     SUBDIR += gretools
     SUBDIR += grhino
+    SUBDIR += griels-quest
     SUBDIR += gru
     SUBDIR += grubik
     SUBDIR += gshisen
@@ -387,7 +389,6 @@
     SUBDIR += gturing
     SUBDIR += gtypist
     SUBDIR += gunfudeadlands
-    SUBDIR += gweled
     SUBDIR += hangman
     SUBDIR += hedgewars
     SUBDIR += help_hannahs_horse
@@ -764,13 +765,13 @@
     SUBDIR += py-fife
     SUBDIR += py-mnemosyne
     SUBDIR += py-poker-eval
-    SUBDIR += py-pychess
     SUBDIR += py-sgflib
     SUBDIR += py-sgfsummary
     SUBDIR += pyawale
     SUBDIR += pycadia
     SUBDIR += pyching
     SUBDIR += pydance
+    SUBDIR += pyfa
     SUBDIR += pykawari
     SUBDIR += pysolfc
     SUBDIR += pyspacewar
@@ -909,6 +910,7 @@
     SUBDIR += spicetrade
     SUBDIR += spider
     SUBDIR += spring
+    SUBDIR += springlobby
     SUBDIR += starfighter
     SUBDIR += starlanes
     SUBDIR += steelstorm
@@ -1046,6 +1048,8 @@
     SUBDIR += worldofpadman
     SUBDIR += wtf
     SUBDIR += wxlauncher
+    SUBDIR += wyrmgus
+    SUBDIR += wyrmsun
     SUBDIR += xabacus
     SUBDIR += xasteroids
     SUBDIR += xataxx

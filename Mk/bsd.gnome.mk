@@ -497,9 +497,7 @@ gvfs_RUN_DEPENDS=	gvfs>=0:${PORTSDIR}/devel/gvfs
 gvfs_USE_GNOME_IMPL=	glib20
 
 .if defined(MARCUSCOM_CVS)
-. if exists(${PORTSDIR}/Mk/bsd.gnome-experimental.mk)
-.include "${PORTSDIR}/Mk/bsd.gnome-experimental.mk"
-. endif
+.sinclude "${PORTSDIR}/Mk/bsd.gnome-experimental.mk"
 .endif
 
 .if defined(INSTALLS_ICONS)
@@ -727,15 +725,7 @@ CONFIGURE_FAIL_MESSAGE= "Please run the gnomelogalyzer, available from \"http://
 
 .if defined(GCONF_SCHEMAS) || defined(INSTALLS_OMF) || defined(INSTALLS_ICONS) \
 	|| defined(GLIB_SCHEMAS)
-pre-su-install: gnome-pre-su-install
 post-install: gnome-post-install
-
-gnome-pre-su-install:
-.if defined(GCONF_SCHEMAS)
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/gconf/gconf.xml.defaults/
-.else
-	@${DO_NADA}
-.endif
 
 gnome-post-install:
 .  if defined(GCONF_SCHEMAS)

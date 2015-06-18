@@ -29,6 +29,7 @@
     SUBDIR += cassandra2
     SUBDIR += cdb
     SUBDIR += cego
+    SUBDIR += cegobridge
     SUBDIR += couchdb
     SUBDIR += courier-authlib-mysql
     SUBDIR += courier-authlib-pgsql
@@ -51,6 +52,7 @@
     SUBDIR += dbview
     SUBDIR += emma
     SUBDIR += epgsql
+    SUBDIR += eredis
     SUBDIR += erlang-mysql
     SUBDIR += evolution-data-server
     SUBDIR += fastdb
@@ -178,7 +180,6 @@
     SUBDIR += mongodb
     SUBDIR += mrtg-mysql-load
     SUBDIR += mtop
-    SUBDIR += my2cego
     SUBDIR += mydbf2mysql
     SUBDIR += mydumper
     SUBDIR += mysac
@@ -407,6 +408,8 @@
     SUBDIR += p5-Exception-Class-DBI
     SUBDIR += p5-GDBM
     SUBDIR += p5-Genezzo
+    SUBDIR += p5-GitDDL
+    SUBDIR += p5-GitDDL-Migrator
     SUBDIR += p5-GraphViz-DBI
     SUBDIR += p5-HTML-FormHandler-Model-DBIC
     SUBDIR += p5-Ima-DBI
@@ -636,13 +639,6 @@
     SUBDIR += postgresql-plv8js
     SUBDIR += postgresql-relay
     SUBDIR += postgresql-repmgr
-    SUBDIR += postgresql84-client
-    SUBDIR += postgresql84-contrib
-    SUBDIR += postgresql84-docs
-    SUBDIR += postgresql84-plperl
-    SUBDIR += postgresql84-plpython
-    SUBDIR += postgresql84-pltcl
-    SUBDIR += postgresql84-server
     SUBDIR += postgresql90-client
     SUBDIR += postgresql90-contrib
     SUBDIR += postgresql90-docs
@@ -739,12 +735,14 @@
     SUBDIR += py-pgxnclient
     SUBDIR += py-pickledb
     SUBDIR += py-postgresql
+    SUBDIR += py-psycogreen
     SUBDIR += py-psycopg
     SUBDIR += py-psycopg2
     SUBDIR += py-pyPgSQL
     SUBDIR += py-pyhs
     SUBDIR += py-pylibmc
     SUBDIR += py-pymysql
+    SUBDIR += py-pypuppetdb
     SUBDIR += py-pytc
     SUBDIR += py-python-rrdtool
     SUBDIR += py-qt4-sql
@@ -822,6 +820,7 @@
     SUBDIR += rubygem-arel
     SUBDIR += rubygem-arel-helpers
     SUBDIR += rubygem-arel3
+    SUBDIR += rubygem-arel6
     SUBDIR += rubygem-awesome_nested_set
     SUBDIR += rubygem-bdb1
     SUBDIR += rubygem-bigrecord
@@ -856,6 +855,8 @@
     SUBDIR += rubygem-do_postgres
     SUBDIR += rubygem-do_sqlite3
     SUBDIR += rubygem-familia
+    SUBDIR += rubygem-globalid
+    SUBDIR += rubygem-her
     SUBDIR += rubygem-hiredis
     SUBDIR += rubygem-jdbc-mysql
     SUBDIR += rubygem-leo_manager_client

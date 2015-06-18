@@ -5,13 +5,14 @@ PORTNAME=	mail-notification
 DISTVERSION=	5.4
 PORTREVISION=	15
 CATEGORIES=	mail ipv6
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITE_SUBDIR=	mailnotify-orig
+MASTER_SITES=	SAVANNAH/mailnotify-orig
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Mail notification for freedesktop.org-compliant system trays
 
 BROKEN=		Run-time failure with Gnome 3
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=	2015-06-29
 
 LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
 		libgnome-keyring.so:${PORTSDIR}/security/gnome-keyring \

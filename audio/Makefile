@@ -51,6 +51,7 @@
     SUBDIR += baudline
     SUBDIR += bcg729
     SUBDIR += beast
+    SUBDIR += beep
     SUBDIR += beets
     SUBDIR += blop
     SUBDIR += boodler
@@ -432,6 +433,7 @@
     SUBDIR += linux-laudio
     SUBDIR += linux-mbrola
     SUBDIR += linux-neroaaccodec
+    SUBDIR += linux-skype_oss_wrapper
     SUBDIR += linuxsampler
     SUBDIR += listener
     SUBDIR += lmms
@@ -592,7 +594,6 @@
     SUBDIR += pms
     SUBDIR += pocketsphinx
     SUBDIR += portaudio
-    SUBDIR += portaudio2
     SUBDIR += praat
     SUBDIR += puddletag
     SUBDIR += pulseaudio
@@ -658,7 +659,7 @@
     SUBDIR += rubygem-librmpd
     SUBDIR += rubygem-ruby-mp3info
     SUBDIR += rubygem-ruby-ogginfo
-    SUBDIR += rubygem-shout
+    SUBDIR += rubygem-ruby-shout
     SUBDIR += rubyripper
     SUBDIR += s3mod
     SUBDIR += sbagen

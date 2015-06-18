@@ -2,7 +2,7 @@
 
 PORTNAME=	sysctl
 PORTVERSION=	1.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel
 PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
 
@@ -16,7 +16,6 @@ PLIST_FILES=	%%LUA_MODSHAREDIR%%/sysctl.lua \
 
 GH_ACCOUNT=	kAworu
 GH_PROJECT=	lua-${PORTNAME}
-GH_COMMIT=	345dc69
 
 post-patch:
 	@${REINPLACE_CMD} -e "s/5.1/${LUA_VER}/g" ${WRKSRC}/Makefile
@@ -25,6 +24,6 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR}/sysctl \
 		${STAGEDIR}${LUA_MODSHAREDIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/sysctl.lua ${STAGEDIR}${LUA_MODSHAREDIR}/sysctl.lua
-	${INSTALL_SCRIPT} ${WRKSRC}/build/core.so ${STAGEDIR}${LUA_MODLIBDIR}/sysctl/core.so
+	${INSTALL_LIB} ${WRKSRC}/build/core.so ${STAGEDIR}${LUA_MODLIBDIR}/sysctl/core.so
 
 .include <bsd.port.mk>

@@ -16,7 +16,7 @@ COMMENT=	The Berkeley DB package, revision 4.8
 DEPRECATED=		Please migrate to db5 or db6
 # The port is not to be removed unless the bitcoin-related ports can
 # go without this.
-EXPIRATION_DATE=	2015-05-31
+EXPIRATION_DATE=	2015-07-31
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKDIR}/${DISTNAME}/LICENSE
@@ -32,6 +32,13 @@ GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install_include install_lib install_utilities
 WRKSRC=		${WRKDIR}/${DISTNAME}/build_unix
 USE_LDCONFIG=	yes
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == "armv6"
+# db48 uses a deprecated instruction for mutexes on ARM, fbsd bug#197227
+CONFIGURE_ARGS+=	--enable-posixmutexes
+.endif
 
 post-patch:
 	${REINPLACE_CMD} -Ee 's|--mode=install cp -p|--mode=install ${INSTALL} -s|;' ${WRKSRC}/${CONFIGURE_SCRIPT}

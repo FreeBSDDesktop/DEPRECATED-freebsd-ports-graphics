@@ -2,7 +2,7 @@
 
 PORTNAME=		cantata
 PORTVERSION=		1.5.1
-PORTREVISION=		1
+PORTREVISION=		2
 CATEGORIES=		audio kde
 MASTER_SITES=		https://drive.google.com/uc?export=download&id=0Bzghs6gQWi60UktwaTRMTjRIUW8&dummy=
 
@@ -10,6 +10,7 @@ MAINTAINER=		kde@FreeBSD.org
 COMMENT=		Graphical client for MPD using Qt5
 
 LICENSE=		GPLv3
+LICENSE_FILE=		${WRKSRC}/LICENSE
 
 USE_KDE4=		oxygen
 USE_QT5=		buildtools_build concurrent core dbus gui \
@@ -22,7 +23,8 @@ CMAKE_ARGS=		-DENABLE_QT5:BOOL=TRUE	\
 			-DLCONVERT_EXECUTABLE:STRING=${QT_BINDIR}/lconvert \
 			-DLRELEASE_EXECUTABLE:STRING=${QT_BINDIR}/lrelease
 
-USES=			cmake:outsource pkgconfig tar:bzip2
+USES=			cmake:outsource cpe pkgconfig tar:bzip2
+CPE_VENDOR=		craig_drummond
 USE_LDCONFIG=		yes
 
 INSTALLS_ICONS=		yes

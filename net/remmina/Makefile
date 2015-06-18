@@ -22,10 +22,7 @@ CFLAGS+=	-I${WRKSRC}/remmina/include -I${LOCALBASE}/include -fPIC
 SUB_FILES=	pkg-message
 USE_GITHUB=	yes
 GH_ACCOUNT=	FreeRDP
-GH_PROJECT=	${PORTNAME}
-GH_COMMIT=	356c033
-GH_TAGNAME=	${PORTVERSION}
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-Remmina-${GH_COMMIT}
+GH_PROJECT=	Remmina
 
 OPTIONS_DEFINE=	SSH GCRYPT TERM AVAHI NLS
 OPTIONS_DEFAULT=	SSH GCRYPT TERM AVAHI NLS
@@ -45,6 +42,8 @@ USES+=		gettext
 PLIST_SUB+=	NLS=""
 LDFLAGS+=	-lintl
 .else
+USES+=		gettext	# doesn't build otherwise
+LDFLAGS+=	-lintl	# doesn't build otherwise
 PLIST_SUB+=	NLS="@comment "
 .endif
 

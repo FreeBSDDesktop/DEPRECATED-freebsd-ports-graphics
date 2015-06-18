@@ -3,26 +3,31 @@
 
 PORTNAME=	mod_auth_openid
 PORTVERSION=	0.8
+PORTREVISION=	1
+DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Authentication module for the Apache 2 webserver with OpenID
 
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 LIB_DEPENDS=	libopkele.so:${PORTSDIR}/devel/libopkele \
 		libsqlite3.so:${PORTSDIR}/databases/sqlite3
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	bmuller
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	22d1719
 
 PLIST_FILES=	${APACHEMODDIR}/mod_auth_openid.so
 
 USE_APACHE=	22+
-USES=		autoreconf gmake libtool pkgconfig
+USES=		autoreconf cpe gmake libtool pkgconfig
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-pcre=${LOCALBASE}
+
+CPE_VENDOR=	findingscience
 
 CFLAGS+=	-I${LOCALBASE}/include -I/usr/include/openssl
 
@@ -32,5 +37,8 @@ post-patch:
 
 pre-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/${APACHEMODDIR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${APACHEMODDIR}/${PORTNAME}.so
 
 .include <bsd.port.mk>

@@ -3,6 +3,7 @@
 
 PORTNAME=	gdal
 PORTVERSION=	1.11.2
+PORTREVISION=	3
 CATEGORIES=	graphics geography
 MASTER_SITES=	http://download.osgeo.org/gdal/${PORTVERSION}/ \
 		ftp://ftp.remotesensing.org/pub/gdal/${PORTVERSION}/ \
@@ -42,8 +43,6 @@ CONFIGURE_ARGS=	--datadir=${DATADIR} \
 		--with-threads=yes \
 		--without-libtool
 GNU_CONFIGURE=	yes
-CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE} -lpthread
 MAKE_JOBS_UNSAFE=	yes
 MAKEFILE=	GNUmakefile
 USE_LDCONFIG=	yes
@@ -83,6 +82,7 @@ HDF5_CONFIGURE_ON=	--with-hdf5=${LOCALBASE}
 HDF5_LIB_DEPENDS=	libhdf5.so:${PORTSDIR}/science/hdf5
 ICONV_CONFIGURE_OFF=	--with-libiconv-prefix=no
 ICONV_CONFIGURE_ON=	${ICONV_CONFIGURE_ARG}
+ICONV_CPPFLAGS=		-I${LOCALBASE}/include
 ICONV_LDFLAGS=		-L${ICONV_PREFIX}/lib ${ICONV_LIB}
 ICONV_USES=		iconv
 JASPER_CONFIGURE_OFF=	--with-jasper=no
@@ -144,7 +144,7 @@ post-patch:
 	@${RM} -fr ${WRKSRC}/ogr/ogrsf_frmts/geojson/libjson/
 
 post-install:
-	${INSTALL_LIB} ${WRKSRC}/libgdal.a ${STAGEDIR}${PREFIX}/lib/
+	${INSTALL_DATA} ${WRKSRC}/libgdal.a ${STAGEDIR}${PREFIX}/lib/
 	${TOUCH} ${STAGEDIR}${PREFIX}/lib/gdalplugins/.keepme
 	${INSTALL_DATA} ${WRKSRC}/GDALmake.opt ${STAGEDIR}${DATADIR}/
 	-${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* ${STAGEDIR}${PREFIX}/lib/libgdal.so.${PORTVERSION}

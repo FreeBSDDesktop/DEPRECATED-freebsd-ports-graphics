@@ -4,8 +4,7 @@
 PORTNAME=	cld
 PORTVERSION=	20150113
 CATEGORIES=	devel python
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	demon
+MASTER_SITES=	LOCAL/demon
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	chromium_compact_language_detector-${PORTVERSION}
 
@@ -14,7 +13,7 @@ COMMENT=	Python bindings for compact language detector library
 
 LICENSE=	BSD3CLAUSE
 
-LIB_DEPENDS=	libcld2.so:${PORTSDIR}/devel/cld
+LIB_DEPENDS=	libcld2.so:${PORTSDIR}/devel/cld2
 
 USES=		python
 

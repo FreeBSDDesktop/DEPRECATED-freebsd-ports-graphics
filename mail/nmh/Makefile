@@ -4,15 +4,14 @@
 PORTNAME=	nmh
 PORTVERSION=	1.6
 CATEGORIES=	mail
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITE_SUBDIR=	nmh
+MASTER_SITES=	SAVANNAH
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Cleaned up MH mailer suite
 
 LICENSE=	BSD3CLAUSE
 
-USES=		gmake iconv shebangfix
+USES=		cpe gmake iconv shebangfix
 SHEBANG_FILES=	docs/contrib/ml docs/contrib/replyfilter docs/contrib/vpick
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--libdir=${PREFIX}/libexec/nmh \

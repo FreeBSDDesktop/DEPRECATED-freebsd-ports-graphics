@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	wordpress
-PORTVERSION=	4.2.1
+PORTVERSION=	4.2.2
+DISTVERSIONSUFFIX=	-de_DE
 CATEGORIES=	german www
 MASTER_SITES=	http://de.wordpress.org/
-DISTNAME=	${PORTNAME}-${PORTVERSION}-de_DE
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	State-of-the-art semantic personal publishing platform

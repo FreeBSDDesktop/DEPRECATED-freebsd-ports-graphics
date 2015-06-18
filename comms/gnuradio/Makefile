@@ -2,11 +2,10 @@
 
 PORTNAME=	gnuradio
 PORTVERSION=	3.7.4
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	comms astro hamradio
 MASTER_SITES=	http://gnuradio.org/releases/gnuradio/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	db
+		LOCAL/db
 
 MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Amateur Radio Software defined radio
@@ -30,7 +29,7 @@ LIB_DEPENDS=	libcppunit.so:${PORTSDIR}/devel/cppunit \
 		libfftw3f.so:${PORTSDIR}/math/fftw3-float \
 		libqwt.so:${PORTSDIR}/x11-toolkits/qwt5 \
 		libboost_python.so:${PORTSDIR}/devel/boost-python-libs \
-		libportaudio.so.2:${PORTSDIR}/audio/portaudio2 \
+		libportaudio.so:${PORTSDIR}/audio/portaudio \
 		libjack.so:${PORTSDIR}/audio/jack \
 		libasound.so:${PORTSDIR}/audio/alsa-lib \
 		libgsl.so:${PORTSDIR}/math/gsl

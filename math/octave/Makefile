@@ -3,10 +3,9 @@
 
 PORTNAME=	octave
 PORTVERSION=	3.8.2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	octave
+MASTER_SITES=	GNU
 
 MAINTAINER=	maho@FreeBSD.org
 COMMENT=	High-level interactive language for numerical computations
@@ -61,15 +60,13 @@ CONFIGURE_ARGS=	--host=${GNU_HOST} \
 
 OPTIONS_DEFINE=	DOCS
 
-OPTIONS_RADIO=	BLAS
-OPTIONS_RADIO_BLAS=	REFERENCE OBLAS
-OPTIONS_DEFAULT=	REFERENCE
+OPTIONS_RADIO=  BLAS
+OPTIONS_RADIO_BLAS=     OPENBLAS NETLIB ATLAS
+OPTIONS_DEFAULT=        OPENBLAS
 
-REFERENCE_DESC=	Blas / Lapack
-REFERENCE_USES=	blaslapack:netlib
-
-OBLAS_DESC=	Openblas
-OBLAS_USES=	blaslapack:openblas
+OPENBLAS_USES=  blaslapack:openblas
+NETLIB_USES=    blaslapack:netlib
+ATLAS_USES=     blaslapack:atlas
 
 INFO=		octave liboctave
 

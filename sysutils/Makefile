@@ -15,6 +15,7 @@
     SUBDIR += accountsservice
     SUBDIR += acpi_call
     SUBDIR += acpica-tools
+    SUBDIR += acts
     SUBDIR += adtool
     SUBDIR += afbinit
     SUBDIR += afflib
@@ -50,6 +51,7 @@
     SUBDIR += autopsy
     SUBDIR += avfs
     SUBDIR += azure-agent
+    SUBDIR += b2sum
     SUBDIR += b43-fwcutter
     SUBDIR += backupchecker
     SUBDIR += backuppc
@@ -189,6 +191,7 @@
     SUBDIR += di
     SUBDIR += dim
     SUBDIR += dirdiff
+    SUBDIR += direnv
     SUBDIR += dirvish
     SUBDIR += diskcheckd
     SUBDIR += diskimage-tools
@@ -580,6 +583,7 @@
     SUBDIR += openipmi
     SUBDIR += openupsd
     SUBDIR += ori
+    SUBDIR += osquery
     SUBDIR += p5-BSD-Jail-Object
     SUBDIR += p5-BSD-Process
     SUBDIR += p5-BSD-Sysctl
@@ -649,6 +653,7 @@
     SUBDIR += p5-ZConf-Cron
     SUBDIR += p5-arclog
     SUBDIR += p5-reslog
+    SUBDIR += packer
     SUBDIR += pacman
     SUBDIR += paicc
     SUBDIR += pam_mount
@@ -710,6 +715,7 @@
     SUBDIR += polkit-gnome
     SUBDIR += polkit-kde
     SUBDIR += polkit-qt
+    SUBDIR += polkit-qt5
     SUBDIR += powerman
     SUBDIR += pp
     SUBDIR += pprotectd
@@ -734,6 +740,7 @@
     SUBDIR += py-XenAPI
     SUBDIR += py-analyzemft
     SUBDIR += py-bcfg2
+    SUBDIR += py-croniter
     SUBDIR += py-danzfs
     SUBDIR += py-drmaa
     SUBDIR += py-execnet
@@ -809,7 +816,10 @@
     SUBDIR += ruby-quota
     SUBDIR += rubygem-SyslogLogger
     SUBDIR += rubygem-backup
+    SUBDIR += rubygem-bosh-gen
+    SUBDIR += rubygem-bosh_cli
     SUBDIR += rubygem-bundler
+    SUBDIR += rubygem-bundler17
     SUBDIR += rubygem-bundler_ext
     SUBDIR += rubygem-capistrano
     SUBDIR += rubygem-capistrano-ext
@@ -835,6 +845,7 @@
     SUBDIR += rubygem-hammer_cli_foreman_salt
     SUBDIR += rubygem-hammer_cli_foreman_ssh
     SUBDIR += rubygem-hiera
+    SUBDIR += rubygem-hiera-file
     SUBDIR += rubygem-librarian-puppet
     SUBDIR += rubygem-log4r
     SUBDIR += rubygem-logify
@@ -843,8 +854,11 @@
     SUBDIR += rubygem-murder
     SUBDIR += rubygem-ohai
     SUBDIR += rubygem-parallel
+    SUBDIR += rubygem-puppet_forge
+    SUBDIR += rubygem-r10k
     SUBDIR += rubygem-rubyipmi
     SUBDIR += rubygem-shellany
+    SUBDIR += rubygem-smart_proxy_chef
     SUBDIR += rubygem-smart_proxy_salt
     SUBDIR += rubygem-sys-admin
     SUBDIR += rubygem-sys-cpu
@@ -885,6 +899,7 @@
     SUBDIR += searchmonkey
     SUBDIR += seatools
     SUBDIR += sec
+    SUBDIR += serf
     SUBDIR += setcdboot
     SUBDIR += setquota
     SUBDIR += sformat
@@ -950,6 +965,7 @@
     SUBDIR += tdir
     SUBDIR += tenshi
     SUBDIR += tentakel
+    SUBDIR += terraform
     SUBDIR += testdisk
     SUBDIR += thefish
     SUBDIR += timelimit

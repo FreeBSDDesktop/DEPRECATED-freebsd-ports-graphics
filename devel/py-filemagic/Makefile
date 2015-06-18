@@ -24,12 +24,11 @@ USE_GITHUB=	yes
 USE_PYTHON=	autoplist distutils
 
 GH_ACCOUNT=	aliles
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	b24df9f
+GH_TAGNAME=	b24df9f
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_REL} < 300
+.if ${PYTHON_REL} < 3000
 TEST_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}unittest2>0:${PORTSDIR}/devel/py-unittest2
 .endif
 

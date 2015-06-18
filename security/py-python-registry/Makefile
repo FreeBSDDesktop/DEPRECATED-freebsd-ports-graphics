@@ -4,8 +4,7 @@
 PORTNAME=	python-registry
 PORTVERSION=	1.1.0
 CATEGORIES=	security devel python
-MASTER_SITES=	GHL \
-		LOCAL/antoine
+MASTER_SITES=	LOCAL/antoine
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	antoine@FreeBSD.org
@@ -15,7 +14,6 @@ LICENSE=	APACHE20
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	williballenthin
-GH_COMMIT=	da9d4d4
 
 USES=		python shebangfix
 USE_PYTHON=	distutils autoplist
@@ -30,7 +28,7 @@ PORTEXAMPLES=	*
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_REL} < 340
+.if ${PYTHON_REL} < 3400
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}enum34>=0:${PORTSDIR}/devel/py-enum34
 .endif
 

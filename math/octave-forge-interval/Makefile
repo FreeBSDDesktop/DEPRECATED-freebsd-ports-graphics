@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	octave-forge-interval
-PORTVERSION=	0.1.5
+PORTVERSION=	1.0.0
 CATEGORIES=	math
 
 MAINTAINER=	stephen@FreeBSD.org

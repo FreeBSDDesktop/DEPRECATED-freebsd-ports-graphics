@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	thunderbird
-DISTVERSION=	31.6.0
+DISTVERSION=	31.7.0
 PORTREVISION=	1
 CATEGORIES=	mail news net-im ipv6
 MASTER_SITES=	MOZILLA/${PORTNAME}/releases/${DISTVERSION}/source \
-		https://ftp.mozilla.org/pub/mozilla.org/${PORTNAME}/candidates/${DISTVERSION}-candidates/build1/source/
+		MOZILLA/${PORTNAME}/candidates/${DISTVERSION}-candidates/build1/source
 DISTFILES=	${PORTNAME}-${DISTVERSION}.source${EXTRACT_SUFX}
 EXTRACT_ONLY=	${PORTNAME}-${DISTVERSION}.source${EXTRACT_SUFX}
 
@@ -14,7 +14,7 @@ MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Mozilla Thunderbird is standalone mail and news that stands above
 
 BUILD_DEPENDS=	nspr>=4.10.6:${PORTSDIR}/devel/nspr \
-		nss>=3.16:${PORTSDIR}/security/nss \
+		nss>=3.16.2.3:${PORTSDIR}/security/nss \
 		libevent2>=2.0.21_2:${PORTSDIR}/devel/libevent2 \
 		cairo>=1.12.16_1,2:${PORTSDIR}/graphics/cairo \
 		soundtouch>=1.8.0:${PORTSDIR}/audio/soundtouch \
@@ -32,8 +32,8 @@ BUILD_DEPENDS=	nspr>=4.10.6:${PORTSDIR}/devel/nspr \
 
 LIB_DEPENDS=	libv4l2.so:${PORTSDIR}/multimedia/libv4l
 
-EM_VERSION=	1.8.1
-L_VERSION=	3.3.6
+EM_VERSION=	1.8.2
+L_VERSION=	3.3.7
 
 SSP_UNSAFE=	yes
 USE_GECKO=	gecko
@@ -91,7 +91,7 @@ DISTFILES+=	${EM_DISTFILE}:enigmail
 RUN_DEPENDS+=	gpg:${PORTSDIR}/security/gnupg
 EM_DISTNAME=	enigmail-${EM_VERSION}
 EM_DISTFILE=	${EM_DISTNAME}.tar.gz
-EM_XPI_FILE=	${WRKSRC}/mailnews/extensions/enigmail/build/${EM_DISTNAME}-${OPSYS:tl}-${ARCH:S/amd64/x86_64/:S/i386/x86/}-gcc3.xpi
+EM_XPI_FILE=	${WRKSRC}/mailnews/extensions/enigmail/build/${EM_DISTNAME}-${OPSYS:tl}-${ARCH:S/amd64/x86_64/:S/i386/x86/:S/powerpc/ppc/}-gcc3.xpi
 EM_ORIG_ID=	{847b3a00-7ab1-11d4-8f02-006008948af5}
 EM_ID=		${PORTNAME}@mozilla-enigmail.org
 EM_ID_RFILES=	${XPI_LIBDIR}/${EM_ID}/install.rdf \

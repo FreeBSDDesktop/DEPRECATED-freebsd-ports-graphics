@@ -501,6 +501,7 @@
     SUBDIR += py-apolicy
     SUBDIR += py-authres
     SUBDIR += py-cyruslib
+    SUBDIR += py-dkimpy
     SUBDIR += py-libgmail
     SUBDIR += py-milter
     SUBDIR += py-ppolicy
@@ -598,6 +599,7 @@
     SUBDIR += simscan
     SUBDIR += slapd-cyrus
     SUBDIR += sma
+    SUBDIR += smfsav
     SUBDIR += smtp-cli
     SUBDIR += smtp-gated
     SUBDIR += smtpfeed

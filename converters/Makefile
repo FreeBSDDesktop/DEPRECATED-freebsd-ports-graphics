@@ -44,6 +44,7 @@
     SUBDIR += libticonv
     SUBDIR += libutf-8
     SUBDIR += lua-iconv
+    SUBDIR += lua-json
     SUBDIR += mimelib
     SUBDIR += mmencode
     SUBDIR += mpack
@@ -140,6 +141,7 @@
     SUBDIR += py-bsdconv
     SUBDIR += py-iconv
     SUBDIR += py-pisa
+    SUBDIR += py-rencode
     SUBDIR += py-unidecode
     SUBDIR += py-zfec
     SUBDIR += rcctools

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	npm
-PORTVERSION=	2.8.4
+PORTVERSION=	2.11.2
 CATEGORIES=	www
 MASTER_SITES=	LOCAL/sunpoet
 
@@ -20,6 +20,7 @@ NODE_DEVEL_DESC=Use www/node-devel as backend
 NODE010_DESC=	Use www/node010 as backend
 
 MAKE_ARGS=	npm_config_prefix=${STAGEDIR}${PREFIX}
+NO_ARCH=	yes
 NO_BUILD=	yes
 REINPLACE_ARGS=	-i ''
 USES=		cpe python:2 tar:xz
@@ -33,6 +34,13 @@ IOJS_RUN_DEPENDS=	iojs>=1.0.0:${PORTSDIR}/www/iojs
 NODE_DEVEL_RUN_DEPENDS=	node-devel>=0.8.0:${PORTSDIR}/www/node-devel
 NODE_RUN_DEPENDS=	node>=0.8.0:${PORTSDIR}/www/node
 NODE010_RUN_DEPENDS=	node010>=0.8.0:${PORTSDIR}/www/node010
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "i386"
+# Workaround for kernel bug 178881
+EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-bug-178881
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|node cli.js|& --cache ${WRKDIR}/.cache|' ${WRKSRC}/Makefile
@@ -79,4 +87,4 @@ maketar: do-clean
 	@sudo ${INSTALL} -m 644 ${MS_WRKSRC}/${PORTNAME}-${MS_VERSION}.tar.xz ${DISTDIR}/
 	@cd ${.CURDIR}/ && ${MAKE_CMD} makesum
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

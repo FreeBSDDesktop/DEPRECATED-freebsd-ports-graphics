@@ -72,7 +72,6 @@
     SUBDIR += linux-f10-ucl
     SUBDIR += linux-f10-upx
     SUBDIR += lrzip
-    SUBDIR += lz4
     SUBDIR += lzip
     SUBDIR += lzlib
     SUBDIR += lzma
@@ -162,6 +161,7 @@
     SUBDIR += pxz
     SUBDIR += py-liblzma
     SUBDIR += py-librtfcomp
+    SUBDIR += py-lz4
     SUBDIR += py-lzma
     SUBDIR += py-python-snappy
     SUBDIR += qpress

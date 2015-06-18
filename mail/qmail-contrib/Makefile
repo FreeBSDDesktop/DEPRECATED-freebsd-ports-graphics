@@ -6,12 +6,11 @@ PORTVERSION=	0.1
 PORTREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	http://cr.yp.to/software/ \
-		${MASTER_SITE_GENTOO}
-MASTER_SITE_SUBDIR=	distfiles
+		GENTOO
 DISTFILES=	dot-forward-${DF_VER}.tar.gz \
 		fastforward-${FF_VER}.tar.gz
 
-MAINTAINER=	bdrewery@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Contributed programs for qmail
 
 OPTIONS_DEFINE=	DOCS

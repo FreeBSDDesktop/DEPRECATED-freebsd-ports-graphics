@@ -2,6 +2,7 @@
 
 PORTNAME=	itop
 PORTVERSION=	2.1.0
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}
 DISTNAME=	iTop-${PORTVERSION}-2127
@@ -11,9 +12,10 @@ COMMENT=	Simple, web based IT Service Management tool
 
 LICENSE=	AGPLv3
 
-USES=		zip
+USES=		cpe zip
+CPE_VENDOR=	combodo
 USE_PHP=	ctype iconv mbstring pcre session xml zlib readline \
-		dom simplexml hash json soap mcrypt filter
+		dom simplexml hash json soap mcrypt filter zip
 
 NO_BUILD=	yes
 

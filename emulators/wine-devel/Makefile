@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	wine
-DISTVERSION=	1.7.41
+DISTVERSION=	1.7.44
 PORTEPOCH=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}/Source \
@@ -21,8 +21,8 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex \
 		prelink:${PORTSDIR}/sysutils/prelink
 LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2
 
-CONFLICTS_INSTALL=	wine-[0-9]* wine-compholio-[0-9]* i386-wine-[0-9]* \
-			i386-wine-compholio-[0-9]* i386-wine-devel-[0-9]*
+CONFLICTS_INSTALL=	wine-[0-9]* wine-staging-[0-9]* i386-wine-[0-9]* \
+			i386-wine-staging-[0-9]* i386-wine-devel-[0-9]*
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -149,7 +149,7 @@ CONFIGURE_ENV+=	ac_cv_have_powl=no
 CONFIGURE_ARGS+=--without-pulse
 USE_AUTOTOOLS=	autoconf
 
-post-extract:
+post-extract: fix-shebang
 	cd ${WRKSRC} && ${TAR} xf ${DISTDIR}/${COMP_DIST} --strip-components 1
 	cd ${WRKSRC} && bash ./patches/patchinstall.sh --backend=patch DESTDIR=${WRKSRC} --all
 .endif

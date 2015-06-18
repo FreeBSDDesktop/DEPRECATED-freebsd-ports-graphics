@@ -2,40 +2,40 @@
 # $FreeBSD$
 
 PORTNAME=	stratagus
-PORTVERSION=	2.2.7
-PORTREVISION=	4
+PORTVERSION=	2.3.0
 CATEGORIES=	games
-MASTER_SITES=	http://launchpadlibrarian.net/113005346/
+MASTER_SITES=	http://launchpadlibrarian.net/200661330/
 DISTNAME=	${PORTNAME}_${PORTVERSION}.orig
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Free cross-platform real-time strategy gaming engine
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtolua++-${LUA_VER}.so:${PORTSDIR}/lang/tolua++
 
-OPTIONS_DEFINE=	MIKMOD MNG THEORA VORBIS DOCS
-OPTIONS_DEFAULT=	VORBIS
-
-USE_GL=		glu
+USE_GL=		gl glu
 USE_SDL=	sdl
 USE_SQLITE=	3
 USES=		cmake:outsource lua:51 pkgconfig
 CMAKE_ARGS=	-DGAMEDIR:STRING="bin" \
 		-DTOLUA++_APP:STRING="tolua++-${LUA_VER}" \
 		-DTOLUA++_INCLUDE_DIR:STRING="${LUA_INCDIR}" \
-		-DTOLUA++_LIBRARY:STRING="${LUA_LIBDIR}/libtolua++.so"
+		-DTOLUA++_LIBRARY:STRING="${LUA_LIBDIR}/libtolua++.so" \
+		-DENABLE_DEV:BOOL=ON
 
 PORTDOCS=	*
-PLIST_FILES=	bin/png2stratagus bin/stratagus sbin/metaserver \
-		man/man6/stratagus.6.gz
+
+OPTIONS_DEFINE=	MIKMOD MNG THEORA VORBIS X11 FLUIDSYNTH DOCS
+OPTIONS_DEFAULT=MIKMOD MNG THEORA VORBIS X11 FLUIDSYNTH
 
 MIKMOD_LIB_DEPENDS=	libmikmod.so:${PORTSDIR}/audio/libmikmod
 MIKMOD_CMAKE_ON=	-DWITH_MIKMOD:BOOL=ON
 MIKMOD_CMAKE_OFF=	-DWITH_MIKMOD:BOOL=OFF
 
+MNG_DESC=		MNG image library support
 MNG_LIB_DEPENDS=	libmng.so:${PORTSDIR}/graphics/libmng
 MNG_CMAKE_ON=		-DWITH_MNG:BOOL=ON
 MNG_CMAKE_OFF=		-DWITH_MNG:BOOL=OFF
@@ -48,13 +48,19 @@ VORBIS_LIB_DEPENDS=	libvorbis.so:${PORTSDIR}/audio/libvorbis
 VORBIS_CMAKE_ON=	-DWITH_OGGVORBIS:BOOL=ON
 VORBIS_CMAKE_OFF=	-DWITH_OGGVORBIS:BOOL=OFF
 
+X11_DESC=		X11 clipboard pasting support
+X11_USE=		XORG=x11
+X11_CMAKE_ON=		-DWITH_X11:BOOL=ON
+X11_CMAKE_OFF=		-DWITH_X11:BOOL=OFF
+
+FLUIDSYNTH_DESC=	FluidSynth sound library support
+FLUIDSYNTH_LIB_DEPENDS=	libfluidsynth.so:${PORTSDIR}/audio/fluidsynth
+FLUIDSYNTH_CMAKE_ON=	-DWITH_FLUIDSYNTH:BOOL=ON
+FLUIDSYNTH_CMAKE_OFF=	-DWITH_FLUIDSYNTH:BOOL=OFF
+
 post-install:
-	(cd ${WRKSRC}/doc && ${INSTALL_DATA} stratagus.6 ${STAGEDIR}${MAN6PREFIX}/man/man6)
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	(cd ${WRKSRC}/doc && ${INSTALL_DATA} [a-z]*.html *.txt ${STAGEDIR}${DOCSDIR})
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}/graphics
-	(cd ${WRKSRC}/doc/graphics && ${INSTALL_DATA} * ${STAGEDIR}${DOCSDIR}/graphics)
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}/scripts
-	(cd ${WRKSRC}/doc/scripts && ${INSTALL_DATA} * ${STAGEDIR}${DOCSDIR}/scripts)
+	${INSTALL_DATA} ${WRKSRC}/doc/stratagus.6 ${STAGEDIR}${MAN6PREFIX}/man/man6
+	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} "[a-z]*.html *.txt graphics scripts" \
+		${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

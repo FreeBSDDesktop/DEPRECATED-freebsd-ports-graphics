@@ -10,6 +10,7 @@
     SUBDIR += distilator
     SUBDIR += fastest_sites
     SUBDIR += fbsdmon
+    SUBDIR += genpatch
     SUBDIR += genplist
     SUBDIR += gnome-packagekit
     SUBDIR += hs-porte
@@ -41,7 +42,6 @@
     SUBDIR += port-maintenance-tools
     SUBDIR += portconf
     SUBDIR += portdowngrade
-    SUBDIR += porteasy
     SUBDIR += portell
     SUBDIR += portfind
     SUBDIR += portless

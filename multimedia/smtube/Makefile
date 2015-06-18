@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	smtube
-PORTVERSION=	15.1.0
+PORTVERSION=	15.5.17
 CATEGORIES=	multimedia
-MASTER_SITES=	SF/smplayer/SMTube/${PORTVERSION}/
+MASTER_SITES=	SF/smtube/SMTube/${PORTVERSION:R}/
 
 MAINTAINER=	pawel@FreeBSD.org
 COMMENT=	SMPlayer YouTube browser

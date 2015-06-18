@@ -3,6 +3,7 @@
 
 PORTNAME=	ibus
 PORTVERSION=	1.5.9
+PORTREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/${PORTVERSION}/ \
 		http://github.com/${PORTNAME}/${PORTNAME}/releases/download/${PORTVERSION}/
@@ -27,7 +28,7 @@ GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes
 OPTIONS_SUB=	yes
 INSTALL_TARGET=	install-strip
-CONFIGURE_ARGS=	--disable-tests
+CONFIGURE_ARGS=	--disable-tests --with-html-dir=${PREFIX}/share/doc
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
@@ -54,7 +55,7 @@ ISOCODES_CONFIGURE_OFF=	--disable-iso-codes-check
 
 NLS_USES=		gettext
 NLS_USES_OFF=		gettext-tools
-NLS_CONFIGURE_WITH=	nls
+NLS_CONFIGURE_ENABLE=	nls
 
 GTK2_USE=		GNOME=gtk20
 GTK2_CONFIGURE_ENABLE=	gtk2
@@ -81,7 +82,6 @@ DCONF_USE=		GNOME=dconf,gconf2
 DCONF_CONFIGURE_ENABLE=	dconf
 
 DOCS_CONFIGURE_ENABLE=	gtk-doc-html
-DOCS_CONFIGURE_ON=	--with-html-dir=${PREFIX}/share/doc
 
 XIM_CONFIGURE_ENABLE=	xim
 

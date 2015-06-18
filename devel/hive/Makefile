@@ -4,10 +4,9 @@
 PORTNAME=	hive
 PORTVERSION=	1.1.0
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE} \
+MASTER_SITES=	APACHE/${PORTNAME}/stable \
 		LOCAL/demon/:maven \
 		http://people.freebsd.org/~demon/:maven
-MASTER_SITE_SUBDIR=${PORTNAME}/stable
 DISTFILES=	apache-${PORTNAME}-${PORTVERSION}-src${EXTRACT_SUFX} FreeBSD-${PORTNAME}-${PORTVERSION}-maven-repository.tar.gz:maven
 DIST_SUBDIR=	hadoop
 
@@ -21,6 +20,8 @@ BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:${PORTSDIR}/devel/maven3 \
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 		yarn:${PORTSDIR}/devel/hadoop2
 
+USES=		cpe
+CPE_VENDOR=	apache
 USE_JAVA=	yes
 JAVA_VERSION=	1.7+
 WRKSRC=		${WRKDIR}/apache-${PORTNAME}-${PORTVERSION}-src

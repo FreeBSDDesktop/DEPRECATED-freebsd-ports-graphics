@@ -3,6 +3,7 @@
 
 PORTNAME=	curl
 PORTVERSION=	7.42.1
+PORTREVISION=	1
 CATEGORIES=	ftp www
 MASTER_SITES=	http://curl.haxx.se/download/ \
 		LOCAL/sunpoet
@@ -22,7 +23,7 @@ OPTIONS_DEFAULT=	CA_BUNDLE COOKIES GSSAPI_BASE IPV6 OPENSSL PROXY RESOLV THREADE
 CA_BUNDLE_DESC=		Install CA bundle for OpenSSL
 COOKIES_DESC=		Cookies support
 CURL_DEBUG_DESC=	cURL debug memory tracking
-GSSAPI_BASE_DESC=	GSSAPI support via base system
+GSSAPI_BASE_DESC=	GSSAPI support via base system (Kerberos required)
 GSSAPI_HEIMDAL_DESC=	GSSAPI support via security/heimdal
 GSSAPI_MIT_DESC=	GSSAPI support via security/krb5
 GSSAPI_NONE_DESC=	Disable GSSAPI support
@@ -126,7 +127,7 @@ OPENSSL_LDFLAGS=	-L${OPENSSLLIB}
 OPENSSL_USE=		OPENSSL=yes
 POLARSSL_CONFIGURE_OFF=	--without-polarssl
 POLARSSL_CONFIGURE_ON=	--with-polarssl=${LOCALBASE}
-POLARSSL_LIB_DEPENDS=	libpolarssl.so.8:${PORTSDIR}/security/polarssl13
+POLARSSL_LIB_DEPENDS=	libmbedtls.so.9:${PORTSDIR}/security/polarssl13
 PROXY_CONFIGURE_OFF=	--disable-proxy
 PROXY_CONFIGURE_ON=	--enable-proxy
 RTMP_CONFIGURE_OFF=	--without-librtmp
@@ -136,8 +137,8 @@ THREADED_RESOLVER_CONFIGURE_OFF=--disable-threaded-resolver
 THREADED_RESOLVER_CONFIGURE_ON=	--enable-threaded-resolver
 TLS_SRP_CONFIGURE_OFF=	--disable-tls-srp
 TLS_SRP_CONFIGURE_ON=	--enable-tls-srp
-WOLFSSL_CONFIGURE_OFF=	--without-cyassl	 
-WOLFSSL_CONFIGURE_ON=	--with-cyassl=${LOCALBASE}	 
+WOLFSSL_CONFIGURE_OFF=	--without-cyassl
+WOLFSSL_CONFIGURE_ON=	--with-cyassl=${LOCALBASE}
 WOLFSSL_LIB_DEPENDS=	libwolfssl.so:${PORTSDIR}/security/wolfssl
 
 .include <bsd.port.options.mk>
@@ -154,7 +155,7 @@ IGNORE=		only supports TLS-SRP with either OpenSSL or GnuTLS
 IGNORE=		only supports LDAPS with LDAP
 .endif
 
-.if ${PORT_OPTIONS:MLDAPS} && !${PORT_OPTIONS:MGNUTLS} && !${PORT_OPTIONS:MNSS} && !${PORT_OPTIONS:MOPENSSL} && !${PORT_OPTIONS:MPOLARSSL} && !${PORT_OTIONS:MWOLFSSL}
+.if ${PORT_OPTIONS:MLDAPS} && !${PORT_OPTIONS:MGNUTLS} && !${PORT_OPTIONS:MNSS} && !${PORT_OPTIONS:MOPENSSL} && !${PORT_OPTIONS:MPOLARSSL} && !${PORT_OPTIONS:MWOLFSSL}
 IGNORE=		only supports LDAPS with SSL
 .endif
 

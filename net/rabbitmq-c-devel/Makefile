@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	rabbitmq-c
-PORTVERSION=	0.5.2
+PORTVERSION=	0.6.0
+DISTVERSIONPREFIX=	v
 CATEGORIES=	net
 PKGNAMESUFFIX=	-devel
 
@@ -12,8 +13,7 @@ COMMENT=	RabbitMQ C AMQP client library
 LICENSE=	GPLv2 MPL
 LICENSE_COMB=	dual
 
-BUILD_DEPENDS=	python:${PORTSDIR}/lang/python \
-		${PYTHON_PKGNAMEPREFIX}simplejson>=2.0:${PORTSDIR}/devel/py-simplejson
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}simplejson>=2.0:${PORTSDIR}/devel/py-simplejson
 
 CONFLICTS=	rabbitmq-c-[0-9]*
 
@@ -21,8 +21,6 @@ USES=		cmake python tar:bzip2
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 GH_ACCOUNT=	alanxz
-GH_COMMIT=	bf8e415
-GH_TAGNAME=	v${PORTVERSION}
 
 OPTIONS_DEFINE=	POPT
 OPTIONS_SUB=	yes

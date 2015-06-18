@@ -20,7 +20,7 @@ LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre \
 		libbotan-1.10.so:${PORTSDIR}/security/botan110
 
 SUB_FILES=	pkg-message
-USES=		iconv pkgconfig gmake perl5 lua:51 tar:bzip2 makeinfo
+USES=		cpe iconv pkgconfig gmake perl5 lua:51 tar:bzip2 makeinfo
 USE_PERL5=	build
 MAKE_JOBS_SAFE=	yes
 
@@ -91,6 +91,5 @@ post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} NEWS UPGRADE ${STAGEDIR}${DOCSDIR}
 .endif
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

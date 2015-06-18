@@ -3,6 +3,7 @@
 
 PORTNAME=	fbreader
 PORTVERSION=	0.99.6
+DISTVERSIONSUFFIX=	-freebsdport
 PORTREVISION=	1
 CATEGORIES=	deskutils
 
@@ -23,8 +24,6 @@ OPTIONS_SUB=		yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	geometer
 GH_PROJECT=	FBReader
-GH_COMMIT=	7abc80d
-GH_TAGNAME=	${PORTVERSION}-freebsdport
 
 
 .if defined(WITH_DEBUG)

@@ -9,6 +9,9 @@ MASTER_SITES=	GOOGLE_CODE
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Online synchronizer for Maildir-format mailboxes
 
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
 USES=		perl5 shebangfix
 
 SHEBANG_FILES=	maildirsync.pl

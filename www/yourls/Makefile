@@ -14,10 +14,10 @@ LICENSE_COMB=	multi
 USE_GITHUB=	yes
 GH_ACCOUNT=	${PORTNAME:tu}
 GH_PROJECT=	${PORTNAME:tu}
-GH_COMMIT=	68cdac8
 
 NO_BUILD=	yes
 
+USES=		cpe
 USE_PHP=	bcmath curl json mysql pcre xml
 
 SUB_LIST+=	PKGNAME=${PKGNAME}

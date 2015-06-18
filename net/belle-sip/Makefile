@@ -1,13 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=	belle-sip
-PORTVERSION=	1.4.0
+PORTVERSION=	1.4.1
+PORTREVISION=	1
 CATEGORIES=	net java
-MASTER_SITES=	SAVANNAH/linphone/${PORTNAME}/:source1 \
+MASTER_SITES=	SAVANNAH/linphone/${PORTNAME}/ \
 		http://www.antlr3.org/download/:source2
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:source1 \
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
 		antlr-3.4-complete.jar:source2
-EXTRACT_ONLY=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Belle-sip is a SIP (RFC3261) implementation written in C
@@ -33,7 +34,7 @@ OPTIONS_DEFINE=	POLARSSL
 OPTIONS_DEFAULT=POLARSSL
 
 POLARSSL_CONFIGURE_ENABLE=	tls
-POLARSSL_LIB_DEPENDS=		libpolarssl.so.8:${PORTSDIR}/security/polarssl13
+POLARSSL_LIB_DEPENDS=		libmbedtls.so.9:${PORTSDIR}/security/polarssl13
 
 post-extract:
 	@${CP} ${DISTDIR}/antlr-3.4-complete.jar ${WRKDIR}/antlr-complete.jar

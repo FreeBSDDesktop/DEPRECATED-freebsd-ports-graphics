@@ -282,7 +282,6 @@
     SUBDIR += gpicview
     SUBDIR += gplot
     SUBDIR += gpsmanshp
-    SUBDIR += gqview
     SUBDIR += gracula
     SUBDIR += grads
     SUBDIR += grafx2
@@ -716,6 +715,7 @@
     SUBDIR += p5-URI-GoogleChart
     SUBDIR += p5-VCG
     SUBDIR += p5-Visio
+    SUBDIR += p5-feedgnuplot
     SUBDIR += p5-ming
     SUBDIR += panoglview
     SUBDIR += panomatic
@@ -833,6 +833,7 @@
     SUBDIR += py-opencv
     SUBDIR += py-openexr
     SUBDIR += py-opengl
+    SUBDIR += py-opengl-accelerate
     SUBDIR += py-openimageio
     SUBDIR += py-paint
     SUBDIR += py-pillow
@@ -914,13 +915,14 @@
     SUBDIR += rubygem-flamegraph
     SUBDIR += rubygem-gd2
     SUBDIR += rubygem-gdk_pixbuf2
+    SUBDIR += rubygem-gemojione
     SUBDIR += rubygem-geokit
     SUBDIR += rubygem-gitlab_emoji
     SUBDIR += rubygem-goocanvas
-    SUBDIR += rubygem-graphviz
     SUBDIR += rubygem-gruff
     SUBDIR += rubygem-image_science
     SUBDIR += rubygem-imagesize
+    SUBDIR += rubygem-mini_magick
     SUBDIR += rubygem-objectdetect
     SUBDIR += rubygem-opengl
     SUBDIR += rubygem-pdfkit
@@ -928,6 +930,7 @@
     SUBDIR += rubygem-railroad
     SUBDIR += rubygem-rmagick
     SUBDIR += rubygem-rsvg2
+    SUBDIR += rubygem-ruby-graphviz
     SUBDIR += rubygem-scruffy
     SUBDIR += rubyphoto
     SUBDIR += s10sh

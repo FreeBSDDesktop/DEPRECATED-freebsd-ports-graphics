@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	icecast
-PORTVERSION=	${ICVERSION}.k${KH}
+DISTVERSIONPREFIX=	icecast-
+DISTVERSION=	${ICVERSION}-kh${KH}
 PORTREVISION=	2
 CATEGORIES=	audio net ipv6
 PKGNAMESUFFIX=	-kh
-DISTNAME=	${PORTNAME}-${ICVERSION}-kh${KH}
 
 MAINTAINER=	anes@anes.su
 COMMENT=	Streaming mp3/ogg-vorbis audio server, KH branch
@@ -22,8 +22,6 @@ LIB_DEPENDS=	libogg.so:${PORTSDIR}/audio/libogg \
 USE_GITHUB=	yes
 GH_ACCOUNT=	karlheyes
 GH_PROJECT=	icecast-kh
-GH_TAGNAME=	icecast-${ICVERSION}-kh${KH}
-GH_COMMIT=	dde3bc0
 
 USES=		gmake pkgconfig
 GNU_CONFIGURE=	yes

@@ -5,12 +5,11 @@ PORTNAME=	mime_pls
 PORTVERSION=	2.02
 PORTREVISION=	2
 CATEGORIES=	japanese perl5 mail
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	nork
+MASTER_SITES=	LOCAL/nork
 PKGNAMEPREFIX=	ja-p5-
 DISTNAME=	${PORTNAME}${PORTVERSION:C/\.//}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl Library for MIME encode/decode
 
 USES=		perl5 shebangfix tar:tgz

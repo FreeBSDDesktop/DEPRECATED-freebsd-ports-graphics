@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	toxic
-PORTVERSION=	0.6.0.150401
+PORTVERSION=	0.6.0.150519
+PORTREVISION=	1
 CATEGORIES=	net-im
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -17,8 +18,8 @@ LIB_DEPENDS=	libvpx.so:${PORTSDIR}/multimedia/libvpx		\
 RUN_DEPENDS=	${LOCALBASE}/lib/libtoxcore.a:${PORTSDIR}/net-im/tox
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	tox
-GH_TAGNAME=	e998c8a
+GH_ACCOUNT=	Tox
+GH_TAGNAME=	231078b
 
 OPTIONS_DEFINE=	X11
 OPTIONS_DEFAULT=X11
@@ -40,7 +41,7 @@ LDFLAGS+=	-B${LOCALBASE}/bin
 .endif
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|PREFIX =|PREFIX?=|;s|$$(shell git rev-list HEAD.*$$|${GH_COMMIT}|'	\
+	${REINPLACE_CMD} -e 's|PREFIX =|PREFIX?=|;s|$$(shell git rev-list HEAD.*$$|${GH_TAGNAME}|'	\
 		${WRKSRC}/cfg/global_vars.mk
 
 post-install:

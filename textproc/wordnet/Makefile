@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	textproc
 MASTER_SITES=	http://wordnetcode.princeton.edu/${PORTVERSION}/:code \
 		http://wordnetcode.princeton.edu/:dict
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:code wn3.1.dict.tar.gz:dict
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:code wn3.1.dict.tar.gz:dict
 
 MAINTAINER=	mi@aldan.algebra.com
 COMMENT=	Dictionaries and thesauri with devel. libraries (C, TCL) and browsers
@@ -34,6 +34,5 @@ post-install:
 	    --strip-components 1	\
 	    -f ${_DISTDIR}${DISTFILES:M*dict:S/:dict//}	\
 	    `${SED} -n -e '/\.xbm/d' -e 's,^%%DATADIR%%/,dict/,p' ${PLIST}`
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

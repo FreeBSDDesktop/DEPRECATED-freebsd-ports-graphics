@@ -65,8 +65,6 @@
     SUBDIR += flowviewer
     SUBDIR += fprobe
     SUBDIR += glpi-plugins-fusioninventory-server
-    SUBDIR += glpi-plugins-tracker-agent
-    SUBDIR += glpi-plugins-tracker-server
     SUBDIR += grepcidr
     SUBDIR += grepip
     SUBDIR += gsnmp
@@ -254,6 +252,7 @@
     SUBDIR += phpipam
     SUBDIR += phpweathermap
     SUBDIR += pixilate
+    SUBDIR += pktstat
     SUBDIR += pmacct
     SUBDIR += pnp
     SUBDIR += pnp-icinga

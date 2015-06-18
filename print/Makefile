@@ -77,7 +77,6 @@
     SUBDIR += gimp-gutenprint
     SUBDIR += gl2ps
     SUBDIR += gnome-cups-manager
-    SUBDIR += gnome-specimen
     SUBDIR += gnomephotoprinter
     SUBDIR += gribouy
     SUBDIR += gsfonts
@@ -208,7 +207,7 @@
     SUBDIR += rtf2latex2e
     SUBDIR += rubygem-afm
     SUBDIR += rubygem-color
-    SUBDIR += rubygem-colortools
+    SUBDIR += rubygem-color-tools
     SUBDIR += rubygem-pdf-core
     SUBDIR += rubygem-pdf-reader
     SUBDIR += rubygem-pdf-writer

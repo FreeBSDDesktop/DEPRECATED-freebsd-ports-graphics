@@ -2,18 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	boa
-PORTVERSION=	0.94.14.r21
+DISTVERSION=	0.94.14rc21
 PORTEPOCH=	1
 CATEGORIES=	www ipv6
 MASTER_SITES=	http://www.boa.org/
-DISTNAME=	${PORTNAME}-${PORTVERSION:S/.r/rc/}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	High performance single-tasking web server
 
 LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake makeinfo tar:bzip2
+USES=		cpe gmake makeinfo tar:bzip2
+CPE_VENDOR=	${PORTVERSION:C/\.r/./}
 GNU_CONFIGURE=	yes
 
 INFO=		boa

@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	cdo
-PORTVERSION=	1.6.8
+PORTVERSION=	1.6.9
+PORTREVISION=	1
 CATEGORIES=	science
-MASTER_SITES=	https://code.zmaw.de/attachments/download/10030/ \
+MASTER_SITES=	https://code.zmaw.de/attachments/download/10198/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -15,6 +16,8 @@ LICENSE=	GPLv2
 OPTIONS_DEFINE=	CGRIBEX HDF5 JASPER NETCDF PROJ SZIP UDUNITS
 OPTIONS_DEFAULT=CGRIBEX HDF5 JASPER NETCDF PROJ SZIP UDUNITS
 OPTIONS_SUB=	yes
+
+PORTSCOUT=	site:https://code.zmaw.de/projects/cdo/files
 
 CONFIGURE_ARGS=	--disable-cgribex \
 		--disable-data \

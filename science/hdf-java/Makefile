@@ -3,13 +3,15 @@
 
 PORTNAME=	hdf-java
 PORTVERSION=	2.10
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	science java
 MASTER_SITES=	http://www.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/hdf-java-${PORTVERSION}/src/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-source
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Java interface to HDF5
+
+BROKEN=		Fails to configure, HDF5 library needs SZIP, SZIP not defined
 
 LIB_DEPENDS=	libhdf5.so:${PORTSDIR}/science/hdf5 \
 		libjpeg.so:${PORTSDIR}/graphics/jpeg

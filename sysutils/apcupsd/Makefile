@@ -23,10 +23,10 @@ CONFIGURE_ARGS=	--sbindir=${PREFIX}/sbin \
 		--sysconfdir=${ETCDIR} \
 		--with-serial-dev=/dev/usv
 
-CONFIGURE_ENV+=	LD="${CXX}" LIBS="-lstdc++"
+CONFIGURE_ENV+=	LD="${CXX}" \
+		ac_cv_path_SHUTDOWN="/sbin/shutdown"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
-NEED_ROOT=	yes
 
 OPTIONS_DEFINE=	APCSMART_DRV APCDUMB_DRV CLIENT_ONLY CGI PCNET_DRV USB SNMP_DRV \
 		SNMP_DRV_OLD TCP_WRAPPERS TEST_DRV GAPCMON DOCS MODBUS

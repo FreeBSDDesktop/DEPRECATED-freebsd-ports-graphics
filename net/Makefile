@@ -64,6 +64,7 @@
     SUBDIR += c3270
     SUBDIR += cagibi
     SUBDIR += ccxstream
+    SUBDIR += cf
     SUBDIR += chrony
     SUBDIR += citrix_ica
     SUBDIR += clamz
@@ -314,6 +315,7 @@
     SUBDIR += libnfs
     SUBDIR += libnids
     SUBDIR += libnids-libnet11
+    SUBDIR += libnss-cache
     SUBDIR += libnss-mysql
     SUBDIR += liboauth
     SUBDIR += libopennet
@@ -329,6 +331,7 @@
     SUBDIR += libproxy-webkit
     SUBDIR += librouteros
     SUBDIR += librsync
+    SUBDIR += librsync1
     SUBDIR += libsocket++
     SUBDIR += libsocketcpp
     SUBDIR += libsrtp
@@ -429,6 +432,7 @@
     SUBDIR += nss-pam-ldapd
     SUBDIR += nss-pam-ldapd-sasl
     SUBDIR += nss_ldap
+    SUBDIR += nsscache
     SUBDIR += nstxd
     SUBDIR += ntimed
     SUBDIR += ntlmaps
@@ -436,6 +440,7 @@
     SUBDIR += ntopng
     SUBDIR += ntp
     SUBDIR += ntp-devel
+    SUBDIR += ntp-rc
     SUBDIR += ntraceroute
     SUBDIR += nusoap
     SUBDIR += nxproxy
@@ -457,7 +462,6 @@
     SUBDIR += openldap24-sasl-client
     SUBDIR += openldap24-server
     SUBDIR += openmpi
-    SUBDIR += openmpi-devel
     SUBDIR += openmq
     SUBDIR += openmq-client
     SUBDIR += openntpd
@@ -868,6 +872,7 @@
     SUBDIR += pimdd
     SUBDIR += pipsecd
     SUBDIR += pjsip
+    SUBDIR += pjsip-extsrtp
     SUBDIR += pktanon
     SUBDIR += pload
     SUBDIR += plugdaemon
@@ -892,6 +897,7 @@
     SUBDIR += pxe
     SUBDIR += pxe-pdhcp
     SUBDIR += py-GeoIP
+    SUBDIR += py-GeoIP2
     SUBDIR += py-amqp
     SUBDIR += py-amqplib
     SUBDIR += py-avahi
@@ -913,6 +919,7 @@
     SUBDIR += py-libcloud
     SUBDIR += py-libdnet
     SUBDIR += py-libnet
+    SUBDIR += py-maxminddb
     SUBDIR += py-medusa
     SUBDIR += py-miniupnpc
     SUBDIR += py-msrplib
@@ -940,6 +947,7 @@
     SUBDIR += py-pyzmq
     SUBDIR += py-qt4-network
     SUBDIR += py-radix
+    SUBDIR += py-raet
     SUBDIR += py-s3cmd
     SUBDIR += py-simplesoap
     SUBDIR += py-smb
@@ -1044,6 +1052,7 @@
     SUBDIR += rubygem-fog-atmos
     SUBDIR += rubygem-fog-aws
     SUBDIR += rubygem-fog-ecloud
+    SUBDIR += rubygem-fog-google
     SUBDIR += rubygem-fog-local
     SUBDIR += rubygem-fog-powerdns
     SUBDIR += rubygem-fog-profitbricks
@@ -1085,13 +1094,15 @@
     SUBDIR += rubygem-pcaprub
     SUBDIR += rubygem-rabbiter
     SUBDIR += rubygem-rbvmomi
-    SUBDIR += rubygem-rightaws
-    SUBDIR += rubygem-rightflexiscale
-    SUBDIR += rubygem-rightgogrid
-    SUBDIR += rubygem-righthttpconnection
-    SUBDIR += rubygem-rightslicehost
+    SUBDIR += rubygem-right_aws
+    SUBDIR += rubygem-right_flexiscale
+    SUBDIR += rubygem-right_gogrid
+    SUBDIR += rubygem-right_http_connection
+    SUBDIR += rubygem-right_slicehost
+    SUBDIR += rubygem-rsync
     SUBDIR += rubygem-ruby-growl
     SUBDIR += rubygem-ruby-openid
+    SUBDIR += rubygem-ruby-yadis
     SUBDIR += rubygem-rubyntlm
     SUBDIR += rubygem-rubyntlm01
     SUBDIR += rubygem-rubytter
@@ -1106,7 +1117,6 @@
     SUBDIR += rubygem-twitter4r
     SUBDIR += rubygem-uri-redis
     SUBDIR += rubygem-whois
-    SUBDIR += rubygem-yadis
     SUBDIR += rude
     SUBDIR += rwhoisd
     SUBDIR += samba-libsmbclient
@@ -1115,6 +1125,7 @@
     SUBDIR += samba36
     SUBDIR += samba4
     SUBDIR += samba41
+    SUBDIR += samba42
     SUBDIR += samplicator
     SUBDIR += sbd
     SUBDIR += scamper
@@ -1130,11 +1141,9 @@
     SUBDIR += sendsms
     SUBDIR += sendsnpp
     SUBDIR += serveez
-    SUBDIR += service-discovery-applet
     SUBDIR += serviio
     SUBDIR += sflowtool
     SUBDIR += shadowsocks-libev
-    SUBDIR += shaperprobe
     SUBDIR += shelldap
     SUBDIR += shmux
     SUBDIR += sie-nmsg
@@ -1183,6 +1192,7 @@
     SUBDIR += syncthing
     SUBDIR += syncthing-cli
     SUBDIR += syncthing-discosrv
+    SUBDIR += syncthing-inotify
     SUBDIR += tableutil
     SUBDIR += tac_plus4
     SUBDIR += tapidbus

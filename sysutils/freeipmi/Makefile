@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	freeipmi
-PORTVERSION=	1.4.8
+PORTVERSION=	1.4.9
 CATEGORIES=	sysutils
-MASTER_SITES=	GNU/${PORTNAME}/ \
+MASTER_SITES=	GNU/${PORTNAME} \
 		http://ftp.gluster.com/pub/${PORTNAME}/${PORTVERSION}/
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -19,7 +19,6 @@ OPTIONS_DEFINE=	DEBUG DOCS IOPERM
 IOPERM_DESC=	Use i386_set_ioperm
 
 CONFIGURE_ARGS=	--disable-init-scripts \
-		--localstatedir=/var \
 		--sysconfdir=${ETCDIR} \
 		--with-ipmi-monitoring-sdr-cache-dir=${CACHE_DIR}/ipmimonitoringsdrcache \
 		--with-ipmiseld-cache-dir=${CACHE_DIR}/ipmiseld \

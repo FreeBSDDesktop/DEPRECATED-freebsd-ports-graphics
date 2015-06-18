@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	conserver
-PORTVERSION=	8.1.18
-PORTREVISION=	2
+PORTVERSION=	8.2.1
 CATEGORIES=	comms
 MASTER_SITES=	http://www.conserver.com/ \
 		ftp://ftp.conserver.com/conserver/
@@ -10,6 +9,8 @@ PKGNAMESUFFIX=	-com
 
 MAINTAINER=	kuriyama@FreeBSD.org
 COMMENT=	Application that allows multiple users to watch serial consoles
+
+CONFLICTS_INSTALL=	conserver-[0-9]*
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-master=${DEFAULTHOST} --with-port=${DEFAULTPORT} \

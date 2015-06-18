@@ -85,7 +85,6 @@
     SUBDIR += gcc-ecj45
     SUBDIR += gcc46
     SUBDIR += gcc47
-    SUBDIR += gcc47-aux
     SUBDIR += gcc48
     SUBDIR += gcc49
     SUBDIR += gcc5
@@ -222,6 +221,7 @@
     SUBDIR += perl5.16
     SUBDIR += perl5.18
     SUBDIR += perl5.20
+    SUBDIR += perl5.22
     SUBDIR += petite-chez
     SUBDIR += pfe
     SUBDIR += phantomjs
@@ -244,7 +244,6 @@
     SUBDIR += py-mx-base
     SUBDIR += py-prolog
     SUBDIR += pypy
-    SUBDIR += pypy-devel
     SUBDIR += pypy3-devel
     SUBDIR += python
     SUBDIR += python-doc-html

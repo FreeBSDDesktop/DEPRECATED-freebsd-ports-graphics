@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tinymce
-PORTVERSION=	4.1.9
+PORTVERSION=	4.1.10
 CATEGORIES=	www
 MASTER_SITES=	http://download.moxiecode.com/${PORTNAME}/ \
 		LOCAL/sunpoet
@@ -17,7 +17,7 @@ CONFLICTS_INSTALL=	tinymce-[0-35-9]* tinymce3-[0-9]*
 
 NO_BUILD=	yes
 WRKSRC=		${WRKDIR}/${PORTNAME}
-USES=		zip
+USES=		cpe zip
 
 post-extract:
 	@cd ${WRKSRC}/ && ${FIND} -s * -type d -empty | ${XARGS} -I % ${TOUCH} %/.keepme

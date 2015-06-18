@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	MooseX-Storage
-PORTVERSION=	0.49
+PORTVERSION=	0.50
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -29,6 +29,7 @@ TEST_DEPENDS=	p5-IO-stringy>=0:${PORTSDIR}/devel/p5-IO-stringy \
 		p5-YAML-LibYAML>=0:${PORTSDIR}/textproc/p5-YAML-LibYAML \
 		p5-YAML-Syck>=0:${PORTSDIR}/textproc/p5-YAML-Syck
 
+NO_ARCH=	yes
 USES=		perl5
 USE_PERL5=	configure
 

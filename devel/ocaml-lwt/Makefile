@@ -2,14 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	lwt
-PORTVERSION=	2.4.3
+PORTVERSION=	2.4.8
 PORTREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	http://ocsigen.org/download/
 PKGNAMEPREFIX=	ocaml-
 
-MAINTAINER=	jaapb@kerguelen.org
+MAINTAINER=	johans@FreeBSD.org
 COMMENT=	Cooperative threading library for OCaml
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	ocsigen
 
 LICENSE=	LGPL21
 
@@ -24,11 +26,13 @@ USES=			gmake
 USE_OCAML=		yes
 OCAMLC_DEPEND=		ocaml>=3.11:${OCAMLC_PORT}
 USE_OCAML_FINDLIB=	yes
+USE_OCAML_CAMLP4=	yes
 USE_OCAMLFIND_PLIST=	yes
 USE_OCAML_LDCONFIG=	yes
 HAS_CONFIGURE=		yes
 CONFIGURE_ARGS=		--destdir "${STAGEDIR}" \
 			--prefix "${PREFIX}" \
+			--enable-camlp4 \
 			--enable-ssl \
 			--enable-react \
 			--disable-libev \
@@ -37,20 +41,9 @@ CONFIGURE_ARGS=		--destdir "${STAGEDIR}" \
 DOCSDIR=		${PREFIX}/share/doc/ocaml/${PORTNAME}
 SA_DIR=         	${PREFIX}/${OCAML_SITELIBDIR}
 
-OPTIONS_DEFINE=		TOPLEVEL DOCS
-OPTIONS_DEFAULT=	TOPLEVEL
-TOPLEVEL_DESC=		Include enhanced OCaml toplevel
+OPTIONS_DEFINE=		DOCS
 
 .include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MTOPLEVEL}
-CONFIGURE_ARGS+=	--enable-toplevel --enable-text
-BUILD_DEPENDS+=		${SA_DIR}/text/text.a:${PORTSDIR}/textproc/ocaml-text
-RUN_DEPENDS+=		${SA_DIR}/text/text.a:${PORTSDIR}/textproc/ocaml-text
-PLIST_FILES=		bin/lwt-toplevel
-.else
-CONFIGURE_ARGS+=	--disable-toplevel --disable-text
-.endif
 
 .if ${PORT_OPTIONS:MDOCS}
 CONFIGURE_ARGS+=	--enable-docs --docdir ${STAGEDIR}${DOCSDIR}
@@ -66,15 +59,15 @@ post-patch:
 		${WRKSRC}/setup.ml
 
 do-configure:
-	(cd ${WRKSRC}; ocaml setup.ml -configure ${CONFIGURE_ARGS})
+	cd ${WRKSRC}; ocaml setup.ml -configure ${CONFIGURE_ARGS}
 	@${REINPLACE_CMD} -e 's%"-lev"%"-lev -L${PREFIX}/lib/ev -Wl,-R${PREFIX}/lib/ev"%' \
 		${WRKSRC}/setup.data
 
 do-build:
-	(cd ${WRKSRC}; ocaml setup.ml -build)
+	cd ${WRKSRC}; ocaml setup.ml -build
 
 do-install:
 	${MKDIR} ${STAGEDIR}${SA_DIR}
-	(cd ${WRKSRC}; ocaml setup.ml -install)
+	cd ${WRKSRC}; ocaml setup.ml -install
 
 .include <bsd.port.mk>

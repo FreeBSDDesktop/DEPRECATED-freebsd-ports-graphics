@@ -3,12 +3,11 @@
 
 PORTNAME=	sa-stats
 PORTVERSION=	1.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	http://www.rulesemporium.com/programs/ \
 		ftp://renatasystems.org/pub/FreeBSD/ports/distfiles/
-DISTNAME=	${PORTNAME}-${PORTVERSION}.txt
-EXTRACT_SUFX=
+EXTRACT_SUFX=	.txt
 EXTRACT_ONLY=
 
 MAINTAINER=	alexey@renatasystems.org
@@ -16,7 +15,8 @@ COMMENT=	Generates top spam/ham rules fired for SpamAssassin installations
 
 RUN_DEPENDS=	p5-Getopt-Long>=0:${PORTSDIR}/devel/p5-Getopt-Long
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	sa-stats-1.0.txt
 
 NO_WRKSUBDIR=	yes
 NO_BUILD=	yes
@@ -24,10 +24,10 @@ NO_BUILD=	yes
 PLIST_FILES=	bin/sa-stats
 
 post-extract:
-	${CP} ${DISTDIR}/${DISTNAME} ${WRKSRC}
+	${CP} ${DISTDIR}/${DISTFILES} ${WRKSRC}
 
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/${DISTNAME} \
+	${INSTALL_SCRIPT} ${WRKSRC}/${DISTFILES} \
 		${STAGEDIR}${PREFIX}/bin/sa-stats
 
 .include <bsd.port.mk>

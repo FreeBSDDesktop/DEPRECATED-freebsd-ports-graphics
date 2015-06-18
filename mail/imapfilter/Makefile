@@ -2,13 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	imapfilter
-PORTVERSION=	2.5.6
-PORTREVISION=	1
+PORTVERSION=	2.5.7
+DISTVERSIONPREFIX=	v
 CATEGORIES=	mail
-MASTER_SITES=	http://www.gegenunendlich.de/distfiles/ \
-		GHL
 
-MAINTAINER=	stefan@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	IMAP mail filtering utility
 
 LICENSE=	MIT
@@ -22,8 +20,6 @@ LDFLAGS+=	-L${LOCALBASE}/lib -L${LUA_LIBDIR}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	lefcha
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	e3c8279
 
 PORTDOCS=	LICENSE NEWS README
 PLIST_FILES=	bin/imapfilter \

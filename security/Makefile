@@ -173,6 +173,7 @@
     SUBDIR += hackbot
     SUBDIR += hamachi
     SUBDIR += heimdal
+    SUBDIR += hitch
     SUBDIR += hlfl
     SUBDIR += hmap
     SUBDIR += honggfuzz
@@ -241,6 +242,7 @@
     SUBDIR += john
     SUBDIR += kc
     SUBDIR += kedpm
+    SUBDIR += keepass
     SUBDIR += keepassx
     SUBDIR += keepassx2
     SUBDIR += keybase
@@ -381,6 +383,7 @@
     SUBDIR += openscep
     SUBDIR += openssh-askpass
     SUBDIR += openssh-portable
+    SUBDIR += openssh-portable-devel
     SUBDIR += openssl
     SUBDIR += openssl_tpm_engine
     SUBDIR += openvas-client
@@ -631,6 +634,7 @@
     SUBDIR += p5-SAVI-Perl
     SUBDIR += p5-SHA
     SUBDIR += p5-Safe-Hole
+    SUBDIR += p5-Session-Token
     SUBDIR += p5-Snort-Rule
     SUBDIR += p5-String-MkPasswd
     SUBDIR += p5-Sudo
@@ -779,6 +783,7 @@
     SUBDIR += py-clamav
     SUBDIR += py-cpe
     SUBDIR += py-cracklib
+    SUBDIR += py-crits
     SUBDIR += py-cryptkit
     SUBDIR += py-cryptography
     SUBDIR += py-cybox
@@ -790,6 +795,7 @@
     SUBDIR += py-flask-httpauth
     SUBDIR += py-gnupg
     SUBDIR += py-gnutls
+    SUBDIR += py-gpsoauth
     SUBDIR += py-htpasswd
     SUBDIR += py-itsdangerous
     SUBDIR += py-kerberos
@@ -855,7 +861,8 @@
     SUBDIR += py-zope.security
     SUBDIR += py-zope.securitypolicy
     SUBDIR += py-zope.session
-    SUBDIR += qtkeychain
+    SUBDIR += qtkeychain-qt4
+    SUBDIR += qtkeychain-qt5
     SUBDIR += quantis
     SUBDIR += quantis-kmod
     SUBDIR += racoon2
@@ -898,6 +905,7 @@
     SUBDIR += ruby-tcpwrap
     SUBDIR += rubygem-bcrypt
     SUBDIR += rubygem-bcrypt-ruby
+    SUBDIR += rubygem-doorkeeper
     SUBDIR += rubygem-ezcrypto
     SUBDIR += rubygem-gpgr
     SUBDIR += rubygem-gssapi
@@ -906,8 +914,8 @@
     SUBDIR += rubygem-metasploit-concern
     SUBDIR += rubygem-metasploit-credential
     SUBDIR += rubygem-metasploit-model
+    SUBDIR += rubygem-metasploit-payloads
     SUBDIR += rubygem-metasploit_data_models
-    SUBDIR += rubygem-meterpreter_bins
     SUBDIR += rubygem-net-scp
     SUBDIR += rubygem-net-scp11
     SUBDIR += rubygem-net-sftp
@@ -917,13 +925,18 @@
     SUBDIR += rubygem-net-ssh27
     SUBDIR += rubygem-nmap-parser
     SUBDIR += rubygem-omniauth
+    SUBDIR += rubygem-omniauth-bitbucket
+    SUBDIR += rubygem-omniauth-gitlab
+    SUBDIR += rubygem-omniauth-multipassword
+    SUBDIR += rubygem-omniauth-shibboleth
     SUBDIR += rubygem-origami
     SUBDIR += rubygem-pyu-ruby-sasl
+    SUBDIR += rubygem-rack-oauth2
     SUBDIR += rubygem-razorback-scriptNugget
-    SUBDIR += rubygem-rc4
     SUBDIR += rubygem-recog
     SUBDIR += rubygem-roauth
     SUBDIR += rubygem-ruby-hmac
+    SUBDIR += rubygem-ruby-rc4
     SUBDIR += rubygem-scrypt
     SUBDIR += rubygem-six
     SUBDIR += rubygem-sshkit
@@ -1017,6 +1030,7 @@
     SUBDIR += tinc
     SUBDIR += tinyca
     SUBDIR += tlswrap
+    SUBDIR += tmux-cssh
     SUBDIR += tor
     SUBDIR += tor-devel
     SUBDIR += tpm-tools
@@ -1048,8 +1062,8 @@
     SUBDIR += webshag
     SUBDIR += whatweb
     SUBDIR += wipe
-    SUBDIR += wpa_supplicant
     SUBDIR += wolfssl
+    SUBDIR += wpa_supplicant
     SUBDIR += xca
     SUBDIR += xinetd
     SUBDIR += xml-security

@@ -6,8 +6,7 @@ PORTVERSION=	1.14.7
 PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	x11-servers
-MASTER_SITES=	XORG
-MASTER_SITE_SUBDIR=	individual/xserver
+MASTER_SITES=	XORG/individual/xserver
 DISTNAME=	xorg-server-${PORTVERSION}
 DIST_SUBDIR=	xorg/xserver
 
@@ -52,7 +51,14 @@ USE_XORG=	pixman x11 fixesproto damageproto xcmiscproto xtrans \
 PLIST_FILES=	bin/Xvfb \
 		man/man1/Xvfb.1.gz
 
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == armv6
+EXTRA_PATCHES+=	${.CURDIR}/../xorg-server/files/extra-arm-patch-hw__xfree86__os-support__bsd__Makefile.in
+EXTRA_PATCHES+=	${.CURDIR}/../xorg-server/files/extra-arm-patch-include__servermd.h
+.endif
+
 do-install:
 	cd ${WRKSRC}/hw/vfb; DESTDIR=${STAGEDIR} ${MAKE} install
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

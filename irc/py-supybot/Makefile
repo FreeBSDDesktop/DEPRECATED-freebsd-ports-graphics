@@ -8,7 +8,7 @@ MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/Supybot-${PORTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	Supybot-${PORTVERSION}
 
-MAINTAINER=	dhn@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Supybot - A Superb Python IRC bot
 
 USES=		python tar:bzip2
@@ -32,8 +32,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/docs/GETTING_STARTED ${STAGEDIR}${DOCSDIR}
-.if !defined(BATCH)
-	@${CAT} ${PKGMESSAGE}
-.endif
 
 .include <bsd.port.mk>

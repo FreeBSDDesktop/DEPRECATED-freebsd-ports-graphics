@@ -3,12 +3,14 @@
 
 PORTNAME=		mapserver
 PORTVERSION=		6.4.1
-PORTREVISION=		4
+PORTREVISION=		5
 CATEGORIES=		graphics www geography
 MASTER_SITES=		http://download.osgeo.org/mapserver/
 
 MAINTAINER=		wen@FreeBSD.org
 COMMENT=		System for developing web-based GIS applications
+
+LICENSE=		MIT
 
 LIB_DEPENDS=		libgd.so:${PORTSDIR}/graphics/gd \
 			libproj.so:${PORTSDIR}/graphics/proj \
@@ -16,7 +18,8 @@ LIB_DEPENDS=		libgd.so:${PORTSDIR}/graphics/gd \
 			libjpeg.so:${PORTSDIR}/graphics/jpeg \
 			libgif.so:${PORTSDIR}/graphics/giflib
 
-USES=			cmake:outsource
+USES=			cpe cmake:outsource
+CPE_VENDOR=		umn
 USE_GNOME=		libxml2
 LDFLAGS+=		-L${LOCALBASE} -pthread
 CMAKE_ARGS+=		-DCMAKE_PREFIX_PATH=${LOCALBASE} \
