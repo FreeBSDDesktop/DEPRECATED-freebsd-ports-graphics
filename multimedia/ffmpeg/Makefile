@@ -3,7 +3,7 @@
 
 PORTNAME=	ffmpeg
 PORTVERSION=	2.3.6
-PORTREVISION=	3
+PORTREVISION=	6
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio ipv6 net
 MASTER_SITES=	http://ffmpeg.org/releases/
@@ -240,6 +240,10 @@ CONFIGURE_ARGS+=	--enable-x11grab
 
 .include <bsd.port.pre.mk>
 
+.if ${OPSYS} == "FreeBSD" && ${OSVERSION} < 1000000
+CONFIGURE_ARGS+=	--enable-memalign-hack
+.endif
+
 .if ${ARCH} == "armv6"
 CONFIGURE_ENV+=	ASFLAGS=-no-integrated-as
 .endif
@@ -258,7 +262,6 @@ CONFIGURE_ARGS+=--prefix="${PREFIX}" \
 		--enable-avfilter \
 		--enable-avresample \
 		--enable-pthreads \
-		--enable-memalign-hack \
 		--disable-libstagefright-h264 \
 		--disable-libutvideo \
 		--disable-libsoxr \

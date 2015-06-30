@@ -95,6 +95,7 @@
     SUBDIR += commons-utilities
     SUBDIR += compupic
     SUBDIR += converseen
+    SUBDIR += copperspice
     SUBDIR += cosmoplayer
     SUBDIR += crw
     SUBDIR += cthumb
@@ -529,6 +530,7 @@
     SUBDIR += libwmf-nox11
     SUBDIR += libwpg
     SUBDIR += libwpg03
+    SUBDIR += lightzone
     SUBDIR += linplasma
     SUBDIR += linux-XnViewMP
     SUBDIR += linux-adobesvg

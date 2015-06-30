@@ -3,7 +3,7 @@
 
 PORTNAME=	nginx
 PORTVERSION=	1.8.0
-PORTREVISION=	1
+PORTREVISION=	2
 PORTEPOCH=	2
 CATEGORIES=	www
 MASTER_SITES=	http://nginx.org/download/
@@ -406,7 +406,7 @@ CONFIGURE_ARGS+=--add-module=${WRKSRC_eval}
 .endif
 
 .if ${PORT_OPTIONS:MHTTP_FANCYINDEX}
-NGINX_FANCYINDEX_VERSION=	0.3.4
+NGINX_FANCYINDEX_VERSION=	0.3.5
 GH_ACCOUNT+=	aperezdc:fancyindex
 GH_PROJECT+=	ngx-fancyindex:fancyindex
 GH_TAGNAME+=	v${NGINX_FANCYINDEX_VERSION}:fancyindex
@@ -986,6 +986,7 @@ do-build:
 
 do-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR}
+	${MKDIR} ${STAGEDIR}${NGINX_TMPDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/objs/nginx ${STAGEDIR}${PREFIX}/sbin
 .for i in koi-utf koi-win win-utf
 	${INSTALL_DATA} ${WRKSRC}/conf/${i} ${STAGEDIR}${ETCDIR}

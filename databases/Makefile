@@ -26,7 +26,9 @@
     SUBDIR += buzhug
     SUBDIR += c3p0
     SUBDIR += cassandra
+    SUBDIR += cassandra-cpp-driver
     SUBDIR += cassandra2
+    SUBDIR += casstcl
     SUBDIR += cdb
     SUBDIR += cego
     SUBDIR += cegobridge
@@ -51,8 +53,8 @@
     SUBDIR += dbtool
     SUBDIR += dbview
     SUBDIR += emma
-    SUBDIR += epgsql
-    SUBDIR += eredis
+    SUBDIR += erlang-epgsql
+    SUBDIR += erlang-eredis
     SUBDIR += erlang-mysql
     SUBDIR += evolution-data-server
     SUBDIR += fastdb
@@ -97,6 +99,7 @@
     SUBDIR += hs-persistent-sqlite
     SUBDIR += hs-persistent-template
     SUBDIR += hsqldb
+    SUBDIR += influxdb
     SUBDIR += innotop
     SUBDIR += ip4r
     SUBDIR += ipa_sdb
@@ -416,6 +419,7 @@
     SUBDIR += p5-Iterator-DBI
     SUBDIR += p5-Jifty-DBI
     SUBDIR += p5-KyotoCabinet
+    SUBDIR += p5-LMDB_File
     SUBDIR += p5-MLDBM
     SUBDIR += p5-MLDBM-Sync
     SUBDIR += p5-MR-Tarantool

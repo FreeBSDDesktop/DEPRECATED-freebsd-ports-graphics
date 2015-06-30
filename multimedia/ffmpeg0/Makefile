@@ -3,7 +3,7 @@
 
 PORTNAME=	ffmpeg
 PORTVERSION=	0.7.16
-PORTREVISION=	6
+PORTREVISION=	8
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio ipv6 net
 MASTER_SITES=	http://ffmpeg.org/releases/
@@ -45,8 +45,8 @@ OPTIONS_DEFINE=	AACPLUS ALSA AMR_NB AMR_WB CELT DEBUG DIRAC FAAC \
 		OPTIMIZED_CFLAGS RTMP SCHROEDINGER SDL SPEEX THEORA VAAPI \
 		VDPAU VO_AACENC VO_AMRWBENC VORBIS VPX X11GRAB X264 XVID DOCS
 
-OPTIONS_DEFAULT=	FFSERVER FREETYPE FREI0R OPENCV SCHROEDINGER THEORA \
-			VORBIS VPX X264 XVID
+OPTIONS_DEFAULT=	FFSERVER FREETYPE FREI0R OPENCV SCHROEDINGER \
+			THEORA VORBIS VPX X264 XVID
 
 FFSERVER_DESC=	Build and install ffserver
 X11GRAB_DESC=	Enable x11 grabbing
@@ -93,6 +93,10 @@ CONFIGURE_ARGS+=	--enable-x11grab
 
 .include <bsd.port.pre.mk>
 
+.if ${OPSYS} == "FreeBSD" && ${OSVERSION} < 1000000
+CONFIGURE_ARGS+=	--enable-memalign-hack
+.endif
+
 .if ${ARCH} == armv6
 CONFIGURE_ENV+=	ASFLAGS=-no-integrated-as
 CFLAGS=	-no-integrated-as
@@ -113,7 +117,6 @@ CONFIGURE_ARGS+=--prefix="${PREFIX}" \
 		--enable-postproc \
 		--enable-avfilter \
 		--enable-pthreads \
-		--enable-memalign-hack \
 		--enable-runtime-cpudetect \
 		--cc="${CC}" \
 		--extra-cflags="${FFMPEG_CFLAGS} -I${LOCALBASE}/include" \

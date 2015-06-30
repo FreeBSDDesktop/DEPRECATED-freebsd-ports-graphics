@@ -316,6 +316,7 @@
     SUBDIR += gaffitter
     SUBDIR += gai-leds
     SUBDIR += ganglia-monitor-core
+    SUBDIR += ganglia-webfrontend
     SUBDIR += gapcmon
     SUBDIR += garcon
     SUBDIR += gather
@@ -730,6 +731,7 @@
     SUBDIR += pstacku
     SUBDIR += pstree
     SUBDIR += ptools
+    SUBDIR += puppet37
     SUBDIR += puppet
     SUBDIR += puppet-lint
     SUBDIR += puppet-mode.el
@@ -759,6 +761,7 @@
     SUBDIR += py-power
     SUBDIR += py-psutil
     SUBDIR += py-psutil121
+    SUBDIR += py-ptyprocess
     SUBDIR += py-pytsk
     SUBDIR += py-queuelib
     SUBDIR += py-ranger
