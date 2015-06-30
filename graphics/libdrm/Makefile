@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libdrm
-PORTVERSION=	2.4.61
+PORTVERSION=	2.4.62
 PORTEPOCH=	1
 CATEGORIES=	graphics x11
 MASTER_SITES=	http://dri.freedesktop.org/libdrm/
@@ -16,6 +16,7 @@ LIB_DEPENDS=	libpciaccess.so:${PORTSDIR}/devel/libpciaccess \
 USES=		libtool pkgconfig tar:bzip2
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
+CONFIGURE_ARGS=--disable-valgrind
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	MANPAGES
