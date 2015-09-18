@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	owncloudclient
-PORTVERSION=	1.8.0
-PORTREVISION=	1
+PORTVERSION=	1.8.4
 CATEGORIES=	deskutils
 MASTER_SITES=	http://download.owncloud.com/desktop/stable/
 
@@ -15,8 +14,9 @@ LICENSE=	GPLv2
 LIB_DEPENDS=	libinotify.so:${PORTSDIR}/devel/libinotify \
 		libqt5keychain.so:${PORTSDIR}/security/qtkeychain-qt5
 
-USES=		cmake:outsource compiler:c++11-lib gmake pkgconfig tar:bzip2
-USE_QT5=	buildtools_build core dbus gui linguist_build network qmake_build webkit xml
+USES=		cmake:outsource compiler:c++11-lib gmake pkgconfig tar:xz
+USE_QT5=	buildtools_build concurrent core dbus gui linguist_build network \
+		qmake_build webkit xml
 USE_OPENSSL=	yes
 USE_SQLITE=	3
 CMAKE_ARGS=	-DBUILD_WITH_QT4:BOOL=OFF \
@@ -39,6 +39,11 @@ PLIST_SUB=	VERSION=${PORTVERSION}
 
 .if ${OPSYS} != FreeBSD || ${OSVERSION} < 1000015
 WITH_OPENSSL_PORT=	yes
+
+# CMake 3.3.x will use $PATH when looking for headers and libraries by default,
+# and OpenSSL from base will end up being used. Make sure ${LOCALBASE} is
+# preferred over $PATH.
+CMAKE_ARGS+=		-DCMAKE_PREFIX_PATH=${LOCALBASE}
 .endif
 
 post-patch:

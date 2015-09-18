@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	musicpd
-PORTVERSION=	0.18.23
+PORTVERSION=	0.19.10
 CATEGORIES=	audio ipv6
 MASTER_SITES=	http://www.musicpd.org/download/mpd/${PORTVERSION:R}/
 DISTNAME=	mpd-${PORTVERSION}
@@ -15,13 +15,15 @@ USES=		gmake pkgconfig compiler:c++11-lib tar:xz
 GNU_CONFIGURE=	yes
 USE_GNOME=	glib20
 
+LIB_DEPENDS=	libboost_iostreams.so:${PORTSDIR}/devel/boost-libs
+
 USE_RC_SUBR=	${PORTNAME}
 CONFIGURE_ARGS+=--disable-alsa --disable-systemd-daemon --disable-roar
 CFLAGS+=	-I${PREFIX}/include
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -L${LOCALBASE}/lib/sidplay/builders
 
-PORTDOCS=	AUTHORS README COPYING NEWS UPGRADING
+PORTDOCS=	AUTHORS README COPYING NEWS
 
 SUB_FILES=	pkg-message
 
@@ -38,12 +40,13 @@ OPTIONS_MULTI_FILE_FORMAT=	AAC ADPLUG FFMPEG FLAC FLUIDSYNTH \
 	   VORBIS WAV WAVPACK WILDMIDI
 
 OPTIONS_GROUP=	PLAYBACK
-OPTIONS_GROUP_PLAYBACK=	AO CURL HTTPD JACK OPENAL OSS PULSEAUDIO SHOUTCAST
+OPTIONS_GROUP_PLAYBACK=	AO CURL HTTPD JACK OPENAL OSS PIPE PULSEAUDIO SHOUTCAST
 
 ADPLUG_DESC=	AdPlug support
 FLUIDSYNTH_DESC=FludSynth support (MIDI files)
 GME_DESC=	GME support (video game music files)
 LAME_DESC=	Support for MP3 Icecast Streams
+PIPE_DESC=	Support for writing PCM audio to a pipe
 SIDPLAY2_DESC=	Sidplay support (C64 mono and stereo files)
 TREMOR_DESC=	Tremor decoder (not with SHOUTCAST; use VORBIS)
 TWOLAME_DESC=	TwoLAME support (mp2)
@@ -97,6 +100,7 @@ OPENAL_LIB_DEPENDS=libopenal.so:${PORTSDIR}/audio/openal
 OPUS_CONFIGURE_ENABLE=opus
 OPUS_LIB_DEPENDS=libopus.so:${PORTSDIR}/audio/opus
 OSS_CONFIGURE_ENABLE=oss
+PIPE_CONFIGURE_ENABLE=pipe-output
 PULSEAUDIO_CONFIGURE_ENABLE=pulse
 PULSEAUDIO_LIB_DEPENDS=libpulse.so:${PORTSDIR}/audio/pulseaudio
 SAMPLERATE_CONFIGURE_ENABLE=lsr

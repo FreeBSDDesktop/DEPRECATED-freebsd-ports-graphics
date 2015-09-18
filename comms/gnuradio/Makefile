@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	gnuradio
-PORTVERSION=	3.7.4
-PORTREVISION=	3
+PORTVERSION=	3.7.7.1
+PORTREVISION=	1
 CATEGORIES=	comms astro hamradio
 MASTER_SITES=	http://gnuradio.org/releases/gnuradio/ \
 		LOCAL/db
@@ -19,7 +19,6 @@ BUILD_DEPENDS=	sdl-config:${PORTSDIR}/devel/sdl12 \
 		${PYTHON_PKGNAMEPREFIX}qt4>0:${PORTSDIR}/devel/py-qt4 \
 		xdg-open:${PORTSDIR}/devel/xdg-utils \
 		guile:${PORTSDIR}/lang/guile \
-		icebox:${PORTSDIR}/devel/ice \
 		aconnect:${PORTSDIR}/audio/alsa-utils \
 		git:${PORTSDIR}/devel/git \
 		${PYNUMPY} \
@@ -35,25 +34,23 @@ LIB_DEPENDS=	libcppunit.so:${PORTSDIR}/devel/cppunit \
 		libgsl.so:${PORTSDIR}/math/gsl
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-BROKEN_FreeBSD_9=	does not build on FreeBSD 9.x
-
-USES=		iconv cmake:outsource perl5 python:2.7 shebangfix
+USES=		cmake:outsource iconv perl5 python:2.7 shebangfix
 SHEBANG_FILES=	grc/freedesktop/grc_setup_freedesktop.in
-CMAKE_ENV+=	LD_PRELOAD="${GCC_LIBS}/libstdc++.so:${GCC_LIBS}/libgcc_s.so.1" 
 CMAKE_ARGS+=	-DSWIG_EXECUTABLE:STRING="${LOCALBASE}/bin/swig2.0"
 CMAKE_ARGS+=	-DICONV_PREFIX:STRING="${ICONV_PREFIX}" \
 		-DICONV_LIB:STRING="X${ICONV_LIB}" \
-		-DICE_CONFIG_INCLUDE_DIR="${LOCALBASE}/include/"
-# for detailed debugging uncomment the next line
+		-DENABLE_GR_CTRLPORT="YES"
+# for detailed debugging uncomment the next two lines as needed
 #CMAKE_ARGS+=	--debug-output --trace
-DOCSDIR=	share/doc/${PORTNAME}-${PORTVERSION}
+MAJOR_SUB_VER=	3.7.7
+DOCSDIR=	share/doc/${PORTNAME}-${MAJOR_SUB_VER}
 USE_GNOME=	pygtk2
 USE_WX=		3.0+
 USE_QT4=	gui xml qmake moc rcc uic
 WX_COMPS=	wx wx:build wx:run python:build python:run
 USE_LDCONFIG=	yes
 PLIST_SUB+=	MAJOR_VERSION="3"
-PORTDOCS=	*
+PLIST_SUB+=	MAJOR_SUB_VER="${MAJOR_SUB_VER}"
 
 OPTIONS_DEFINE=		USRP TESTING
 # Unfortunately building docs on i386 fails
@@ -65,50 +62,32 @@ USRP_DESC=	Include USRP support (UHD) from Ettus
 TESTING_DESC=	Include testing support
 
 PLIST_SUB+=	PORTVERSION=${PORTVERSION}
-VP=		${GCC_DEFAULT:S/.//}
-GCC_LIBS=	${LOCALBASE}/lib/gcc${VP}
 
-.include <bsd.port.pre.mk>
-
-# Only use port clang34 on 10 if not RELEASE. I think this should do it.
-.if ${OSVERSION} <= 1000510 && ${OSVERSION} > 1000000
-# Debug hack
-#.if ${OSVERSION} <= 1200000
-BUILD_DEPENDS+=	clang34:${PORTSDIR}/lang/clang34
-CC=		clang34
-CXX=		clang++34
-.endif
-
-.if ${PORT_OPTIONS:MDOCS}
-BUILD_DEPENDS+=	doxygen:${PORTSDIR}/devel/doxygen \
-		${LOCALBASE}/bin/sphinx-apidoc:${PORTSDIR}/textproc/py-sphinx \
-		dot:${PORTSDIR}/graphics/graphviz \
-		xmlto:${PORTSDIR}/textproc/xmlto \
-		freefont-ttf>0:${PORTSDIR}/x11-fonts/freefont-ttf
-CMAKE_ARGS+=	-DENABLE_DOXYGEN:STRING="ON"
-CMAKE_ARGS+=	-DENABLE_DOCS:STRING="ON"
-CMAKE_ARGS+=	-DENABLE_BAD_BOOST="ON"
+DOCS_BUILD_DEPENDS=	doxygen:${PORTSDIR}/devel/doxygen \
+			${LOCALBASE}/bin/sphinx-apidoc:${PORTSDIR}/textproc/py-sphinx \
+			dot:${PORTSDIR}/graphics/graphviz \
+			xmlto:${PORTSDIR}/textproc/xmlto \
+			freefont-ttf>0:${PORTSDIR}/x11-fonts/freefont-ttf
+DOCS_CMAKE_ON=	-DENABLE_DOXYGEN:STRING="ON" \
+		-DENABLE_DOCS:STRING="ON" \
+		-DENABLE_BAD_BOOST="ON"
+DOCS_CMAKE_OFF=	-DENABLE_DOXYGEN:STRING="OFF" \
+		-DENABLE_DOCS:STRING="OFF" \
+		-DENABLE_BAD_BOOST="ON"
 HAVE_PORTDOCS=	YES
-.else
-CMAKE_ARGS+=	-DENABLE_DOXYGEN:STRING="OFF"
-CMAKE_ARGS+=	-DENABLE_DOCS:STRING="OFF"
-CMAKE_ARGS+=	-DENABLE_BAD_BOOST="ON"
-.endif
 
-.if ${PORT_OPTIONS:MUSRP}
-CMAKE_ARGS+=	-DENABLE_GR_UHD:STRING="ON"
-BUILD_DEPENDS+=	${LOCALBASE}/include/uhd/config.hpp:${PORTSDIR}/comms/usrp
-PLIST_SUB+=	UHD=""
-.else
-CMAKE_ARGS+=	-DENABLE_GR_UHD:STRING="OFF"
-PLIST_SUB+=	UHD="@comment "
-.endif
+USRP_CMAKE_ON=	-DENABLE_GR_UHD:STRING="ON"
+USRP_CMAKE_OFF=	-DENABLE_GR_UHD:STRING="OFF"
+USRP_BUILD_DEPENDS=	${LOCALBASE}/include/uhd/config.hpp:${PORTSDIR}/comms/usrp
 
-.if ${PORT_OPTIONS:MTESTING}
-CMAKE_ARGS+=	-DENABLE_TESTING:STRING="ON"
-BUILD_DEPENDS+=	cppunit-config:${PORTSDIR}/devel/cppunit
-.else
-CMAKE_ARGS+=	-DENABLE_TESTING:STRING="OFF"
+TESTING_CMAKE_ON=	-DENABLE_TESTING:STRING="ON"
+TESTING_CMAKE_OFF=	-DENABLE_TESTING:STRING="OFF"
+TESTING_BUILD_DEPENDS=	cppunit-config:${PORTSDIR}/devel/cppunit
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
+USE_GCC=	yes
 .endif
 
 post-patch:
@@ -121,4 +100,4 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
 		${WRKSRC}/cmake/Modules/FindPortaudio.cmake
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

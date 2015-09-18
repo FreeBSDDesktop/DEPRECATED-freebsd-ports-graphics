@@ -10,6 +10,90 @@ in the release notes and/or placed into UPDATING.
 
 All ports committers are allowed to commit to this file.
 
+20150914:
+AUTHOR: mat@FreeBSD.org
+
+  Introducing the %%PERL5_MAN1%% PLIST_SUB entry, as Perl now installs man1
+  pages in the same prefix as man3 pages.
+
+20150828:
+AUTHOR: mat@FreeBSD.org
+
+  <opt>_VARS and <opt>_VARS_OFF have been introduced to allow for a generic way
+  to set/append to variables.
+
+  OPT1_VARS=  foo=bar baz+=bam
+
+  will set FOO to bar and append bam to BAZ if OPT1 is enabled.  <opt>_VARS_OFF
+  works the same way, if the option is disabled.
+
+20150818:
+AUTHOR: kde@FreeBSD.org
+
+  The CMAKE_ENV option has been deprecated. It no longer has any effect, and
+  the CONFIGURE_ENV variable should be used instead.
+
+20150818:
+AUTHOR: mat@FreeBSD.org
+
+  <opt>_IMPLIES and <opt>_PREVENTS have been introduced to register dependency,
+  or conflicts between options.
+
+    OPTIONS_DEFINE= FOO BAR BAZ
+
+    FOO_IMPLIES=	BAR
+    BAZ_PREVENTS= BAR
+
+  If the FOO option is selected, the BAR option will be enabled as well.  If
+  the BAZ and BAR options are both enabled, an error will be given.
+
+20150817:
+AUTHOR: mat@FreeBSD.org
+
+  UNIQUENAME and LATEST_LINK have been removed. LATEST_LINK was only used by
+  ports-mgmt/pkg{,-devel} and PKGBASE can be used in its stead.  UNIQUENAME was
+  used by USE_LDCONFIG where it was not unique enough, and as old compat shims
+  with options.
+
+20150716:
+AUTHOR:	kwm@FreeBSD.org
+
+  USE_GHOSTSCRIPT was replaced by USES=ghostscript. The ghostscript USES
+  accepts version, build, run, nox11 and for version 9 the agpl argument.
+  If no version is specified, the default 9 for GHOSTSCRIPT_DEFAULT is honored.
+
+20150701:
+AUTHOR: mat@FreeBSD.org
+
+  Make option target helpers have been added, it allows replacing:
+
+    .include <bsd.port.options.mk>
+
+    post-patch:
+      ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+	${WRKSRC}/Configure ${WRKSRC}/hints/freebsd.sh
+    .if ${PORT_OPTIONS:MPTHREAD}
+      ${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|-lpthread|g;' \
+	${WRKSRC}/hints/freebsd.sh
+    .else
+      ${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%||g;' \
+	${WRKSRC}/hints/freebsd.sh
+    .endif
+
+  with:
+
+    post-patch:
+      ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+	${WRKSRC}/Configure ${WRKSRC}/hints/freebsd.sh
+
+    post-patch-PTHREAD-on:
+      ${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%|-lpthread|g;' \
+	${WRKSRC}/hints/freebsd.sh
+
+    post-patch-PTHREAD-off:
+      ${REINPLACE_CMD} -e 's|%%PTHREAD_LIBS%%||g;' \
+	${WRKSRC}/hints/freebsd.sh
+
 20150622:
 AUTHOR: bapt@FreeBSD.org
 

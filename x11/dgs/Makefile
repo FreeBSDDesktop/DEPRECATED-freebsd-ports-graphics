@@ -3,7 +3,7 @@
 
 PORTNAME=	dgs
 PORTVERSION=	0.5.9.1
-PORTREVISION=	16
+PORTREVISION=	17
 CATEGORIES=	x11
 MASTER_SITES=	GNU/../old-gnu/dgs
 
@@ -15,10 +15,9 @@ LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 
 MAKE_JOBS_UNSAFE=	yes
 
-USE_GHOSTSCRIPT_RUN=	yes
 USE_XORG=	xt sm ice xext x11
 USE_GNOME=	glib12
-USES=		gmake jpeg libtool makeinfo
+USES=		ghostscript:run gmake jpeg libtool makeinfo
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 WRKSRC=		${WRKDIR}/${PORTNAME}-0.5.9

@@ -3,7 +3,7 @@
 
 PORTNAME=	WinFF
 PORTVERSION=	1.5.2
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 PROJECTHOST=	${_PORTNAME}
@@ -18,7 +18,8 @@ BUILD_DEPENDS=	lazbuild:${PORTSDIR}/editors/lazarus
 LIB_DEPENDS=	libavutil.so:${PORTSDIR}/multimedia/ffmpeg
 
 NO_WRKSUBDIR=	yes
-USE_FPC=	yes
+USE_FPC=	cairo fcl-base fcl-image fcl-json fcl-process fcl-xml hash \
+		pasjpeg paszlib x11
 USE_GNOME=	#
 _PORTNAME=	${PORTNAME:tl}
 DATADIR=	${PREFIX}/share/${_PORTNAME}
@@ -33,14 +34,13 @@ DESKTOP_ENTRIES=	"${PORTNAME}"	\
 			true
 
 LAZBUILD_CMD=	${LOCALBASE}/bin/lazbuild -d
-LAZARUS_VER=	1.4.0
+LAZARUS_VER=	1.4.2
 LAZARUS_DIR=	${LOCALBASE}/share/lazarus-${LAZARUS_VER}
 LCL_UNITS_DIR=	${LOCALBASE}/share/lazarus-${LAZARUS_VER}/lcl/units/${BUILDNAME}
 
 OPTIONS_SINGLE=		LCL
-OPTIONS_SINGLE_LCL=	GTK1 GTK2 QT4
+OPTIONS_SINGLE_LCL=	GTK2 QT4
 
-GTK1_DESC=		Use gtk12 interface
 GTK2_DESC=		Use gtk20 interface
 QT4_DESC=		Use qt4 interface
 
@@ -53,13 +53,6 @@ USE_FPC+=	gtk2
 USE_GNOME=	gtk20
 LCL_PLATFORM=	gtk2
 BUILD_DEPENDS+=	${LCL_UNITS_DIR}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-gtk2
-.endif
-
-.if ${PORT_OPTIONS:MGTK1}
-USE_FPC+=	gtk1
-USE_GNOME=	gtk12 gdkpixbuf
-LCL_PLATFORM=	gtk
-BUILD_DEPENDS+=	${LCL_UNITS_DIR}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-gtk
 .endif
 
 .if ${PORT_OPTIONS:MQT4}
@@ -75,7 +68,8 @@ pre-configure:
 .endfor
 
 do-build:
-	cd ${WRKSRC} && ${LAZBUILD_CMD} --ws=${LCL_PLATFORM} --lazarusdir=${LAZARUS_DIR} -B winff.lpr
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${LAZBUILD_CMD} --ws=${LCL_PLATFORM} --lazarusdir=${LAZARUS_DIR} -B winff.lpr
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME:tl} ${STAGEDIR}${PREFIX}/bin

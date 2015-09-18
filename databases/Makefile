@@ -52,6 +52,14 @@
     SUBDIR += dbow
     SUBDIR += dbtool
     SUBDIR += dbview
+    SUBDIR += elixir-calecto
+    SUBDIR += elixir-ecto
+    SUBDIR += elixir-ecto_migrate
+    SUBDIR += elixir-geo
+    SUBDIR += elixir-mariaex
+    SUBDIR += elixir-mongo
+    SUBDIR += elixir-postgrex
+    SUBDIR += elixir-timex_ecto
     SUBDIR += emma
     SUBDIR += erlang-epgsql
     SUBDIR += erlang-eredis
@@ -123,6 +131,7 @@
     SUBDIR += leo_center
     SUBDIR += leofs
     SUBDIR += leveldb
+    SUBDIR += levigo
     SUBDIR += libdbi
     SUBDIR += libdbi-drivers
     SUBDIR += libdrizzle
@@ -182,6 +191,7 @@
     SUBDIR += monetdb
     SUBDIR += mongodb
     SUBDIR += mrtg-mysql-load
+    SUBDIR += mtools-mongodb
     SUBDIR += mtop
     SUBDIR += mydbf2mysql
     SUBDIR += mydumper
@@ -296,7 +306,6 @@
     SUBDIR += p5-DBD-ODBC
     SUBDIR += p5-DBD-Oracle
     SUBDIR += p5-DBD-Pg
-    SUBDIR += p5-DBD-Pg32
     SUBDIR += p5-DBD-PgLite
     SUBDIR += p5-DBD-PgPP
     SUBDIR += p5-DBD-SQLite
@@ -749,6 +758,7 @@
     SUBDIR += py-pypuppetdb
     SUBDIR += py-pytc
     SUBDIR += py-python-rrdtool
+    SUBDIR += py-python-sql
     SUBDIR += py-qt4-sql
     SUBDIR += py-redis
     SUBDIR += py-riak
@@ -770,6 +780,8 @@
     SUBDIR += py-tarantool
     SUBDIR += py-umemcache
     SUBDIR += py-whisper
+    SUBDIR += pypy-gdbm
+    SUBDIR += pypy-sqlite3
     SUBDIR += pydbx
     SUBDIR += pymongo
     SUBDIR += pyspatialite
@@ -815,7 +827,9 @@
     SUBDIR += ruby-tokyocabinet
     SUBDIR += rubygem-activemodel
     SUBDIR += rubygem-activemodel4
+    SUBDIR += rubygem-activemodel41
     SUBDIR += rubygem-activerecord
+    SUBDIR += rubygem-activerecord41
     SUBDIR += rubygem-activerecord-jdbc-adapter
     SUBDIR += rubygem-activerecord-jdbcmysql-adapter
     SUBDIR += rubygem-activerecord-mysql-adapter
@@ -908,6 +922,7 @@
     SUBDIR += sybtcl
     SUBDIR += tablelog
     SUBDIR += tarantool
+    SUBDIR += tarantool-c
     SUBDIR += tcl-Mysql
     SUBDIR += tcl-sqlite3
     SUBDIR += tdb

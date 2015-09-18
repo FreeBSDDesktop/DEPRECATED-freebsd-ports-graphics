@@ -3,19 +3,20 @@
 
 PORTNAME=	syncthing-discosrv
 PORTVERSION=	0.0.0.2015062601
+PORTREVISION=	3
 CATEGORIES=	net
 
 MAINTAINER=	swills@FreeBSD.org
 COMMENT=	Discovery server for syncthing
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/go:${PORTSDIR}/lang/go
+BUILD_DEPENDS=	go14>=1.4:${PORTSDIR}/lang/go14
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	syncthing golang:gc
 GH_PROJECT=	discosrv syncthing:st groupcache:gc
 GH_TAGNAME=	4c705ff v${SYNCTHING_VER}:st 604ed57:gc
 
-SYNCTHING_VER=	0.11.10
+SYNCTHING_VER=	0.11.18
 
 PLIST_FILES=	bin/syncthing-discosrv
 
@@ -33,7 +34,8 @@ post-patch:
 		${WRKSRC}/src/github.com/golang/groupcache
 
 do-build:
-	@cd ${WRKSRC} ; ${SETENV} GOPATH=${WRKSRC} go build
+	@cd ${WRKSRC} ; ${SETENV} PATH=${PATH}:${LOCALBASE}/go14/bin \
+	GOPATH=${WRKSRC} go build
 	@${MV} ${WRKSRC}/discosrv-${GH_TAGNAME} ${WRKSRC}/syncthing-discosrv
 
 do-install:

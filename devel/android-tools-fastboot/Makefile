@@ -31,7 +31,7 @@ CONFLICTS_INSTALL?=	${PORTNAME}-devel-*
 USES+=		uidfix
 BUILD_WRKSRC=	${WRKSRC}/fastboot
 INSTALL_WRKSRC=	${BUILD_WRKSRC}
-MAKEFILE=	${.CURDIR}/files/Makefile # XXX ?= when bmake-only
+MAKEFILE=	${FILESDIR}/Makefile
 MAKE_ENV=	FILESDIR="${FILESDIR}" BINDIR="${PREFIX}/bin" \
 		MANDIR="${PREFIX}/man/man" \
 		LIBPCRE="${LOCALBASE}/lib/libpcre.a"
@@ -46,11 +46,7 @@ SUB_FILES=	pkg-message
 OPTIONS_DEFINE=	BASH DOCS
 OPTIONS_SUB=	yes
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MBASH}
-LICENSE+=	MIT # debian/copyright
-.endif
+BASH_VARS=	LICENSE+=MIT # debian/copyright
 
 post-extract:
 	@${CP} ${_DISTDIR}/${DISTFILES:M*\:manpage:C/:.*//} \

@@ -2,7 +2,7 @@
 
 PORTNAME=	calligra
 PORTVERSION=	${CALLIGRA_VERSION}
-PORTREVISION=	15
+PORTREVISION=	18
 CATEGORIES=	editors kde
 MASTER_SITES=	KDE/${CALLIGRA_BRANCH}/${PORTNAME}-${PORTVERSION}
 DIST_SUBDIR=	KDE
@@ -26,7 +26,7 @@ LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libfftw3.so:${PORTSDIR}/math/fftw3 \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
 		libgsl.so:${PORTSDIR}/math/gsl \
-		libwps-0.2.so:${PORTSDIR}/textproc/libwps \
+		libwps-0.2.so:${PORTSDIR}/textproc/libwps02 \
 		libvisio-0.0.so:${PORTSDIR}/textproc/libvisio \
 		libOpenColorIO.so:${PORTSDIR}/graphics/opencolorio
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/eigen2.pc:${PORTSDIR}/math/eigen2
@@ -42,8 +42,8 @@ USE_QT4=	corelib dbus designer_build gui opengl phonon porting_build \
 		qt3support qtestlib_build script sql svg webkit xml xmlpatterns \
 		moc_build qmake_build rcc_build uic_build uic3_build
 USE_SQLITE=	3
-USES=		cmake:outsource cpe compiler:c++11-lang iconv jpeg perl5 pkgconfig tar:xz\
-		shared-mime-info
+USES=		cmake:outsource cpe compiler:c++11-lang iconv:translit jpeg \
+		perl5 pkgconfig shared-mime-info tar:xz
 CMAKE_ARGS=	-DCMAKE_INCLUDE_PATH:STRING="${QT_INCDIR} ${LOCALBASE}/include" \
 		-DPRODUCTSET:STRING="DESKTOP"
 USE_LDCONFIG=	yes

@@ -2,7 +2,7 @@
 
 PORTNAME=	hpijs
 PORTVERSION=	2.1.4
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	print
 MASTER_SITES=	SF/hpinkjet/${PORTNAME}/${PORTVERSION}
 
@@ -13,8 +13,7 @@ CONFLICTS=	hplip-[0-9]*
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=		--disable-dependency-tracking
-USES=		jpeg
-USE_GHOSTSCRIPT_RUN=	yes
+USES=		ghostscript:run jpeg
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib

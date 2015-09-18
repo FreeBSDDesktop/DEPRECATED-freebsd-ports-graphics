@@ -3,7 +3,7 @@
 
 PORTNAME?=	R
 PORTVERSION=	3.0.2
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	math lang
 MASTER_SITES=	http://cran.r-project.org/%SUBDIR%/ \
 		ftp://cran.r-project.org/pub/R/%SUBDIR%/ \
@@ -196,7 +196,7 @@ USES+=			readline
 .else # LIBR_SLAVEPORT
 
 .if ${PORT_OPTIONS:MGHOSTSCRIPT}
-USE_GHOSTSCRIPT_RUN=	yes
+USES+=			ghostscript
 .endif
 
 .if ${PORT_OPTIONS:MJPEG}

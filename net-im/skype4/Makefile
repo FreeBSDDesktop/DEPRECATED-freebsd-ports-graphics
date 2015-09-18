@@ -8,7 +8,7 @@ CATEGORIES=	net-im
 MASTER_SITES=	http://download.skype.com/linux/
 PKGNAMESUFFIX=	4
 
-MAINTAINER=	xmj@FreeBSD.org
+MAINTAINER=	xmj@chaot.net
 COMMENT=	P2P VoIP software
 
 RUN_DEPENDS=	${LINUXBASE}/lib/skype_oss_wrapper/libpulse.so.0:${PORTSDIR}/audio/linux-skype_oss_wrapper
@@ -44,7 +44,7 @@ NVIDIA_GL_USE_OFF=	LINUX_APPS=dri
 
 .include <bsd.port.options.mk>
 .if ${PORT_OPTIONS:MVIDEO}
-RUN_DEPENDS+=	webcamd>0:${PORTSDIR}/multimedia/webcamd
+RUN_DEPENDS+=	webcamd:${PORTSDIR}/multimedia/webcamd
 USE_LINUX_APPS+=	libv4l
 SUB_LIST+=	VIDEO="LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so "
 .else

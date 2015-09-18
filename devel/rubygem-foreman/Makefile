@@ -2,6 +2,7 @@
 
 PORTNAME=	foreman
 PORTVERSION=	0.78.0
+PORTREVISION=	1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -12,9 +13,13 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	rubygem-thor>=0.19.1:${PORTSDIR}/devel/rubygem-thor
 
+NO_ARCH=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	spec/resources/bin/env
 
 PLIST_FILES=	bin/foreman
 

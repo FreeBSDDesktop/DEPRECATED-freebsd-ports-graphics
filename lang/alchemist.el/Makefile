@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	alchemist.el
-PORTVERSION=	1.1.1
+PORTVERSION=	1.5.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	lang
 
@@ -15,14 +15,16 @@ RUN_DEPENDS=	elixir-mode.el>=0:${PORTSDIR}/lang/elixir-mode.el
 USE_GITHUB=	yes
 GH_ACCOUNT=	tonini
 
+NO_ARCH=	yes
+NO_BUILD=	yes
 USE_EMACS=	yes
 
-NO_BUILD=	yes
-
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/server
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/alchemist-server
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/alchemist-server/lib
 	${INSTALL_DATA} ${WRKSRC}/*.el ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
-	${INSTALL_DATA} ${WRKSRC}/server/*.exs ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/server
+	${INSTALL_DATA} ${WRKSRC}/alchemist-server/*.exs ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/alchemist-server
+	${INSTALL_DATA} ${WRKSRC}/alchemist-server/lib/*.exs ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/alchemist-server/lib
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/*.md ${WRKSRC}/doc/* ${STAGEDIR}${DOCSDIR}
 

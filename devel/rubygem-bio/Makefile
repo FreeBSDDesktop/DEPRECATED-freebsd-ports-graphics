@@ -3,6 +3,7 @@
 
 PORTNAME=	bio
 PORTVERSION=	1.4.3.0001
+PORTREVISION=	1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -12,9 +13,14 @@ COMMENT=	Integrated environment for Bioinformatics written in Ruby
 LICENSE=	GPLv2 RUBY
 LICENSE_COMB=	dual
 
+NO_ARCH=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	sample/biofetch.rb
+ruby_OLD_CMD=	/usr/proj/bioruby/bin/ruby
 
 PLIST_FILES=	bin/bioruby \
 		bin/br_biofetch.rb \

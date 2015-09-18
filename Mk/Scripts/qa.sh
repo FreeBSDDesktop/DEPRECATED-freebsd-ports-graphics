@@ -44,6 +44,7 @@ shebangonefile() {
 	/usr/bin/env) ;;
 	/usr/bin/nawk) ;;
 	/usr/bin/sed) ;;
+	/usr/sbin/dtrace) ;;
 	*)
 		err "'${interp}' is an invalid shebang you need USES=shebangfix for '${f#${STAGEDIR}${PREFIX}/}'"
 		rc=1
@@ -90,6 +91,28 @@ shebang() {
 	    -type l -exec stat -f "%N${LF}%Y" {} + 2>/dev/null)
 	EOF
 
+	return ${rc}
+}
+
+baselibs() {
+	local rc
+	[ "${PKGBASE}" = "pkg" -o "${PKGBASE}" = "pkg-devel" ] && return
+	while read f; do
+		case ${f} in
+		*NEEDED*\[libarchive.so.[56]])
+			err "Bad linking on ${f##* } please add USES=libarchive"
+			rc=1
+			;;
+		*NEEDED*\[libedit.so.7])
+			err "Bad linking on ${f##* } please add USES=libedit"
+			rc=1
+			;;
+		esac
+	done <<-EOF
+	$(find ${STAGEDIR}${PREFIX}/bin ${STAGEDIR}${PREFIX}/sbin \
+		${STAGEDIR}${PREFIX}/lib ${STAGEDIR}${PREFIX}/libexec \
+		-type f -exec readelf -d {} + 2>/dev/null)
+	EOF
 	return ${rc}
 }
 
@@ -270,7 +293,7 @@ prefixvar() {
 	fi
 }
 
-checks="shebang symlinks paths stripped desktopfileutils sharedmimeinfo suidfiles libtool libperl prefixvar"
+checks="shebang symlinks paths stripped desktopfileutils sharedmimeinfo suidfiles libtool libperl prefixvar baselibs"
 
 ret=0
 cd ${STAGEDIR}

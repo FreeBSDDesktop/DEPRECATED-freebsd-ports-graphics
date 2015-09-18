@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rust
-PORTVERSION=	1.1.0
+PORTVERSION=	1.2.0
 CATEGORIES=	lang
 MASTER_SITES=	http://static.rust-lang.org/dist/:src \
 		http://static.rust-lang.org/stage0-snapshots/:bootstrap
@@ -32,13 +32,23 @@ CONFLICTS_INSTALL=	rust-nightly
 
 RUST_SOURCE=	${DISTNAME}-src${EXTRACT_SUFX}
 RUST_BOOT=	rust-stage0-${RUST_BOOT_SIG}.tar.bz2
-RUST_BOOT_SIG=	2015-04-27-857ef6e-freebsd-x86_64-18925db56f6298cc190d1f41615ab5871de1dda0
+RUST_BOOT_SIG=	2015-05-24-ba0e1cd-freebsd-x86_64-370db40613f5c08563ed7e38357826dd42d4e0f8
 
-USES=		gmake python:2,build
+# Rust's libraries are named librustc_${component}-${RUST_VSN_HASH}.so.
+# The hash depends on Rust version and, if the channel is not "stable",
+# the channel name. See $(CFG_FILENAME_EXTRA) definition in mk/main.mk.
+RUST_VSN=	${PORTVERSION}
+RUST_CHANNEL=	stable
+RUST_VSN_HASH!=	/usr/bin/printf '%s' ${RUST_VSN} | /sbin/md5 -q | cut -c 1-8
+PLIST_SUB+=	RUST_VSN_HASH=${RUST_VSN_HASH}
+
+PLIST_SUB+=	RUST_TARGET=x86_64-unknown-${OPSYS:tl}
+
+USES=		gmake libedit python:2,build
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-valgrind --disable-docs \
 		--enable-clang --mandir=${MANPREFIX}/man \
-		--release-channel=stable
+		--release-channel=${RUST_CHANNEL}
 
 # Use LLVM from ports, instead of the copy shipped with rust.
 LLVM_VER=	36
@@ -54,20 +64,44 @@ LLNEXTGEN_DESC=		Build with grammar verification
 
 LLNEXTGEN_BUILD_DEPENDS=	LLnextgen:${PORTSDIR}/devel/llnextgen
 
-.include <bsd.port.pre.mk>
+.include <bsd.port.options.mk>
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
 BROKEN=		Only compiles on FreeBSD 10 and 11
 .endif
 
-.if ${OPSYS} == DragonFly
-IGNORE=		please use lang/rust-dragonfly instead
-.endif
+pre-fetch:
+	# FIXME: This is the same check for CONFLICTS as the standard
+	# one, except port origins are not compared. This allows
+	# the port to conflict with itself, because Rust would pick
+	# installed Rust libraries instead of freshly built ones.
+	@conflicts_with=$$( \
+	{ ${PKG_QUERY} -g "%n-%v %p %o" ${CONFLICTS:C/.+/'&'/} ${CONFLICTS_BUILD:C/.+/'&'/} 2>/dev/null || : ; } \
+		| while read pkgname prfx orgn; do \
+		if [ "/${PREFIX}" = "/$${prfx}" ]; then \
+			${ECHO_CMD} -n " $${pkgname}"; \
+		fi; \
+	done); \
+	if [ -n "$${conflicts_with}" ]; then \
+		${ECHO_MSG}; \
+		${ECHO_MSG} "===>  ${PKGNAME} conflicts with installed package(s): "; \
+		for entry in $${conflicts_with}; do \
+			${ECHO_MSG} "      $${entry}"; \
+		done; \
+		${ECHO_MSG}; \
+		${ECHO_MSG} "      They will not build together."; \
+		${ECHO_MSG} "      Please remove them first with pkg delete."; \
+		exit 1;\
+	fi
 
 post-extract:
 	@${MKDIR} ${WRKSRC}/dl
 	${LN} -sf ${DISTDIR}/${RUST_BOOT} ${WRKSRC}/dl
 	(cd ${WRKSRC} && find . -type d -exec chmod 0755 {} \;)
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
+		${WRKSRC}/mk/main.mk
 
 # In case the previous "make stage" failed, this ensures rust's
 # install.sh won't backup previously staged files before reinstalling
@@ -96,4 +130,4 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/*.so \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

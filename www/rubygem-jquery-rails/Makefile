@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	jquery-rails
-PORTVERSION=	3.1.3
+PORTVERSION=	3.1.4
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
@@ -15,6 +15,8 @@ RUN_DEPENDS=	rubygem-railties>=3.0:${PORTSDIR}/www/rubygem-railties \
 		rubygem-thor>=0.14:${PORTSDIR}/devel/rubygem-thor
 
 PORTSCOUT=	limit:^3.*
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

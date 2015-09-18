@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	orthanc
-PORTVERSION=	0.9.0
-CATEGORIES=	science graphics net
-MASTER_SITES=	SF/orthancserver/:main \
+PORTVERSION=	0.9.3
+CATEGORIES=	science graphics net www
+MASTER_SITES=	http://orthanc-server.com/downloads/get.php?path=/orthanc/:main \
 		http://www.montefiore.ulg.ac.be/~jodogne/Orthanc/ThirdPartyDownloads/:mongoose
 DISTFILES=	Orthanc-${PORTVERSION}.tar.gz:main \
 		mongoose-3.8.tgz:mongoose
@@ -13,6 +13,7 @@ DIST_SUBDIR=	${PORTNAME}
 MAINTAINER=	mp39590@gmail.com
 COMMENT=	RESTful DICOM server for healthcare and medical research
 
+# GPLv3 license, with the OpenSSL exception.
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
@@ -20,9 +21,15 @@ BUILD_DEPENDS=	gtest-config:${PORTSDIR}/devel/googletest
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 		libjsoncpp.so:${PORTSDIR}/devel/jsoncpp \
 		libuuid.so:${PORTSDIR}/misc/e2fsprogs-libuuid \
-		libglog.so:${PORTSDIR}/devel/glog \
 		libboost_filesystem.so:${PORTSDIR}/devel/boost-libs \
-		libdcmimage.so:${PORTSDIR}/devel/dcmtk \
+		libboost_thread.so:${PORTSDIR}/devel/boost-libs \
+		libboost_system.so:${PORTSDIR}/devel/boost-libs \
+		libboost_date_time.so:${PORTSDIR}/devel/boost-libs \
+		libboost_regex.so:${PORTSDIR}/devel/boost-libs \
+		libboost_locale.so:${PORTSDIR}/devel/boost-libs \
+		libdcmdsig.so:${PORTSDIR}/devel/dcmtk \
+		libcharls.so:${PORTSDIR}/devel/dcmtk \
+		libdcmjpls.so:${PORTSDIR}/devel/dcmtk \
 		libsqlite3.so:${PORTSDIR}/databases/sqlite3 \
 		libpugixml.so:${PORTSDIR}/textproc/pugixml
 
@@ -48,11 +55,11 @@ GROUPS=		orthanc
 # cmake variables to tell that mongoose is not presented on the host OS and
 # should be build together with the software instead.
 # https://www.mail-archive.com/mongoose-users@googlegroups.com/msg00625.html
-post-extract:
+post-patch:
 	${MKDIR} ${WRKSRC}/ThirdPartyDownloads
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/mongoose-3.8.tgz ${WRKSRC}/ThirdPartyDownloads
 	# Orthanc hardcodes /usr/local paths for libs and includes.
-	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/CMakeLists.txt
+	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Resources/CMake/*.cmake
 
 # There is no way to disable building of test units without a patch, on other
 # hand it brings only one build dependency (devel/googletest) and running it was
@@ -69,7 +76,7 @@ post-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR}
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/Resources/Configuration.json
 	${CP} ${WRKSRC}/Resources/Configuration.json ${STAGEDIR}${ETCDIR}/orthanc.json.sample
-	${STRIP_CMD} ${STAGEDIR}${DATADIR}/plugins/libServeFolders.so.0.9.0
+	${STRIP_CMD} ${STAGEDIR}${DATADIR}/plugins/libServeFolders.so.${PORTVERSION}
 
 .include <bsd.port.pre.mk>
 
@@ -78,7 +85,7 @@ IGNORE=	supported only on 10.1 by upstream, not all unit tests are passed
 .endif
 
 .if ${OSVERSION} > 1100000
-IGNORE=	unit tests are crashing, bug 200544
+BROKEN=	unit tests are crashing, bug 200544
 .endif
 
 .include <bsd.port.post.mk>

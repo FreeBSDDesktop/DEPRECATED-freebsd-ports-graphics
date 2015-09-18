@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	gdal
-PORTVERSION=	1.11.2
-PORTREVISION=	3
+PORTVERSION=	2.0.0
+PORTREVISION=	1
 CATEGORIES=	graphics geography
 MASTER_SITES=	http://download.osgeo.org/gdal/${PORTVERSION}/ \
 		ftp://ftp.remotesensing.org/pub/gdal/${PORTVERSION}/ \
@@ -47,7 +47,7 @@ MAKEFILE=	GNUmakefile
 USE_LDCONFIG=	yes
 USES=		gmake jpeg tar:xz
 
-PLIST_SUB=	PORTVERSION=${PORTVERSION}
+PLIST_SUB=	MAJOR_VER=${PORTVERSION:R:R} PORTVERSION=${PORTVERSION}
 PORTDATA=	*
 
 SLAVEDIRS=	graphics/p5-Geo-GDAL graphics/php-gdal graphics/py-gdal graphics/ruby-gdal
@@ -62,7 +62,7 @@ CURL_CONFIGURE_OFF=	--with-curl=no
 CURL_CONFIGURE_ON=	--with-curl=${LOCALBASE}/bin/curl-config
 CURL_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 ECW_CONFIGURE_OFF=	--with-ecw=no
-ECW_CONFIGURE_ON=	--with-ecw=${LOCALBASE}
+ECW_CONFIGURE_ON=	--with-ecw=yes
 ECW_LIB_DEPENDS=	libNCSEcw.so:${PORTSDIR}/graphics/libecwj2
 EXPAT_CONFIGURE_OFF=	--with-expat=no
 EXPAT_CONFIGURE_ON=	--with-expat=${LOCALBASE}

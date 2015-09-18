@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xnec2c
-PORTVERSION=	3.3
-PORTEVISION=	1
+PORTVERSION=	3.4
 CATEGORIES=	comms hamradio
 MASTER_SITES=	http://www.qsl.net/5b4az/pkg/nec2/xnec2c/ \
 		LOCAL/shurd
@@ -17,7 +16,7 @@ LIB_DEPENDS=	libccm.so:${PORTSDIR}/math/ccmath
 
 GNU_CONFIGURE=	yes
 USES=		gettext gmake pkgconfig tar:bzip2
-USE_GNOME=	gtk20
+USE_GNOME=	gtk20 intltool
 
 OPTIONS_DEFINE=	DOCS
 OPTIONS_SUB=	yes

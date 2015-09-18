@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	kafo
-PORTVERSION=	0.6.11
-CATEGORIES=	devel ruby
+PORTVERSION=	0.6.12
+CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	mmoll@FreeBSD.org
@@ -19,6 +19,8 @@ RUN_DEPENDS=	rubygem-clamp>=0.6.2:${PORTSDIR}/devel/rubygem-clamp \
 		gsed:${PORTSDIR}/textproc/gsed
 
 USES=		cpe
+NO_ARCH=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

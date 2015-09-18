@@ -3,7 +3,7 @@
 
 PORTNAME=	gle-graphics
 DISTVERSION=	4.2.4cf
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	graphics print
 MASTER_SITES=	SF/glx/gle4%20%28Current%20Active%20Version%29/${DISTVERSION:C,.$,,1}
 DISTNAME=	${PORTNAME}-${DISTVERSION}-src
@@ -32,7 +32,8 @@ DOCS_USE=	tex=latex:build tex=dvipsk:build
 GNU_CONFIGURE=	yes
 
 LATEX_GS_DESC=	Use LaTeX & GhostScript
-LATEX_GS_USE=	tex=latex ghostscript=run
+LATEX_GS_USE=	tex=latex
+LATEX_GS_USES=	ghostscript
 
 MAKE_JOBS_UNSAFE=yes
 

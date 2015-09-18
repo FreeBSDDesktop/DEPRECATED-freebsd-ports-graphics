@@ -32,6 +32,7 @@
     SUBDIR += clipgrab
     SUBDIR += clive
     SUBDIR += clutter-gst
+    SUBDIR += clutter-gst3
     SUBDIR += cuse4bsd-kmod
     SUBDIR += cx88
     SUBDIR += deforaos-player
@@ -56,8 +57,6 @@
     SUBDIR += emovix
     SUBDIR += ffmpeg
     SUBDIR += ffmpeg0
-    SUBDIR += ffmpeg23
-    SUBDIR += ffmpeg26
     SUBDIR += ffmpeg2theora
     SUBDIR += ffmpegthumbnailer
     SUBDIR += flvmeta
@@ -129,6 +128,7 @@
     SUBDIR += gstreamer1-plugins-dvdread
     SUBDIR += gstreamer1-plugins-gnonlin
     SUBDIR += gstreamer1-plugins-good
+    SUBDIR += gstreamer1-plugins-hls
     SUBDIR += gstreamer1-plugins-kate
     SUBDIR += gstreamer1-plugins-mpeg2dec
     SUBDIR += gstreamer1-plugins-mpeg2enc
@@ -147,7 +147,6 @@
     SUBDIR += gtk-youtube-viewer
     SUBDIR += gxine
     SUBDIR += handbrake
-    SUBDIR += hs-gstreamer
     SUBDIR += imagination
     SUBDIR += iriverter
     SUBDIR += iso2mkv
@@ -170,6 +169,7 @@
     SUBDIR += libcec
     SUBDIR += libdc1394
     SUBDIR += libdca
+    SUBDIR += libde265
     SUBDIR += libdv
     SUBDIR += libdvbcsa
     SUBDIR += libdvbpsi
@@ -279,12 +279,14 @@
     SUBDIR += p5-Subtitles
     SUBDIR += p5-Umph-Prompt
     SUBDIR += p5-Video-OpenQuicktime
+    SUBDIR += pHash
     SUBDIR += phonon
     SUBDIR += phonon-designerplugin
     SUBDIR += phonon-gstreamer
     SUBDIR += phonon-vlc
     SUBDIR += phonon-xine
     SUBDIR += photofilmstrip
+    SUBDIR += php-pHash
     SUBDIR += pitivi
     SUBDIR += playd
     SUBDIR += plexhometheater
@@ -365,6 +367,7 @@
     SUBDIR += tivodecode
     SUBDIR += totem
     SUBDIR += totem-pl-parser
+    SUBDIR += tovid
     SUBDIR += transcode
     SUBDIR += tstools
     SUBDIR += tvheadend

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	typo3
-PORTVERSION=	7.2.0
-PORTREVISION=	1
+PORTVERSION=	7.4.0
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/TYPO3%20Source%20and%20Dummy/TYPO3%20${PORTVERSION}
 
@@ -14,8 +13,7 @@ LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 USES=		cpe shebangfix
-SHEBANG_FILES=	typo3/sysext/core/Build/Scripts/xlfcheck.sh \
-		typo3/sysext/mediace/Resources/Contrib/flowplayer/plugins/flowplayer.captions/example/flvtool2-cuepoints.sh
+SHEBANG_FILES=	typo3/sysext/core/Build/Scripts/xlfcheck.sh
 NO_BUILD=	yes
 NO_ARCH=	yes
 USE_PHP=	ctype fileinfo filter hash json mysqli openssl pcre session soap xml
@@ -69,12 +67,14 @@ post-install:
 		${FIND} * \( -type f -or -type l \) -path "${TYPO3WWW}/${TYPO3DIR}/*" | \
 		${SORT} >> ${TMPPLIST}
 	@cd ${STAGEDIR}${PREFIX}; \
-		${FIND} * \( -type f -or -type l \) \( -path "${TYPO3WWW}/${TYPO3SRC}/*" -and \
-		-not -path "${TYPO3WWW}/${TYPO3SRC}/typo3/ext/*" \) | \
+		${FIND} * \( -type f -or -type l \) -path "${TYPO3WWW}/${TYPO3SRC}/*" | \
 		${SORT} >> ${TMPPLIST}
-	@cd ${STAGEDIR}${PREFIX}; \
-		${FIND} * \( -type f -or -type l \) -path "${TYPO3WWW}/${TYPO3SRC}/typo3/ext/*" | \
-		${SORT} | ${SED} -ne 's#^#@(${WWWOWN},${WWWGRP},) #p' >> ${TMPPLIST}
-	@${ECHO} "@dir(${WWWOWN},${WWWGRP},) ${TYPO3WWW}/${TYPO3SRC}/typo3/ext" >> ${TMPPLIST}
+#		${FIND} * \( -type f -or -type l \) \( -path "${TYPO3WWW}/${TYPO3SRC}/*" -and \
+#		-not -path "${TYPO3WWW}/${TYPO3SRC}/typo3/ext/*" \) | \
+#		${SORT} >> ${TMPPLIST}
+#	@cd ${STAGEDIR}${PREFIX}; \
+#		${FIND} * \( -type f -or -type l \) -path "${TYPO3WWW}/${TYPO3SRC}/typo3/ext/*" | \
+#		${SORT} | ${SED} -ne 's#^#@(${WWWOWN},${WWWGRP},) #p' >> ${TMPPLIST}
+#	@${ECHO} "@dir(${WWWOWN},${WWWGRP},) ${TYPO3WWW}/${TYPO3SRC}/typo3/ext" >> ${TMPPLIST}
 
 .include <bsd.port.mk>

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	tinc
-PORTVERSION=	1.0.25
+PORTVERSION=	1.0.26
+PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	http://www.tinc-vpn.org/packages/
 

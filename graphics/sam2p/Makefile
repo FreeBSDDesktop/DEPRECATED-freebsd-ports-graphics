@@ -3,6 +3,7 @@
 
 PORTNAME=	sam2p
 PORTVERSION=	0.49.2
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	graphics
 MASTER_SITES=	GOOGLE_CODE
@@ -17,10 +18,9 @@ RUN_DEPENDS=	zip:${PORTSDIR}/archivers/zip \
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
-USES=		gmake jpeg:run perl5
+USES=		ghostscript:run gmake jpeg:run perl5
 USE_PERL5=	build
 USE_GCC=	any
-USE_GHOSTSCRIPT_RUN=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	ac_cv_path_pts_bash="${SH}"
 CONFIGURE_ARGS=	--enable-gif

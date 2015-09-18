@@ -3,6 +3,7 @@
 
 PORTNAME=	tkabber
 PORTVERSION=	1.1.2
+PORTREVISION=	2
 CATEGORIES=	net-im ipv6 tcl tk
 MASTER_SITES=	http://files.jabber.ru/tkabber/
 
@@ -10,16 +11,18 @@ MAINTAINER=	mp39590@gmail.com
 COMMENT=	Tcl/Tk based jabber client
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	tcllib>=1.2:${PORTSDIR}/devel/tcllib \
 		bwidget>=1.4:${PORTSDIR}/x11-toolkits/bwidget
 
-OPTIONS_DEFINE=	DOCS EXAMPLES IPV6 SOUND TDOM TKCON TKTRAY TLS
+OPTIONS_DEFINE=	DOCS EXAMPLES IPV6 SOUND TDOM TKCON TKTRAY TLS GNUPG
 OPTIONS_DEFAULT=	TLS
 
 CONFLICTS=	tkabber-devel-[0-9]*
 
-USES=		tar:xz
+USES=		shebangfix tar:xz
+SHEBANG_FILES=	contrib/extract-translations/extract.tcl
 
 IPV6_USES=	tk:86+
 IPV6_USES_OFF=	tk:85+
@@ -31,14 +34,14 @@ TKCON_RUN_DEPENDS=	tkcon>=2.3:${PORTSDIR}/devel/tkcon
 TKTRAY_DESC=	Install x11-toolkits/tktray for system tray support
 TKTRAY_RUN_DEPENDS=	tktray>=1.3:${PORTSDIR}/x11-toolkits/tktray
 TLS_RUN_DEPENDS=	tcltls>=1.4.1:${PORTSDIR}/devel/tcltls
+GNUPG_RUN_DEPENDS=	tclgpg>0:${PORTSDIR}/security/tclgpg
 
 WRKSRC=		${WRKDIR}/${DISTNAME}
 NO_BUILD=	yes
+NO_ARCH=	yes
 
 SUBDIRS=	contrib emoticons ifacetk mclistbox \
 		msgs pixmaps plugins sounds tclxmpp trans
-
-.include <bsd.port.options.mk>
 
 do-install:
 	${ECHO_CMD} -e "#!/bin/sh\nexec ${WISH} ${DATADIR}/tkabber.tcl \
@@ -52,15 +55,15 @@ do-install:
 .for i in ${SUBDIRS}
 	${CP} -R ${WRKSRC}/${i} ${STAGEDIR}${DATADIR}
 .endfor
-.if ${PORT_OPTIONS:MEXAMPLES}
+
+do-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	${CP} -R ${WRKSRC}/examples/* ${STAGEDIR}${EXAMPLESDIR}
-.endif
-.if ${PORT_OPTIONS:MDOCS}
+	@cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
+
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for i in tkabber.html tkabber.xml
 	${INSTALL_DATA} ${WRKSRC}/doc/${i} ${STAGEDIR}${DOCSDIR}
 .endfor
-.endif
 
 .include <bsd.port.mk>

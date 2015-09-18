@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	B-Hooks-Parser
-PORTVERSION=	0.13
-PORTREVISION=	1
+PORTVERSION=	0.16
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -21,8 +20,6 @@ USES=		perl5
 USE_PERL5=	configure
 
 post-install:
-	${CHMOD} u+w ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/B/Hooks/Parser/Parser.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/B/Hooks/Parser/Parser.so
-	${CHMOD} u-w ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/B/Hooks/Parser/Parser.so
 
 .include <bsd.port.mk>

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	cucumber-core
-PORTVERSION=	1.1.3
+PORTVERSION=	1.3.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,8 +11,9 @@ COMMENT=	Core library for the Cucumber BDD app
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	rubygem-gherkin>=2.12.0:${PORTSDIR}/textproc/rubygem-gherkin
+RUN_DEPENDS=	rubygem-gherkin3>=3.1.0:${PORTSDIR}/textproc/rubygem-gherkin3
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

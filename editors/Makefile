@@ -90,7 +90,6 @@
     SUBDIR += komodo-edit
     SUBDIR += latexila
     SUBDIR += lazarus
-    SUBDIR += lazarus-lcl-gtk
     SUBDIR += lazarus-lcl-gtk2
     SUBDIR += lazarus-lcl-nogui
     SUBDIR += lazarus-lcl-qt
@@ -133,6 +132,7 @@
     SUBDIR += libreoffice-gd
     SUBDIR += libreoffice-gl
     SUBDIR += libreoffice-gu
+    SUBDIR += libreoffice-gug
     SUBDIR += libreoffice-hi
     SUBDIR += libreoffice-hr
     SUBDIR += libreoffice-i18n
@@ -196,6 +196,7 @@
     SUBDIR += libreoffice-ve
     SUBDIR += libreoffice-xh
     SUBDIR += libreoffice-zu
+    SUBDIR += libreoffice4
     SUBDIR += madedit
     SUBDIR += manedit
     SUBDIR += mg
@@ -207,6 +208,7 @@
     SUBDIR += nano-devel
     SUBDIR += ne
     SUBDIR += nedit
+    SUBDIR += neovim
     SUBDIR += nvi-devel
     SUBDIR += nvi-m17n
     SUBDIR += omegaT
@@ -251,6 +253,7 @@
     SUBDIR += tweak
     SUBDIR += uemacs
     SUBDIR += uzap
+    SUBDIR += vanubi
     SUBDIR += vigor
     SUBDIR += vile
     SUBDIR += vim

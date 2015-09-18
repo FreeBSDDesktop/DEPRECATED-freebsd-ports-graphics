@@ -2,14 +2,14 @@
 
 PORTNAME=	gnuplot
 PORTVERSION=	4.6.6
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math graphics
 MASTER_SITES=	SF
 
 MAINTAINER=	glewis@FreeBSD.org
 COMMENT=	Command-line driven graphing utility
 
-USES=		iconv lua pkgconfig
+USES=		iconv lua pkgconfig readline
 USE_TEX=	kpathsea
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}

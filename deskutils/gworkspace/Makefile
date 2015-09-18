@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	gworkspace
-PORTVERSION=	0.9.2
-PORTREVISION=	2
+PORTVERSION=	0.9.3
 CATEGORIES=	deskutils gnustep
 #MASTER_SITES=	http://www.gnustep.it/enrico/gworkspace/
 MASTER_SITES=	GNUSTEP/usr-apps
@@ -24,7 +23,7 @@ MAKE_ENV+=	GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
 PLIST_SUB+=	PDFVIEW="@comment "
 .else
 PLIST_SUB+=	PDFVIEW=""
-USE_GHOSTSCRIPT=	yes
+USES+=		ghostscript
 .endif
 
 pre-configure:

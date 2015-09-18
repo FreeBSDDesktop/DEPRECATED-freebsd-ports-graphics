@@ -22,14 +22,13 @@ DISTINFO_FILE=	${PORTSDIR}/lang/python${PYTHON_SUFFIX}/distinfo
 WRKSRC=		${WRKDIR}/Python-${PORTVERSION}/Tools/scripts
 
 SCRIPT_FILES=	byteyears checkpyc copytime crlf dutree \
-		ftpmirror lfcr ptags untabify
+		lfcr ptags untabify
 PYLIB_FILES=	tabnanny timeit
 PLIST_FILES=	${SCRIPT_FILES:C/^.*/bin\/&/g} ${PYLIB_FILES:C/^.*/bin\/&/g}
 
 SHEBANG_LANG=	python
 SHEBANG_FILES=	${SCRIPT_FILES:C/^.*/&\.py/g} \
 		../../Lib/tabnanny.py ../../Lib/timeit.py
-python_CMD=	${PYTHON_CMD}
 
 UNIQUE_SUFFIX=		-${PYTHON_VER}
 UNIQUE_SUFFIX_FILES=	${SCRIPT_FILES:C/^.*/bin\/&/g} \

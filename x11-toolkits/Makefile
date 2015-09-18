@@ -17,7 +17,6 @@
     SUBDIR += fox14
     SUBDIR += fox16
     SUBDIR += fox17
-    SUBDIR += fpc-gtk1
     SUBDIR += fpc-gtk2
     SUBDIR += fpc-xforms
     SUBDIR += fxscintilla
@@ -73,7 +72,6 @@
     SUBDIR += hs-OpenGLRaw
     SUBDIR += hs-gtk
     SUBDIR += hs-gtk2hs
-    SUBDIR += hs-gtkglext
     SUBDIR += hs-gtksourceview2
     SUBDIR += hs-pango
     SUBDIR += hs-vte
@@ -203,9 +201,9 @@
     SUBDIR += py-wxPython-common
     SUBDIR += py-wxPython28
     SUBDIR += py-wxPython28-common
-    SUBDIR += py-wxPython28-unicode
     SUBDIR += py-wxPython30
     SUBDIR += py-xlib
+    SUBDIR += pypy-tkinter
     SUBDIR += qt4-declarative
     SUBDIR += qt4-gui
     SUBDIR += qt4pas
@@ -262,8 +260,6 @@
     SUBDIR += wxgtk28-common
     SUBDIR += wxgtk28-contrib
     SUBDIR += wxgtk28-contrib-common
-    SUBDIR += wxgtk28-unicode
-    SUBDIR += wxgtk28-unicode-contrib
     SUBDIR += wxgtk30
     SUBDIR += xbae
     SUBDIR += xforms

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pdfkit
-PORTVERSION=	0.7.0
+PORTVERSION=	0.8.2
 CATEGORIES=	graphics rubygems
 MASTER_SITES=	RG
 
@@ -12,6 +12,8 @@ COMMENT=	Uses wkhtmltopdf to create PDFs using HTML
 LICENSE=	MIT
 
 RUN_DEPENDS=	wkhtmltopdf:${PORTSDIR}/converters/wkhtmltopdf
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

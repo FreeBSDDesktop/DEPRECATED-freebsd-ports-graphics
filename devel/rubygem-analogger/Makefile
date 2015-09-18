@@ -3,7 +3,7 @@
 
 PORTNAME=	analogger
 PORTVERSION=	0.5.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -14,9 +14,14 @@ LICENSE=	RUBY
 
 RUN_DEPENDS=	rubygem-eventmachine>=0.0.0:${PORTSDIR}/devel/rubygem-eventmachine
 
+NO_ARCH=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	bin/analogger
+ruby_OLD_CMD=	ruby
 
 PLIST_FILES=	bin/analogger
 

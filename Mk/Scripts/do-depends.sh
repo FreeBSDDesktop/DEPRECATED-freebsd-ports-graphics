@@ -7,22 +7,11 @@ set -e
 
 . ${dp_SCRIPTSDIR}/functions.sh
 
-envfault=
-for i in dp_RAWDEPENDS dp_DEPTYPE dp_DEPENDS_TARGET dp_DEPENDS_PRECLEAN \
+validate_env dp_RAWDEPENDS dp_DEPTYPE dp_DEPENDS_TARGET dp_DEPENDS_PRECLEAN \
 	dp_DEPENDS_CLEAN dp_DEPENDS_ARGS dp_USE_PACKAGE_DEPENDS \
 	dp_USE_PACKAGE_DEPENDS_ONLY dp_PKG_ADD dp_PKG_INFO dp_WRKDIR \
 	dp_PKGNAME dp_STRICT_DEPENDS dp_LOCALBASE dp_LIB_DIRS dp_SH \
 	dp_SCRIPTSDIR dp_PORTSDIR dp_MAKE
-do
-	if ! (eval ": \${${i}?}" ) >/dev/null; then
-		envfault="${envfault}${envfault:+" "}${i}"
-	fi
-done
-if [ -n "${envfault}" ]; then
-	echo "Environment variable ${envfault} undefined. Aborting." \
-		| fmt >&2
-	exit 1
-fi
 
 set -u
 
@@ -67,7 +56,7 @@ find_package()
 		echo "===>   ${dp_PKGNAME} depends on package: $1 - found"
 		return 0
 	fi
-	echo "===>   ${dp_PKGNAME} depends on file: $1 - not found"
+	echo "===>   ${dp_PKGNAME} depends on package: $1 - not found"
 	return 1
 }
 
@@ -94,7 +83,7 @@ find_file_path()
 find_lib()
 {
 	echo -n "===>   ${dp_PKGNAME} depends on shared library: $1"
-	libfile=$(env -i LIB_DIRS="${dp_LIB_DIRS}" LOCALBASE="${dp_LOCALBASE}" ${dp_SH} ${dp_SCRIPTSDIR}/find-lib.sh $1)
+	libfile=$(env -i PATH="${PATH}" LIB_DIRS="${dp_LIB_DIRS}" LOCALBASE="${dp_LOCALBASE}" ${dp_SH} ${dp_SCRIPTSDIR}/find-lib.sh $1)
 	if [ -z "${libfile}" ]; then
 		echo " - not found"
 		return 1
@@ -151,12 +140,21 @@ for _line in ${dp_RAWDEPENDS} ; do
 		fi
 	fi
 
-	case ${pattern} in
-	*\>*|*\<*|*=*) fct=find_package ;;
-	lib*.so*)      fct=find_lib ;;
-	/nonexistent)  fct=false ;;
-	/*)            fct=find_file ;;
-	*)             fct=find_file_path ;;
+	case ${dp_DEPTYPE} in
+	  LIB_DEPENDS)
+	    case ${pattern} in
+	      lib*.so*)      fct=find_lib ;;
+	      *)
+		echo "Error: pattern ${pattern} in LIB_DEPENDS is not valid"
+		exit 1 ;;
+	    esac ;;
+	  *)
+	    case ${pattern} in
+	      *\>*|*\<*|*=*) fct=find_package ;;
+	      /nonexistent)  fct=false ;;
+	      /*)            fct=find_file ;;
+	      *)             fct=find_file_path ;;
+	    esac ;;
 	esac
 	if ${fct} "${pattern}" ; then
 		continue
