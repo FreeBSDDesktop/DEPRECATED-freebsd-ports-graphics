@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libdrm
-PORTVERSION=	2.4.62
+PORTVERSION=	2.4.65
 PORTEPOCH=	1
 CATEGORIES=	graphics x11
 MASTER_SITES=	http://dri.freedesktop.org/libdrm/
@@ -16,7 +16,6 @@ LIB_DEPENDS=	libpciaccess.so:${PORTSDIR}/devel/libpciaccess \
 USES=		libtool pkgconfig tar:bzip2
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CONFIGURE_ARGS=--disable-valgrind
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	MANPAGES
@@ -52,12 +51,15 @@ CONFIGURE_ARGS+=--disable-vmwgfx
 .if ${ARCH} == amd64 || ${ARCH} == i386
 PLIST_SUB+=	INTEL_DRIVER=""
 PLIST_SUB+=	RADEON_DRIVERS=""
+PLIST_SUB+=	AMDGPU_DRIVERS=""
 .elif ${ARCH} == ia64 || ${ARCH} == powerpc || ${ARCH} == powerpc64
 PLIST_SUB+=	INTEL_DRIVER="@comment "
 PLIST_SUB+=	RADEON_DRIVERS=""
+PLIST_SUB+=	AMDGPU_DRIVERS="@comment "
 .else
 PLIST_SUB+=	INTEL_DRIVER="@comment "
 PLIST_SUB+=	RADEON_DRIVERS="@comment "
+PLIST_SUB+=	AMDGPU_DRIVERS="@comment "
 .endif
 
 pre-patch:
