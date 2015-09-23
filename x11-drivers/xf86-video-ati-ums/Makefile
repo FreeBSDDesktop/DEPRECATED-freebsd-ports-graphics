@@ -9,6 +9,8 @@ CATEGORIES=	x11-drivers
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.Org ati display driver
 
+PORTSCOUT=	ignore:1
+
 USE_GL=		gl
 XORG_CAT=	driver
 USE_XORG=	xf86driproto xineramaproto xf86miscproto glproto
