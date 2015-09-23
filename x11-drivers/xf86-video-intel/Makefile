@@ -31,7 +31,7 @@ CPE_VENDOR=	x
 
 CONFIGURE_ENV+=	xorg_cv_cc_flag__Wno_maybe_uninitialized=no
 CONFIGURE_ARGS+=	--enable-sna \
-			--enable-glamor \
+			--disable-glamor \
 			--disable-dri3
 INSTALL_TARGET=	install-strip
 
