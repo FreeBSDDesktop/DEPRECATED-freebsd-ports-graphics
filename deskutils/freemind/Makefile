@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	freemind
-PORTVERSION=	0.9.0
-PORTEPOCH=	1
+PORTVERSION=	1.0.1
 CATEGORIES=	deskutils editors java
 MASTER_SITES=	SF
 DISTNAME=	${PORTNAME}-bin-max-${PORTVERSION}
 
-MAINTAINER=	wenheping@gmail.com
+MAINTAINER=	sergey.v.brunov@gmail.com
 COMMENT=	Free mind-mapping software written in Java
 
 LICENSE=	GPLv2
@@ -16,9 +15,8 @@ LICENSE_FILE=	${WRKSRC}/license
 
 BUILD_DEPENDS=	unzip:${PORTSDIR}/archivers/unzip \
 		zip:${PORTSDIR}/archivers/zip
-RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper
 
-USES=		zip:infozip
+USES=		cpe zip:infozip
 USE_JAVA=	yes
 JAVA_VERSION=	1.6+
 

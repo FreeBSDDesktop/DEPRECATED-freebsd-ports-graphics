@@ -4,7 +4,7 @@
 PORTNAME=	etqw
 PORTVERSION=	2.0.r1
 CATEGORIES=	games linux
-MASTER_SITES=	${MASTER_SITE_IDSOFTWARE:S|$|etqw/|}
+MASTER_SITES=	IDSOFTWARE/etqw
 PKGNAMEPREFIX=	linux-
 PKGNAMESUFFIX=	-demo-server
 DISTNAME=	ETQW-demo2-server-full.r1.x86
@@ -14,7 +14,7 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Enemy Territory: QUAKE Wars Demo Server for Linux
 
 NO_CDROM=	Redistribution is limited
-NO_PACKAGE=	Package will be 428MB, set FORCE_PACKAGE if you really want it
+MANUAL_PACKAGE_BUILD=	huge (428MB)
 NO_BUILD=	yes
 
 ONLY_FOR_ARCHS=	i386 amd64

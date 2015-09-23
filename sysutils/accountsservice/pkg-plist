@@ -22,10 +22,13 @@ share/gtk-doc/html/libaccountsservice/ch01.html
 share/gtk-doc/html/libaccountsservice/home.png
 share/gtk-doc/html/libaccountsservice/index.html
 share/gtk-doc/html/libaccountsservice/index.sgml
+share/gtk-doc/html/libaccountsservice/left-insensitive.png
 share/gtk-doc/html/libaccountsservice/left.png
 share/gtk-doc/html/libaccountsservice/libaccountsservice.devhelp2
+share/gtk-doc/html/libaccountsservice/right-insensitive.png
 share/gtk-doc/html/libaccountsservice/right.png
 share/gtk-doc/html/libaccountsservice/style.css
+share/gtk-doc/html/libaccountsservice/up-insensitive.png
 share/gtk-doc/html/libaccountsservice/up.png
 share/locale/ar/LC_MESSAGES/accounts-service.mo
 share/locale/bg_BG/LC_MESSAGES/accounts-service.mo
@@ -75,3 +78,6 @@ share/locale/wa/LC_MESSAGES/accounts-service.mo
 share/locale/zh_CN/LC_MESSAGES/accounts-service.mo
 share/locale/zh_TW/LC_MESSAGES/accounts-service.mo
 share/polkit-1/actions/org.freedesktop.accounts.policy
+@dir /var/db/AccountsService/icons
+@dir /var/db/AccountsService/users
+@dir /var/db/AccountsService

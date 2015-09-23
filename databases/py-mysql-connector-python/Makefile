@@ -3,11 +3,10 @@
 PORTNAME=		mysql-connector-python
 PORTVERSION=		1.2.3
 CATEGORIES=		databases python
-MASTER_SITES=		${MASTER_SITE_MYSQL}
-MASTER_SITE_SUBDIR=	Connector-Python
+MASTER_SITES=		MYSQL/Connector-Python
 PKGNAMEPREFIX=		${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=		5u623l20@gmail.com
+MAINTAINER=		bofh@FreeBSD.org
 COMMENT=		MySQL driver written in Python
 
 LICENSE=		GPLv2

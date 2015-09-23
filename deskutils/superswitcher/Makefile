@@ -15,7 +15,7 @@ LICENSE=	GPLv2
 LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib
 
 USES=		gmake pkgconfig
-USE_GNOME=	gconf2 libwnck
+USE_GNOME=	gconf2 intltool libwnck
 GNU_CONFIGURE=	yes
 
 CPPFLAGS+=	-I${LOCALBASE}/include
@@ -31,5 +31,8 @@ post-patch:
 		'/_DISABLE_DEPRECATED/d' ${WRKSRC}/src/Makefile.in
 	@${REINPLACE_CMD} -e 's|glib/.*\.h>|glib.h>|g' \
 		${WRKSRC}/src/dbus-object.h ${WRKSRC}/src/forward_declarations.h
+
+post-install:
+	@${RMDIR} ${STAGEDIR}${PREFIX}/lib/locale
 
 .include <bsd.port.mk>

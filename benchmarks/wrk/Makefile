@@ -2,25 +2,36 @@
 # $FreeBSD$
 
 PORTNAME=	wrk
-PORTVERSION=	3.1.1
+PORTVERSION=	4.0.1
+PORTREVISION=	3
 CATEGORIES=	benchmarks www
-MASTER_SITES=	https://github.com/wg/wrk/archive/
 DISTNAME=	${PORTVERSION}
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	osa@FreeBSD.org
-COMMENT=	The modern HTTP benchmarking tool
+COMMENT=	Modern HTTP benchmarking tool
 
 LICENSE=	APACHE20
 
-LIB_DEPENDS+=	libluajit-5.1.so:${PORTSDIR}/lang/luajit
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+LIB_DEPENDS=	libluajit-5.1.so:${PORTSDIR}/lang/luajit
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	wg
+
 USES=		gmake
+USE_OPENSSL=	yes
 CFLAGS+=	-std=c99 -D_DECLARE_C99_LDBL_MATH
 
 PLIST_FILES=	bin/wrk
 
-do-install:
-	@${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+.include <bsd.port.pre.mk>
 
-.include <bsd.port.mk>
+# Port requires 64 bit atomics
+.if ${ARCH} == i386 && empty(MACHINE_CPU:Mi586)
+CFLAGS+=	-march=i586
+.endif
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.post.mk>

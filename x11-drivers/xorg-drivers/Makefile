@@ -2,11 +2,8 @@
 
 PORTNAME=	xorg-drivers
 PORTVERSION=	7.7
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	x11-drivers
-MASTER_SITES=	# none
-DISTFILES=	# none
-EXTRACT_ONLY=	# none
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X.org drivers meta-port
@@ -14,7 +11,7 @@ COMMENT=	X.org drivers meta-port
 VIDEODIR=	${PREFIX}/lib/xorg/modules/drivers
 INPUTDIR=	${PREFIX}/lib/xorg/modules/input
 
-NO_BUILD=	yes
+USES=		metaport
 
 INPUT_DRIVERS=		mouse \
 			keyboard \
@@ -30,8 +27,7 @@ INPUT_DRIVERS=		mouse \
 			void \
 			wacom
 
-VIDEO_DRIVERS=		ati \
-			mach64 \
+VIDEO_DRIVERS=		mach64 \
 			nv \
 			r128 \
 			vesa \
@@ -60,7 +56,6 @@ VIDEO_DRIVERS=		ati \
 
 OPTIONS_DEFAULT=	MOUSE \
 			KEYBOARD \
-			ATI \
 			MACH64 \
 			NV \
 			R128 \
@@ -73,8 +68,8 @@ ${a:tu}_DESC=	Install ${a} ${type} driver
 . endfor
 .endfor
 
-OPTIONS_DEFINE_i386=	INTEL OPENCHROME
-OPTIONS_DEFAULT_i386=	INTEL OPENCHROME
+OPTIONS_DEFINE_i386=	ATI INTEL OPENCHROME
+OPTIONS_DEFAULT_i386=	ATI INTEL OPENCHROME
 
 OPTIONS_DEFINE_amd64:=	${OPTIONS_DEFINE_i386}
 OPTIONS_DEFAULT_amd64:=	${OPTIONS_DEFAULT_i386}
@@ -85,6 +80,7 @@ OPTIONS_DEFAULT_sparc64=SUNFFB
 OPTIONS_DEFINE_ia64=	OPENCHROME
 OPTIONS_DEFAULT_ia64=	OPENCHROME
 
+ATI_DESC=		Install ati video driver
 INTEL_DESC=		Install intel video driver
 OPENCHROME_DESC=	Install openchrome video driver
 SUNFFB_DESC=		Install sunffb video driver
@@ -96,7 +92,7 @@ QUIRKS=		keyboard:kbd
 
 # Manual add arch specific drivers so they be added to depend lines.
 .if ${ARCH}==i386 || ${ARCH}==amd64
-VIDEO_DRIVERS+=	intel openchrome
+VIDEO_DRIVERS+=	ati intel openchrome
 .endif
 
 .if ${ARCH}==sparc64
@@ -114,9 +110,5 @@ RUN_DEPENDS+=	${${type:tu}DIR}/${i}_drv.so:${PORTSDIR}/x11-drivers/xf86-${type}-
 .  endif
 . endfor
 .endfor
-
-do-install:
-		${MKDIR} ${STAGEDIR}${PREFIX}/libdata/xorg
-		${TOUCH} ${STAGEDIR}${PREFIX}/libdata/xorg/drivers
 
 .include <bsd.port.mk>

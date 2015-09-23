@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	metasploit
-PORTVERSION=	4.11.0
+PORTVERSION=	4.11.2
+PORTREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	GH
 
 MAINTAINER=	tanawts@gmail.com
 COMMENT=	Exploit-Framework for Penetration-Testing
@@ -17,9 +17,9 @@ RUN_DEPENDS=	nasm:${PORTSDIR}/devel/nasm \
 		rubygem-bundler>=0:${PORTSDIR}/sysutils/rubygem-bundler \
 		rubygem-jsobfu>=0.2.0:${PORTSDIR}/www/rubygem-jsobfu \
 		rubygem-json>=0:${PORTSDIR}/devel/rubygem-json \
-		rubygem-metasploit-concern>=0.3.0:${PORTSDIR}/security/rubygem-metasploit-concern \
-		rubygem-metasploit-model>=0.28.0:${PORTSDIR}/security/rubygem-metasploit-model \
-		rubygem-meterpreter_bins>=0.0.12:${PORTSDIR}/security/rubygem-meterpreter_bins \
+		rubygem-metasploit-concern>=0.4.0:${PORTSDIR}/security/rubygem-metasploit-concern \
+		rubygem-metasploit-model>=0.29.0:${PORTSDIR}/security/rubygem-metasploit-model \
+		rubygem-metasploit-payloads>=0.0.3:${PORTSDIR}/security/rubygem-metasploit-payloads \
 		rubygem-msgpack>=0:${PORTSDIR}/devel/rubygem-msgpack \
 		rubygem-nokogiri>=0:${PORTSDIR}/textproc/rubygem-nokogiri \
 		rubygem-network_interface>=0.0.1:${PORTSDIR}/net/rubygem-network_interface \
@@ -38,25 +38,24 @@ SCRIPTS=	msfbinscan msfcli msfconsole msfd msfelfscan msfencode \
 USE_GITHUB=	yes
 GH_ACCOUNT=	rapid7
 GH_PROJECT=	metasploit-framework
-GH_COMMIT=	4c994d8
 
-USES=		ncurses:port tar:bzip2
+USES=		ncurses:port
 USE_RUBY=	yes
-USE_RUBY_FEATURES=	iconv
 
 OPTIONS_DEFINE=	DB
 OPTIONS_DEFAULT=DB
 DB_DESC=	Database support
 
 DB_RUN_DEPENDS=	rubygem-activerecord>=3.0.0:${PORTSDIR}/databases/rubygem-activerecord \
-		rubygem-metasploit-credential>=0.13.8:${PORTSDIR}/security/rubygem-metasploit-credential \
-		rubygem-metasploit_data_models>=0.21.1:${PORTSDIR}/security/rubygem-metasploit_data_models \
+		rubygem-metasploit-credential>=0.14.5:${PORTSDIR}/security/rubygem-metasploit-credential \
+		rubygem-metasploit_data_models>=0.24.0,2:${PORTSDIR}/security/rubygem-metasploit_data_models \
 		rubygem-pg>=0.11:${PORTSDIR}/databases/rubygem-pg
 
 .include <bsd.port.options.mk>
 
 post-patch:
 	${REINPLACE_CMD} 's,git ls-files,find . ! -type d | sed "s|^./||", ; \
+		/jsobfu/s/~> 0.2.0/>= 0.2.0/ ; \
 		/packetfu/s/1.1.9/>= 1.1.9/ ; \
 		/rb-readline/d' ${WRKSRC}/metasploit-framework.gemspec
 
@@ -65,7 +64,7 @@ do-build:
 	${MKDIR} ${WRKSRC}/log
 	${TOUCH} ${WRKSRC}/Gemfile.lock ${WRKSRC}/log/production.log
 	${CHMOD} 666 ${WRKSRC}/Gemfile.lock ${WRKSRC}/log/production.log
-	${REINPLACE_CMD} '/^group :development/,/^end/d ; /^group :test/,/^end/d' \
+	${REINPLACE_CMD} '/^group :coverage/,/^end/d ; /^group :development/,/^end/d ; /^group :test/,/^end/d' \
 		${WRKSRC}/Gemfile
 .if ! ${PORT_OPTIONS:MDB}
 	${REINPLACE_CMD} '/^group :db do/,/^end/d' ${WRKSRC}/Gemfile

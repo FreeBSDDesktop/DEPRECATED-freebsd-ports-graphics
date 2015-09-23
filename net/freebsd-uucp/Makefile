@@ -2,20 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	freebsd-uucp
-PORTVERSION=	1.07.3
-PORTREVISION=	1
+DISTVERSIONPREFIX=	r
+DISTVERSION=	1_07_3
+PORTREVISION=	3
 CATEGORIES=	net comms ipv6
 PKGNAMESUFFIX?=	${PAM_SUFFIX}${PKGNAMESUFFIX2}
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	FreeBSD-modified Taylor UUCP (unix-to-unix copy program)
 
-NEED_ROOT=	yes
+USES=		fakeroot
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	dinoex
-GH_TAGNAME=     r1_07_3
-GH_COMMIT=	6355e29
 
 PKGMESSAGE=	${WRKDIR}/pkg-message
 INFO=	uucp

@@ -2,17 +2,20 @@
 # $FreeBSD$
 
 PORTNAME=	mediawiki
-PORTVERSION=	1.19.23
+PORTVERSION=	1.19.24
 CATEGORIES=	www
 MASTER_SITES=	http://releases.wikimedia.org/mediawiki/${PORTVERSION:R}/
 PKGNAMESUFFIX=	119
 
 MAINTAINER=	wen@FreeBSD.org
-COMMENT=	The wiki engine used by Wikipedia
+COMMENT=	Wiki engine used by Wikipedia
 
 LICENSE=	GPLv2
 
-CONFLICTS=	mediawiki12[0-9]-*
+CONFLICTS=	mediawiki12[3-5]-[0-9]*
+
+DEPRECATED=		Please upgrade to mediawiki-1.25
+EXPIRATION_DATE=	2015-11-27
 
 USE_PHP=	ctype iconv mbstring pcre session xml zlib readline dom
 WANT_PHP_WEB=	yes
@@ -20,6 +23,9 @@ MEDIAWIKIDIR?=	www/mediawiki
 
 NO_BUILD=	yes
 PLIST=		${WRKDIR}/plist
+
+SUB_FILES=	pkg-message
+SUB_LIST=	MEDIAWIKIDIR=${PREFIX}/${MEDIAWIKIDIR}
 
 OPTIONS_DEFINE=	MYSQL PGSQL SQLITE LDAP MEMCACHED APC EACCEL XCACHE IMAGICK
 OPTIONS_DEFAULT=MYSQL
@@ -76,8 +82,5 @@ pre-install:
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/${MEDIAWIKIDIR}
 	${CP} -r ${WRKSRC}/ ${STAGEDIR}${PREFIX}/${MEDIAWIKIDIR}
-
-post-install:
-	@${SED} -e 's|%%MEDIAWIKIDIR%%|${PREFIX}/${MEDIAWIKIDIR}|' ${PKGMESSAGE}
 
 .include <bsd.port.mk>

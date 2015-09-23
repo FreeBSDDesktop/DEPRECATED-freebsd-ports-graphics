@@ -2,21 +2,22 @@
 # $FreeBSD$
 
 PORTNAME=	sxiv
-PORTVERSION=	1.2
+PORTVERSION=	1.3.1
+DISTVERSIONPREFIX=	v
 PORTREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	https://github.com/muennich/sxiv/archive/
-DISTNAME=	v${PORTVERSION}
 
 MAINTAINER=	solene@bsd.zplay.eu
 COMMENT=	Lightweight image viewer
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libImlib2.so:${PORTSDIR}/graphics/imlib2
+LIB_DEPENDS=	libImlib2.so:${PORTSDIR}/graphics/imlib2 \
+		libexif.so:${PORTSDIR}/graphics/libexif
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/
-USES=		pkgconfig
+USE_GITHUB=	yes
+GH_ACCOUNT=	muennich
+USES=		pkgconfig gmake
 USE_XORG=	x11
 
 PLIST_FILES=	bin/sxiv \

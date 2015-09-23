@@ -8,7 +8,7 @@ CATEGORIES=	games
 MASTER_SITES=	ftp://mancubus.net/pub/idgames/idstuff/source/ \
 		http://ftp.mancubus.net/pub/idgames/idstuff/source/ \
 		http://www.gamers.org/pub/idgames/idstuff/source/ \
-		${MASTER_SITE_IDSOFTWARE:S|$|source/|}
+		IDSOFTWARE/source/
 DISTNAME=	${PORTNAME}-${REALVERSION}-source
 
 MAINTAINER=	shirshegsm@gmail.com
@@ -87,8 +87,7 @@ MAKE_ENV+=	OPTIMIZED_CFLAGS=YES
 .endif
 
 .if ${PORT_OPTIONS:MTHREADS}
-MAKE_ENV+=	SMP=YES \
-		PTHREAD_LIBS="${PTHREAD_LIBS}"
+MAKE_ENV+=	SMP=YES
 PLIST_SUB+=	SMP=""
 Q3BIN+=		quake3-smp
 .else

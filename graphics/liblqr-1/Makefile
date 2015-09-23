@@ -33,9 +33,9 @@ SUB_LIST=	PORTSDIR=${PORTSDIR}
 .endif
 
 .if ${PORT_OPTIONS:MHTMLDOCS}
-BUILD_DEPENDS+=	${LOCALBASE}/bin/xsltproc:${PORTSDIR}/textproc/libxslt \
+BUILD_DEPENDS+=	xsltproc:${PORTSDIR}/textproc/libxslt \
 		${LOCALBASE}/share/xsl/docbook/xhtml/chunk.xsl:${PORTSDIR}/textproc/docbook-xsl \
-		${LOCALBASE}/share/xml/docbook/4.5:${PORTSDIR}/textproc/docbook-xml
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml
 PLIST_SUB=	HTMLDOCS=""
 .else
 PLIST_SUB=	HTMLDOCS="@comment "

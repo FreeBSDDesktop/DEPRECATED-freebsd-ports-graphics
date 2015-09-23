@@ -5,10 +5,8 @@ PORTNAME=	kio-upnp-ms
 DISTVERSION=	1.0.0.git20110808
 PORTREVISION=	5
 CATEGORIES=	net devel
-#MASTER_SITES=	${MASTER_SITE_KDE}
-#MASTER_SITE_SUBDIR=	stable/${PORTNAME}/${PORTVERSION}/src
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	fluffy
+#MASTER_SITES=	KDE/stable/${PORTNAME}/${PORTVERSION}/src
+MASTER_SITES=	LOCAL/fluffy
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KIO slave to access UPnP MediaServers
@@ -16,7 +14,7 @@ COMMENT=	KIO slave to access UPnP MediaServers
 LIB_DEPENDS=	libHUpnp.so:${PORTSDIR}/net/hupnp
 
 USES=		cmake tar:bzip2
-USE_KDE4=	automoc4 kdehier kdeprefix kdelibs
+USE_KDE4=	automoc4 kdeprefix kdelibs
 USE_QT4=	corelib network xml dbus gui \
 		qmake_build moc_build rcc_build uic_build
 

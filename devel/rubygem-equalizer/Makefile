@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	equalizer
-PORTVERSION=	0.0.9
+PORTVERSION=	0.0.11
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -10,6 +10,8 @@ MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Ruby library to define equality methods
 
 LICENSE=	MIT
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

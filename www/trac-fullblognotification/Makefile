@@ -4,8 +4,7 @@ PORTNAME=	fullblognotification
 PORTVERSION=	0.2.1
 PORTREVISION=	2
 CATEGORIES=	www devel python
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	brooks
+MASTER_SITES=	LOCAL/brooks
 PKGNAMEPREFIX=	trac-
 DISTNAME=	${PORTNAME}plugin-${PORTVERSION}
 DIST_SUBDIR=	trac
@@ -15,9 +14,8 @@ COMMENT=	Plugin that provides a project Blog
 
 RUN_DEPENDS+=	trac-fullblog>=0.1.1:${PORTSDIR}/www/trac-fullblog
 
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python:2
+USE_PYTHON=	distutils autoplist
 
 .if defined(BOOTSTRAP)
 do-fetch:

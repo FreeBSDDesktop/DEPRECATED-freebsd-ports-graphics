@@ -1,11 +1,11 @@
 # Created by: John Merryweather Cooper
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	security lang
 PKGNAMESUFFIX=	-hash
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Free Pascal unit for MD5 hash routines
 
 USE_FPC=	yes

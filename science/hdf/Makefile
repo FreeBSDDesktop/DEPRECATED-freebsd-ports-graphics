@@ -2,41 +2,47 @@
 # $FreeBSD$
 
 PORTNAME=	hdf
-DISTVERSION=	4.2.8
-PORTREVISION=	4
+PORTVERSION=	4.2.11
 PORTEPOCH=	1
 CATEGORIES=	science archivers graphics
-MASTER_SITES=	http://www.hdfgroup.org/ftp/HDF/releases/%SUBDIR%/
-MASTER_SITE_SUBDIR=	${PORTNAME:tu}${PORTVERSION}/src/
+MASTER_SITES=	http://www.hdfgroup.org/ftp/HDF/releases/HDF${PORTVERSION}/src/ \
+		ftp://ftp.hdfgroup.org/HDF/releases/HDF${PORTVERSION}/src/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Hierarchical Data Format library (from NCSA)
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libsz.so:${PORTSDIR}/science/szip
+LIB_DEPENDS=	libsz.so:${PORTSDIR}/science/szip
 
-CONFLICTS=	netcdf-*
+CONFLICTS_INSTALL=	netcdf-4.[0-9]*
 
+USES=		fortran jpeg libtool tar:bzip2
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-jpeg="${LOCALBASE}" \
-		--with-szlib="${LOCALBASE}" \
-		--enable-shared
-INSTALL_TARGET=	install-strip
-USES=		fortran libtool tar:bzip2
+CONFIGURE_ARGS=	--enable-shared --with-jpeg=${LOCALBASE} \
+		--with-szlib=${LOCALBASE}
 USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
 
-BROKEN_powerpc=	Does not compile on powerpc
+PORTDATA=	*
+PORTEXAMPLES=	*
+
+OPTIONS_DEFINE=	EXAMPLES
 
 post-patch:
-	@${REINPLACE_CMD} -e \
-		'/PROD_/s|=.*|=""|' ${WRKSRC}/config/freebsd
+	@${REINPLACE_CMD} -e '/PROD_/ s|=.*|=""|' ${WRKSRC}/config/freebsd
+# Allow to build on PowerPC
+	@${REINPLACE_CMD} -e '/if defined (__APPLE__)/ \
+		s,),) || defined(__powerpc__),' ${WRKSRC}/hdf/src/hdfi.h
+	@${REINPLACE_CMD} -e 's/ || (__APPLE__.*//' \
+		${WRKSRC}/hdf/test/fortest.c
 
 post-install:
-	${INSTALL_MAN} ${WRKSRC}/man/hdfunpac.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
-	${INSTALL_MAN} ${WRKSRC}/man/gr_chunk.3 ${STAGEDIR}${MAN3PREFIX}/man/man3
+	${INSTALL_MAN} ${WRKSRC}/man/hdfunpac.1 \
+		${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/man/gr_chunk.3 \
+		${STAGEDIR}${MAN3PREFIX}/man/man3
 
-check regression-test test: build
-	@(cd ${WRKSRC}/hdf/test && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} \
-		${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} check)
+regression-test: build
+	@${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} \
+		${MAKE_ARGS} check -C ${WRKSRC}/hdf/test
 
 .include <bsd.port.mk>

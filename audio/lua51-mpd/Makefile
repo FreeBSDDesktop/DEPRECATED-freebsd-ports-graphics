@@ -2,6 +2,7 @@
 
 PORTNAME=	mpd
 PORTVERSION=	0.1
+DISTVERSIONPREFIX=	v
 CATEGORIES=	audio
 PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
 
@@ -11,12 +12,10 @@ COMMENT=	Lua library for musicpd
 RUN_DEPENDS=	${LUA_MODLIBDIR}/socket/core.so:${PORTSDIR}/net/luasocket
 
 OPTIONS_DEFINE=	DOCS
-DOCSDIR=	${PREFIX}/share/doc/${UNIQUENAME}
+DOCSDIR=	${PREFIX}/share/doc/${PKGBASE}
 
 GH_ACCOUNT=	silentbicycle
 GH_PROJECT=	lua-mpd
-GH_TAGNAME=	v0.1
-GH_COMMIT=	ca32f43
 
 USES=		lua:51
 USE_GITHUB=	yes

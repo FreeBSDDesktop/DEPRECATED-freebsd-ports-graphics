@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	lablgl
-PORTVERSION=	20120306
-PORTREVISION=	3
+PORTVERSION=	1.05
+PORTEPOCH=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/dist/ \
-		https://forge.ocamlcore.org/frs/download.php/816/
+		https://forge.ocamlcore.org/frs/download.php/1254/
 PKGNAMEPREFIX=	ocaml-
 
 MAINTAINER=	bf@FreeBSD.org
@@ -14,16 +14,17 @@ COMMENT=	OpenGL interface for Objective Caml
 
 LICENSE=	BSD3CLAUSE
 
-CONFLICTS=	ocaml-notk-[0-9]* ocaml-nox11-[0-9]*
+CONFLICTS=	ocaml-nox11-[0-9]*
 
 USES=		gmake tk:84,85
 USE_XORG=	x11 xext xmu
 USE_GL=		glut
 USE_OCAML=	yes
 USE_OCAML_WASH=	yes
+USE_OCAML_CAMLP4=yes
+USE_OCAML_TK=	yes
 ALL_TARGET=	all opt
 MAKE_JOBS_UNSAFE=	yes
-WRKSRC=		${WRKDIR}/lablGL
 
 DOCSDIR=	${PREFIX}/share/doc/ocaml/lablgl
 EXAMPLESDIR=	${PREFIX}/share/examples/ocaml/lablgl
@@ -38,8 +39,7 @@ THREADS_DESC=	Threaded Tcl/Tk (must match lang/ocaml)
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MTHREADS}
-THR_CPP=	${PTHREAD_CFLAGS}
-THR_LD=		${PTHREAD_LIBS}
+THR_LD=		-lpthread
 .endif
 
 post-extract:
@@ -53,7 +53,7 @@ post-patch:
 		-e "s,^#\(LIBDIR[ \t]*=\).*,\1${PREFIX}/lib/ocaml,g" \
 		-e "s,^#\(DLLDIR[ \t]*=\).*,\1${STAGEDIR}${PREFIX}/lib/ocaml/stublibs,g" \
 		-e "s,^#\(INSTALLDIR[ \t]*=\).*,\1${STAGEDIR}${PREFIX}/lib/ocaml/lablGL,g" \
-		-e "s!^#\(COPTS[ \t]*=\).*!\1-c ${CFLAGS} ${THR_CPP}!g" \
+		-e "s!^#\(COPTS[ \t]*=\).*!\1-c ${CFLAGS}!g" \
 		-e "/^TKINCLUDES/s,=.*$$,= -I${TCL_INCLUDEDIR} -I${TK_INCLUDEDIR}," \
 		-e "/^TKLIBS/s,=.*$$,= -L${LOCALBASE}/lib -ltk${TK_SHLIB_VER}\
 		-ltcl${TCL_SHLIB_VER} ${THR_LD}," \

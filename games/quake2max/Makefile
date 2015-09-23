@@ -3,7 +3,7 @@
 
 PORTNAME=	quake2max
 PORTVERSION=	0.45
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	games
 MASTER_SITES=	http://www.bfeared.com/library/quake/archive/quakedev/qudos/quake2/engines/Quake2MaX/:src \
 		LOCAL/alepulver/:data
@@ -42,8 +42,8 @@ SDLGL_DESC=	Build SDL OpenGL renderer
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MGLX} || ${PORT_OPTIONS:MSDLGL}
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+USES+=		jpeg
 USE_GL=		glu
 .endif
 

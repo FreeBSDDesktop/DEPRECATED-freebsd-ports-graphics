@@ -3,20 +3,24 @@
 
 PORTNAME=	Crypt-Eksblowfish
 PORTVERSION=	0.009
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	security perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	brix@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl module for the Eksblowfish block cipher
 
-RUN_DEPENDS=	p5-Class-Mix>=0:${PORTSDIR}/devel/p5-Class-Mix \
-		p5-parent>=0:${PORTSDIR}/devel/p5-parent
-
-LICENSE_COMB=	dual
 LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Class-Mix>=0:${PORTSDIR}/devel/p5-Class-Mix
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
 USES=		perl5
 USE_PERL5=	modbuild
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Crypt/Eksblowfish/Eksblowfish.so
 
 .include <bsd.port.mk>

@@ -3,10 +3,11 @@
 
 PORTNAME=	lg
 PORTVERSION=	1.9.s20140622
-MASTER_SITES=	LOCAL/mat/lg GH GHC
+PORTREVISION=	1
+MASTER_SITES=	LOCAL/mat/lg GH
 CATEGORIES=	net-mgmt perl5
 
-MAINTAINER=	mat@freebsd.org
+MAINTAINER=	mat@FreeBSD.org
 COMMENT=	Looking Glass written in Perl as a CGI script
 
 LICENSE=	GPLv2
@@ -16,13 +17,14 @@ OPTIONS_DEFINE=	DOCS
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Cougar
-GH_COMMIT=	0d53e4b
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	0d53e4b
 
-USES=	perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	lg.cgi makeaslist.pl makedb.pl
 USE_PERL5=	run
 
 NO_BUILD=	yes
+NO_ARCH=	yes
 
 do-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}

@@ -2,15 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	openjdk6
-PORTVERSION=	b33
-PORTREVISION?=	0
+PORTVERSION=	b36
 PORTEPOCH=	1
 CATEGORIES=	java devel
-MASTER_SITES=	${MASTER_SITE_APACHE:S,%SUBDIR%/,ant/binaries/:ant,} \
+MASTER_SITES=	APACHE/ant/binaries/:ant \
 		http://download.java.net/openjdk/jtreg/promoted/4.1/b05/:jtreg \
 		https://java.net/downloads/openjdk6/ \
-		LOCAL
-MASTER_SITE_SUBDIR=	jkim
+		LOCAL/jkim
 DISTNAME=	openjdk-6-src-${PORTVERSION}-${OPENJDK_BUILDDATE}
 DISTFILES=	${ANTFILE}:ant \
 		${DISTNAME}${EXTRACT_SUFX}
@@ -28,9 +26,9 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/zip:${PORTSDIR}/archivers/zip \
 		${LOCALBASE}/include/cups/cups.h:${PORTSDIR}/print/cups-client
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2
 RUN_DEPENDS=	javavm:${PORTSDIR}/java/javavmwrapper \
-		${LOCALBASE}/lib/X11/fonts/dejavu:${PORTSDIR}/x11-fonts/dejavu
+		dejavu>0:${PORTSDIR}/x11-fonts/dejavu
 
-OPENJDK_BUILDDATE=	14_oct_2014
+OPENJDK_BUILDDATE=	22_jul_2015
 
 OPTIONS_DEFINE=	ICEDTEA IPV6 POLICY SOUND TZUPDATE
 OPTIONS_DEFAULT=ICEDTEA IPV6 TZUPDATE
@@ -79,7 +77,7 @@ CATEGORIES+=	ipv6
 .endif
 
 .if ${PORT_OPTIONS:MTZUPDATE}
-RUN_DEPENDS+=  ${LOCALBASE}/share/java/zi:${PORTSDIR}/java/java-zoneinfo
+RUN_DEPENDS+=	java-zoneinfo>0:${PORTSDIR}/java/java-zoneinfo
 .endif
 
 # avoid ARCH in MAKEFLAGS, breaks build
@@ -142,6 +140,10 @@ MAKE_ENV+=	SKIP_FASTDEBUG_BUILD=true
 MAKE_ENV+=	DONT_ENABLE_IPV6="YES"
 .endif
 
+.if ${PORT_OPTIONS:MPOLICY}
+MAKE_ENV+=	UNLIMITED_CRYPTO="YES"
+.endif
+
 .if ${PORT_OPTIONS:MSOUND}
 EXTRA_PATCHES+=	${FILESDIR}/alsa-enable.patch
 LIB_DEPENDS+=	libasound.so:${PORTSDIR}/audio/alsa-lib
@@ -153,7 +155,7 @@ EXTRA_PATCHES+=	${FILESDIR}/alsa-disable.patch
 .if ${PORT_OPTIONS:MTEST}
 DISTFILES+=	${JTREGFILE}:jtreg
 EXTRACT_ONLY+=	${JTREGFILE}
-BUILD_DEPENDS+=	${LOCALBASE}/lib/X11/fonts/dejavu:${PORTSDIR}/x11-fonts/dejavu
+BUILD_DEPENDS+=	dejavu>0:${PORTSDIR}/x11-fonts/dejavu
 USES+=		display:test
 .else
 EXTRA_PATCHES+=	${FILESDIR}/test_gamma-disable.patch
@@ -182,6 +184,18 @@ COPYFILES=	\
 
 .include <bsd.port.pre.mk>
 
+.if ${COMPILER_TYPE} == clang
+.if ${COMPILER_VERSION} >= 35
+MAKE_ENV+=	COMPILER_WARNINGS_FATAL=false
+.endif
+MAKE_ENV+=	USE_CLANG=true
+.endif
+
+# GCC is broken with PCH: https://lists.freebsd.org/pipermail/svn-src-all/2015-March/101722.html
+.if ${COMPILER_TYPE} == gcc
+MAKE_ENV+=	USE_PRECOMPILED_HEADER=0
+.endif
+
 .if empty(ICONV_LIB)
 ICONV_CPPFLAGS=	-DLIBICONV_PLUG
 .else
@@ -189,13 +203,6 @@ ICONV_CPPFLAGS=	-I${LOCALBASE}/include
 ICONV_LDFLAGS=	-L${LOCALBASE}/lib ${ICONV_LIB}
 .endif
 ZLIB_LDFLAGS?=	-lz
-
-.if ${COMPILER_TYPE} == "clang"
-.if ${COMPILER_VERSION} >= 35
-MAKE_ENV+=	COMPILER_WARNINGS_FATAL=false
-.endif
-MAKE_ENV+=	USE_CLANG=true
-.endif
 
 post-extract:
 	@for d in ${COPYDIRS}; do \
@@ -248,13 +255,6 @@ post-patch:
 	    ${WRKSRC}/hotspot/src/os/bsd/vm/os_bsd.cpp \
 	    ${WRKSRC}/jdk/src/share/classes/com/sun/java/swing/plaf/gtk/Metacity.java \
 	    ${WRKSRC}/jdk/src/share/classes/sun/print/PSPrinterJob.java
-.if ${PORT_OPTIONS:MPOLICY}
-	@${REINPLACE_CMD} -e 's|%%POLICY%%|unlimited|' \
-	    ${WRKSRC}/jdk/make/javax/crypto/Makefile
-.else
-	@${REINPLACE_CMD} -e 's|%%POLICY%%|limited|' \
-	    ${WRKSRC}/jdk/make/javax/crypto/Makefile
-.endif
 .if defined(BUILD_JRE)
 	@${REINPLACE_CMD} -e "s|%%JAVA_HOME%%|${PREFIX}/openjdk6-jre|" \
 	    ${WRKSRC}/hotspot/src/os/posix/launcher/java_md.c \

@@ -5,12 +5,12 @@ PORTNAME=	alsa-lib
 PORTVERSION=	1.0.21
 PORTREVISION=	5
 CATEGORIES=	audio linux
-MASTER_SITES=	CRITICAL/rpm/${LINUX_RPM_ARCH}/fedora/${LINUX_DIST_VER}
+MASTER_SITES=	LOCAL/ehaupt/rpm/${LINUX_RPM_ARCH}/fedora/${LINUX_DIST_VER}
 
 MAINTAINER=	emulation@FreeBSD.org
 COMMENT=	Advanced Linux Sound Architecture libraries (Linux Fedora 10)
 
-RUN_DEPENDS=	${LOCALBASE}/etc/asound.conf:${PORTSDIR}/audio/alsa-lib
+RUN_DEPENDS=	alsa-lib>0:${PORTSDIR}/audio/alsa-lib
 
 CONFLICTS=	linux-alsa-lib-[0-9]* linux-f8-alsa-lib-[0-9]*
 

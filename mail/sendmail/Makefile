@@ -1,10 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	sendmail
-PORTVERSION=	8.15.1
+PORTVERSION=	8.15.2
 CATEGORIES=	mail ipv6
-MASTER_SITES=	ftp://ftp.sendmail.org/pub/sendmail/ \
-		${MASTER_SITE_RINGSERVER:S,%SUBDIR%,net/mail/sendmail/&,}
+MASTER_SITES=	ftp://ftp.sendmail.org/pub/sendmail/
 PKGNAMESUFFIX?=	${TLS_SUFFIX}${SASL_SUFFIX}${LDAP_SUFFIX}${BDB_SUFFIX}${PKGNAMESUFFIX2}
 DISTNAME=	${PORTNAME}.${PORTVERSION}
 
@@ -12,22 +11,31 @@ MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	Reliable, highly configurable mail transfer agent with utilities
 
 CONFLICTS?=	courier-0.* postfix-1.* postfix-2.* smail-3.* zmailer-2.* opensmtpd-*
-NEED_ROOT=	yes
 
+USERS=		smmsp
+GROUPS=		smmsp
+
+USES=		cpe uidfix
+MAKE_ARGS=	UBINOWN=${UID} UBINGRP=${GID} \
+		SBINOWN=${UID} SBINGRP=${GID} \
+		GBINOWN=${UID} GBINGRP=${GID} \
+		MANOWN=${UID} MANGRP=${GID} \
+		LIBMODE=0644 UBINMODE=0755 GBINMODE=2755
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+DOCS=		KNOWNBUGS LICENSE PGPKEYS README RELEASE_NOTES \
+		sendmail/TRACEFLAGS sendmail/SECURITY sendmail/TUNING
+PLIST_SUB+=	PREFIX=${PREFIX:S=${PREFIX}/==} MANPREFIX=${MANPREFIX:S=$=/=:S=${PREFIX}==:S=^/==}
+PKGMESSAGE=	${WRKSRC}/pkg-message
+
 WCONF=		${WRKSRC}/devtools/Site
 SITE=		${FILESDIR}/site.config.m4.pre4
 PLIST=		${WRKDIR}/.PLIST.more
-DOCS=		KNOWNBUGS LICENSE PGPKEYS README RELEASE_NOTES \
-		sendmail/TRACEFLAGS sendmail/SECURITY sendmail/TUNING
 LMAN1=		mailq.1 newaliases.1 vacation.1
 LMAN5=		aliases.5
 LMAN8=		sendmail.8 mailstats.8 makemap.8 praliases.8 smrsh.8 \
 		mail.local.8 rmail.8 editmap.8
 SENDMAIL=	${PREFIX}/sbin/sendmail
 BASEMAIL=	/usr/libexec/sendmail/sendmail
-PLIST_SUB+=	PREFIX=${PREFIX:S=${PREFIX}/==} MANPREFIX=${MANPREFIX:S=$=/=:S=${PREFIX}==:S=^/==}
-PKGMESSAGE=	${WRKSRC}/pkg-message
 MILTER_SOVER?=	6
 
 OPTIONS_DEFINE?=	SHMEM SEM LA NIS IPV6 TLS SASL SASLAUTHD LDAP BDB SOCKETMAP CYRUSLOOKUP PICKY_HELO_CHECK MILTER MILTER_SHARED MILTER_POOL TLSEXT_PADDING DOCS
@@ -122,8 +130,7 @@ PLIST_SUB+=	MILTER_SHARED="@comment "
 .endif
 .endif
 
-SED_SCRIPT=	-e "s|\`-pthread\'|\`${PTHREAD_LIBS}\'|" \
-		-e "s|\`-O\'|\`${CFLAGS}\'|" \
+SED_SCRIPT=	-e "s|\`-O\'|\`${CFLAGS}\'|" \
 		-e 's|%%CC%%|${CC}|' -e 's|%%LD%%|${LD}|'
 
 .if ! ${PORT_OPTIONS:MNIS}
@@ -210,14 +217,8 @@ pre-install:
 .if ${PORT_OPTIONS:MMILTER}
 	@${CAT} ${FILESDIR}/pkg-milter >>${PLIST}
 .endif
-	if ! pw groupshow smmsp; then pw groupadd smmsp -g 25; fi
-	if ! pw usershow smmsp; then pw useradd smmsp -g smmsp -u 25 \
-		-h - -d /nonexistent -s /nonexistent -c "Sendmail Queue"; fi
 	@cd ${WRKSRC} && ${FIND} cf -type f | \
 	${AWK} '{print "share/sendmail/" $$1}' >>${PLIST}
-	@cd ${WRKSRC} && ${FIND} -d cf -type d | \
-	${AWK} '{print "@dirrm share/sendmail/" $$1}' >>${PLIST}
-	@${ECHO_CMD} "@dirrm share/sendmail" >>${PLIST}
 .if ${PORT_OPTIONS:MDOCS}
 .for i in ${DOCS}
 	@${ECHO_CMD} `${BASENAME} ${i}` | \
@@ -226,7 +227,6 @@ pre-install:
 .if ${PORT_OPTIONS:MCYRUSLOOKUP}
 	@${ECHO_CMD} "share/doc/sendmail/CYRUS_LOOKUP" >>${PLIST}
 .endif
-	@${ECHO_CMD} "@dirrm %%DOCSDIR%%" >>${PLIST}
 .endif
 
 # We want mail.local and rmail for our system.
@@ -245,7 +245,7 @@ post-install:
 	 ${WRKSRC}/obj.`${WRKSRC}/devtools/bin/Build -A`/libmilter/libmilter.a \
 	 ${STAGEDIR}${PREFIX}/lib/
 .if ${PORT_OPTIONS:MMILTER_SHARED}
-	${INSTALL_SCRIPT} \
+	${INSTALL_LIB} \
 	 ${WRKSRC}/obj.`${WRKSRC}/devtools/bin/Build -A`/libsharedmilter/libmilter.so \
 	 ${STAGEDIR}${PREFIX}/lib/libmilter.so.${MILTER_SOVER}
 	${LN} -sf libmilter.so.${MILTER_SOVER} \
@@ -283,6 +283,11 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/CYRUS_LOOKUP ${STAGEDIR}${DOCSDIR}/CYRUS_LOOKUP
 .endif
 .endif
+	${RM} ${STAGEDIR}${PREFIX}/man/cat*/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vacation
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rmail
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/*
 
 mailer.base:
 	@${SED} \

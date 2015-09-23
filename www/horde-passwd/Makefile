@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	passwd
-PORTVERSION=	5.0.2
+PORTVERSION=	5.0.3
 CATEGORIES=	www pear
 PKGNAMEPREFIX=	horde-
 
@@ -11,7 +11,7 @@ COMMENT=	Horde password changing application
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=	horde
+USES=	horde cpe
 USE_PHP=	gettext
 USE_HORDE_BUILD=	Horde_Role
 USE_HORDE_RUN=	Horde_Role \

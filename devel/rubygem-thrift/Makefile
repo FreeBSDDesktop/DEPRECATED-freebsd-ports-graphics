@@ -10,6 +10,10 @@ MASTER_SITES=	RG
 MAINTAINER=	komarov@valerka.net
 COMMENT=	Ruby interface to thrift
 
+LICENSE=	APACHE20
+
+BROKEN_RUBY22=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

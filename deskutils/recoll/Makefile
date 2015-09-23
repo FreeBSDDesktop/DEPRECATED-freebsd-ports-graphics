@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	recoll
-PORTVERSION=	1.19.14
-PORTREVISION=	2
+PORTVERSION=	1.21.0
+PORTREVISION=	1
 CATEGORIES=	deskutils
 MASTER_SITES=	http://www.lesbonscomptes.com/${PORTNAME}/
 
-MAINTAINER=	arved@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Personal full text search package, based on Xapian
 
 LICENSE=	GPLv2
@@ -21,8 +21,8 @@ RUN_DEPENDS:=	${BUILD_DEPENDS} \
 		unrar:${PORTSDIR}/archivers/unrar \
 		unrtf:${PORTSDIR}/textproc/unrtf
 
-USES=		gmake iconv shebangfix
-SHEBANG_FILES=	filters/rclimg desktop/hotrecoll.py
+USES=		bison gmake iconv shebangfix
+SHEBANG_FILES=	filters/rclimg filters/rclpdf desktop/hotrecoll.py
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-pic
 
@@ -49,7 +49,7 @@ LATEX_RUN_DEPENDS=	detex:${PORTSDIR}/print/detex \
 			dvips:${PORTSDIR}/print/tex-dvipsk
 PDF_RUN_DEPENDS=	xpdf:${PORTSDIR}/graphics/xpdf
 PS_RUN_DEPENDS=		pstotext:${PORTSDIR}/print/pstotext
-PYTHON_USE=		python=yes
+PYTHON_USES=		python
 PYTHON_CONFIGURE_ENABLE=	python-module
 QT4_USE=		qt4=moc_build,qmake_build,rcc_build,uic_build \
 			qt4=iconengines_run,imageformats_run \

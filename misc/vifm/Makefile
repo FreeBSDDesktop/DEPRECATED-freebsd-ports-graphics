@@ -2,31 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	vifm
-PORTVERSION=	0.7.7
+PORTVERSION=	0.8
+DISTVERSIONPREFIX=	v
 CATEGORIES=	misc
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}
 
-MAINTAINER=	kaspars@bankovskis.lv
+MAINTAINER=	mp39590@gmail.com
 COMMENT=	Ncurses based file manager with vi like keybindings
 
 LICENSE=	GPLv2
-LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake ncurses tar:bzip2
-USE_AUTOTOOLS=	autoconf
+USES=		desktop-file-utils gmake ncurses tar:bzip2
+GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--without-gtk
-MAKE_ARGS=	ACLOCAL="${TRUE}" AUTOCONF="${TRUE}" AUTOHEADER="${TRUE}" \
-		AUTOMAKE="${TRUE}"
 
-PLIST_FILES=	bin/vifm \
-		bin/vifmrc-converter \
-		bin/vifm-pause \
-		%%DATADIR%%/vifm-help.txt \
-		%%DATADIR%%/vifmrc \
-		share/applications/vifm.desktop \
-		share/pixmaps/vifm.png \
-		man/man1/vifm-pause.1.gz \
-		man/man1/vifm.1.gz \
-		man/man1/vifmrc-converter.1.gz
+USE_GITHUB=	yes
 
 .include <bsd.port.mk>

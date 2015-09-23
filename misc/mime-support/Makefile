@@ -2,15 +2,17 @@
 # $FreeBSD$
 
 PORTNAME=	mime-support
-PORTVERSION=	3.56
+PORTVERSION=	3.58
 CATEGORIES=	misc
-MASTER_SITES=	${MASTER_SITE_DEBIAN_POOL}
+MASTER_SITES=	DEBIAN_POOL
 DISTNAME=	${PORTNAME}_${PORTVERSION:C/([0-9]*\.[0-9]*)\.(.*)/\1-\2/}
 
 MAINTAINER=	oliver@FreeBSD.org
 COMMENT=	MIME Media Types list
 
-USES=		shebangfix
+USES=		cpe shebangfix
+
+CPE_VENDOR=	debian
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION:C/\.2$//}
 

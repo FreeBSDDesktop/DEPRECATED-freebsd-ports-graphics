@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	nenv
-PORTVERSION=	0.1.1
+PORTVERSION=	0.2.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,6 +11,7 @@ COMMENT=	Convenient wrapper for ENV
 
 LICENSE=	MIT
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	libsixel
-PORTVERSION=	1.4.1
+PORTVERSION=	1.4.13
+DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	graphics
 
@@ -13,8 +14,6 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	saitoha
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	151b261
 
 USE_LDCONFIG=	yes
 USES=		libtool pkgconfig
@@ -35,9 +34,9 @@ CURL_CONFIGURE_WITH=	libcurl
 GD_LIB_DEPENDS=		libgd.so:${PORTSDIR}/graphics/gd
 GD_CONFIGURE_WITH=	gd
 
-JPEG_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+JPEG_USES=		jpeg
 JPEG_CONFIGURE_WITH=	jpeg
-JPEG_CFLAGS=		-I${LOCALBASE}/include
+JPEG_CPPFLAGS=		-I${LOCALBASE}/include
 JPEG_LDFLAGS=		-L${LOCALBASE}/lib
 
 PIXBUF_LIB_DEPENDS=	libgdk_pixbuf-2.0.so:${PORTSDIR}/graphics/gdk-pixbuf2

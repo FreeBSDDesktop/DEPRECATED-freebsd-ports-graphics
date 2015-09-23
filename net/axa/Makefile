@@ -1,49 +1,45 @@
 # $FreeBSD$
 
 PORTNAME=	axa
-PORTVERSION=	1.0.0
+PORTVERSION=	1.2.0
+DISTVERSIONPREFIX=	tags/v
 CATEGORIES=	net dns
 
 MAINTAINER=	truckman@FreeBSD.org
 COMMENT=	AXA library and tools
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/copyright
 
 BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 		sie-nmsg>0:${PORTSDIR}/net/sie-nmsg
 LIB_DEPENDS=	libprotobuf-c.so:${PORTSDIR}/devel/protobuf-c \
 		libnmsg.so:${PORTSDIR}/net/nmsg \
 		libwdns.so:${PORTSDIR}/dns/wdns
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	farsightsec
-GH_COMMIT=	bf9c038
-GH_TAGNAME=	${GH_COMMIT}
+RUN_DEPENDS=	sie-nmsg>0:${PORTSDIR}/net/sie-nmsg
 
 GNU_CONFIGURE=	yes
-USES=		gmake libtool pathfix pkgconfig
-USE_AUTOTOOLS=	aclocal autoconf autoheader automake libtoolize
-AUTOMAKE_ARGS=	--add-missing
+USES=		autoreconf gmake libedit libtool pathfix pkgconfig
 CONFIGURE_SHELL=	${LOCALBASE}/bin/bash
-INSTALL_TARGET=	install-strip
+USE_GITHUB=	yes
+GH_ACCOUNT=	farsightsec
 USE_LDCONFIG=	yes
+USE_OPENSSL=	yes
+WITH_OPENSSL_PORT=	yes
 
 PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOXYGEN
 OPTIONS_DEFAULT=DOXYGEN
 
-.include <bsd.port.options.mk>
-
 ALL_TARGET=	all
-.if ${PORT_OPTIONS:MDOXYGEN}
-BUILD_DEPENDS+=	doxygen:${PORTSDIR}/devel/doxygen
-ALL_TARGET+=	html-local
-.endif
+INSTALL_TARGET=	install-strip
+DOXYGEN_BUILD_DEPENDS=	doxygen:${PORTSDIR}/devel/doxygen
+DOXYGEN_ALL_TARGET=	html-local
 
-.if ${PORT_OPTIONS:MDOXYGEN}
-post-install:
-	(cd ${WRKSRC}/doc/doxygen && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR})
-.endif
+LDFLAGS+=	-lm
+
+post-install-DOXYGEN-on:
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR})
 
 .include <bsd.port.mk>

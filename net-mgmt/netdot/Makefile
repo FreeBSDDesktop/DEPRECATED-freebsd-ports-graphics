@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	netdot
-PORTVERSION=	1.0.6
+PORTVERSION=	1.0.7
+PORTREVISION=	1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	http://netdot.uoregon.edu/pub/dists/
 
@@ -12,6 +13,7 @@ COMMENT=	Open source tool to organize and maintain network information
 LICENSE=	GPLv2
 
 RUN_DEPENDS=	p5-libapreq2>=0:${PORTSDIR}/www/p5-libapreq2 \
+		mp2bug:${PORTSDIR}/www/mod_perl2 \
 		p5-Apache-Session>=1.6:${PORTSDIR}/www/p5-Apache-Session \
 		p5-Apache-AuthCookie>=0:${PORTSDIR}/www/p5-Apache-AuthCookie \
 		p5-Apache2-SiteControl>=1.0:${PORTSDIR}/www/p5-Apache2-SiteControl \
@@ -39,7 +41,7 @@ RUN_DEPENDS=	p5-libapreq2>=0:${PORTSDIR}/www/p5-libapreq2 \
 		rrdtool:${PORTSDIR}/databases/rrdtool \
 		netdisco-mibs>=0:${PORTSDIR}/net-mgmt/netdisco-mibs
 
-USES=		gmake perl5
+USES=		gmake perl5 shebangfix
 NO_BUILD=	yes
 USE_MYSQL=	yes
 
@@ -49,6 +51,11 @@ SUB_LIST=	WWWDIR="${WWWDIR}"	\
 		WWWGRP="${WWWGRP}"	\
 		CHOWN="${CHOWN}"	\
 		CHMOD="${CHMOD}"
+
+SHEBANG_FILES=	bin/*.pl bin/initdb upgrade/upgrade-tasks
+SHEBANG_LANG=	perl perl2
+perl2_OLD_CMD=	<<Make:PERL>>
+perl2_CMD=	${LOCALBASE}/bin/perl
 
 .include <bsd.port.pre.mk>
 

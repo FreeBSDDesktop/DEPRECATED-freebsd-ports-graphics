@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pyro
-PORTVERSION=	4.26
+PORTVERSION=	4.39
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,20 +12,20 @@ MAINTAINER=	rm@FreeBSD.org
 COMMENT=	Distributed Object Middleware for Python(IPC/RPC)
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}serpent>=1.6:${PORTSDIR}/devel/py-serpent
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}serpent>=1.11:${PORTSDIR}/devel/py-serpent
 
+NO_ARCH=	yes
 USES=		dos2unix python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist concurrent distutils
 
-DOCSDIR=	${PREFIX}/share/doc/${PYTHON_PKGNAMEPREFIX}${PORTNAME}
-EXAMPLESDIR=	${PREFIX}/share/examples/${PYTHON_PKGNAMEPREFIX}${PORTNAME}
 PORTDOCS=	*
 PORTEXAMPLES=	*
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+	(cd ${WRKSRC}/docs/source && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
 

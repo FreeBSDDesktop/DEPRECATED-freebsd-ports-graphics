@@ -5,9 +5,8 @@ PORTNAME=	freebsd
 PORTVERSION=	0.9.3
 PORTREVISION=	6
 CATEGORIES=	devel python
-MASTER_SITES=	${MASTER_SITE_LOCAL} \
+MASTER_SITES=	LOCAL/perky \
 		http://people.freebsd.org/~perky/distfiles/
-MASTER_SITE_SUBDIR=	perky
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	py-freebsd-${PORTVERSION}
 
@@ -19,11 +18,6 @@ USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.pre.mk>
 
-# Multi-IPv4/v6/no-IP jails.
-.if ${OSVERSION} >= 800056 || \
-    (${OSVERSION} < 800000 && ${OSVERSION} >= 701103)
-EXTRA_PATCHES+=	${FILESDIR}/freebsd8_patch-src-jail.c
-.endif
 .if ${OSVERSION} >= 900030
 EXTRA_PATCHES+=	${FILESDIR}/freebsd9_patch-src-sysctl.c
 .endif

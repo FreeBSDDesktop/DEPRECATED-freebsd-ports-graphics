@@ -3,7 +3,7 @@
 
 PORTNAME=	flphoto
 PORTVERSION=	1.3.1
-PORTREVISION=	9
+PORTREVISION=	11
 CATEGORIES=	graphics
 MASTER_SITES=	SF/fltk/${PORTNAME}/${PORTVERSION}
 DISTNAME=	${PORTNAME}-${PORTVERSION}-source
@@ -15,7 +15,7 @@ LICENSE=	GPLv2
 
 LIB_DEPENDS=	libgphoto2.so:${PORTSDIR}/graphics/libgphoto2 \
 		libfltk.so:${PORTSDIR}/x11-toolkits/fltk \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
@@ -23,7 +23,6 @@ USES=		tar:bzip2
 USE_XORG=	xinerama
 GNU_CONFIGURE=	yes
 OPTIONS_DEFINE=	DOCS
-BROKEN_powerpc=	Does not install on powerpc
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|@OPTIM@|-DHAVE_CONFIG_H|g' ${WRKSRC}/Makefile.in

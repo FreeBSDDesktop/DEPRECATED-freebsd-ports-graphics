@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	unfoo
-PORTVERSION=	1.0.6
+PORTVERSION=	1.0.7
+DISTVERSIONPREFIX=	v
 CATEGORIES=	archivers
-MASTER_SITES=	CENKES
-#http://obsoleet.org/code/unfoo/unfoo-1.0.6.sh
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tiny sh(1) wrapper to simplify decompression of files
@@ -15,8 +14,11 @@ RUN_DEPENDS=	unace:${PORTSDIR}/archivers/unace \
 		unzip:${PORTSDIR}/archivers/unzip \
 		7z:${PORTSDIR}/archivers/p7zip
 
+USE_GITHUB=	yes
+GH_ACCOUNT=	vitaminmoo
+
 NO_BUILD=	yes
-USES=		tar:bzip2
+NO_ARCH=	yes
 PLIST_FILES=	bin/${PORTNAME}
 
 post-patch:

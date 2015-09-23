@@ -22,6 +22,7 @@ BAD_GST_ALL_PLUGINS+= \
 		flite \
 		gme \
 		gsm \
+		hls \
 		kate \
 		libmms \
 		librfb \
@@ -267,11 +268,15 @@ gst_gme_LIB_DEPENDS=	libgme.so:${PORTSDIR}/audio/libgme
 # gsm
 gst_gsm_LIB_DEPENDS=	libgsm.so:${PORTSDIR}/audio/gsm
 
+# hls
+gst_hls_LIB_DEPENDS=	libnettle.so:${PORTSDIR}/security/nettle
+gst_hls_PLIST_FILES=	${GST_LIB_DIR}/libgstfragmented.so
+
 # jack
 gst_jack_LIB_DEPENDS=	libjack.so:${PORTSDIR}/audio/jack
 
 # jpeg
-gst_jpeg_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+gst_jpeg_USES=		jpeg
 
 # kate
 gst_kate_LIB_DEPENDS=	libkate.so:${PORTSDIR}/multimedia/libkate
@@ -288,7 +293,7 @@ gst_libmms_LIB_DEPENDS=	libmms.so:${PORTSDIR}/net/libmms
 gst_libmms_PLIST_FILES=	${GST_LIB_DIR}/libgstmms.so
 
 # png
-gst_libpng_LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+gst_libpng_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 gst_libpng_PLIST_FILES=	${GST_LIB_DIR}/libgstpng.so
 
 # libvisual
@@ -307,7 +312,7 @@ gst_mpeg2enc_LIB_DEPENDS=	libmjpegutils.so:${PORTSDIR}/multimedia/mjpegtools
 gst_mpeg2dec_LIB_DEPENDS=	libmpeg2.so:${PORTSDIR}/multimedia/libmpeg2
 
 # neon
-gst_neon_LIB_DEPENDS+=  libneon.so:${PORTSDIR}/www/neon29
+gst_neon_LIB_DEPENDS+=  libneon.so:${PORTSDIR}/www/neon
 gst_neon_PLIST_FILES=	${GST_LIB_DIR}/libgstneonhttpsrc.so
 
 # ogg
@@ -428,6 +433,7 @@ gst_zbar_LIB_DEPENDS=	libzbar.so:${PORTSDIR}/graphics/zbar
 gst_${GST_PLUGIN}_BUILD_DEPENDS?=
 gst_${GST_PLUGIN}_LIB_DEPENDS?=
 gst_${GST_PLUGIN}_RUN_DEPENDS?=
+gst_${GST_PLUGIN}_USES?=
 gst_${GST_PLUGIN}_USE_XORG?=
 gst_${GST_PLUGIN}_PLIST_FILES?= \
 		${GST_LIB_DIR}/libgst${GST_PLUGIN}${GST_PLIST_SUFFIX}.so
@@ -445,6 +451,7 @@ gst_${GST_PLUGIN}_USE_GSTREAMER1?=
 BUILD_DEPENDS+=	${gst_${GST_PLUGIN}_BUILD_DEPENDS}
 LIB_DEPENDS+=	${gst_${GST_PLUGIN}_LIB_DEPENDS}
 RUN_DEPENDS+=	${gst_${GST_PLUGIN}_RUN_DEPENDS}
+USES+=		${gst_${GST_PLUGIN}_USES}
 PLIST_FILES=	${gst_${GST_PLUGIN}_PLIST_FILES}
 EXTRA_LIBS+=	${gst_${GST_PLUGIN}_EXTRA_LIBS}
 USE_XORG+=	${gst_${GST_PLUGIN}_USE_XORG}

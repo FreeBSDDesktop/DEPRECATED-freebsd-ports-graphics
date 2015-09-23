@@ -3,14 +3,14 @@
 
 PORTNAME=	Apache-Gallery
 PORTVERSION=	1.0.2
-PORTREVISION=	4
+PORTREVISION=	5
 PORTEPOCH=	3
 CATEGORIES=	www perl5
 MASTER_SITES=	http://apachegallery.dk/download/ \
 		CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	brix@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Apache::Gallery - mod_perl handler to create an image gallery
 
 LICENSE=	ART10
@@ -21,12 +21,13 @@ BUILD_DEPENDS=	p5-URI>=0:${PORTSDIR}/net/p5-URI \
 		p5-Image-Size>=0:${PORTSDIR}/graphics/p5-Image-Size \
 		p5-Image-Imlib2>=0:${PORTSDIR}/graphics/p5-Image-Imlib2 \
 		p5-libapreq2>=0:${PORTSDIR}/www/p5-libapreq2 \
-		p5-CGI.pm>=0:${PORTSDIR}/www/p5-CGI.pm
+		p5-CGI>=0:${PORTSDIR}/www/p5-CGI
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
 USE_APACHE=	22+
+NO_ARCH=	yes
 
 DOC_FILES=	INSTALL LICENSE README TODO UPGRADE
 

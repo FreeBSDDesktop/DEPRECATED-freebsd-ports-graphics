@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	orc
-PORTVERSION=	0.4.22
+PORTVERSION=	0.4.24
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES= 	http://gstreamer.freedesktop.org/data/src/orc/
 

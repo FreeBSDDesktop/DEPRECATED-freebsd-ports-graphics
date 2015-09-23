@@ -2,7 +2,7 @@
 
 PORTNAME=	baresip
 PORTVERSION=	0.4.8
-PORTREVISION=	2
+PORTREVISION=	4
 CATEGORIES=	audio
 MASTER_SITES=	http://www.creytiv.com/pub/
 
@@ -17,6 +17,7 @@ BUILD_DEPENDS=	re>=0.4.6:${PORTSDIR}/audio/re \
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		gmake pkgconfig
+USE_OPENSSL=	yes
 CFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/ilbc
 MAKE_ARGS=	MOD_AUTODETECT=""
 PLIST_FILES=	bin/baresip
@@ -107,7 +108,7 @@ post-patch:
 	${ECHO_CMD} '	@${ECHO_CMD} $$(MODULES)' >> ${WRKSRC}/Makefile
 	${REINPLACE_CMD} 's,-lcelt[0-9]*,$$(pkg-config --libs celt),' \
 		${WRKSRC}/modules/celt/module.mk
-	${REINPLACE_CMD} 's,-lportaudio[0-9]*,-L${LOCALBASE}/lib/portaudio2 -lportaudio,' \
+	${REINPLACE_CMD} 's,-lportaudio[0-9]*,-L${LOCALBASE}/lib -lportaudio,' \
 		${WRKSRC}/modules/portaudio/module.mk
 
 do-install:
@@ -123,8 +124,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/baresip/modules; \
 	   ${ECHO_CMD} lib/${PORTNAME}/modules/$$m.so >> ${TMPPLIST}; \
 	done
-	${ECHO_CMD} "@dirrm lib/baresip/modules" >> ${TMPPLIST}
-	${ECHO_CMD} "@dirrm lib/baresip" >> ${TMPPLIST}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/docs/* ${STAGEDIR}${DOCSDIR}
 

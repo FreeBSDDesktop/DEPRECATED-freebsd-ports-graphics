@@ -3,11 +3,10 @@
 
 PORTNAME=	basicdsp
 PORTVERSION=	1.01
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	cad hamradio
 MASTER_SITES=	http://wwwhome.cs.utwente.nl/~ptdeboer/ham/basicdsp/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	db
+		LOCAL/db
 
 MAINTAINER=	db@FreeBSD.org
 COMMENT=	Program for experimenting with simple audio DSP algorithms

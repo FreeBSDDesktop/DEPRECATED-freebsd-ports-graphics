@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	NetPIPE
-PORTVERSION=	3.7.1
+PORTVERSION=	3.7.2
 CATEGORIES=	benchmarks net
-MASTER_SITES=	http://www.scl.ameslab.gov/Projects/Netpipe/code/
+MASTER_SITES=	http://bitspjoule.org/netpipe/code/
 
 MAINTAINER=	skreuzer@FreeBSD.org
 COMMENT=	Self-scaling network benchmark

@@ -4,6 +4,7 @@
 
 PORTNAME=	xfce4-bsdcpufreq-plugin
 PORTVERSION=	0.2
+PORTREVISION=	1
 CATEGORIES=	sysutils xfce
 
 MAINTAINER=	riggs@FreeBSD.org
@@ -14,16 +15,12 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	riggs-
-GH_COMMIT=	be17b3a
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	be17b3a
 
 USE_GNOME=	gtk20
 
-USES=		pkgconfig
-
-LIB_DEPENDS+=	libxfce4util.so:${PORTSDIR}/x11/libxfce4util \
-		libxfce4panel-1.0.so:${PORTSDIR}/x11-wm/xfce4-panel \
-		libxfce4ui-1.so:${PORTSDIR}/x11/libxfce4menu
+USES=		pkgconfig xfce
+USE_XFCE=	panel
 
 PLIST_FILES=	lib/xfce4/panel/plugins/libbsdcpufreq.so \
 		share/xfce4/panel/plugins/bsdcpufreq.desktop

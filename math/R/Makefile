@@ -3,7 +3,7 @@
 
 PORTNAME?=	R
 PORTVERSION=	3.0.2
-PORTREVISION=	3
+PORTREVISION=	7
 CATEGORIES=	math lang
 MASTER_SITES=	http://cran.r-project.org/%SUBDIR%/ \
 		ftp://cran.r-project.org/pub/R/%SUBDIR%/ \
@@ -22,8 +22,7 @@ MASTER_SITES=	http://cran.r-project.org/%SUBDIR%/ \
 MASTER_SITE_SUBDIR=	src/base/R-${PORTVERSION:C|\..*||}
 DISTNAME=	R-${PORTVERSION}
 
-PATCH_SITES=		${MASTER_SITE_LOCAL}
-PATCH_SITE_SUBDIR=	bf
+PATCH_SITES=		LOCAL/bf
 PATCHFILES=		R-patched-20131112-r64207.diff.bz2
 
 MAINTAINER=	bf@FreeBSD.org
@@ -90,6 +89,10 @@ X11_DESC=		X11() graphics device
 
 OPTIONS_DEFAULT+=	GHOSTSCRIPT INFO_MANUALS JPEG LIBR PANGOCAIRO PNG \
 			TCLTK TIFF X11
+
+OPTIONS_DEFAULT_armv6+=		MISSING
+OPTIONS_DEFAULT_powerpc+=	MISSING
+OPTIONS_DEFAULT_powerpc64+=	MISSING
 
 .endif # !LIBR_SLAVEPORT
 PLIST_SUB=		R_SOVERSION="${R_SOVERSION}" \
@@ -193,11 +196,11 @@ USES+=			readline
 .else # LIBR_SLAVEPORT
 
 .if ${PORT_OPTIONS:MGHOSTSCRIPT}
-USE_GHOSTSCRIPT_RUN=	yes
+USES+=			ghostscript
 .endif
 
 .if ${PORT_OPTIONS:MJPEG}
-LIB_DEPENDS+=		libjpeg.so:${PORTSDIR}/graphics/jpeg
+USES+=			jpeg
 CONFIGURE_ARGS+=	--with-jpeglib
 .else
 CONFIGURE_ARGS+=	--without-jpeglib
@@ -224,7 +227,7 @@ PLIST_SUB+=		PANGOCAIRO="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MPNG}
-LIB_DEPENDS+=		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=		libpng.so:${PORTSDIR}/graphics/png
 CONFIGURE_ARGS+=	--with-libpng
 .else
 CONFIGURE_ARGS+=	--without-libpng
@@ -312,9 +315,6 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|(libdir)/pkgconfig|(prefix)/libdata/pkgconfig|g' \
 		${WRKSRC}/src/nmath/standalone/Makefile.in \
 		${WRKSRC}/src/unix/Makefile.in
-	@${REINPLACE_CMD} -e "s|-lpthread|${PTHREAD_LIBS}|g" \
-		${WRKSRC}/configure \
-		${WRKSRC}/src/scripts/javareconf.in
 	@${REINPLACE_CMD} -e "s|/usr/local|${LOCALBASE}|g" \
 		${WRKSRC}/configure \
 		${WRKSRC}/src/library/profile/Rprofile.unix \
@@ -349,7 +349,7 @@ do-build:
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/R/lib
-	@${INSTALL_LIB} ${WRKSRC}/src/main/libR.a ${STAGEDIR}${PREFIX}/lib/R/lib
+	@${INSTALL_DATA} ${WRKSRC}/src/main/libR.a ${STAGEDIR}${PREFIX}/lib/R/lib
 
 .else # LIBR_SLAVEPORT
 

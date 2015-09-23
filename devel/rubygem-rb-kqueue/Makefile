@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	rb-kqueue
-PORTVERSION=	0.2.3
+PORTVERSION=	0.2.4
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -13,6 +13,7 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	rubygem-ffi>=0.5.0:${PORTSDIR}/devel/rubygem-ffi
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

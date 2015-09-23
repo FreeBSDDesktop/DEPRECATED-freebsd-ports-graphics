@@ -2,33 +2,31 @@
 
 PORTNAME=	transmission
 PORTVERSION=	2.84
-PORTREVISION?=	1
+PORTREVISION?=	3
 CATEGORIES?=	net-p2p
 #MASTER_SITES=	http://download.m0k.org/${PORTNAME}/files/
 MASTER_SITES=	http://transmission.cachefly.net/
 PKGNAMESUFFIX?=	-cli
 
-MAINTAINER?=	crees@FreeBSD.org
+MAINTAINER?=	jbeich@FreeBSD.org
 COMMENT?=	Lightweight CLI (command line) BitTorrent client and utilities
 
 SLAVEPORT?=	cli
 
-# Odd arrangement here-- cli is MIT, everything else is GPL
-.if ${SLAVEPORT} == cli
-LICENSE=	MIT
-.else
 LICENSE=	GPLv2
+.if ${SLAVEPORT} == cli
+LICENSE+=	MIT
+LICENSE_COMB=	multi
 .endif
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES+=		tar:xz
+USES+=		cpe tar:xz
+CPE_VENDOR=	transmissionbt
 
 CONFLICTS_INSTALL=	${PORTNAME}${PKGNAMESUFFIX}-2.5*
 
 OPTIONS_DEFINE=	LITE DOCS
 EXTRACT_AFTER_ARGS=--no-same-owner --no-same-permissions --exclude third-party
-
-.include <bsd.port.options.mk>
 
 .if ${SLAVEPORT} != web
 LIB_DEPENDS?=	${GEN_LIB_DEPENDS}
@@ -50,6 +48,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include -DWITH_UTP=1
 LDFLAGS+=	-L${LOCALBASE}/lib
 LIBS+=		${ICONV_LIB}
 CONFIGURE_ARGS=--with-zlib=/usr \
+		 --without-inotify \
 		 --disable-utp \
 		 --enable-external-natpmp \
 		${EXTRA_CONF_ARGS}
@@ -67,14 +66,10 @@ EXTRA_CONF_ARGS?=--enable-cli \
 		 --disable-mac \
 		 --disable-nls
 
-.if ${PORT_OPTIONS:MLITE}
-CONFIGURE_ARGS+=--enable-lightweight
-.endif
+LITE_CONFIGURE_ENABLE=	lightweight
 
 EXTRA_PATCHES=	${PATCHDIR}/disable-web
 .endif
-
-USES+=		tar:xz
 
 DOCS=		AUTHORS NEWS README
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${PKGNAMESUFFIX}
@@ -110,10 +105,8 @@ general-patch:
 post-patch: general-patch
 
 general-install:
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-.for i in ${DOCS}
-	@${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
-.endfor
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} \
+		"${DOCS}" ${STAGEDIR}${DOCSDIR})
 
 post-install: general-install
 

@@ -3,12 +3,12 @@
 
 PORTNAME=	Goo-Canvas
 PORTVERSION=	0.06
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl interface to the GooCanvas
 
 LICENSE=	GPLv2
@@ -31,5 +31,8 @@ USE_XORG=	xrender
 USES=		perl5
 
 MAKE_JOBS_UNSAFE=	yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Goo/Canvas/Canvas.so
 
 .include <bsd.port.mk>

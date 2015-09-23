@@ -3,7 +3,7 @@
 
 PORTNAME=	netperf
 PORTVERSION=	2.6.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	benchmarks ipv6
 MASTER_SITES=	ftp://ftp.netperf.org/netperf/ \
 		http://fossies.org/unix/misc/
@@ -12,7 +12,7 @@ MAINTAINER=	marius@FreeBSD.org
 COMMENT=	Network performance benchmarking package
 
 OPTIONS_DEFINE=		OMNI SCTP SOCKETS HISTOGRAM EXS
-OPTIONS_DEFAULT=	SCTP SOCKETS HISTOGRAM EXS
+OPTIONS_DEFAULT=	${OPTIONS_DEFINE}
 
 OMNI_DESC=	Enable OMNI tests
 SCTP_DESC=	Enable SCTP support
@@ -23,42 +23,16 @@ EXS_DESC=	Enable ICSC async socket support
 USE_CSTD=	gnu89
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	"transform="
-CONFIGURE_ARGS=	--program-prefix=""  --program-suffix="" --enable-dirty \
+CONFIGURE_ARGS=	--program-prefix="" --program-suffix="" --enable-dirty \
 		--enable-demo --enable-burst --enable-intervals
 
 INFO=		netperf
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MSOCKETS}
-CONFIGURE_ARGS+=	--enable-unixdomain
-.else
-CONFIGURE_ARGS+=	--disable-unixdomain
-.endif
-
-.if ${PORT_OPTIONS:MSCTP}
-CONFIGURE_ARGS+=	--enable-sctp
-.else
-CONFIGURE_ARGS+=	--disable-sctp
-.endif
-
-.if ${PORT_OPTIONS:MEXS}
-CONFIGURE_ARGS+=	--enable-exs
-.else
-CONFIGURE_ARGS+=	--disable-exs
-.endif
-
-.if ${PORT_OPTIONS:MHISTOGRAM}
-CONFIGURE_ARGS+=	--enable-histogram
-.else
-CONFIGURE_ARGS+=	--disable-histogram
-.endif
-
-.if ${PORT_OPTIONS:MOMNI}
-CONFIGURE_ARGS+=	--enable-omni
-.else
-CONFIGURE_ARGS+=	--disable-omni
-.endif
+SOCKETS_CONFIGURE_ENABLE=	unixdomain
+SCTP_CONFIGURE_ENABLE=		sctp
+EXS_CONFIGURE_ENABLE=		exs
+HISTOGRAM_CONFIGURE_ENABLE=	histogram
+OMNI_CONFIGURE_ENABLE=		omni
 
 SCRIPTS=	arr_script packet_byte_script sctp_stream_script snapshot_script \
 		tcp_range_script tcp_rr_script tcp_stream_script udp_rr_script \

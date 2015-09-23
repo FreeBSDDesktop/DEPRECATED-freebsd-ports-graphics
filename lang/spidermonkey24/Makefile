@@ -3,10 +3,10 @@
 
 PORTNAME=		spidermonkey24
 PORTVERSION=		24.2.0
+PORTREVISION=		1
 CATEGORIES=		lang
-MASTER_SITES=		${MASTER_SITE_MOZILLA}
+MASTER_SITES=		MOZILLA/js
 #http://people.mozilla.org/~sstangl/
-MASTER_SITE_SUBDIR=	js
 DISTNAME=		mozjs-${PORTVERSION}
 
 MAINTAINER=		kwm@FreeBSD.org
@@ -18,7 +18,7 @@ LIB_DEPENDS=		libnspr4.so:${PORTSDIR}/devel/nspr
 CONFLICTS=		njs-[0-9]*
 
 GNU_CONFIGURE=		yes
-USES=			compiler:c11 gmake pathfix perl5 python:2,build \
+USES=			compiler:c++11-lib gmake pathfix perl5 python:2,build \
 			readline tar:bzip2
 USE_PERL5=		build
 USE_LDCONFIG=		yes
@@ -29,13 +29,15 @@ CONFIGURE_ARGS=		--with-pthreads \
 			--with-system-nspr
 
 OPTIONS_DEFINE=		DEBUG GCZEAL JEMALLOC METHODJIT OPTIMIZE READLINE \
-			THREADSAFE TRACEJIT UTF8 \
-
+			THREADSAFE TRACEJIT UTF8 DTRACE
 OPTIONS_DEFAULT=	METHODJIT OPTIMIZE READLINE THREADSAFE TRACEJIT
+OPTIONS_SUB=	yes
 
 DEBUG_DESC=		Enable Debug build
 DEBUG_CONFIGURE_ENABLE=	debug debug-symbols
 DEBUG_CONFIGURE_DISABLE=debug
+DTRACE_CONFIGURE_ENABLE=dtrace profiling
+DTRACE_LIBS=		-lelf
 GCZEAL_DESC=		Enable Zealous garbage collecting
 GCZEAL_CONFIGURE_ENABLE=gczeal
 JEMALLOC_DESC=		Use jemalloc as memory allocator
@@ -59,6 +61,10 @@ UTF8_CFLAGS=		-DJS_C_STRINGS_ARE_UTF8
 CONFIGURE_TARGET=	x86_64-portbld-freebsd${OSREL}
 .endif
 
+.if ${PORT_OPTIONS:MDTRACE} && ${OSVERSION} < 1000510
+BROKEN=		dtrace -G crashes with C++ object files
+.endif
+
 regression-test: build
 	@${ECHO_MSG} -n "===> Running jstests.py: "
 	@cd ${WRKSRC} && ${SETENV} TZ=PST8PDT ${PYTHON_CMD} tests/jstests.py \
@@ -71,7 +77,9 @@ regression-test: build
 
 post-install:
 	${LN} -s libmozjs-24.so ${STAGEDIR}${PREFIX}/lib/libmozjs-24.so.1
+.if ! ${PORT_OPTIONS:MDTRACE}
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/js24
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmozjs-24.*
+.endif
 
 .include <bsd.port.post.mk>

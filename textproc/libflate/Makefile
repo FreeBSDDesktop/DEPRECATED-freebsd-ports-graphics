@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libflate
-PORTVERSION=	2.0
+PORTVERSION=	2.0.1
 CATEGORIES=	textproc devel
 MASTER_SITES=	http://flate.dead-inside.org/
 
@@ -15,6 +15,6 @@ MAKE_ARGS+=	CC="${CC}"
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/checktpl ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_LIB} ${WRKSRC}/${PORTNAME}.a ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${WRKSRC}/${PORTNAME}.a ${STAGEDIR}${PREFIX}/lib
 
 .include <bsd.port.mk>

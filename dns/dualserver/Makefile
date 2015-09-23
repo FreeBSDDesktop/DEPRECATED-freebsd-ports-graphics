@@ -3,6 +3,7 @@
 
 PORTNAME=	dualserver
 PORTVERSION=	6.94
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	dns net
 MASTER_SITES=	http://rodrigo.osorio.free.fr/freebsd/distfiles/
@@ -22,7 +23,7 @@ post-extract:
 
 do-build:
 	${CXX} ${CXXFLAGS} -o ${WRKSRC}/dualserver \
-		${WRKSRC}/dualserverd.cpp ${PTHREAD_LIBS}
+		${WRKSRC}/dualserverd.cpp -lpthread
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/sbin

@@ -1,17 +1,20 @@
 # $FreeBSD$
 
 PORTNAME=	Log-Any
-PORTVERSION=	0.15
-PORTREVISION=	1
+PORTVERSION=	1.032
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	CPAN:JSWARTZ
+MASTER_SITE_SUBDIR=	CPAN:DAGOLDEN
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	kuriyama@FreeBSD.org
 COMMENT=	Perl extension to bring loggers and listeners together
 
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
 USES=		perl5
 USE_PERL5=	configure
+NO_ARCH=	YES
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	edenmath
 PORTVERSION=	1.1.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	math gnustep
 MASTER_SITES=	http://www.eskimo.com/~pburns/EdenMath/files/
 DISTNAME=	EdenMath_GNUstep-${PORTVERSION}
@@ -13,13 +13,14 @@ COMMENT=	Scientific calculator for GNUstep
 
 LICENSE=	GPLv2
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^GNUSTEP_INSTALLATION_DIR|#GNUSTEP_INSTALLATION_DIR|' \
 		${WRKSRC}/GNUmakefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/EdenMath.app/EdenMath
 
 .include <bsd.port.mk>

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	classifier-reborn
-PORTVERSION=	2.0.1
+PORTVERSION=	2.0.3
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -14,6 +14,8 @@ LICENSE=	LGPL21
 RUN_DEPENDS=	rubygem-fast-stemmer>=1.0.0:${PORTSDIR}/devel/rubygem-fast-stemmer
 
 PLIST_FILES=	bin/bayes.rb bin/summarize.rb
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

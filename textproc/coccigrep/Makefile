@@ -3,6 +3,7 @@
 
 PORTNAME=	coccigrep
 PORTVERSION=	1.13
+DISTVERSIONPREFIX=	v
 CATEGORIES=	textproc
 
 MAINTAINER=	pawel@FreeBSD.org
@@ -10,12 +11,10 @@ COMMENT=	Semantic grep for the C language
 
 LICENSE=	GPLv3
 
-RUN_DEPENDS=	${LOCALBASE}/bin/spatch:${PORTSDIR}/devel/coccinelle
+RUN_DEPENDS=	spatch:${PORTSDIR}/devel/coccinelle
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	regit
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	d4eb23e
 
 USES=		python
 USE_PYTHON=	distutils autoplist

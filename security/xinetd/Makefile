@@ -5,7 +5,7 @@ PORTNAME=	xinetd
 PORTVERSION=	2.3.15
 PORTREVISION=	1
 CATEGORIES=	security ipv6
-MASTER_SITES=	GENTOO/distfiles
+MASTER_SITES=	GENTOO
 
 MAINTAINER=	sem@FreeBSD.org
 COMMENT=	Replacement for inetd with better control and logging
@@ -15,7 +15,7 @@ USE_RC_SUBR=	xinetd
 ALL_TARGET=	build
 CONFIGURE_ARGS+=	--with-loadavg
 
-USES=		shebangfix perl5
+USES=		cpe shebangfix perl5
 USE_PERL5=	run
 SHEBANG_FILES=	${WRKSRC}/xinetd/xconv.pl
 

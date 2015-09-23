@@ -3,7 +3,7 @@
 
 PORTNAME=	j
 PORTVERSION=	504b
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	lang linux java
 MASTER_SITES=	http://www.jsoftware.com/download/
 PKGNAMEPREFIX=	linux-
@@ -17,8 +17,6 @@ LICENSE=	JSoftware
 LICENSE_NAME=	JSoftware End User License Agreement
 LICENSE_FILE=	${FILESDIR}/license.txt
 LICENSE_PERMS=	auto-accept dist-mirror pkg-mirror
-
-RUN_DEPENDS=	javavm:${PORTSDIR}/java/javavmwrapper
 
 USE_LINUX=	yes
 USE_JAVA=	yes
@@ -45,8 +43,5 @@ do-install:
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/man/man1/jconsole.1 ${STAGEDIR}${PREFIX}/man/man1/j-jconsole.1
-.if !defined(BATCH)
-	@${CAT} ${PKGMESSAGE}
-.endif
 
 .include <bsd.port.mk>

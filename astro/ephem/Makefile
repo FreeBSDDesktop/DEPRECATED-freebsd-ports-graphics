@@ -5,13 +5,13 @@ PORTNAME=	ephem
 PORTVERSION=	4.28
 PORTREVISION=	1
 CATEGORIES=	astro
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	trevor
+MASTER_SITES=	LOCAL/trevor
 DISTNAME=	${PORTNAME}_${PORTVERSION}_unix
 
 MAINTAINER=	slaven@rezic.de
 COMMENT=	Interactive terminal-based astronomical ephemeris program
 
+BROKEN=		No public distfiles
 NO_WRKSUBDIR=	yes
 ALL_TARGET=
 

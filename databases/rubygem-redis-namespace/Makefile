@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	redis-namespace
-PORTVERSION=	1.5.1
+PORTVERSION=	1.5.2
 CATEGORIES=	databases rubygems
 MASTER_SITES=	RG
 
@@ -12,6 +12,8 @@ COMMENT=	Ruby client class for Redis with namespace support
 LICENSE=	MIT
 
 RUN_DEPENDS=	rubygem-redis>=3.0.4:${PORTSDIR}/databases/rubygem-redis
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

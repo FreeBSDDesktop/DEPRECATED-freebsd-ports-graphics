@@ -3,10 +3,9 @@
 
 PORTNAME=	wanderlust
 PORTVERSION=	2.14.0
-PORTREVISION=	16
+PORTREVISION=	17
 CATEGORIES=	mail elisp
 MASTER_SITES=	ftp://ftp.gohome.org/wl/stable/ \
-		${MASTER_SITE_RINGSERVER:S,%SUBDIR%,text/elisp/wl/stable/&,} \
 		http://www.jpl.org/elips/wl/
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
 DISTNAME=	wl-${PORTVERSION}

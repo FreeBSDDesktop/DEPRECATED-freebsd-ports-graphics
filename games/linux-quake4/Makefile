@@ -6,8 +6,8 @@ PORTVERSION=	1.4.2
 PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	games linux
-MASTER_SITES=	${MASTER_SITE_IDSOFTWARE:S|$|quake4/linux/|} \
-		${MASTER_SITE_GENTOO:S|$|distfiles/|}
+MASTER_SITES=	IDSOFTWARE/quake4/linux/ \
+		GENTOO
 PKGNAMEPREFIX=	linux-
 DISTNAME=	${PORTNAME}-${PKGNAMEPREFIX}${PORTVERSION}.x86
 EXTRACT_SUFX=	.run
@@ -23,14 +23,14 @@ NO_PACKAGE=	Package will be 280MB, set FORCE_PACKAGE if you really want it
 Q4DIR=		lib/${PORTNAME}
 PLIST_SUB+=	Q4DIR="${Q4DIR}" \
 		LINUXBASE="${LINUXBASE}"
-SUB_FILES=	pkg-message
+SUB_LIST+=	Q4DIR="${Q4DIR}"
+SUB_FILES=	pkg-message pkg-deinstall
 
 OPTIONS_DEFINE=	THREADS GERMANY DOCS
 GERMANY_DESC=	Germany version
 
 OPTIONS_DEFAULT=	THREADS
 
-.include <bsd.port.options.mk>
 .include <bsd.port.pre.mk>
 
 .if ${PORT_OPTIONS:MTHREADS}
@@ -101,8 +101,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}/README && \
 	${INSTALL_DATA} ${WRKSRC}/pb/PBEULA.txt ${STAGEDIR}${DOCSDIR}/PBEULA
 .endif
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.post.mk>

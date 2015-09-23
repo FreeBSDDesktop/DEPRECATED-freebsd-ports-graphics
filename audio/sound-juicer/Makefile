@@ -1,9 +1,8 @@
 # Created by: Alexander Nedotsukov <bland@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/audio/sound-juicer/Makefile 19823 2014-08-20 09:28:14Z gusi $
 
 PORTNAME=	sound-juicer
-PORTVERSION=	3.12.0
+PORTVERSION=	3.16.1
 PORTREVISION=	1
 CATEGORIES=	audio gnome
 MASTER_SITES=	GNOME
@@ -19,6 +18,8 @@ LIB_DEPENDS=	libmusicbrainz5.so:${PORTSDIR}/audio/libmusicbrainz5 \
 		libcanberra.so:${PORTSDIR}/audio/libcanberra \
 		libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
 		libbrasero-media3.so:${PORTSDIR}/sysutils/brasero
+
+PORTSCOUT=	limitw:1,even
 
 USES=		desktop-file-utils gettext gmake pathfix pkgconfig tar:xz
 USE_GNOME=	gnomeprefix intlhack

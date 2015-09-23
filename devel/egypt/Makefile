@@ -5,7 +5,7 @@ PORTNAME=	egypt
 PORTVERSION=	1.10
 PORTREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	http://www.gson.org/egypt/download/ CENKES
+MASTER_SITES=	http://www.gson.org/egypt/download/
 
 MAINTAINER=	culot@FreeBSD.org
 COMMENT=	Create call graphs of C programs
@@ -17,6 +17,6 @@ USES=		perl5 shebangfix
 USE_PERL5=	configure
 SHEBANG_FILES=	egypt
 
-PLIST_FILES=	bin/${PORTNAME} man/man1/egypt.1.gz
+PLIST_FILES=	bin/${PORTNAME} ${SITE_MAN1}/egypt.1.gz
 
 .include <bsd.port.mk>

@@ -2,7 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	twister-core
-PORTVERSION=	0.141130
+PORTVERSION=	0.9.30
+DISTVERSIONPREFIX=	v
+PORTEPOCH=	1
 CATEGORIES=	net-p2p
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -20,23 +22,17 @@ OPTIONS_DEFINE=	DOCS
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	miguelfreitas
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	9d3b074
 
 USE_BDB=	yes
 WANT_BDB_VER=	48
 USE_OPENSSL=	yes
-USES=		gmake iconv
+USES=		autoreconf:build gmake iconv libtool
 
-USE_AUTOTOOLS=	libtoolize:env aclocal:env autoconf:env autoheader:env automake:env
 GNU_CONFIGURE=	yes
 CONFIGURE_WRKSRC=${WRKSRC}/libtorrent
 CONFIGURE_ARGS=	--with-libiconv			\
 		--with-boost=${LOCALBASE}	\
 		--with-boost-system=boost_system
-CONFIGURE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}"	\
-		PTHREAD_LIBS="${PTHREAD_LIBS}"
 MAKEFILE=	makefile.freebsd
 BUILD_WRKSRC=	${WRKSRC}/src
 MAKE_ENV=	BOOST_INCLUDE_PATH=${LOCALBASE}/include	\
@@ -54,16 +50,18 @@ PORTDOCS=	README.md
 WITH_OPENSSL_PORT=	yes
 .endif
 
-pre-configure:
-	${REINPLACE_CMD} -e 's|%%PORTVERSION%%|${PORTVERSION}|'	\
+post-patch:
+	@${REINPLACE_CMD} 's|%%PORTVERSION%%|${PORTVERSION}|'	\
 		${WRKSRC}/share/genbuild.sh
+
+pre-configure:
 	(cd ${CONFIGURE_WRKSRC} && ./autotool.sh)
 
 do-install:
 	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/twisterd ${STAGEDIR}${PREFIX}/bin
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

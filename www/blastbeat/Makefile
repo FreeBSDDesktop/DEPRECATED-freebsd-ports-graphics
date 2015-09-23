@@ -3,9 +3,8 @@
 
 PORTNAME=	blastbeat
 PORTVERSION=	20121205
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	www
-MASTER_SITES=	GH GHC
 
 MAINTAINER=	vg@FreeBSD.org
 COMMENT=	High-performance HTTP/HTTPS/SPDY proxy
@@ -20,10 +19,10 @@ LIB_DEPENDS=	libev.so:${PORTSDIR}/devel/libev \
 		libzmq.so:${PORTSDIR}/net/libzmq2
 
 USES=		gmake
+USE_OPENSSL=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	zloidemon
-GH_COMMIT=	cdac9a9
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	cdac9a9
 PORTEXAMPLES=	*
 
 CFLAGS+=	-I${LOCALBASE}/include

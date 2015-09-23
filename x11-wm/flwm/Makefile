@@ -9,18 +9,16 @@ CATEGORIES=	x11-wm
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	The Fast Light Window Manager
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
 
 LIB_DEPENDS=	libfltk.so:${PORTSDIR}/x11-toolkits/fltk-devel
 
-USES=		gmake
-USE_AUTOTOOLS=	autoconf
+USES=		autoreconf gmake
+GNU_CONFIGURE=	yes
 USE_XORG=	x11 xt
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	bbidulock
-GH_TAGNAME=	${PORTVERSION}
-GH_COMMIT=	460c8db
 
 CXXFLAGS+=	-DFL_LIBRARY -I${LOCALBASE}/include/fltk-devel
 

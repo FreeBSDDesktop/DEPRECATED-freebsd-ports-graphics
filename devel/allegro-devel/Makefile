@@ -3,7 +3,7 @@
 
 PORTNAME=	allegro
 DISTVERSION=	5.0.9
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	devel
 MASTER_SITES=	SF/alleg/allegro/${PORTVERSION}
 PKGNAMESUFFIX=	-devel
@@ -18,13 +18,12 @@ LICENSE=	ZLIB BSD3CLAUSE
 LICENSE_COMB=	dual
 
 LIB_DEPENDS+=	libjack.so:${PORTSDIR}/audio/jack \
-		libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis \
 		libFLAC.so:${PORTSDIR}/audio/flac \
 		libphysfs.so:${PORTSDIR}/devel/physfs
 
-USES=		gmake cmake openal:soft pkgconfig
+USES=		cmake gmake jpeg openal:soft pkgconfig
 USE_XORG=	x11 xpm xext xcursor xxf86vm xxf86dga
 USE_GL=		glu
 USE_GNOME=	gtk20

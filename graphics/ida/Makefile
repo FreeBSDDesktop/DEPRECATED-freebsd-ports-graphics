@@ -3,7 +3,7 @@
 
 PORTNAME=	ida
 PORTVERSION=	2.09
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.kraxel.org/releases/fbida/
 DISTNAME=	fbida-${PORTVERSION}
@@ -13,8 +13,7 @@ COMMENT=	Small and fast motif-based image viewer and editor
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libexif.so:${PORTSDIR}/graphics/libexif
+LIB_DEPENDS=	libexif.so:${PORTSDIR}/graphics/libexif
 
 OPTIONS_DEFINE=	GIF PCF PNG SANE TIFF WEBP DOCS
 OPTIONS_DEFAULT=	GIF PNG TIFF
@@ -22,7 +21,7 @@ PCD_DESC=	Enable PhotoCD support
 SANE_DESC=	Enable SANE support
 
 USE_PERL5=	build
-USES=		desktop-file-utils iconv gmake motif perl5
+USES=		desktop-file-utils gmake iconv jpeg motif perl5
 MAKEFILE=	GNUmakefile
 MAKE_ARGS=	JPEG_VER=80 verbose=yes
 
@@ -39,7 +38,7 @@ GIF_MAKE_ARGS_OFF=	HAVE_LIBUNGIF=no
 PCD_LIB_DEPENDS=	libpcd.so:${PORTSDIR}/graphics/libpcd
 PCD_MAKE_ARGS_OFF=	HAVE_LIBPCD=no
 
-PNG_LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+PNG_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 PNG_MAKE_ARGS_OFF=	HAVE_LIBPNG=no
 
 SANE_LIB_DEPENDS=	libsane.so:${PORTSDIR}/graphics/sane-backends

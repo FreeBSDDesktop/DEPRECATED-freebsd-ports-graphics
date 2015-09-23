@@ -4,7 +4,7 @@
 
 PORTNAME=	policykit
 PORTVERSION=	0.9
-PORTREVISION=	8
+PORTREVISION=	10
 CATEGORIES=	sysutils gnome
 MASTER_SITES=	http://hal.freedesktop.org/releases/
 DISTNAME=	PolicyKit-${PORTVERSION}
@@ -38,7 +38,7 @@ OPTIONS_DEFAULT=MANPAGES
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MMANPAGES}
-BUILD_DEPENDS=	${LOCALBASE}/share/sgml/docbook/4.1:${PORTSDIR}/textproc/docbook-sgml \
+BUILD_DEPENDS=	docbook-sgml>0:${PORTSDIR}/textproc/docbook-sgml \
 		${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl:${PORTSDIR}/textproc/docbook-xsl
 USE_GNOME+=	libxslt:build
 
@@ -50,12 +50,8 @@ PLIST_SUB+=	MANPAGES="@comment "
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/PolicyKit
-	if [ ! -f ${PREFIX}/etc/PolicyKit/PolicyKit.conf ]; then \
-		${INSTALL_DATA} ${WRKSRC}/data/PolicyKit.conf \
-			${STAGEDIR}${PREFIX}/etc/PolicyKit/PolicyKit.conf ; \
-	fi
 	${INSTALL_DATA} ${WRKSRC}/data/PolicyKit.conf \
-		${STAGEDIR}${PREFIX}/etc/PolicyKit/PolicyKit.conf.dist
+		${STAGEDIR}${PREFIX}/etc/PolicyKit/PolicyKit.conf.sample
 	# this file is used for reloading rules, handle it in the plist.
 	@${RM} ${STAGEDIR}/var/lib/misc/PolicyKit.reload
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so.*

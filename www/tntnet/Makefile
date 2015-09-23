@@ -3,7 +3,7 @@
 
 PORTNAME=	tntnet
 PORTVERSION=	2.2.1
-PORTREVISION=	2
+PORTREVISION=	4
 CATEGORIES=	www devel
 MASTER_SITES=	http://www.tntnet.org/download/
 
@@ -13,7 +13,8 @@ COMMENT=	Webapplicationserver for C++
 LIB_DEPENDS=	libcxxtools.so:${PORTSDIR}/devel/cxxtools
 BUILD_DEPENDS=	zip:${PORTSDIR}/archivers/zip
 
-USES=		iconv libtool pathfix pkgconfig
+USES=		cpe iconv libtool pathfix pkgconfig shebangfix
+SHEBANG_FILES=	tntnet-conf2xml.pl
 USE_CSTD=	gnu89
 PATCH_STRIP=	-p1
 GNU_CONFIGURE=	yes
@@ -26,6 +27,7 @@ CONFIGURE_ARGS+=	--with-ssl=gnutls
 LIB_DEPENDS+=	libgnutls.so:${PORTSDIR}/security/gnutls
 .else
 CONFIGURE_ARGS+=	--with-ssl=openssl
+USE_OPENSSL=	yes
 .endif
 
 USERS=		www

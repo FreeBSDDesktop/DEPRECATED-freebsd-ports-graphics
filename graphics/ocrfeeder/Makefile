@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	ocrfeeder
-PORTVERSION=	0.8
-PORTREVISION=	3
+PORTVERSION=	0.8.1
+PORTREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	GNOME
 
@@ -23,13 +23,16 @@ RUN_DEPENDS:=	${PYTHON_PKGNAMEPREFIX}lxml>0:${PORTSDIR}/devel/py-lxml \
 		gtkspell3>0:${PORTSDIR}/textproc/gtkspell3 \
 		${BUILD_DEPENDS}
 
-USES=		desktop-file-utils gettext gmake pkgconfig python tar:xz
-USE_GNOME=	gnomedocutils gtk30 librsvg2 pygobject3
-USE_GHOSTSCRIPT=yes
+NO_ARCH=	yes
+
+USES=		desktop-file-utils gettext ghostscript gmake pkgconfig \
+		python tar:xz
+USE_GNOME=	gnomedocutils gtk30 intltool librsvg2 pygobject3
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-silent-rules
+
 CPPFLAGS+=	-I${LOCALBASE}/include
-LIBS+=		-L${LOCALBASE}/lib
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 post-patch:
 	@${REINPLACE_CMD} -e \

@@ -2,12 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	wtf
-PORTVERSION=	20141212
+PORTVERSION=	20150822
 CATEGORIES=	games
 MASTER_SITES=	SF/bsdwtf
 
 MAINTAINER=	lifanov@mail.lifanov.com
 COMMENT=	Translates common Internet acronyms
+
+OPTIONS_DEFINE=	OFFENSIVE
+OPTIONS_DEFAULT=OFFENSIVE
+OFFENSIVE_DESC=	Include offensive acronyms
 
 NO_BUILD=	yes
 NO_ARCH=	yes
@@ -21,5 +25,11 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} ${WRKSRC}/acronyms ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} ${WRKSRC}/acronyms.comp ${STAGEDIR}${DATADIR}
+
+do-install-OFFENSIVE-on:
+	${INSTALL_DATA} ${WRKSRC}/acronyms-o.real ${STAGEDIR}${DATADIR}/acronyms-o
+
+do-install-OFFENSIVE-off:
+	${INSTALL_DATA} ${WRKSRC}/acronyms-o.fake ${STAGEDIR}${DATADIR}/acronyms-o
 
 .include <bsd.port.mk>

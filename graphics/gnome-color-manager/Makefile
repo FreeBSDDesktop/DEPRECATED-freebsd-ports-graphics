@@ -1,9 +1,8 @@
 # Created by: FreeBSD GNOME Team <gnome@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/graphics/gnome-color-manager/Makefile 19998 2014-10-19 21:36:22Z gusi $
 
 PORTNAME=	gnome-color-manager
-PORTVERSION=	3.14.1
+PORTVERSION=	3.16.0
 CATEGORIES=	graphics gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -13,17 +12,18 @@ COMMENT=	Session framework for the GNOME desktop to manage color profiles
 
 BUILD_DEPENDS=	docbook2man:${PORTSDIR}/textproc/docbook-utils \
 		itstool:${PORTSDIR}/textproc/itstool \
-		${LOCALBASE}/share/sgml/docbook/4.1:${PORTSDIR}/textproc/docbook-sgml
+		docbook-sgml>0:${PORTSDIR}/textproc/docbook-sgml
 LIB_DEPENDS=	liblcms2.so:${PORTSDIR}/graphics/lcms2 \
 		libcolord.so:${PORTSDIR}/graphics/colord \
 		libcolord-gtk.so:${PORTSDIR}/graphics/colord-gtk \
 		libcanberra-gtk3.so:${PORTSDIR}/audio/libcanberra-gtk3 \
 		libexif.so:${PORTSDIR}/graphics/libexif
 
+PORTSCOUT=	limitw:1,even
+
 USE_XORG=	xrandr
-USE_GNOME=	gnomedesktop3 gnomeprefix gtk30 intlhack vte3
-USES=		desktop-file-utils gettext gmake pathfix \
-		pkgconfig tar:xz
+USE_GNOME=	gnomedesktop3 gtk30 intlhack vte3
+USES=		desktop-file-utils gettext gmake pathfix pkgconfig tar:xz
 USE_LDCONFIG=	yes
 INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes

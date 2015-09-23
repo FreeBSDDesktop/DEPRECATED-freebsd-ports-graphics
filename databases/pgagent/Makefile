@@ -2,11 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	pgagent
-PORTVERSION=	3.3.0
-PORTREVISION=	1
+PORTVERSION=	3.4.0
+PORTREVISION=	2
 CATEGORIES=	databases
-MASTER_SITES=	${MASTER_SITE_PGSQL}
-MASTER_SITE_SUBDIR=	pgadmin3/release/pgagent
+MASTER_SITES=	PGSQL/pgadmin3/release/pgagent
 DISTNAME=	pgAgent-${PORTVERSION}-Source
 
 MAINTAINER=	fjoe@FreeBSD.org
@@ -17,7 +16,10 @@ CMAKE_ARGS=	-DSTATIC_BUILD:BOOL=NO -DWX_CONFIG_PATH:FILEPATH="${WX_CONFIG}"
 USE_WX=		2.8
 WX_UNICODE=	yes
 
-PLIST_FILES=	bin/pgagent
+PLIST_FILES=	bin/pgagent \
+		share/postgresql/extension/pgagent--3.4.sql \
+		share/postgresql/extension/pgagent--unpackaged--3.4.sql \
+		share/postgresql/extension/pgagent.control
 PORTDATA=	*
 
 .include <bsd.port.mk>

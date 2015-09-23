@@ -5,8 +5,7 @@ PORTNAME=	gnu-radius
 PORTVERSION=	1.6.1
 PORTREVISION=	6
 CATEGORIES=	net
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	radius
+MASTER_SITES=	GNU/radius
 DISTNAME=	radius-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -17,10 +16,12 @@ LIB_DEPENDS=	libltdl.so:${PORTSDIR}/devel/libltdl
 CONFLICTS=	freeradius-0.* openradius-0.* radiusd-cistron-1.*
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
-USES=		gmake libtool
+USES=		cpe gmake libtool
 USE_RC_SUBR=	radiusd
 USE_SUBMAKE=	yes
 USE_LDCONFIG=	yes
+CPE_PRODUCT=	radius
+CPE_VENDOR=	gnu
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
 DATADIR=	${PREFIX}/share/radius

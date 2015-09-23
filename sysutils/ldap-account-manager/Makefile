@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	ldap-account-manager
-PORTVERSION=	4.8
+PORTVERSION=	5.0
 CATEGORIES=	sysutils www
 MASTER_SITES=	SF/${SHORTNAME}/LAM/${PORTVERSION}
 
@@ -15,6 +15,7 @@ RUN_DEPENDS=	p5-Quota>=0:${PORTSDIR}/sysutils/p5-Quota \
 		p5-perl-ldap>=0:${PORTSDIR}/net/p5-perl-ldap
 
 NO_BUILD=	yes
+NO_ARCH=	yes
 USES=		gettext perl5 tar:bzip2
 USE_PHP=	gettext hash iconv ldap mcrypt pcre session simplexml spl xml json zip openssl
 WANT_PHP_WEB=	yes
@@ -23,13 +24,10 @@ SHORTNAME=	lam
 PORTDOCS=	docs HISTORY README copyright
 LAMDATA=	config graphics help lib locale sess style templates tmp VERSION index.html .htaccess
 WWWDIR=		${PREFIX}/www/${SHORTNAME}
-SUB_FILES=	pkg-message
-CONFIGS=	config.cfg lam.conf
+CONFIGS=	config.cfg addressbook.conf samba3.conf unix.conf windows_samba4.conf
 WRITEABLES=	config sess tmp
 
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
 
 do-install:
 	@${ECHO_CMD} '@exec if [ -f %D/${WWWDIR_REL}/config/shells ]; then ${RM} -f %D/${WWWDIR_REL}/config/shells; fi' >> ${TMPPLIST}
@@ -49,9 +47,9 @@ do-install:
 .endfor
 	@${ECHO_CMD} '@exec ${CHOWN} ${WWWOWN} %D/${WWWDIR_REL}/${DIR}/lib/lamdaemon.pl' >> ${TMPPLIST}
 	@${ECHO_CMD} '@exec ${CHMOD} u+x %D/${WWWDIR_REL}/${DIR}/lib/lamdaemon.pl' >> ${TMPPLIST}
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

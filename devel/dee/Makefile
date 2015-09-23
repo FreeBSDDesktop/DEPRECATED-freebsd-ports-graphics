@@ -3,6 +3,7 @@
 
 PORTNAME=	dee
 PORTVERSION=	1.2.7
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://launchpadlibrarian.net/151383425/ \
 	https://launchpad.net/${PORTNAME}/1.0/${PORTVERSION}/+download/
@@ -30,7 +31,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_REL} >= 300
+.if ${PYTHON_REL} >= 3000
 USE_GNOME+=	py3gobject3
 .else
 USE_GNOME+=	pygobject3

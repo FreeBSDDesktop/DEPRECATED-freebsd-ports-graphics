@@ -5,7 +5,7 @@ PORTNAME=	micro_proxy
 PORTVERSION=	20021030
 CATEGORIES=	net
 MASTER_SITES=	http://www.acme.com/software/micro_proxy/ \
-		CRITICAL
+		LOCAL/ehaupt
 DISTNAME=	${PORTNAME}_30oct2002
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -22,8 +22,5 @@ do-build:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/libexec
 	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.8 ${STAGEDIR}${MANPREFIX}/man/man8
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

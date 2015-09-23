@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Archive-Tar
-PORTVERSION=	2.02
-PORTREVISION=	1
+PORTVERSION=	2.04
 CATEGORIES=	archivers perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:BINGOS
@@ -19,6 +18,7 @@ RUN_DEPENDS=	p5-IO-String>=0:${PORTSDIR}/devel/p5-IO-String
 
 USES=		perl5
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 OPTIONS_DEFINE=	TEXTDIFF
 TEXTDIFF_DESC=	Text::Diff support for ptardiff

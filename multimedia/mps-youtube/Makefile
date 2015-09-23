@@ -2,36 +2,53 @@
 # $FreeBSD$
 
 PORTNAME=	mps-youtube
-PORTVERSION=	0.01.46
-#PORTREVISION=	0
-PORTREVISION=	1
+PORTVERSION=	0.2.5
+PORTREVISION=	0
 CATEGORIES=	multimedia
 MASTER_SITES=	CHEESESHOP
+DISTFILES=	${PORTNAME}-${PORTVERSION}-2.tar.gz
 
 MAINTAINER=	nivit@FreeBSD.org
 COMMENT=	Terminal based YouTube jukebox with playlist management
 
 LICENSE=	GPLv3
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pafy>=0.3.41:${PORTSDIR}/www/py-pafy
+RUN_DEPENDS=	ca_root_nss>=3.17.3:${PORTSDIR}/security/ca_root_nss \
+		${PYTHON_PKGNAMEPREFIX}pafy>=0.3.74:${PORTSDIR}/www/py-pafy
 
-OPTIONS_DEFAULT=	MPLAYER
-OPTIONS_RADIO=	PLAYER
-OPTIONS_RADIO_PLAYER=	MPLAYER MPV
+CONVERTER_DESC=	Converter to MP3 and other formats
 
-MPV_DESC=	Mpv media player support
+FFMPEG_RUN_DEPENDS=	ffmpeg>=2.3.6:${PORTSDIR}/multimedia/ffmpeg
 
-# This port installs the following files in shared dirs
-# PLIST_FILES=	bin/mpsyt
-USES=		python
-USE_PYTHON=	distutils autoplist
+LIBAV_DESC=	Realtime audio/video conversion library
+LIBAV_RUN_DEPENDS=	libav>=11.2:${PORTSDIR}/multimedia/libav
 
-.include <bsd.port.options.mk>
+MPLAYER_RUN_DEPENDS=	mplayer:${PORTSDIR}/multimedia/mplayer
 
-.if ${PORT_OPTIONS:MMPLAYER}
-RUN_DEPENDS+=	mplayer:${PORTSDIR}/multimedia/mplayer
-.elif ${PORT_OPTIONS:MMPV}
-RUN_DEPENDS+=	mpv:${PORTSDIR}/multimedia/mpv
+MPV_DESC=	Free and open-source general-purpose video player
+MPV_RUN_DEPENDS=	mpv:${PORTSDIR}/multimedia/mpv
+
+OPTIONS_DEFAULT=	MPV
+OPTIONS_RADIO=	CONVERTER
+OPTIONS_RADIO_CONVERTER=	FFMPEG LIBAV
+OPTIONS_SINGLE=	PLAYER
+OPTIONS_SINGLE_PLAYER=	MPLAYER MPV
+
+PLAYER_DESC=	Video player
+PLIST_FILES=	bin/${PORTNAME}
+
+SUB_FILES=	${PORTNAME}
+
+USES=		python:3.2+
+USE_PYTHON=	autoplist distutils
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME} ${STAGEDIR}/${PREFIX}/bin/${PORTNAME}
+
+.include <bsd.port.pre.mk>
+
+.if defined(PACKAGE_BUILDING) && ${PYTHON_VER} != ${PYTHON_DEFAULT}
+IGNORE=	you have python ${PYTHON_DEFAULT} set as the default, and this needs ${PYTHON_VER}
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

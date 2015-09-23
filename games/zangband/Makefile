@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	zangband
-PORTVERSION=	2.7.5.p1
+DISTVERSION=	2.7.5pre1
 CATEGORIES+=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-src/${PORTVERSION:R}%20preview%20I
-DISTNAME=	${PORTNAME}-${PORTVERSION:R}pre1
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -15,9 +14,9 @@ NO_CDROM=	Possible copyright infringement
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USES=		gmake ncurses perl5
+USES=		autoreconf gmake ncurses perl5
 USE_PERL5=	build
-USE_AUTOTOOLS=	aclocal autoheader autoconf
+GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--datadir=${PREFIX}/lib \
 		--with-gtk=no
 MAKE_ENV=	VERBOSE=1

@@ -1,6 +1,5 @@
 # $FreeBSD$
 
-PORTREVISION=	1
 COMMENT=	GNU binutils for AArch64 cross-development
 PKGNAMEPREFIX=	aarch64-
 PLIST=	${.CURDIR}/pkg-plist

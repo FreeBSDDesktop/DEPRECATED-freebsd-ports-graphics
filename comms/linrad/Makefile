@@ -1,9 +1,8 @@
-# Created by: db
 # $FreeBSD$
 
 PORTNAME=	linrad
 PORTVERSION=	4.02
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	comms hamradio
 MASTER_SITES=	http://www.nitehawk.com/sm5bsz/linuxdsp/archive/\
 		http://g7rau.demon.co.uk/sm5bsz/linuxdsp/archive/\
@@ -15,7 +14,7 @@ MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Amateur Radio DSP utility (SDR)
 
 LIB_DEPENDS=	librtlsdr.so:${PORTSDIR}/comms/rtl-sdr \
-		libportaudio.so:${PORTSDIR}/audio/portaudio2 \
+		libportaudio.so:${PORTSDIR}/audio/portaudio \
 		libftdi.so:${PORTSDIR}/devel/libftdi
 BUILD_DEPENDS=	nasm:${PORTSDIR}/devel/nasm
 
@@ -33,8 +32,6 @@ LINRAD_DOCFILES=	z_APM.txt z_BUFFERS.txt z_CALIBRATE.txt \
 			z_PARALLEL_PORT.txt z_SETTINGS.txt \
 			z_USERS_EXTRA.txt z_USERS_HWARE.txt
 
-OPTIONS_DEFINE=	DOCS
-
 .include <bsd.port.pre.mk>
 .if ${ARCH} == "i386"
 BINFILE=	xlinrad
@@ -47,8 +44,7 @@ post-patch:
 # These extensions seem to be Windows only
 #	@${CP} ${WRKSRC}/extra_w3sz.c ${WRKSRC}/users_extra.c
 #	@${CP} ${WRKSRC}/users_tr.c ${WRKSRC}/users_hwaredriver.c
-	@${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|g'\
- 	    -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
+	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		 ${WRKSRC}/Makefile.in
 	@${REINPLACE_CMD} -e 's|%%DATADIR%%|${DATADIR}/|' \
 		${WRKSRC}/help.c
@@ -56,10 +52,8 @@ post-patch:
 		${WRKSRC}/libfind1.c
 # NOTE: The code that actually does anything in users.c is currently
 #       #ifdef'd out because it's just a non-working example
-.if	${OSVERSION} >= 800000
 	@${REINPLACE_CMD} -e "s|ttyd|ttyu|" \
 	    ${WRKSRC}/lxsys.c
-.endif
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}
@@ -69,11 +63,9 @@ do-install:
 # Some day we may want the svga version as well.
 #	${INSTALL_PROGRAM} -m0555 ${WRKSRC}/${PORTNAME} $(STAGEDIR}${PREFIX}/bin/${PORTNAME}.svga
 	${INSTALL_PROGRAM} -m0555 ${WRKSRC}/${BINFILE} ${STAGEDIR}${PREFIX}/bin/x${PORTNAME}
-.if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for f in ${LINRAD_DOCFILES}
 	@${INSTALL_DATA}  ${WRKSRC}/$f ${STAGEDIR}${DOCSDIR}/$f
 .endfor
-.endif
 
 .include <bsd.port.post.mk>

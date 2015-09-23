@@ -4,8 +4,7 @@ PORTNAME=	math
 PORTVERSION=	0.1
 PORTREVISION=	7
 CATEGORIES=	www math python
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	brooks
+MASTER_SITES=	LOCAL/brooks
 PKGNAMEPREFIX=	trac-
 
 MAINTAINER=	ports@FreeBSD.org
@@ -17,12 +16,8 @@ USE_TEX=	latex
 SUB_FILES=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
 
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
-
-post-install:
-	${CAT} ${PKGMESSAGE}
+USES=		python:2
+USE_PYTHON=	distutils autoplist
 
 # Maintainter targets below this point
 

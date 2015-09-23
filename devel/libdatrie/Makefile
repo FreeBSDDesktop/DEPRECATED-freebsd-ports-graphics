@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	libdatrie
-PORTVERSION=	0.2.8
+PORTVERSION=	0.2.9
 PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://linux.thai.net/pub/thailinux/software/libthai/
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Double-array trie implementation library
 
 LICENSE=	LGPL21
@@ -22,8 +22,6 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}
 
 PORTDOCS=	README.migration
-
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libdatrie.so
+INSTALL_TARGET=	install-strip
 
 .include <bsd.port.mk>

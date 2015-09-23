@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Tree-DAG_Node
-PORTVERSION=	1.23
+PORTVERSION=	1.27
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -15,6 +15,7 @@ LICENSE=	ART20
 BUILD_DEPENDS=	p5-File-Slurp-Tiny>=0.003:${PORTSDIR}/devel/p5-File-Slurp-Tiny
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
+NO_ARCH=	yes
 USES=		perl5 tar:tgz
 USE_PERL5=	configure
 
@@ -25,9 +26,8 @@ BUILD_DEPENDS+=	p5-PathTools>=3.4000:${PORTSDIR}/devel/p5-PathTools
 RUN_DEPENDS+=	p5-PathTools>=3.4000:${PORTSDIR}/devel/p5-PathTools
 .endif
 
-.if ${PERL_LEVEL} < 502000
-BUILD_DEPENDS+=	p5-File-Temp>=0.23.01:${PORTSDIR}/devel/p5-File-Temp
-RUN_DEPENDS+=	p5-File-Temp>=0.23.01:${PORTSDIR}/devel/p5-File-Temp
+.if ${PERL_LEVEL} < 502200
+TEST_DEPENDS+=	p5-Test-Simple>=1.001.014:${PORTSDIR}/devel/p5-Test-Simple
 .endif
 
 .include <bsd.port.post.mk>

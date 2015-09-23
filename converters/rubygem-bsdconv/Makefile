@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	bsdconv
-PORTVERSION=	11.1.0
+PORTVERSION=	11.3.1
 CATEGORIES=	converters rubygems
 MASTER_SITES=	RG
 DISTNAME=	ruby-${PORTNAME}-${PORTVERSION}
@@ -10,7 +10,7 @@ DISTNAME=	ruby-${PORTNAME}-${PORTVERSION}
 MAINTAINER=	buganini@gmail.com
 COMMENT=	Ruby wrapper for bsdconv
 
-LICENSE=	BSD
+LICENSE=	ISCL
 
 LIB_DEPENDS=	libbsdconv.so:${PORTSDIR}/converters/bsdconv
 

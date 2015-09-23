@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Geo-Coder-Bing
-PORTVERSION=	0.12
-PORTREVISION=	1
+PORTVERSION=	0.13
 CATEGORIES=	misc geography perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -21,6 +20,7 @@ BUILD_DEPENDS=	p5-JSON>=2:${PORTSDIR}/converters/p5-JSON \
 		p5-libwww>=6.02:${PORTSDIR}/www/p5-libwww
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
+NO_ARCH=	yes
 USE_PERL5=	configure
 USES=		perl5
 

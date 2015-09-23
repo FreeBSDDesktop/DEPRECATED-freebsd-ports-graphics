@@ -3,20 +3,22 @@
 
 PORTNAME=	Text-ParagraphDiff
 PORTVERSION=	2.70
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Visual difference for paragraphed text
 
 BUILD_DEPENDS=	p5-Algorithm-Diff>=0:${PORTSDIR}/devel/p5-Algorithm-Diff \
 		p5-HTML-Parser>=0:${PORTSDIR}/www/p5-HTML-Parser
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	bin/tdiff
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

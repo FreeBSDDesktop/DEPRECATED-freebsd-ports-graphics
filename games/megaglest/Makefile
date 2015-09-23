@@ -3,7 +3,7 @@
 
 PORTNAME=	megaglest
 PORTVERSION=	3.9.0.4
-PORTREVISION=	4
+PORTREVISION=	7
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}_3.9.0/
 DISTNAME=	${PORTNAME}-source-${PORTVERSION}
@@ -12,8 +12,7 @@ MAINTAINER=	rnejdl@ringofsaturn.com
 COMMENT=	Open source 3D real-time strategy game
 
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libxerces-c.so:${PORTSDIR}/textproc/xerces-c3 \
 		libftgl.so:${PORTSDIR}/graphics/ftgl \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis
@@ -23,13 +22,15 @@ RUN_DEPENDS=	${DATADIR}/tutorials/2_basic_tutorial/2_basic_tutorial.xml:${PORTSD
 
 SUB_FILES=	pkg-message
 
-USES=		cmake display:build dos2unix lua openal:al,alut pkgconfig tar:xz
+USES=		cmake compiler:c++11-lib display:build dos2unix jpeg lua \
+		openal:al,alut pkgconfig tar:xz
 USE_GL=		glew gl glu
 USE_SDL=	yes
 USE_WX=		3.0
+USE_CXXSTD=	c++11
 WX_UNICODE=	yes
 
-CFLAGS+=	-I${LOCALBASE}/include/libpng15
+CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lssl -lcrypto
 WRKSRC=		${WRKDIR}/${PORTNAME}-3.9.0
 

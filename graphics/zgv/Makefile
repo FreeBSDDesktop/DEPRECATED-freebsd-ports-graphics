@@ -3,7 +3,7 @@
 
 PORTNAME=	zgv
 PORTVERSION=	5.9
-PORTREVISION=	6
+PORTREVISION=	8
 CATEGORIES=	graphics
 MASTER_SITES=	SUNSITE/apps/graphics/viewers/svga
 
@@ -12,14 +12,14 @@ COMMENT=	Graphics viewer for SVGAlib
 
 LICENSE=	GPLv2 # (or later)
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 OPTIONS_DEFINE=	SDL DOCS
 
-USES=		gmake makeinfo
+USES=		gmake jpeg makeinfo
 ALL_TARGET=	zgv info
+INFO=		zgvrc
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib

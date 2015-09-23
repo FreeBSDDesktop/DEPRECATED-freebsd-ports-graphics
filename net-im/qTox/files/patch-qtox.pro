@@ -1,10 +1,9 @@
---- qtox.pro
+--- qtox.pro.orig	2015-06-12 10:53:59 UTC
 +++ qtox.pro
-@@ -223,3 +223,15 @@
-     src/misc/serialize.cpp \
-     src/widget/form/settings/advancedform.cpp \
-     src/audio.cpp
-+
+@@ -483,6 +483,18 @@ SOURCES += \
+     src/widget/translator.cpp \
+     src/persistence/settingsserializer.cpp
+ 
 +unix {
 +    target.path  = $$PREFIX/bin
 +
@@ -16,3 +15,7 @@
 +
 +    INSTALLS = target desktop icon
 +}
++
+ HEADERS += \
+     src/audio/audio.h \
+     src/core/core.h \

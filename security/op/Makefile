@@ -3,9 +3,10 @@
 
 PORTNAME=	op
 PORTVERSION=	1.32
+PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	http://swapoff.org/files/op/ \
-		CRITICAL
+		LOCAL/ehaupt
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Controlled privilege escalation tool
@@ -16,10 +17,5 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/op.d
 	${INSTALL_DATA} -m 0600 ${WRKSRC}/${PORTNAME}.conf \
 		${STAGEDIR}${PREFIX}/etc/${PORTNAME}.conf.sample
-
-.if !exists(${STAGEDIR}${PREFIX}/etc/${PORTNAME}.conf)
-	${INSTALL_DATA} -m 0600 ${WRKSRC}/${PORTNAME}.conf \
-		${STAGEDIR}${PREFIX}/etc
-.endif
 
 .include <bsd.port.mk>

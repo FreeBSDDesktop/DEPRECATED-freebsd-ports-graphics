@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	squirrelmail-translations
-PORTVERSION=	20140717
+PORTVERSION=	20150324
 CATEGORIES=	mail www
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	adamw/squirrelmail
+MASTER_SITES=	LOCAL/adamw/squirrelmail
 DISTNAME=	squirrelmail-${PORTVERSION}_0200-SVN.locales
 DIST_SUBDIR=	squirrelmail
 
@@ -30,5 +29,6 @@ do-build:
 do-install:
 	@${MKDIR} ${STAGEDIR}${SQUIRRELDIR}
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} "help images locale" ${STAGEDIR}${SQUIRRELDIR})
+	${FIND} ${STAGEDIR}${SQUIRRELDIR} -type d -empty -delete
 
 .include <bsd.port.mk>

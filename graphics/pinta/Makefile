@@ -11,10 +11,12 @@ COMMENT=	Simple Gtk\# Paint Program
 
 LICENSE=	MIT
 
+BROKEN=		Fails to build with mono 4
+
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/mono-addins.pc:${PORTSDIR}/devel/mono-addins
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		gmake desktop-file-utils pkgconfig
+USES=		desktop-file-utils gmake mono pkgconfig
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/man
 

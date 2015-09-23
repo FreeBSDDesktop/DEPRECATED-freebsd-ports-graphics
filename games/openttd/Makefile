@@ -2,23 +2,26 @@
 # $FreeBSD$
 
 PORTNAME=	openttd
-PORTVERSION=	1.4.4
-PORTREVISION=	1
+DISTVERSION=	1.5.2
 CATEGORIES=	games
-MASTER_SITES=	http://gb.binaries.openttd.org/binaries/releases/${PORTVERSION}/ \
-		http://ftp.snt.utwente.nl/pub/games/openttd/binaries/releases/${PORTVERSION}/ \
-		http://us.binaries.openttd.org/binaries/releases/${PORTVERSION}/
-DISTNAME=	${PORTNAME}-${PORTVERSION}-source
+MASTER_SITES=	http://ca.binaries.openttd.org/binaries/releases/${DISTVERSION}/ \
+		http://cz.binaries.openttd.org/binaries/releases/${DISTVERSION}/ \
+		http://de.binaries.openttd.org/binaries/releases/${DISTVERSION}/ \
+		http://fr.binaries.openttd.org/binaries/releases/${DISTVERSION}/ \
+		http://ftp.snt.utwente.nl/pub/games/openttd/binaries/releases/${DISTVERSION}/ \
+		http://uk.binaries.openttd.org/binaries/releases/${DISTVERSION}/ \
+		http://us.binaries.openttd.org/binaries/releases/${DISTVERSION}/
+DISTNAME=	${PORTNAME}-${DISTVERSION}-source
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Open source clone of Microprose Transport Tycoon Deluxe
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		liblzo2.so:${PORTSDIR}/archivers/lzo2
 
-USES=		gmake pkgconfig tar:xz
+USES=		cpe gmake pkgconfig tar:xz
 HAS_CONFIGURE=	yes
 CONFIGURE_ENV=	STRIP="${STRIP_CMD} ${STRIP}"
 CONFIGURE_ARGS=	--prefix-dir="${PREFIX}" --data-dir="${DATADIR_REL}"
@@ -27,7 +30,7 @@ CONFIGURE_ARGS=	--prefix-dir="${PREFIX}" --data-dir="${DATADIR_REL}"
 MAKE_ARGS=	VERBOSE=1
 .endif
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+WRKSRC=		${WRKDIR}/${PORTNAME}-${DISTVERSION}
 CXXFLAGS=	# Set to empty as OpenTTD treats it as an addition to CFLAGS
 
 SUB_FILES=	pkg-message
@@ -92,8 +95,6 @@ pre-everything::
 
 post-patch:
 	@${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},' ${WRKSRC}/config.lib
-	@${REINPLACE_CMD} -e '/FS_NORMAL/s,max(1,&U,' \
-		${WRKSRC}/src/fontcache.cpp
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/${PORTNAME} ${STAGEDIR}${PREFIX}/bin

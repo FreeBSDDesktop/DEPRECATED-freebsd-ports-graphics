@@ -4,8 +4,7 @@
 PORTNAME=	maven3
 DISTVERSION=	3.0.5
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	maven/binaries
+MASTER_SITES=	APACHE/maven/binaries
 DISTNAME=	apache-maven-${DISTVERSION}-bin
 
 MAINTAINER=	wombat@marsupial.org
@@ -14,6 +13,10 @@ COMMENT=	Java project management tool, 3.x branch
 LICENSE=	APACHE20
 
 RUN_DEPENDS=	mvn:${PORTSDIR}/devel/maven-wrapper
+
+USES=		cpe
+CPE_PRODUCT=	maven
+CPE_VENDOR=	apache
 
 USE_JAVA=	yes
 JAVA_VERSION=	1.6+

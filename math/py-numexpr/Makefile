@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	numexpr
-PORTVERSION=	2.2.2
-PORTREVISION=	3
+PORTVERSION=	2.4
+DISTVERSIONPREFIX=	v
+PORTREVISION=	1
 CATEGORIES=	math python
-MASTER_SITES=	GOOGLE_CODE
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -16,7 +16,13 @@ LICENSE=	MIT
 BUILD_DEPENDS=	${PYNUMPY}
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	autoplist concurrent distutils
 USES=		python
+
+GH_ACCOUNT=	pydata
+USE_GITHUB=	yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/numexpr/interpreter.so
 
 .include <bsd.port.mk>

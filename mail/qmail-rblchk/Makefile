@@ -3,15 +3,15 @@
 
 PORTNAME=	qmail-rblchk
 PORTVERSION=	2.4.1
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://www.morettoni.net/qmail/ \
-		CRITICAL
+		LOCAL/ehaupt
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Qmail RBL filter
 
 USES=		qmail:run
-
 
 LDFLAGS?=	-s
 CFLAGS?=	-O2 -Wimplicit -Wunused -Wcomment -Wchar-subscripts -Wuninitialized \
@@ -31,6 +31,7 @@ do-configure:
 	${ECHO_CMD} "${CC} ${LDFLAGS}"		> ${WRKSRC}/conf-ld
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 .for f in rbllist.sh spam-report.sh dot-qmail-storeip
 	${INSTALL_DATA} ${WRKSRC}/contrib/${f} ${STAGEDIR}${EXAMPLESDIR}

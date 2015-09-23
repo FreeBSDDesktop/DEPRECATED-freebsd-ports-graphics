@@ -3,11 +3,11 @@
 
 PORTNAME=	vpopmail
 PORTVERSION=	5.4.33
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-stable/${PORTVERSION}
 
-MAINTAINER=	bdrewery@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Easy virtual domain and authentication package for use with qmail
 
 LICENSE=	GPLv2 GPLv3
@@ -18,7 +18,7 @@ RUN_DEPENDS=	${LOCALBASE}/bin/tcprules:${PORTSDIR}/sysutils/ucspi-tcp
 
 PATCH_STRIP=	-p1
 
-USES=		qmail gmake
+USES=		qmail gmake fakeroot
 
 CONFLICTS=	vpopmail-devel-5.*
 
@@ -69,7 +69,7 @@ OPTIONS_DEFINE=	DOCS \
 		SQL_LOG \
 		SQL_LOG_TRIM
 OPTIONS_SINGLE=	AUTH
-OPTIONS_SINGLE_AUTH= CDB MYSQL PGSQL LDAP LDAP_SASL ORACLE SYBASE
+OPTIONS_SINGLE_AUTH=	CDB MYSQL PGSQL LDAP LDAP_SASL ORACLE SYBASE
 
 OPTIONS_DEFAULT=MD5_PASSWORDS \
 		CDB \
@@ -173,7 +173,14 @@ SPAMASSASSIN_BUILD_DEPENDS=	spamc:${PORTSDIR}/mail/spamassassin
 SPAMASSASSIN_RUN_DEPENDS=	spamc:${PORTSDIR}/mail/spamassassin
 SPAMFOLDER_CONFIGURE_ON=	--enable-spam-junkfolder
 
+INSTALL_TARGET=	install-strip
+
 .include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MSUID_VCHKPW}
+VCHKPW_MODE="6711"
+.endif
+PLIST_SUB+=	VCHKPW_MODE="${VCHKPW_MODE}"
 
 # PostgreSQL database configuration options
 #

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	obspy
-PORTVERSION=	0.9.2
-PORTREVISION=	2
+PORTVERSION=	0.10.2
 CATEGORIES=	science python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -21,10 +20,11 @@ BUILD_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}sqlalchemy>=0:${PORTSDIR}/databases/py-sqlalchemy
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=			fortran zip python
+USES=			fortran python shebangfix zip
+SHEBANG_FILES=		obspy/taup/tests/data/TauP_test_data/gendata.sh
 USE_LDCONFIG=		yes
 LDFLAGS+=		-shared
-USE_PYTHON=		distutils autoplist
+USE_PYTHON=		autoplist distutils
 
 LDFLAGS+=	-shared
 

@@ -5,13 +5,14 @@ PORTNAME=	${PLUGIN}
 PORTVERSION=	6.0.2
 PORTREVISION=	3
 CATEGORIES=	java devel
-MASTER_SITES=	${MASTER_SITE_ECLIPSE}
-MASTER_SITE_SUBDIR=tools/${PLUGIN}/releases/${ECLIPSE_CODENAME}/dist
+MASTER_SITES=	ECLIPSE/tools/${PLUGIN}/releases/${ECLIPSE_CODENAME}/dist
 PKGNAMEPREFIX=	eclipse-
 DISTNAME=	${PLUGIN}-master-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	C/C++ plugin for Eclipse IDE
+
+IGNORE=		plugin malfunctions, but an upgrade is planned
 
 RUN_DEPENDS=	eclipse:${PORTSDIR}/java/eclipse
 

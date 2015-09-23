@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gmsh
-PORTVERSION=	2.8.5
-PORTREVISION=	1
+PORTVERSION=	2.9.3
 CATEGORIES=	cad
 MASTER_SITES=	http://www.geuz.org/gmsh/src/ \
 		http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/
@@ -16,15 +15,15 @@ MAINTAINER=	stephen@FreeBSD.org
 COMMENT=	Automatic 3D finite element mesh generator
 
 LIB_DEPENDS=	libfltk.so:${PORTSDIR}/x11-toolkits/fltk \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		liblapack.so:${PORTSDIR}/math/lapack
+RUN_DEPENDS=	getdp:${PORTSDIR}/science/getdp
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-source
 
 SLAVEDIRS=	cad/gmsh-occ
 
-USES=		cmake fortran gmake tar:tgz
+USES=		cmake fortran gmake jpeg tar:tgz
 USE_GL=		yes
 ALL_TARGET=	all
 

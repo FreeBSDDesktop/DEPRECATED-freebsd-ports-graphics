@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	rancid
-PORTVERSION=	3.1
-PORTREVISION=	1
+PORTVERSION=	3.2
+PORTREVISION=	0
 CATEGORIES=	net-mgmt
 MASTER_SITES=	ftp://ftp.shrubbery.net/pub/rancid/
 PKGNAMESUFFIX=	3
@@ -57,17 +57,12 @@ pre-everything::
 	@ ${ECHO} "Make sure your rancid repository is quiet before upgrading; disable rancid cron jobs"
 
 post-patch:
-	${REINPLACE_CMD} "s|par.1|rancid-par.1|" ${WRKSRC}/man/Makefile.in ${WRKSRC}/man/Makefile.am
+	${REINPLACE_CMD} "s|par.1|rancid-par.1|" ${WRKSRC}/man/Makefile.in
 	${MV} ${WRKSRC}/man/par.1 ${WRKSRC}/man/rancid-par.1
 
 post-install:
 	${LN} -s ${PREFIX}/libexec/${PORTNAME}/rancid-cvs ${STAGEDIR}${PREFIX}/bin
 	${LN} -s ${PREFIX}/libexec/${PORTNAME}/rancid-run ${STAGEDIR}${PREFIX}/bin
-.if !defined(BATCH)
-	@ ${ECHO}
-	@ ${CAT} ${PKGMESSAGE}
-	@ ${ECHO}
-.endif
 .for file in ${NEWCONFIG_FILES}
 	@ if [ -f ${PREFIX}/etc/${PORTNAME}/${file} ] ; then \
 	${ECHO} "WARNING: *** new ${file} file is installed as ${PREFIX}/rancid/${file}.sample"; \

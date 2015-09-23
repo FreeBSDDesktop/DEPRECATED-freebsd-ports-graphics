@@ -3,28 +3,35 @@
 
 PORTNAME=	mencoder
 PORTVERSION=	${MPLAYER_PORT_VERSION}
-PORTREVISION=	4
+PORTREVISION=	1
+CATEGORIES=	multimedia audio
 
+MAINTAINER=	riggs@FreeBSD.org
 COMMENT=	Convenient video file and movie encoder
 
-.include "${.CURDIR}/../mplayer/Makefile.shared"
+.include "${.CURDIR}/../mplayer/Makefile.common"
 
-OPTIONS_DEFINE=	AMR_NB AMR_WB BLURAY CDIO CDPARANOIA DEBUG DIRAC \
-		DV FAAC FONTCONFIG FRIBIDI GIF GNUTLS GSM IPV6 JACK \
-		LADSPA LIBMNG LZO MAD MEMALIGN NAS OCFLAGS OPENAL \
-		OPENJPEG OPUS OTCHAIN PROFILE PULSEAUDIO REAL RTCPU RTMP \
-		SCHROEDINGER SMB THEORA TWOLAME V4L VPX WIN32 X264 XVID
+OPTIONS_DEFINE=	AMR_NB AMR_WB BLURAY CDIO DEBUG DV FAAC FONTCONFIG \
+		FRIBIDI GIF GNUTLS GSM IPV6 JACK LADSPA LIBMNG LZO \
+		MAD NAS OCFLAGS OPENAL OPENJPEG OPUS PULSEAUDIO REAL \
+		RTMP SCHROEDINGER SMB THEORA TWOLAME V4L VPX \
+		X264 XVID
 
-OPTIONS_DEFAULT=GIF GNUTLS IPV6 OCFLAGS RTCPU WIN32 X264 XVID
+OPTIONS_DEFAULT=GIF GNUTLS IPV6 OCFLAGS X264 XVID
+
+OPTIONS_DEFINE_i386=	RTCPU
+OPTIONS_DEFINE_amd64=	RTCPU
+OPTIONS_DEFINE_powerpc=	RTCPU
+
+OPTIONS_DEFAULT_i386=	RTCPU
+OPTIONS_DEFAULT_amd64=	RTCPU
+OPTIONS_DEFAULT_powerpc=RTCPU
 
 BLURAY_DESC?=	BluRay support
 LZO_DESC?=	Enable external liblzo library
-MEMALIGN_DESC?=	Avoid memory alignment hacks (EXPERIMENTAL)
 OCFLAGS_DESC?=	Use optimized compiler flags
-OTCHAIN_DESC?=	Use gcc 4.6+ toolchain on legacy systems
 REAL_DESC?=	Enable realplayer plugin
-RTCPU_DESC?=	Use runtime CPU detection on supported archs
-WIN32_DESC?=	Install win32 binary codecs
+RTCPU_DESC?=	Use runtime CPU detection
 
 RESTRICTED=	Port has restricted dependencies
 
@@ -82,12 +89,10 @@ pre-everything::
 	@${ECHO_MSG} "DEFAULT_DVD_DEVICE=${DEFAULT_DVD_DEVICE}"
 	@${ECHO_MSG} "DEFAULT_CDROM_DEVICE=${DEFAULT_CDROM_DEVICE}"
 
+pre-patch:
+	${MV} ${WRKDIR}/ffmpeg-${FFMPEG_VERSION} ${WRKSRC}/ffmpeg
+
 post-patch:
-.if ${OSVERSION} >= 900010
-	@${REINPLACE_CMD} -e \
-		'/CFLAGS.*-D_LARGEFILE64_SOURCE/ s/-D_LARGEFILE64_SOURCE/-D_FILE_OFFSET_BITS=64/' \
-		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
-.endif
 	@${REINPLACE_CMD} \
 		-e 's|/dev/dvd|${DEFAULT_DVD_DEVICE}|; \
 		s|/dev/cdrom|${DEFAULT_CDROM_DEVICE}|' \
@@ -111,16 +116,16 @@ post-patch:
 		 s|/dev/\\:(cdrom[[:alnum:]]*[[:>:]])|${DEFAULT_CDROM_DEVICE:S/dev\//dev\/\\\:/}|g'
 
 do-install:
-	@${INSTALL_PROGRAM} ${WRKSRC}/mencoder ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/mencoder ${STAGEDIR}${PREFIX}/bin
 
 post-install:
-	@${INSTALL_MAN} ${WRKSRC}/DOCS/man/en/mplayer.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/mencoder.1
+	${INSTALL_MAN} ${WRKSRC}/DOCS/man/en/mplayer.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/mencoder.1
 	@${MKDIR} ${STAGEDIR}${DATADIR}
 	@${CHMOD} 755 ${STAGEDIR}${DATADIR}
 	@${MKDIR} ${STAGEDIR}${DATADIR}/tools
 	@${CHMOD} 755 ${STAGEDIR}${DATADIR}/tools
 .for tool in ${TOOLFILES}
-	@${INSTALL_SCRIPT} ${WRKSRC}/TOOLS/${tool} ${STAGEDIR}${DATADIR}/tools
+	${INSTALL_SCRIPT} ${WRKSRC}/TOOLS/${tool} ${STAGEDIR}${DATADIR}/tools
 .endfor
 
 .include <bsd.port.post.mk>

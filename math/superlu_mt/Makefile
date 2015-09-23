@@ -3,7 +3,7 @@
 
 PORTNAME=	superlu_mt
 PORTVERSION=	2.0.20080115
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	math
 MASTER_SITES=	http://crd.lbl.gov/~xiaoye/SuperLU/ \
 		http://crd.lbl.gov/~xiaoye/:doc
@@ -73,9 +73,7 @@ post-patch:
 			s+%%CFLAGS%%+${CFLAGS}+; \
 			s+%%FFLAGS%%+${FFLAGS}+; \
 			s+%%LDFLAGS%%+${LDFLAGS}+; \
-			s+%%FPIC%%++; \
-	  s+%%PTHREAD_CFLAGS%%+${PTHREAD_CFLAGS}+ ; \
-	  s+%%PTHREAD_LIBS%%+${PTHREAD_LIBS}+ ' \
+			s+%%FPIC%%++ ' \
 		${WRKSRC}/make.inc
 
 	@${REINPLACE_CMD} -e 's+%%BLAS%%+-L${LOCALBASE}/lib ${BLAS}+ ; \
@@ -84,9 +82,7 @@ post-patch:
 			s+%%CFLAGS%%+${CFLAGS} ${FPIC}+; \
 			s+%%FFLAGS%%+${FFLAGS} ${FPIC}+; \
 			s+%%LDFLAGS%%+${LDFLAGS}+; \
-			s+%%FPIC%%+${FPIC}+; \
-	  s+%%PTHREAD_CFLAGS%%+${PTHREAD_CFLAGS}+ ; \
-	  s+%%PTHREAD_LIBS%%+${PTHREAD_LIBS}+ ' \
+			s+%%FPIC%%+${FPIC}+ ' \
 		${WRKSRC_SHARED}/make.inc
 
 do-build:
@@ -108,7 +104,7 @@ do-build:
 	done
 
 do-install:
-	${INSTALL_LIB} ${WRKDIR}/tmp_static/libsuperlu_mt.a ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${WRKDIR}/tmp_static/libsuperlu_mt.a ${STAGEDIR}${PREFIX}/lib
 	${INSTALL_LIB} ${WRKDIR}/tmp_shared/libsuperlu_mt.so.${SVERSION} ${STAGEDIR}${PREFIX}/lib
 	cd ${STAGEDIR}${PREFIX}/lib && ${LN} -s -f libsuperlu_mt.so.${SVERSION} libsuperlu_mt.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/${PORTNAME}

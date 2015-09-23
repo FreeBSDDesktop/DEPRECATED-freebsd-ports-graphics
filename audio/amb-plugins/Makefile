@@ -3,6 +3,7 @@
 
 PORTNAME=	amb-plugins
 PORTVERSION=	0.8.1
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	http://kokkinizita.linuxaudio.org/linuxaudio/downloads/
 DISTNAME=	AMB-plugins-${PORTVERSION}
@@ -31,7 +32,7 @@ post-patch:
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/ladspa
 .for i in 0 1 2 3
-	${INSTALL_DATA} ${WRKSRC}/ambisonic${i}.so ${STAGEDIR}${PREFIX}/lib/ladspa
+	${INSTALL_LIB} ${WRKSRC}/ambisonic${i}.so ${STAGEDIR}${PREFIX}/lib/ladspa
 .endfor
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/ladspa/rdf
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/fa-plugins.rdf \

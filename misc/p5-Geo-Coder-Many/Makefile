@@ -3,11 +3,11 @@
 
 PORTNAME=	Geo-Coder-Many
 PORTVERSION=	0.46
+DISTVERSIONSUFFIX=	-5
 PORTREVISION=	1
 CATEGORIES=	misc geography perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
-DISTNAME=	${PORTNAME}-${PORTVERSION}-5
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Module to tie together multiple Geo::Coder::* modules
@@ -34,6 +34,7 @@ TEST_DEPENDS=	p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception \
 		p5-Test-MockObject>=0:${PORTSDIR}/devel/p5-Test-MockObject \
 		p5-Test-Pod-Coverage>=0:${PORTSDIR}/devel/p5-Test-Pod-Coverage
 
+NO_ARCH=	yes
 USE_PERL5=	configure
 USES=		perl5
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}

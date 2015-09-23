@@ -1,6 +1,6 @@
 bin/pancho
 @sample etc/pancho.conf.sample
-man/man1/pancho.1.gz
+%%PERL5_MAN1%%/pancho.1.gz
 %%SITE_PERL%%/Pancho/Util.pm
 %%SITE_PERL%%/Pancho/Snmp.pm
 %%SITE_PERL%%/Pancho/Log.pm
@@ -16,4 +16,3 @@ man/man1/pancho.1.gz
 %%PORTDOCS%%%%DOCSDIR%%/README
 %%PORTDOCS%%%%DOCSDIR%%/README.plugins
 %%PORTDOCS%%%%DOCSDIR%%/Plugin.sample
-%%PORTDOCS%%@dirrm %%DOCSDIR%%

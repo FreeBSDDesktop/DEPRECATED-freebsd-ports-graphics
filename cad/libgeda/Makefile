@@ -12,6 +12,8 @@ MASTER_SITES=	ftp://ftp.geda.seul.org/pub/geda/release/v1.4/${PORTVERSION}/ \
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	The gEDA's tools base utility library
 
+BROKEN=		Unfetchable
+
 LIB_DEPENDS=	libguile.so:${PORTSDIR}/lang/guile
 
 GNU_CONFIGURE=	yes
@@ -25,16 +27,10 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS_DEFINE=	NLS
+OPTIONS_SUB=	yes
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MNLS}
-USES+=		gettext
-PLIST_SUB+=	NLS=""
-.else
-CONFIGURE_ARGS+=	--disable-nls
-PLIST_SUB+=	NLS="@comment "
-.endif
+NLS_USES=		gettext
+NLS_CONFIGURE_ENABLE=	nls
 
 post-patch:
 	@${REINPLACE_CMD} -E \

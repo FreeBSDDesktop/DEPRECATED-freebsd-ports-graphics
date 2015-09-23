@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	glpi
-PORTVERSION=	0.84.4
+PORTVERSION=	0.85.2
 PORTEPOCH=	1
 CATEGORIES=	www
 MASTER_SITES=	http://droidng.free.fr/freebsd/ \
@@ -13,7 +13,9 @@ COMMENT=	Free IT and asset management software
 
 LICENSE=	GPLv2
 
-USE_PHP=	mysqli mbstring pcre session xml json ctype
+USES=		cpe
+CPE_VENDOR=	glpi-project
+USE_PHP=	mysqli mbstring pcre session xml json ctype gd
 WANT_PHP_WEB=	yes
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
@@ -40,7 +42,7 @@ post-extract:
 	@${FIND} ${WRKSRC} -name '*~' -delete
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${WWWDIR}
-	${CP} -R ${WRKSRC}/* ${STAGEDIR}${WWWDIR}
+	${MKDIR} ${STAGEDIR}${WWWDIR}
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} . ${STAGEDIR}${WWWDIR})
 
 .include <bsd.port.mk>

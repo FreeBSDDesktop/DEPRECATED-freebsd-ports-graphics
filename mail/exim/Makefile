@@ -3,10 +3,9 @@
 
 PORTNAME=	exim
 PORTVERSION?=	${EXIM_VERSION}
-PORTREVISION?=	2
+PORTREVISION=	1
 CATEGORIES=	mail ipv6
-MASTER_SITES=	${MASTER_SITE_EXIM:S/$/:exim/}
-MASTER_SITE_SUBDIR=	exim4/:exim
+MASTER_SITES=	EXIM/exim4/:exim
 DISTNAME=	${PORTNAME}-${EXIM_VERSION}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:exim
 DIST_SUBDIR=	exim
@@ -17,7 +16,7 @@ COMMENT?=	High performance MTA for Unix systems on the Internet
 
 LICENSE=	GPLv2
 
-USES=	tar:bzip2 perl5
+USES=		cpe tar:bzip2 perl5
 USE_PERL5=	run
 
 # Exim build system is job unsafe atm
@@ -49,6 +48,7 @@ EMBEDDED_PERL_USE=	perl5=run,build
 EXIMON_USE=	xorg=x11,xaw,xt
 GNUTLS_LIB_DEPENDS=	libgnutls.so:${PORTSDIR}/security/gnutls
 ICONV_USES=	iconv:lib,build
+INTERNATIONAL_LIB_DEPENDS=	libidn.so:${PORTSDIR}/dns/libidn
 MYSQL_USE=	mysql=yes
 OPENLDAP_USE=	openldap=yes
 PGSQL_USES=	pgsql
@@ -58,34 +58,45 @@ SA_EXIM_RUN_DEPENDS=	${LOCALBASE}/bin/spamc:${PORTSDIR}/mail/spamassassin
 SPF_LIB_DEPENDS=	libspf2.so:${PORTSDIR}/mail/libspf2
 SQLITE_USE=	sqlite=yes
 SQLITE_USES=	pkgconfig
-XCLIENT_EXTRA_PATCHES=	${FILESDIR}/extra-patch-xclient
 
 .include <bsd.port.options.mk>
 
 # OCSP is supported for openssl only
 .if ${PORT_OPTIONS:MOCSP}
 .if ! ${PORT_OPTIONS:MTLS}
-IGNORE=	You cannot enable OCSP stapling without TLS support
+IGNORE=	you cannot enable OCSP stapling without TLS support
 .elif ${PORT_OPTIONS:MGNUTLS}
-IGNORE=	You cannot enable OCSP stapling with gnutls
+IGNORE=	you cannot enable OCSP stapling with gnutls
 .endif
 .endif
 
 # DMARC implies SPF
 .if ${PORT_OPTIONS:MDMARC}
 .if ! ${PORT_OPTIONS:MSPF} || ! ${PORT_OPTIONS:MDKIM}
-IGNORE=	You cannot enable DMARC without SPF and DKIM support
+IGNORE=	you cannot enable DMARC without SPF and DKIM support
+.endif
+.endif
+
+# DANE implies DNSSEC
+.if ${PORT_OPTIONS:MDANE}
+.if ! ${PORT_OPTIONS:MDNSSEC} || ! ${PORT_OPTIONS:MTLS}
+IGNORE=	you cannot enable DANE without DNSSEC support or without TLS support
+.endif
+# Use Openssl from the ports
+.if ${OSVERSION} < 1000000
+. if ! ${PORT_OPTIONS:MGNUTLS}
+WITH_OPENSSL_PORT=	yes
+. endif
 .endif
 .endif
 
 .if ${PORT_OPTIONS:MSA_EXIM} || defined(FETCH_ALL)
 MASTER_SITES+=	http://marc.merlins.org/linux/exim/files/:sa_exim \
 		SF/sa-exim/sa-exim/${SA_EXIM_VERSION}:sa_exim
-MASTER_SITE_SUBDIR+=	sa-exim/:sa_exim
 DISTFILES+=	sa-exim-${SA_EXIM_VERSION}.tar.gz:sa_exim
 .endif
 
-EXIM_VERSION=	4.84
+EXIM_VERSION=	4.86
 SA_EXIM_VERSION=4.2
 EXIM_INSTALL_ARG+=	"-no_chown" "-no_symlink"
 
@@ -109,7 +120,6 @@ PORT_OPTIONS+=	EXIMON
 PKGMESSAGE=	${WRKDIR}/pkg-message
 EXIM_INSTALL_ARG+=	"eximon" "eximon.bin"
 .endif # !EXIMON_ONLY
-
 
 PORTDOC_BASE=	ACKNOWLEDGMENTS NOTICE README.UPDATING
 PORTDOC_FILES=	ChangeLog Exim3.upgrade Exim4.upgrade NewStuff \
@@ -201,6 +211,25 @@ SEDLIST+=	-e 's,^\# (EXPERIMENTAL_CERTNAMES=),\1,'
 SEDLIST+=	-e 's,^\# (EXPERIMENTAL_DSN=),\1,'
 .endif
 
+.if ${PORT_OPTIONS:MDANE}
+SEDLIST+=	-e 's,^\# (EXPERIMENTAL_DANE=),\1,'
+.endif
+
+.if ${PORT_OPTIONS:MEVENT}
+SEDLIST+=	-e 's,^\# (EXPERIMENTAL_EVENT=),\1,'
+.endif
+
+.if ${PORT_OPTIONS:MINTERNATIONAL}
+SEDLIST+=	-e 's,^\# (EXPERIMENTAL_INTERNATIONAL=),\1,' \
+		-e 's,XX_IDN_LIBS_XX,-L${LOCALBASE}/lib -lidn,'
+.else
+SEDLIST+=	-e 's,XX_IDN_LIBS_XX,,'
+.endif
+
+.if ${PORT_OPTIONS:MSOCKS}
+SEDLIST+=	-e 's,^\# (EXPERIMENTAL_SOCKS=),\1,'
+.endif
+
 .if !${PORT_OPTIONS:MPRDR}
 SEDLIST+=	-e 's,^\# (DISABLE_PRDR=),\1,'
 .endif
@@ -223,7 +252,6 @@ SEDLIST+= -e 's,XX_DMARC_LIBS_XX,,'
 .if ${PORT_OPTIONS:MWISHLIST}
 EXTRA_PATCHES+=	`${FIND} ${PATCHDIR} -name 'wishlist-*.patch'`
 .endif
-
 
 .if ${PORT_OPTIONS:MFIXED_NEVER_USERS}
 SEDLIST+=	-e 's,^(FIXED_NEVER_USERS=).*,\1${WITH_FIXED_NEVER_USERS:S/,/\\,/g},'
@@ -425,7 +453,7 @@ SEDLIST+=	-e 's,^(ALT_CONFIG_PREFIX=),\# \1,'
 
 .if ${PORT_OPTIONS:MSPF}
 SEDLIST+=	-e 's,XX_SPF_FLAGS_XX,-DSPF,' \
-		-e 's,XX_SPF_LIBS_XX,-L${LOCALBASE}/lib -lspf2 ${PTHREAD_LIBS:S/,/\\,/g},' \
+		-e 's,XX_SPF_LIBS_XX,-L${LOCALBASE}/lib -lspf2 -lpthread,' \
 		-e 's,^\# (EXPERIMENTAL_SPF=),\1,'
 .else
 SEDLIST+=	-e 's,XX_SPF_FLAGS_XX,,' \
@@ -433,10 +461,6 @@ SEDLIST+=	-e 's,XX_SPF_FLAGS_XX,,' \
 .endif
 
 .if ${PORT_OPTIONS:MSRS}
-LIB_DEPENDS+=	libsrs2.so:${PORTSDIR}/mail/libsrs2
-SEDLIST+=	-e 's,XX_SRS_FLAGS_XX,-DSRS,' \
-		-e 's,XX_SRS_LIBS_XX,-L${LOCALBASE}/lib -lsrs2,'
-.elif ${PORT_OPTIONS:MSRS_ALT}
 LIB_DEPENDS+=	libsrs_alt.so:${PORTSDIR}/mail/libsrs_alt
 SEDLIST+=	-e 's,XX_SRS_FLAGS_XX,-DEXPERIMENTAL_SRS,' \
 		-e 's,XX_SRS_LIBS_XX,-L${LOCALBASE}/lib -lsrs_alt,'
@@ -558,24 +582,24 @@ post-install:
 .endfor
 .endif
 	@${MKDIR} -m 750 ${STAGEDIR}${LOGDIR}
-	@${INSTALL_MAN} ${WRKSRC}/doc/exim.8 ${STAGEDIR}${MAN8PREFIX}/man/man8
+	${INSTALL_MAN} ${WRKSRC}/doc/exim.8 ${STAGEDIR}${MAN8PREFIX}/man/man8
 .if ${PORT_OPTIONS:MDOCS}
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	@${INSTALL_DATA} ${WRKDIR}/POST-INSTALL-NOTES ${STAGEDIR}${DOCSDIR}
-	@${INSTALL_DATA} ${WRKDIR}/POST-INSTALL-NOTES.clamd ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKDIR}/POST-INSTALL-NOTES ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKDIR}/POST-INSTALL-NOTES.clamd ${STAGEDIR}${DOCSDIR}
 .for docfile in ${PORTDOC_BASE}
-	@${INSTALL_DATA} ${WRKSRC}/${docfile} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${docfile} ${STAGEDIR}${DOCSDIR}
 .endfor
 .for docfile in ${PORTDOC_FILES}
-	@${INSTALL_DATA} ${WRKSRC}/doc/${docfile} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/${docfile} ${STAGEDIR}${DOCSDIR}
 .endfor
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 .for example in ${PORT_EXAMPLES}
-	@${INSTALL_SCRIPT} ${WRKSRC}/build-${OPSYS}-${ARCH}/${example} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_SCRIPT} ${WRKSRC}/build-${OPSYS}-${ARCH}/${example} ${STAGEDIR}${EXAMPLESDIR}
 .endfor
 .endif
 .if ${PORT_OPTIONS:MSA_EXIM}
-	@${INSTALL_DATA} ${WRKDIR}/sa-exim-${SA_EXIM_VERSION}/sa-exim.conf \
+	${INSTALL_DATA} ${WRKDIR}/sa-exim-${SA_EXIM_VERSION}/sa-exim.conf \
 		${STAGEDIR}${PREFIX}/etc/exim/sa-exim.conf.sample
 .endif
 

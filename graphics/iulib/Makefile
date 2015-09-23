@@ -3,7 +3,7 @@
 
 PORTNAME=	iulib
 PORTVERSION=	0.4
-PORTREVISION=	15
+PORTREVISION=	17
 CATEGORIES=	graphics
 MASTER_SITES=	GOOGLE_CODE
 
@@ -12,18 +12,15 @@ COMMENT=	Library of image understanding-related algorithms
 
 LICENSE=	APACHE20
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 OPTIONS_DEFINE=	SDL VIDIO
 SDL_DESC=	Enable SDL for graphical debugging
 VIDIO_DESC=	Enable Video Input/Output (using ffmpeg)
 
-USES=		libtool python:build tar:tgz
-USE_GCC=	any
-USE_AUTOTOOLS=	libtoolize aclocal automake autoconf
-AUTOMAKE_ARGS=	--add-missing
+USES=		autoreconf jpeg libtool python:build tar:tgz
+GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	milter-greylist
-PORTVERSION=	4.5.11
-PORTREVISION=	1
+PORTVERSION=	4.5.12
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.espci.fr/pub/milter-greylist/ \
 		http://fossies.org/unix/privat/ \
@@ -76,8 +75,7 @@ LDFLAGS+=	${SENDMAIL_LDFLAGS}
 LIBS+=		${SENDMAIL_LDADD}
 .endif
 
-CFLAGS+=	${PTHREAD_CFLAGS}
-LIBS+=		${PTHREAD_LIBS}
+LIBS+=		-lpthread
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-user=mailnull \

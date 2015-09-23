@@ -3,25 +3,27 @@
 
 PORTNAME=	fox
 PORTVERSION=	1.4.35
-PORTREVISION=	10
+PORTREVISION=	12
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	http://www.fox-toolkit.org/ftp/ \
 		ftp://ftp.fox-toolkit.org/pub/ \
 		http://fresh.t-systems-sfr.com/unix/src/misc/
 PKGNAMESUFFIX=	${PORTVERSION:R:S/.//}
 
-MAINTAINER?=	ports@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Fast and extensive C++ GUI toolkit
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 MAJORVER=	${PORTVERSION:R}
 SHVER=		${PORTVERSION:S/${MAJORVER}.//}
 PLIST_SUB+=	MAJORVER=${MAJORVER} SHVER=${SHVER}
 
-USES=		libtool
+USES=		jpeg libtool
 USE_GL=		yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-opengl=yes \
@@ -99,7 +101,7 @@ post-patch:
 # CXXFLAGS safeness
 	@${REINPLACE_CMD} -E -e \
 		's|-O2|${CXXFLAGS}|g ; \
-		 s|-lc_r|${PTHREAD_LIBS}|g' \
+		 s|-lc_r|-lpthread|g' \
 		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
 # doc prefix safeness
 	@${REINPLACE_CMD} -E -e \
@@ -123,5 +125,8 @@ post-patch:
 		s,^(SUBDIRS.*)calculator,\1,' \
 		${WRKSRC}/Makefile.in
 .endif
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
 .include <bsd.port.mk>

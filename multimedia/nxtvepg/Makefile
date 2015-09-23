@@ -3,6 +3,7 @@
 
 PORTNAME=	nxtvepg
 PORTVERSION=	2.8.0
+PORTREVISION=	1
 CATEGORIES=	multimedia tcl tk
 MASTER_SITES=	SF
 
@@ -13,7 +14,8 @@ NOT_FOR_ARCHS=	sparc64
 USES=		gmake tk:84
 USE_XORG=	x11 xmu
 MAKE_ARGS=	ROOT=${STAGEDIR}
-MAKE_ENV=	PTHREAD_LIBS=${PTHREAD_LIBS} WRKSRC=${WRKSRC} X11BASE=${LOCALBASE}
+MAKE_ENV=	PTHREAD_LIBS="-lpthread" WRKSRC="${WRKSRC}" \
+		X11BASE="${LOCALBASE}"
 
 OPTIONS_DEFINE=	DOCS
 
@@ -24,6 +26,7 @@ post-patch:
 	@${REINPLACE_CMD} 's|wait.h|sys/&|' ${WRKSRC}/epgdb/ttxgrab.c
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nxtvepg ${STAGEDIR}${PREFIX}/bin/nxtvepgd
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} README TODO CHANGES manual.html \
 		${STAGEDIR}${DOCSDIR})

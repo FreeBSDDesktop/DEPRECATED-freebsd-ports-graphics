@@ -68,7 +68,7 @@ my $autofill = ($autofill_l ? $autofill_l : $autofill_L);
 my $c = $opts{'c'} if ($opts{'c'} ne "");
 my $distdir = $opts{'s'} if ($opts{'s'} ne "");
 my $dir = $opts{'d'};
-my $h = "svn.FreeBSD.org";
+my $h = "repo.FreeBSD.org";
 $h = $opts{'h'} if ($opts{'h'} ne "");
 my $u = $ENV{USER};
 $u = $opts{'u'} if ($opts{'u'} ne "");
@@ -302,7 +302,7 @@ foreach my $thisdir (@dirs) {
 			$tmp = $pkgcomment;
 		}
 		print AUTOFILL $tmp;
-		print AUTOFILL "PR:		ports/$autofill\n" if ($autofill != -1);
+		print AUTOFILL "PR:		$autofill\n" if ($autofill != -1);
 		print AUTOFILL "Submitted by:	$maintainer" if ($maintainer && $autofill != -1);
 		close(AUTOFILL);
 		print "Okay, a commit log message was automatically generated for you.\n";
@@ -532,7 +532,7 @@ OPTIONS
 			there are no problems.  Recommended.
 	-c file		Use file in place of normal log message.
 	-f		Do not fetch the distfile.
-	-h host		Use a svnhost besides svn.FreeBSD.org.
+	-h host		Use a svnhost besides repo.FreeBSD.org.
 	-i		Interactive mode; allow more control over
 			where things are placed.
 	-l PR#		Attempts to autogenerate a commit message by

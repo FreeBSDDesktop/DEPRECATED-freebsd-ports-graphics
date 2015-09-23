@@ -2,13 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	electric
-PORTVERSION=	9.05
-PORTREVISION=	1
+PORTVERSION=	9.06
 CATEGORIES=	cad java
-MASTER_SITES=	${MASTER_SITE_GNU} \
+MASTER_SITES=	GNU/${PORTNAME:S/-ng//} \
 		http://www.staticfreesoft.com/:1 \
 		http://www.staticfreesoft.com/jmanual/:2
-MASTER_SITE_SUBDIR=	${PORTNAME:S/-ng//}
 PKGNAMESUFFIX=	-ng
 EXTRACT_SUFX=
 DISTFILES+=	${PORTNAME}Binary-${PORTVERSION}.jar
@@ -42,7 +40,7 @@ J3DLIB=		${JAVA_HOME}/jre/lib/ext/j3dcore.jar
 PLUGINDIR=	${PREFIX}/libexec/${PORTNAME}${PKGNAMESUFFIX}
 
 DESKTOP_ENTRIES="Electric-NG" "${COMMENT}" "${PORTNAME}${PKGNAMESUFFIX}" \
-			"${PORTNAME}${PKGNAMESUFFIX}" "Development;Electronics;Engineering;" ${FALSE}
+			"${PORTNAME}${PKGNAMESUFFIX}" "Development;Electronics;Engineering;" false
 
 .include <bsd.port.options.mk>
 

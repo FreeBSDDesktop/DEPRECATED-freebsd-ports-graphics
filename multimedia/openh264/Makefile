@@ -1,7 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	openh264
-PORTVERSION=	1.2
+PORTVERSION=	1.4.0
+DISTVERSIONPREFIX=v
+PORTREVISION=	4
 CATEGORIES=	multimedia
 
 MAINTAINER=	gecko@FreeBSD.org
@@ -11,21 +13,19 @@ LICENSE=	BSD2CLAUSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cisco
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	${GH_COMMIT} # v${PORTVERSION}
-GH_COMMIT=	ca0ed2a # openh264v1.2
 
-USES=		gmake
+USES=		cpe gmake
+CPE_VENDOR=	cisco
 USE_LDCONFIG=	yes
 MAKE_ARGS=	OS=freebsd ARCH="${ARCH:S/amd64/x86_64/}" \
-		CFLAGS_OPT="" SHAREDLIBSUFFIX=so.0 \
-		PREFIX="${STAGEDIR}${PREFIX}"
+		CFLAGS_OPT="" CFLAGS_DEBUG=""
 ALL_TARGET=	all
 
-OPTIONS_DEFINE=	PLUGINS TEST
+OPTIONS_DEFINE=	DEBUG PLUGINS TEST
 OPTIONS_DEFAULT=PLUGINS
 OPTIONS_SUB=	yes
 
+DEBUG_MAKE_ARGS=BUILDTYPE=Debug
 PLUGINS_BUILD_DEPENDS=gmp-api>=34.0:${PORTSDIR}/multimedia/gmp-api
 #			gmp-api<36.0:${PORTSDIR}/multimedia/gmp-api
 PLUGINS_CFLAGS=	-I${LOCALBASE}/include/gmp-api
@@ -35,7 +35,7 @@ PLUGINS_USES=	webplugin:gecko
 WEBPLUGIN_NAME=	gmp-gmp${PORTNAME}
 WEBPLUGIN_FILES=gmp${PORTNAME}.info libgmp${PORTNAME}.so
 SUB_FILES+=	gmp${PORTNAME}.js
-SUB_LIST+=	PORTVERSION=${PORTVERSION} WEBPLUGIN_DIR="${WEBPLUGIN_DIR}"
+SUB_LIST+=	PORTVERSION=${PORTVERSION} TIMESTAMP="`date +%s`"
 
 TEST_BUILD_DEPENDS=googletest>=1.6.0:${PORTSDIR}/devel/googletest
 TEST_CFLAGS=	-I${LOCALBASE}/include
@@ -44,22 +44,28 @@ TEST_ALL_TARGET=test
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH} == amd64 || ${ARCH} == arm || ${ARCH} == i386
+.if ! ${PORT_OPTIONS:MDEBUG}
+. if ${ARCH} == amd64 || ${ARCH} == i386
 BUILD_DEPENDS+=	nasm:${PORTSDIR}/devel/nasm
+. endif
 .endif
+
+post-patch:
+	${REINPLACE_CMD} -e '/gtest-targets\.mk/d' \
+		-e '/pkgconfig/s/lib/libdata/' \
+		${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's,@prefix@,${PREFIX},' \
+		${WRKSRC}/${PORTNAME}.pc.in
 
 pre-build:
 	${LN} -sf ${LOCALBASE}/lib/libgtest.so ${WRKSRC}/libgtest.a
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${PORTNAME}.so.0
-	cd ${STAGEDIR}${PREFIX}/lib && \
-		${LN} -sf lib${PORTNAME}.so.0 lib${PORTNAME}.so
 .if ${PORT_OPTIONS:MPLUGINS}
 	${MKDIR} ${STAGEDIR}${WEBPLUGIN_DIR}
 	${INSTALL_DATA} ${WRKSRC}/gmp${PORTNAME}.info ${STAGEDIR}${WEBPLUGIN_DIR}
-	${INSTALL_LIB} ${WRKSRC}/libgmp${PORTNAME}.so.0 \
-		${STAGEDIR}${WEBPLUGIN_DIR}/libgmp${PORTNAME}.so
+	${INSTALL_LIB} ${WRKSRC}/libgmp${PORTNAME}.so ${STAGEDIR}${WEBPLUGIN_DIR}
 	${INSTALL_DATA} ${WRKDIR}/gmp${PORTNAME}.js ${STAGEDIR}${WEBPLUGIN_DIR}
 .endif
 

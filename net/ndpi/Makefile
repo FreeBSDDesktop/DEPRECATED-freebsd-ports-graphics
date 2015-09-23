@@ -2,12 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	ndpi
-PORTVERSION=	1.5.1
+PORTVERSION=	1.6
+PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	SF/ntop/nDPI
-DISTNAME=	libndpi-${PORTVERSION}
+DISTNAME=	nDPI-${PORTVERSION}
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	NTOP-maintained superset of the popular OpenDPI library
 
 LICENSE=	GPLv3
@@ -20,10 +21,14 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 LIBS+=		-ljson-c
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-USES=	 	libtool pathfix pkgconfig compiler:c++11-lang
-WRKSRC=		${WRKDIR}/libndpi-${PORTVERSION}
+USES=	 	autoreconf libtool pathfix pkgconfig compiler:c++11-lang
+WRKSRC=		${WRKDIR}/nDPI-${PORTVERSION}
 INSTALL_TARGET=	install-strip
 
-PLIST_SUB=	MAJOR_VER=${PORTVERSION}
+PLIST_SUB=	MAJOR_VER=${PORTVERSION}.0
+
+post-patch:
+	${REINPLACE_CMD} 's|$$(libdir)|$$(libdir)data|' \
+		${WRKSRC}/Makefile.am
 
 .include <bsd.port.mk>

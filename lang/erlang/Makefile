@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	erlang
-PORTVERSION=	17.3
-PORTREVISION=	3
+PORTVERSION=	18.0.3
+PORTREVISION=	1
 PORTEPOCH=	3
 CATEGORIES=	lang parallel java
 MASTER_SITES=	http://www.erlang.org/download/:erlangorg		\
@@ -12,17 +12,21 @@ MASTER_SITES=	http://www.erlang.org/download/:erlangorg		\
 		http://www.erlang.se/doc/:erlangse			\
 		http://www.erlang.se/publications/:publications		\
 		http://www.sics.se/~joe/thesis/:joe			\
-		${MASTER_SITE_LOCAL:S/$/:local/:S,%SUBDIR%/,olgeni/,}
+		LOCAL/olgeni:local
 DISTNAME=	otp_src_${ERL_RELEASE}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:erlangorg	\
 		${ERLANG_MAN}:erlangorg
 DIST_SUBDIR=	erlang
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-PATCH_SITES=	http://www.erlang.org/download
+PATCH_SITES=	http://olgeni.olgeni.com/~olgeni/distfiles/ \
+		LOCAL/olgeni
+PATCHFILES=	patch-otp-18.0.1 patch-otp-18.0.2 patch-otp-18.0.3
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Functional programming language from Ericsson
+
+LICENSE=	APACHE20
 
 WRKSRC=		${WRKDIR}/otp_src_${ERL_RELEASE}
 
@@ -34,30 +38,32 @@ PLIST_SUB=	ERLANG_LIB=${ERLANG_LIB}
 
 MAKE_JOBS_UNSAFE=yes
 
-OPTIONS_DEFINE=	GCC DOCS GS HIPE JAVA KQUEUE ODBC OPENSSL SCTP SMP THREADS WX DTRACE
+OPTIONS_DEFINE=	DOCS DTRACE GCC GS HIPE JAVA KQUEUE ODBC OPENSSL SCTP SMP THREADS WX DIRTY
 
+DIRTY_DESC=	Enable Dirty schedulers (experimental)
+DTRACE_DESC=	Enable DTrace support
 GCC_DESC=	Use current GCC
+GS_DESC=	Enable GS application (deprecated)
 HIPE_DESC=	Build native HiPE compiler
 KQUEUE_DESC=	Enable Kernel Poll (kqueue) support
 SCTP_DESC=	Enable SCTP support
 SMP_DESC=	Enable SMP support
 WX_DESC=	Enable WX application
-GS_DESC=	Enable GS application (deprecated)
-DTRACE_DESC=	Enable DTrace support
 
-OPTIONS_DEFAULT=SMP OPENSSL THREADS SCTP KQUEUE
+OPTIONS_DEFAULT=HIPE KQUEUE OPENSSL SCTP SMP THREADS
+OPTIONS_EXCLUDE_DragonFly=	HIPE SCTP
 
-ERL_RELEASE=	${PORTVERSION}
+ERL_RELEASE=	18.0
 
 USES=		gmake perl5
-USE_AUTOTOOLS=	autoconf:env
 USE_PERL5=	build
 USE_RC_SUBR=	epmd
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-EI_VSN=		3.7.18
-TOOLS_VSN=	2.7
+EI_VSN=		3.8
+SNMP_VSN=	5.2
+TOOLS_VSN=	2.8
 
 .include <bsd.port.options.mk>
 
@@ -166,8 +172,16 @@ CONFIGURE_ARGS+=--enable-smp-support
 CONFIGURE_ARGS+=--disable-smp-support
 .endif
 
+.if ${PORT_OPTIONS:MDIRTY}
+CONFIGURE_ARGS+=--enable-dirty-schedulers
+.endif
+
 .if ${ARCH} == i386
 MAKE_ARGS+=	ARCH=x86
+.endif
+
+.if ${ARCH} == armv6
+MAKE_ARGS+=	ARCH=arm
 .endif
 
 # The man-pages are put (in spite of FreeBSD's port convention) in a private
@@ -182,6 +196,19 @@ MAKE_ARGS+=	ARCH=x86
 post-patch:
 	@${ECHO_CMD} "MANPATH ${PREFIX}/lib/erlang/man" > ${WRKDIR}/erlang.conf
 
+pre-configure:
+.if ${PORT_OPTIONS:MDTRACE}
+	@if ! /sbin/kldstat | ${GREP} dtraceall >/dev/null 2>&1; then \
+		${ECHO_CMD}; \
+		${ECHO_CMD} "DTRACE option requires kernel module \"dtraceall\" to be loaded."; \
+		${ECHO_CMD}; \
+		exit 1; \
+	fi
+.endif
+.if ! ${PORT_OPTIONS:MWX}
+	echo "disabled by port options" > ${WRKSRC}/lib/wx/SKIP
+.endif
+
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/erlang.conf ${STAGEDIR}${PREFIX}/etc/man.d/erlang.conf
 	${LN} -sf ../lib/${ERLANG_LIB}/lib/erl_interface-${EI_VSN}/bin/erl_call ${STAGEDIR}${PREFIX}/bin/erl_call
@@ -191,10 +218,18 @@ post-install:
 			"man/man$${SECTION}/*.$${SECTION}" || ${TRUE}; \
 	done
 	${RM} -rf ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/man/cat?
-
 .if ${PORT_OPTIONS:MDOCS}
 	${TAR} --unlink -xzpf ${DISTDIR}/${DIST_SUBDIR}/${ERLANG_DOCS} \
 		-C ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}
+
+	${MV} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/erts-7.0/* \
+		${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/erts-7.0.3
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/erts-7.0
+
+	${MV} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/lib/runtime_tools-1.9/* \
+		${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/lib/runtime_tools-1.9.1
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/lib/runtime_tools-1.9
+
 	${INSTALL_DATA} ${WRKSRC}/lib/dialyzer/doc/*.txt \
 		${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/lib/dialyzer-*/doc/
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
@@ -202,6 +237,25 @@ post-install:
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/$$(expr ${FILE} : '\([^:]*\)') ${STAGEDIR}/${DOCSDIR}
 .endfor
 .endif
+.if ! ${PORT_OPTIONS:MGS}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/gs-*
+.endif
+.if ! ${PORT_OPTIONS:MJAVA}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/jinterface-*
+.endif
+.if ! ${PORT_OPTIONS:MODBC}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/odbc-*
+.endif
+.if ! ${PORT_OPTIONS:MOPENSSL}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/crypto-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/ssh-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/ssl-*
+.endif
+.if ! ${PORT_OPTIONS:MWX}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/wx-*
+.endif
+
+	${LN} -s ../lib/erlang/lib/snmp-${SNMP_VSN}/bin/snmpc ${STAGEDIR}${PREFIX}/bin/snmpc
 
 	@cd ${STAGEDIR}${PREFIX}; ${FIND} lib/${ERLANG_LIB}/* -type d -empty \
 		| ${SORT} \

@@ -3,7 +3,7 @@
 
 PORTNAME=	xglk
 PORTVERSION=	411
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	games
 MASTER_SITES=	http://www.ifarchive.org/if-archive/programming/glk/implementations/
 DISTNAME=	${PORTNAME}-0${PORTVERSION}
@@ -12,11 +12,11 @@ EXTRACT_SUFX=	.tar.Z
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	X Windows Implementation of the Glk API
 
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
+USES=		jpeg
 USE_XORG=	x11
 MAKE_ENV+=	AR=${AR} RANLIB=${RANLIB} ECHO=${ECHO} RM=${RM:Q}
 

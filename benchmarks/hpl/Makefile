@@ -5,8 +5,7 @@ PORTNAME=	hpl
 PORTVERSION=	2.1
 PORTREVISION=	5
 CATEGORIES=	benchmarks
-MASTER_SITES=	${MASTER_SITE_NETLIB}
-MASTER_SITE_SUBDIR=	benchmark/hpl
+MASTER_SITES=	NETLIB/benchmark/hpl
 
 MAINTAINER=	oliver@FreeBSD.org
 COMMENT=	High Performance Computing Linpack Benchmark
@@ -33,7 +32,7 @@ post-patch:
 		s|ARCH[ )]|_&|g ; \
 		s|^HPL_OPTS[ ]*=.*$$|HPL_OPTS =| ; \
 		s|^LAlib[ ]*=.*$$|LAlib = $$\(LAdir\)/lib/libblas.a| ; \
-		s|libpmpich.a|libmpl.a ${PTHREAD_LIBS}|' \
+		s|libpmpich.a|libmpl.a -lpthread|' \
 		${WRKSRC}/setup/Make.${HPL_ARCH}
 	@${REINPLACE_CMD} -e 's|HPL\.dat|${PREFIX}/etc/${PORTNAME}/&|' \
 		${WRKSRC}/testing/ptest/HPL_pdinfo.c

@@ -1,17 +1,19 @@
 # $FreeBSD$
 
 PORTNAME=	activemq
-PORTVERSION=	5.10.0
+PORTVERSION=	5.10.1
 CATEGORIES=	net java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=${PORTNAME}/${PORTVERSION}
+MASTER_SITES=	APACHE/${PORTNAME}/${PORTVERSION}
 DISTNAME=	apache-${PORTNAME}-${PORTVERSION}-bin
 
 MAINTAINER=	tj@FreeBSD.org
 COMMENT=	Messaging and Integration Patterns provider
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
+USES+=		cpe
+CPE_VENDOR=	apache
 NO_BUILD=	yes
 USE_JAVA=	yes
 JAVA_VERSION=	1.7+
@@ -66,25 +68,11 @@ PLIST_SUB=	MQUSER="${MQUSER}" \
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
-.include <bsd.port.options.mk>
-
 post-patch:
 	 @${REINPLACE_CMD} -e 's|activemq.base}/data|activemq.logs}|g' ${WRKSRC}/conf/log4j.properties
 
 do-install:
-.if ${PORT_OPTIONS:MDOCS}
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	@cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/
-.for f in ${DOC_FILES}
-	@${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}/
-.endfor
-.endif
-
 	@${MKDIR} ${STAGEDIR}${MQDATA} ${STAGEDIR}${MQDATA}/bin ${STAGEDIR}${ETCDIR}
-
-.if ${PORT_OPTIONS:MEXAMPLES}
-	@cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
-.endif
 
 .for f in ${ETC_FILES}
 	${INSTALL_DATA} ${WRKSRC}/conf/${f} ${STAGEDIR}${ETCDIR}/${f}.sample
@@ -105,5 +93,15 @@ do-install:
 	@${LN} -sf ${ETCDIR} ${STAGEDIR}${MQDATA}/conf
 	@${LN} -sf ${EXAMPLESDIR} ${STAGEDIR}${MQDATA}/examples
 	@${LN} -sf ${DOCSDIR} ${STAGEDIR}${MQDATA}/docs
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	@cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/
+.for f in ${DOC_FILES}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}/
+.endfor
+
+do-install-EXAMPLES-on:
+	@cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
 
 .include <bsd.port.mk>

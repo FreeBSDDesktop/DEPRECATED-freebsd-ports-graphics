@@ -30,7 +30,9 @@
     SUBDIR += fpc-unzip
     SUBDIR += freetar
     SUBDIR += freeze
+    SUBDIR += gcab
     SUBDIR += gcpio
+    SUBDIR += gnome-autoar
     SUBDIR += grzip
     SUBDIR += gtar
     SUBDIR += gzip
@@ -71,7 +73,6 @@
     SUBDIR += linux-f10-ucl
     SUBDIR += linux-f10-upx
     SUBDIR += lrzip
-    SUBDIR += lz4
     SUBDIR += lzip
     SUBDIR += lzlib
     SUBDIR += lzma
@@ -134,7 +135,8 @@
     SUBDIR += pear-Horde_Compress
     SUBDIR += pear-Horde_Compress_Fast
     SUBDIR += pear-Horde_Pack
-    SUBDIR += pear-PHP_Archiv
+    SUBDIR += pear-PHP_Archive
+    SUBDIR += peazip
     SUBDIR += pecl-lzf
     SUBDIR += pecl-phk
     SUBDIR += pecl-rar
@@ -144,10 +146,6 @@
     SUBDIR += php5-snappy
     SUBDIR += php5-zip
     SUBDIR += php5-zlib
-    SUBDIR += php53-bz2
-    SUBDIR += php53-phar
-    SUBDIR += php53-zip
-    SUBDIR += php53-zlib
     SUBDIR += php55-bz2
     SUBDIR += php55-phar
     SUBDIR += php55-zip
@@ -163,9 +161,12 @@
     SUBDIR += ppmd-7z
     SUBDIR += ppunpack
     SUBDIR += pxz
+    SUBDIR += py-attic
     SUBDIR += py-liblzma
     SUBDIR += py-librtfcomp
+    SUBDIR += py-lz4
     SUBDIR += py-lzma
+    SUBDIR += py-python-snappy
     SUBDIR += qpress
     SUBDIR += quazip
     SUBDIR += rar

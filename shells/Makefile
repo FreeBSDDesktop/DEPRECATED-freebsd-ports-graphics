@@ -17,6 +17,7 @@
     SUBDIR += fish
     SUBDIR += flash
     SUBDIR += heirloom-sh
+    SUBDIR += hs-shelly
     SUBDIR += ibsh
     SUBDIR += jailkit
     SUBDIR += ksh93
@@ -26,6 +27,7 @@
     SUBDIR += osh
     SUBDIR += p5-Bash-Completion
     SUBDIR += p5-Shell-Perl
+    SUBDIR += p5-Term-Bash-Completion-Generator
     SUBDIR += p5-Term-ShellUI
     SUBDIR += pdksh
     SUBDIR += pear-PHP_Shell
@@ -40,6 +42,7 @@
     SUBDIR += v7sh
     SUBDIR += viewglob
     SUBDIR += vshnu
+    SUBDIR += wcd
     SUBDIR += zsh
 
 .include <bsd.port.subdir.mk>

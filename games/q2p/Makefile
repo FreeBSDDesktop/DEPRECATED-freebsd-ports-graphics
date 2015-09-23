@@ -3,7 +3,7 @@
 
 PORTNAME=	q2p
 PORTVERSION=	0.2.20061231
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	games
 MASTER_SITES=	http://bfeared.com/library/quake/archive/quakedev/qudos/quake2/engines/Q2P/
 DISTNAME=	Q2P-0.2-2006-12-31
@@ -36,8 +36,8 @@ SDLGL_DESC=	Build SDL OpenGL renderer
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MGLX} || ${PORT_OPTIONS:MSDLGL}
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
+USES+=		jpeg
 USE_GL=		glu
 .endif
 

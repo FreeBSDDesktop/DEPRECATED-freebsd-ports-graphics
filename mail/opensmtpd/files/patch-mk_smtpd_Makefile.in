@@ -1,9 +1,6 @@
-
-$FreeBSD$
-
 --- mk/smtpd/Makefile.in.orig
 +++ mk/smtpd/Makefile.in
-@@ -1906,11 +1906,7 @@
+@@ -1793,11 +1793,7 @@
  	$(MKDIR_P) $(DESTDIR)$(mandir)/$(mansubdir)5
  	$(MKDIR_P) $(DESTDIR)$(mandir)/$(mansubdir)8
  

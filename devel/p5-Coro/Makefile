@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Coro
-PORTVERSION=	6.37
-PORTREVISION=	1
+PORTVERSION=	6.47
 PORTEPOCH=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
@@ -22,22 +21,28 @@ BUILD_DEPENDS=	p5-AnyEvent>=7:${PORTSDIR}/devel/p5-AnyEvent \
 		p5-IO-AIO>=3.1:${PORTSDIR}/devel/p5-IO-AIO \
 		p5-common-sense>=0:${PORTSDIR}/devel/p5-common-sense
 RUN_DEPENDS:=	${BUILD_DEPENDS}
+BUILD_DEPENDS+=	p5-Canary-Stability>=0:${PORTSDIR}/devel/p5-Canary-Stability
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
 USES=		perl5 shebangfix
 USE_PERL5=	configure
 
+PORTDOCS=	*
+PORTEXAMPLES=	*
+
 SHEBANG_FILES=	Coro/*.pl eg/*
-#SHEBANG_LANG=	perl2
-#perl2_OLD_CMD=	/opt/bin/perl
-#perl2_CMD=	${perl_CMD}
 perl_OLD_CMD=	/.*/bin/perl
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}/
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}/ ${STAGEDIR}${EXAMPLESDIR}/
 	${INSTALL_DATA} ${WRKSRC}/doc/cede-vs-schedule ${STAGEDIR}${DOCSDIR}/
-	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/
 	${INSTALL_SCRIPT} ${WRKSRC}/eg/* ${STAGEDIR}${EXAMPLESDIR}/
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} >= 502200
+BROKEN=		Perl >= 5.22 is not supported
+.endif
+
+.include <bsd.port.post.mk>

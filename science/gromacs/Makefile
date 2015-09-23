@@ -2,11 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	gromacs
-PORTVERSION=	5.0.2
+PORTVERSION=	5.0.6
 CATEGORIES=	science
-MASTER_SITES=	ftp://ftp.gromacs.org/pub/gromacs/
+MASTER_SITES=	ftp://ftp.gromacs.org/pub/gromacs/ \
+		http://www.skysmurf.nl/comp/FreeBSD/distfiles/
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	freebsd@skysmurf.nl
 COMMENT=	Compute molecular dynamics
 
 LICENSE=	LGPL21
@@ -28,9 +29,8 @@ OPTIONS_DEFAULT=	FLOAT OPENMP X11
 OPTIONS_SUB=		yes
 
 ATLAS_DESC=		Use ATLAS for BLAS and LAPACK
-ATLAS_LIB_DEPENDS=	libalapack.so:${PORTSDIR}/math/atlas
-ATLAS_LIB_DEPENDS_OFF=	libblas.so:${PORTSDIR}/math/blas \
-			liblapack.so:${PORTSDIR}/math/lapack
+ATLAS_USES=		blaslapack:atlas
+ATLAS_USES_OFF=		blaslapack
 ATLAS_CMAKE_ON=		-DBLAS_LIBRARIES:FILEPATH="${LOCALBASE}/lib/libcblas.so;${LOCALBASE}/lib/libf77blas.so" \
 			-DLAPACK_LIBRARIES:FILEPATH="${LOCALBASE}/lib/libalapack.so"
 ATLAS_CMAKE_OFF=	-DBLAS_LIBRARIES:FILEPATH="${LOCALBASE}/lib/libblas.so" \
@@ -42,7 +42,7 @@ FLOAT_LIB_DEPENDS_OFF=	libfftw3.so:${PORTSDIR}/math/fftw3
 FLOAT_CMAKE_ON=		-DGMX_DOUBLE:BOOL=OFF
 FLOAT_CMAKE_OFF=	-DGMX_DOUBLE:BOOL=ON
 MPICH2_LIB_DEPENDS=	libmpich.so:${PORTSDIR}/net/mpich2
-MPICH2_CMAKE_ON= 	-DMPI_C_COMPILER:FILEPATH="${LOCALBASE}/bin/mpicc"
+MPICH2_CMAKE_ON=	-DMPI_C_COMPILER:FILEPATH="${LOCALBASE}/bin/mpicc"
 OPENMP_USES=		compiler:openmp
 OPENMP_CMAKE_ON=	-DGMX_CXX11:BOOL=OFF
 OPENMP_CMAKE_OFF=	-DGMX_OPENMP:BOOL=OFF

@@ -2,9 +2,9 @@
 
 PORTNAME=	hourglass
 PORTVERSION=	1.0.1
+DISTVERSIONSUFFIX=	b
 CATEGORIES=	sysutils parallel
 MASTER_SITES=	http://www.cs.utah.edu/~regehr/hourglass/
-DISTNAME=	${PORTNAME}-${PORTVERSION}b
 
 MAINTAINER=	jadawin@FreeBSD.org
 COMMENT=	Real-time application to learn how CPU scheduling works
@@ -19,8 +19,6 @@ PORTDOCS=	CALIBRATION
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
 THREAD_LIBS=	-pthread
 
 post-patch:
@@ -31,12 +29,10 @@ post-patch:
 	@${REINPLACE_CMD} -e 's,%THREAD_CFLAGS%,${THREAD_CFLAGS},g' \
 		${WRKSRC}/configure
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
-. for doc in ${PORTDOCS}
+.for doc in ${PORTDOCS}
 	${INSTALL_DATA} ${WRKSRC}/${doc} ${STAGEDIR}${DOCSDIR}
-. endfor
-.endif
+.endfor
 
 .include <bsd.port.mk>

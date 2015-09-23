@@ -5,7 +5,7 @@ PORTNAME=	ypsilon
 PORTVERSION=	0.9.6.3
 PORTREVISION=	3
 CATEGORIES=	lang scheme
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 DISTNAME=	${PORTNAME}-0.9.6.update3
 
 MAINTAINER=	vmagerya@gmail.com
@@ -13,8 +13,7 @@ COMMENT=	Scheme implementation for real-time applications
 
 USES=		gmake
 
-MAKE_ARGS=	DATADIR="${DATADIR}" \
-		PTHREAD_LIBS="${PTHREAD_LIBS}"
+MAKE_ARGS=	DATADIR="${DATADIR}"
 
 ONLY_FOR_ARCHS=	i386 amd64
 

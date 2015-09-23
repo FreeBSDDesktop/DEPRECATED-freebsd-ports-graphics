@@ -3,6 +3,7 @@
 
 PORTNAME=	pysearch
 PORTVERSION=	3.1
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	SF/${PORTNAME}/pYsearch/${PORTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -11,8 +12,10 @@ DISTNAME=	pYsearch-${PORTVERSION}
 MAINTAINER=	lwhsu@FreeBSD.org
 COMMENT=	Yahoo Search Web Services SDK for Python
 
-USE_PYTHON=	yes
-USE_PYDISTUTILS=	yes
+USES=		python shebangfix
+SHEBANG_FILES=	examples/profile.py \
+		examples/websearch.py
+USE_PYTHON=	distutils
 PYDISTUTILS_PKGNAME=	pYsearch
 
 DOCSDIR=	${PREFIX}/share/doc/py-${PORTNAME}

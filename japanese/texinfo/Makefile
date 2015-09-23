@@ -5,8 +5,7 @@ PORTNAME=	texinfo
 PORTVERSION=	4.7
 PORTREVISION=	8
 CATEGORIES=	japanese print
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	${PORTNAME}
+MASTER_SITES=	GNU
 
 PATCH_SITES=	ftp://jupiter.fsci.fuk.kindai.ac.jp/pub/ptex/utils/ \
 		http://www.fsci.fuk.kindai.ac.jp/aftp/pub/ptex/utils/
@@ -18,9 +17,10 @@ COMMENT=	Typeset Texinfo files for printing. Uses TeX
 
 RUN_DEPENDS=	ptex:${PORTSDIR}/japanese/tex-ptex
 
-USES=		gettext gmake
+USES=		cpe gettext gmake
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--program-prefix=j
+CPE_VENDOR=	gnu
 
 MAKE_ARGS=	TEXMF=${PREFIX}/${TEXMFLOCAL}
 INSTALL_TARGET=	install install-tex

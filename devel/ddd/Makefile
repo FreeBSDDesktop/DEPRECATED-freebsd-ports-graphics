@@ -5,13 +5,12 @@ PORTNAME=	ddd
 PORTVERSION=	3.3.12
 PORTREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	${PORTNAME}
+MASTER_SITES=	GNU
 
 MAINTAINER=	sergio@softshark.org
 COMMENT=	Data Display Debugger -- a common graphical front-end for GDB/DBX/XDB
 
-USES=		gmake makeinfo motif
+USES=		cpe gmake makeinfo motif
 USE_XORG=	xpm
 GNU_CONFIGURE=	yes
 
@@ -27,6 +26,8 @@ DOCS=		AUTHORS INSTALL PROBLEMS README TIPS TODO \
 		doc/html/ddd.html doc/ddd-paper.ps \
 		doc/ddd-themes.pdf doc/ddd.pdf
 INFO=		ddd ddd-themes
+CPE_PRODUCT=	data_display_debugger
+CPE_VENDOR=	gnu
 
 OPTIONS_DEFINE=	DOCS
 

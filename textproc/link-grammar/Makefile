@@ -2,7 +2,7 @@
 
 PORTNAME=	link-grammar
 PORTVERSION=	4.7.4
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	textproc
 MASTER_SITES=	http://www.abisource.com/downloads/${PORTNAME}/${PORTVERSION}/
 
@@ -27,10 +27,6 @@ MAKE_JOBS_UNSAFE=	yes
 INSTALL_TARGET=	install-strip
 
 DOCS=		AUTHORS LICENSE MAINTAINERS README
-
-post-patch:
-	@${REINPLACE_CMD} -e "s|-lpthread|${PTHREAD_LIBS}|g" \
-		${WRKSRC}/configure ${WRKSRC}/${PORTNAME}/Makefile.in
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

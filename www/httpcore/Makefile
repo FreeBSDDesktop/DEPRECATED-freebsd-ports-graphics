@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	httpcore
-DISTVERSION=	4.3.2
+DISTVERSION=	4.3.3
 CATEGORIES=	www java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	httpcomponents/${PORTNAME}/binary
+MASTER_SITES=	APACHE/httpcomponents/${PORTNAME}/binary
 DISTNAME=	httpcomponents-core-${DISTVERSION}-bin
 
 MAINTAINER=	ale@FreeBSD.org

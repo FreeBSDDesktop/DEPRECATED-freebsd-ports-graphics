@@ -1,12 +1,11 @@
 # Created by: Alonso Cardenas Marquez <acm@FreeBSD.org>
 # $FreeBSD$
 
-PORTVERSION=	0
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	devel lang
 PKGNAMESUFFIX=	-sdl
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Free Pascal interface to SDL library
 
 USE_FPC=	pthreads x11

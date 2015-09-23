@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	cmake
-PORTVERSION=	3.0.2
+PORTVERSION=	3.3.1
 PORTREVISION?=	0
 CATEGORIES=	devel
-MASTER_SITES=	http://www.cmake.org/files/v3.0/
+MASTER_SITES=	http://www.cmake.org/files/v3.3/
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT?=	Cross-platform Makefile generator
@@ -13,29 +13,34 @@ COMMENT?=	Cross-platform Makefile generator
 LICENSE=	BSD3CLAUSE
 
 USE_KDE4=	# env
-USE_OPENSSL=	yes
 CONFIGURE_ENV=	MAKE=make
 CONFIGURE_ARGS=	--prefix=${PREFIX} \
 		--datadir="/${DATADIR_REL}" \
 		--docdir="/${DOCSDIR_REL}" \
-		--sphinx-man \
 		--system-libs \
 		--parallel=${MAKE_JOBS_NUMBER} \
 		--init="${PATCHDIR}/InitialCache.cmake"
 
-.if defined(STRIP) && ${STRIP} != ""
-INSTALL_TARGET=	install/strip
-.endif
-
 .if !defined(CMAKE_MODULES)
-OPTIONS_DEFINE=	DOCS
+OPTIONS_DEFINE=	DOCS MANPAGES
+OPTIONS_DEFAULT=MANPAGES
 OPTIONS_SUB=	yes
+USES+=		libarchive
 HAS_CONFIGURE=	yes
 
-BUILD_DEPENDS=	sphinx-build:${PORTSDIR}/textproc/py-sphinx
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
-		libexpat.so:${PORTSDIR}/textproc/expat2
+		libexpat.so:${PORTSDIR}/textproc/expat2 \
+		libjsoncpp.so:${PORTSDIR}/devel/jsoncpp
 RUN_DEPENDS=	${LOCALBASE}/share/cmake/Modules/CMake.cmake:${PORTSDIR}/devel/cmake-modules
+
+MANPAGES_BUILD_DEPENDS=	sphinx-build:${PORTSDIR}/textproc/py-sphinx
+MANPAGES_CONFIGURE_ON=	--sphinx-man
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if defined(STRIP) && ${STRIP} != "" && !defined(WITH_DEBUG)
+INSTALL_TARGET=	install/strip
 .endif
 
 post-patch:
@@ -62,4 +67,4 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/Auxiliary/cmake-mode.el ${STAGEDIR}${PREFIX}/share/emacs/site-lisp
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

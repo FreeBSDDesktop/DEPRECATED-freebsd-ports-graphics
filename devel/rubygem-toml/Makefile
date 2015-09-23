@@ -3,6 +3,7 @@
 
 PORTNAME=	toml
 PORTVERSION=	0.1.2
+PORTREVISION=	1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -13,11 +14,9 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	rubygem-parslet>=1.5.0:${PORTSDIR}/textproc/rubygem-parslet
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
-
-post-patch:
-	@${REINPLACE_CMD} -e '18 s|~>|>=|' ${WRKSRC}/${GEM_NAME}.gemspec
 
 .include <bsd.port.mk>

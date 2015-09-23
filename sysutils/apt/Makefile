@@ -5,7 +5,7 @@ PORTNAME=	apt
 PORTVERSION=	0.6.46.4.1
 PORTREVISION=	8
 CATEGORIES=	sysutils
-MASTER_SITES=	${MASTER_SITE_DEBIAN_POOL}
+MASTER_SITES=	DEBIAN_POOL
 DISTNAME=	apt_0.6.46.4-0.1
 
 MAINTAINER=	ports@FreeBSD.org
@@ -33,6 +33,12 @@ WRKSRC=		${WRKDIR}/apt-${PORTVERSION}
 DPKGDIR?=	/var/db/dpkg
 APTDIR?=	/var/db/apt
 PLIST_SUB+=	APTDIR=${APTDIR:C,^/,,}
+
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000000
+BROKEN=		does not build
+.endif
 
 post-patch:
 	${CP} ${FILESDIR}/https.cc ${FILESDIR}/https.h ${WRKSRC}/methods/
@@ -118,4 +124,4 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	${INSTALL_MAN} ${WRKSRC}/docs/examples/* ${STAGEDIR}${EXAMPLESDIR}
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

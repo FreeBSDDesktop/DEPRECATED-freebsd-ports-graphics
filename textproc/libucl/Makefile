@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libucl
-PORTVERSION=	0.5.2
+PORTVERSION=	0.7.3
 PORTREVISION=	1
 CATEGORIES=	textproc devel
 
@@ -42,12 +42,9 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--disable-silent-rules
 
 GH_ACCOUNT=	vstakhov
-GH_PROJECT=	${PORTNAME}
-GH_COMMIT=	b400246
 
 PATHFIX_MAKEFILEIN=	Makefile.am
-
-INSTALL_TARGET=	install-strip
+INSTALL_TARGET=		install-strip
 CONFLICTS_INSTALL=	ucl
 
 regression-test: build

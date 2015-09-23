@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	fvm
-PORTVERSION=	0.15.4
+PORTVERSION=	0.15.5
 PORTREVISION=	1
 CATEGORIES=	science parallel
 MASTER_SITES=	http://code-saturne.org/releases/

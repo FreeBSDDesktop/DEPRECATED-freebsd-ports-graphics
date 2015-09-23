@@ -3,7 +3,7 @@
 
 PORTNAME=	erlang
 PORTVERSION=	15.b.03.1
-PORTREVISION=	5
+PORTREVISION=	9
 CATEGORIES=	lang parallel java
 MASTER_SITES=	http://www.erlang.org/download/:erlangorg		\
 		http://erlang.stacken.kth.se/download/:erlangorg	\
@@ -14,8 +14,6 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:erlangorg	\
 		${ERLANG_MAN}:erlangorg
 DIST_SUBDIR=	erlang
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
-
-PATCH_SITES=	http://www.erlang.org/download
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Functional programming language from Ericsson
@@ -29,23 +27,23 @@ SUB_LIST=	ERLANG_LIB=${ERLANG_LIB}
 
 MAKE_JOBS_UNSAFE=yes
 
-OPTIONS_DEFINE=	GCC DOCS GS HIPE JAVA KQUEUE ODBC OPENSSL SCTP SMP THREADS WX DTRACE
+OPTIONS_DEFINE=	DOCS DTRACE GCC GS HIPE JAVA KQUEUE ODBC OPENSSL SCTP SMP THREADS WX
 
+DTRACE_DESC=	Enable DTrace support
 GCC_DESC=	Use current GCC
+GS_DESC=	Enable GS application (deprecated)
 HIPE_DESC=	Build native HiPE compiler
 KQUEUE_DESC=	Enable Kernel Poll (kqueue) support
 SCTP_DESC=	Enable SCTP support
 SMP_DESC=	Enable SMP support
 WX_DESC=	Enable WX application
-GS_DESC=	Enable GS application (deprecated)
-DTRACE_DESC=	Enable DTrace support
 
-OPTIONS_DEFAULT=SMP OPENSSL THREADS SCTP KQUEUE
+OPTIONS_DEFAULT=KQUEUE OPENSSL SCTP SMP THREADS
+OPTIONS_EXCLUDE_DragonFly=	HIPE SCTP
 
 ERL_RELEASE=	R${PORTVERSION:S/.//g:tu:S/1$/-1/}
 
 USES=		gmake perl5
-USE_AUTOTOOLS=	autoconf:env
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -163,6 +161,19 @@ MAKE_ARGS+=	ARCH=x86
 # rest, not in share/doc/erlang as it should, because of relative
 # links in the documentation.
 
+pre-configure:
+.if ${PORT_OPTIONS:MDTRACE}
+	@if ! /sbin/kldstat | ${GREP} dtraceall >/dev/null 2>&1; then \
+		${ECHO_CMD}; \
+		${ECHO_CMD} "DTRACE option requires kernel module \"dtraceall\" to be loaded."; \
+		${ECHO_CMD}; \
+		exit 1; \
+	fi
+.endif
+.if ! ${PORT_OPTIONS:MWX}
+	echo "disabled by port options" > ${WRKSRC}/lib/wx/SKIP
+.endif
+
 post-install:
 	for SECTION in 1 3 4 6; do \
 		${TAR} --unlink -xzpf ${DISTDIR}/${DIST_SUBDIR}/${ERLANG_MAN} \
@@ -176,6 +187,24 @@ post-install:
 		-C ${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}
 	${INSTALL_DATA} ${WRKSRC}/lib/dialyzer/doc/*.txt \
 		${STAGEDIR}${PREFIX}/lib/${ERLANG_LIB}/lib/dialyzer-*/doc/
+.endif
+
+.if ! ${PORT_OPTIONS:MGS}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/gs-*
+.endif
+.if ! ${PORT_OPTIONS:MJAVA}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/jinterface-*
+.endif
+.if ! ${PORT_OPTIONS:MODBC}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/odbc-*
+.endif
+.if ! ${PORT_OPTIONS:MOPENSSL}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/crypto-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/ssh-*
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/ssl-*
+.endif
+.if ! ${PORT_OPTIONS:MWX}
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/erlang/lib/wx-*
 .endif
 
 	@cd ${STAGEDIR}${PREFIX}; ${FIND} lib/${ERLANG_LIB}/* -type d -empty \

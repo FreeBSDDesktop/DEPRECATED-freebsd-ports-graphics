@@ -1,8 +1,14 @@
-%%FONTDIR%%/SourceCodePro-Black.ttf
-%%FONTDIR%%/SourceCodePro-Bold.ttf
-%%FONTDIR%%/SourceCodePro-ExtraLight.ttf
-%%FONTDIR%%/SourceCodePro-Light.ttf
-%%FONTDIR%%/SourceCodePro-Medium.ttf
-%%FONTDIR%%/SourceCodePro-Regular.ttf
-%%FONTDIR%%/SourceCodePro-Semibold.ttf
-@fcfontsdir %%FONTDIR%%
+%%FONTSDIR%%/SourceCodePro-Black.ttf
+%%FONTSDIR%%/SourceCodePro-BlackIt.ttf
+%%FONTSDIR%%/SourceCodePro-Bold.ttf
+%%FONTSDIR%%/SourceCodePro-BoldIt.ttf
+%%FONTSDIR%%/SourceCodePro-ExtraLight.ttf
+%%FONTSDIR%%/SourceCodePro-ExtraLightIt.ttf
+%%FONTSDIR%%/SourceCodePro-It.ttf
+%%FONTSDIR%%/SourceCodePro-Light.ttf
+%%FONTSDIR%%/SourceCodePro-LightIt.ttf
+%%FONTSDIR%%/SourceCodePro-Medium.ttf
+%%FONTSDIR%%/SourceCodePro-MediumIt.ttf
+%%FONTSDIR%%/SourceCodePro-Regular.ttf
+%%FONTSDIR%%/SourceCodePro-Semibold.ttf
+%%FONTSDIR%%/SourceCodePro-SemiboldIt.ttf

@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	virtualmin
-PORTVERSION=	4.12
+PORTVERSION=	4.19
+PORTEPOCH=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://download.webmin.com/download/virtualmin/
 DISTNAME=	virtual-server-${PORTVERSION}.gpl
@@ -10,9 +11,15 @@ EXTRACT_SUFX=	.wbm.gz
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Virtual hosting management system based on webmin
 
+LICENSE=	GPLv2
+
 RUN_DEPENDS=	${LOCALBASE}/lib/webmin/webmin-init:${PORTSDIR}/sysutils/webmin
 
+USES=		shebangfix
+SHEBANG_FILES=	*.cgi
+NO_ARCH=	yes
 NO_BUILD=	yes
+PORTSCOUT=	skipv:4.132,4.152
 WRKSRC=		${WRKDIR}/virtual-server
 
 post-extract:

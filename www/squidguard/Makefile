@@ -11,11 +11,13 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:a \
 		squidGuard-1.4-dnsbl.patch:b
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	madpilot@FreeBSD.org
+MAINTAINER=	garga@FreeBSD.org
 COMMENT=	Fast redirector for squid
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	${LOCALBASE}/sbin/squid:${PORTSDIR}/www/squid
 
 USE_BDB=	yes
 GNU_CONFIGURE=	yes
@@ -41,29 +43,31 @@ PLIST_SUB+=	LOGDIR="${LOGDIR}"
 SUB_FILES=	pkg-deinstall pkg-message
 SUB_LIST=	PORTNAME=${PORTNAME}
 
-OPTIONS_DEFINE=		DNS_BL DOCS EXAMPLES LDAP QUOTE_STRING
-OPTIONS_SINGLE=		SV
-OPTIONS_SINGLE_SV=	SQUID34 SQUID33
-OPTIONS_DEFAULT=	SQUID34
+OPTIONS_DEFINE=		DNS_BL DOCS EXAMPLES LDAP QUOTE_STRING STRIP_NTDOMAIN
 
 EXAMPLES_DESC=	Install sample blacklists
 DNS_BL_DESC=	Enable DNS based blacklists
 QUOTE_STRING_DESC=	Add quoted string patch
-SQUID33_DESC=   Depend on Squid 3.3 (DEPERCATED)
-SQUID34_DESC=   Depend on Squid 3.4
+STRIP_NTDOMAIN_DESC=	Add options to strip NT domain and krb realm
 
 OPTIONS_SUB=		yes
-SQUID33_RUN_DEPENDS=	${LOCALBASE}/sbin/squid:${PORTSDIR}/www/squid33
-SQUID34_RUN_DEPENDS=	${LOCALBASE}/sbin/squid:${PORTSDIR}/www/squid
-SQUID34_EXTRA_PATCHES=	${FILESDIR}/extrapatch-squid34:-p1
 QUOTE_STRING_EXTRA_PATCHES=	${DISTDIR}/squidGuard-1.4-quoted_string_support.diff:-p2
 DNS_BL_EXTRA_PATCHES=	${DISTDIR}/squidGuard-1.4-dnsbl.patch:-p1
+STRIP_NTDOMAIN_EXTRA_PATCHES=	${FILESDIR}/extra-patch-strip.diff:-p0
 LDAP_CONFIGURE_ON=	--with-ldap
 LDAP_CONFIGURE_OFF=	--without-ldap
 LDAP_LDFLAGS=		-L${LOCALBASE}/lib
 LDAP_USE=		OPENLDAP=yes
 
 .include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MSTRIP_NTDOMAIN}
+. if ${PORT_OPTIONS:MQUOTE_STRING}
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-strip-with-quoted_string.diff
+. else
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-strip-without-quoted_string.diff
+. endif
+.endif
 
 pre-fetch:
 	@if [ ${SQUID_UID} = "squid" -o ${SQUID_GID} = "squid" ] ; then \
@@ -96,7 +100,7 @@ pre-install:
 	@${ECHO_MSG} "===>   Installing sample blacklists"
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/blacklists
 	@(cd ${_DATADIR} && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}/blacklists)
-	@${INSTALL_DATA} ${WRKDIR}/README.blacklists ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKDIR}/README.blacklists ${STAGEDIR}${EXAMPLESDIR}
 	@${ECHO_MSG} "       -> Sample blacklists installed in ${EXAMPLESDIR}/blacklists"
 .endif
 	@${ECHO_MSG} "===>   Installing sample configuration file"
@@ -107,11 +111,13 @@ pre-install:
 	${ECHO_MSG} "       -> Sample configuration file installed in: ${ETCDIR}" ; \
 
 post-install:
+.if ${PORT_OPTIONS:MDOCS}
 	@${ECHO_MSG} "===>   Installing ${PORTNAME} documentation"
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 . for i in ${WRKSRC}/doc/*.txt ${WRKSRC}/doc/*.html ${WRKSRC}/doc/*.gif ${WRKSRC}/doc/README
-	@${INSTALL_DATA} ${WRKSRC}$i ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}$i ${STAGEDIR}${DOCSDIR}
 . endfor
 	@${ECHO_MSG} "       -> Documentation installed in: ${DOCSDIR}"
+.endif
 
 .include <bsd.port.mk>

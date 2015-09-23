@@ -3,7 +3,7 @@
 
 PORTNAME=	gnash
 PORTVERSION=	0.8.10
-PORTREVISION=	15
+PORTREVISION=	16
 CATEGORIES=	graphics
 MASTER_SITES=	GNU/${PORTNAME}/${PORTVERSION}/
 
@@ -12,7 +12,6 @@ COMMENT=	GNU Flash movie player
 
 LIB_DEPENDS=	libboost_thread.so:${PORTSDIR}/devel/boost-libs \
 		libltdl.so:${PORTSDIR}/devel/libltdl \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libgif.so:${PORTSDIR}/graphics/giflib \
 		libspeex.so:${PORTSDIR}/audio/speex \
@@ -20,7 +19,7 @@ LIB_DEPENDS=	libboost_thread.so:${PORTSDIR}/devel/boost-libs \
 
 CONFLICTS=	gnash-devel-[0-9]*
 
-USES=		tar:bzip2 pkgconfig gmake libtool
+USES=		cpe gmake jpeg libtool pkgconfig tar:bzip2
 GNU_CONFIGURE=	yes
 WANT_SDL=	yes
 USE_GCC=	any
@@ -29,6 +28,7 @@ USE_GNOME=	libxml2
 USE_XORG=	x11 xau xdmcp xext xi xinerama ice sm xv
 INSTALLS_ICONS=	yes
 SYSCONFIGDIR=	${PREFIX}/etc
+CPE_VENDOR=	gnu
 
 # jemalloc leads to infinite recursion on FreeBSD
 CONFIGURE_ARGS=	--with-boost-incl="${LOCALBASE}/include" \
@@ -107,9 +107,8 @@ CONFIGURE_ARGS+=	--disable-npapi
 .endif
 
 .if ${PORT_OPTIONS:MKDE4} && ${PORT_OPTIONS:MPLUGIN}
-PLIST_SUB+=	KPARTS4=""
-USE_LDCONFIG+=	${KDE4_PREFIX}/lib/kde4
-CONFIGURE_ARGS+=	--with-kde4_prefix=${PREFIX}/kde4
+PLIST_SUB+=	KPARTS4="${KDE4_PREFIX}"
+CONFIGURE_ARGS+=	--with-kde4_prefix=${KDE4_PREFIX}
 .else
 PLIST_SUB+=	KPARTS4="@comment "
 CONFIGURE_ARGS+=	--disable-kparts4
@@ -129,7 +128,7 @@ GNASH_GUIS+=	gtk
 GNASH_GUIS+=	kde4
 USE_QT4=	moc_build
 QT_NONSTANDARD=	yes
-USE_KDE4=	kdehier kdelibs
+USE_KDE4=	kdelibs
 CONFIGURE_ENV+=	KDE4_CONFIG="${KDE4_PREFIX}/bin/kde4-config"
 .endif
 
@@ -219,8 +218,7 @@ pre-everything::
 .endif
 
 post-patch:
-	${REINPLACE_CMD} -e '/^PTHREAD_[LC][IF]*=/ d; s|-lpthread|${PTHREAD_LIBS}|' \
-		-e '/KDE4_APPSDATADIR=/ s|share/kde4|share|' \
+	${REINPLACE_CMD} -e '/KDE4_APPSDATADIR=/ s|share/kde4|share|' \
 		-e 's|/usr/local|${LOCALBASE}|g; \
 		s|/lib64|/lib|g; \
 		s|/usr/X11R6|${LOCALBASE}|g' ${WRKSRC}/configure \

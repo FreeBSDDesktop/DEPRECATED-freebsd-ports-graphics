@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	glog
-PORTVERSION=	0.3.3
-PORTREVISION=	3
+PORTVERSION=	0.3.4
+DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
-MASTER_SITES=	GOOGLE_CODE
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Library of C++ classes for flexible logging
@@ -25,7 +24,8 @@ USES=		execinfo libtool pathfix
 
 PORTDOCS=	*
 
-PROJECTHOST=	google-glog
+GH_ACCOUNT=	google
+USE_GITHUB=	yes
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^docdir = / s| = .*| = ${DOCSDIR}|' ${WRKSRC}/Makefile.in

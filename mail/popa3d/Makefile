@@ -8,13 +8,12 @@ MASTER_SITES=	http://www.openwall.com/popa3d/ \
 		ftp://ftp.openwall.com/pub/projects/popa3d/
 PKGNAMESUFFIX?=	${SMTP_AFTER_POP3_SUFFIX}${STANDALONE_SUFFIX}${PKGNAMESUFFIX2}
 
-MAINTAINER=	gblach@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Secure, performance, tiny POP3 daemon
 
 ALL_TARGET=	popa3d
 PLIST=		${WRKDIR}/.PLIST.more
 CFLAGS+=	-DPREFIX=${PREFIX}
-UNIQUENAME=	${.CURDIR:T}
 
 OPTIONS_DEFINE=	SMTP_AFTER_POP3 STANDALONE_POP3 SETPROCTITLE DOCS
 NO_OPTIONS_SORT=yes

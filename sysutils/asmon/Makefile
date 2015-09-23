@@ -5,10 +5,9 @@ PORTNAME=	asmon
 PORTVERSION=	0.61
 PORTREVISION=	3
 CATEGORIES=	sysutils afterstep
-MASTER_SITES=	${MASTER_SITE_AFTERSTEP}
-MASTER_SITE_SUBDIR=	apps/asmon
+MASTER_SITES=	AFTERSTEP/apps/asmon
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Swallowable applet monitors the CPU usage, memory, and swap, etc
 
 LICENSE=	GPLv2

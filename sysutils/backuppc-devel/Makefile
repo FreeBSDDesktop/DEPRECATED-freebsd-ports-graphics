@@ -3,9 +3,9 @@
 
 PORTNAME=	backuppc
 DISTVERSION=	4.0.0alpha3
+PORTREVISION=	2
 CATEGORIES=	sysutils
-MASTER_SITES=	SF
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}-beta/${DISTVERSION}
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-beta/${DISTVERSION}
 PKGNAMESUFFIX=	-devel
 DISTNAME=	BackupPC-${DISTVERSION}
 
@@ -14,8 +14,6 @@ COMMENT=	Multi-platform backup to disk-based storage
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
-
-LATEST_LINK=	${PORTNAME}-devel
 
 RUN_DEPENDS=	p5-File-Listing>=0:${PORTSDIR}/sysutils/p5-File-Listing \
 		p5-BackupPC-XS>=0.30:${PORTSDIR}/sysutils/p5-BackupPC-XS
@@ -96,6 +94,7 @@ do-install:
 	cd ${WRKSRC} && ${PERL} configure.pl	\
 		--batch				\
 		--backuppc-user ${USERS}	\
+		--bin-path perl=${PERL}		\
 		--config-dir ${ETCDIR}		\
 		--cgi-dir ${CGIDIR}		\
 		--data-dir /var/db/BackupPC	\

@@ -4,6 +4,7 @@
     COMMENT = FTP client and server utilities
 
     SUBDIR += R-cran-RCurl
+    SUBDIR += R-cran-curl
     SUBDIR += atftp
     SUBDIR += axel
     SUBDIR += bareftp
@@ -46,7 +47,6 @@
     SUBDIR += llnlxftp
     SUBDIR += mirror
     SUBDIR += multiget
-    SUBDIR += ncftp1
     SUBDIR += ncftp3
     SUBDIR += ncftpd
     SUBDIR += net2ftp
@@ -66,8 +66,6 @@
     SUBDIR += pftpd
     SUBDIR += php5-curl
     SUBDIR += php5-ftp
-    SUBDIR += php53-curl
-    SUBDIR += php53-ftp
     SUBDIR += php55-curl
     SUBDIR += php55-ftp
     SUBDIR += php56-curl
@@ -85,7 +83,6 @@
     SUBDIR += py-pyftpdlib
     SUBDIR += py-tftpy
     SUBDIR += quftp
-    SUBDIR += rexx-curl
     SUBDIR += rubygem-curb
     SUBDIR += scythia
     SUBDIR += smbftpd

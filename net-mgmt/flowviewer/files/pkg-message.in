@@ -2,8 +2,7 @@
 
     %%FLOWVIEWERDIR%%
 
-Please copy FlowViewer_Configuration.pm.dist to FlowViewer_Configuration.pm
-and edit it to suit your needs.
+Please edit at least FlowViewer_Configuration.pm to suit your needs.
 
 To make FlowViewer available through your web site, I suggest
 that you add something like the following to httpd.conf:

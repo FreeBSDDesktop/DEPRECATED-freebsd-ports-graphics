@@ -2,12 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	funktrackergold
-PORTVERSION=	1.5.2
+DISTVERSION=	1.5-2
 PORTREVISION=	1
 CATEGORIES=	audio
-MASTER_SITES=	${MASTER_SITE_SUNSITE}
-MASTER_SITE_SUBDIR=	apps/sound/players
-DISTNAME=	funktrackergold-1.5-2
+MASTER_SITES=	SUNSITE/apps/sound/players
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Curses MOD/FNK music tracker
@@ -19,8 +17,7 @@ LICENSE=	GPLv2
 USES=		compiler:nestedfct tar:tgz
 
 WRKSRC=		${WRKDIR}/funkgold
-MAKE_ARGS=	EXTRA_CFLAGS="${PTHREAD_CFLAGS}" \
-		EXTRA_LDFLAGS="${PTHREAD_LIBS}"
+MAKE_ARGS=	EXTRA_LDFLAGS="-lpthread"
 
 PORTDOCS=	INSTALL
 PLIST_FILES=	bin/funkgold

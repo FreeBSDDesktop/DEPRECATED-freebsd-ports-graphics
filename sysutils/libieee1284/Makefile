@@ -3,7 +3,7 @@
 
 PORTNAME=	libieee1284
 PORTVERSION=	0.2.10
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	http://cyberelk.net/tim/data/libieee1284/stable/
 
@@ -23,15 +23,11 @@ PORTDOCS=	README README.FreeBSD
 OPTIONS_DEFINE=	PYTHON
 OPTIONS_SUB=	yes
 
-PYTHON_USE=	PYTHON=yes
+PYTHON_USES=	python
 PYTHON_CFLAGS=	-I${PYTHON_INCLUDEDIR}
 PYTHON_LDFLAGS=	-L${PYTHON_LIBDIR}
 PYTHON_CONFIGURE_ON=	--with-python=yes
 PYTHON_CONFIGURE_OFF=	--with-python=no
-
-post-patch:
-	@${REINPLACE_CMD} -E -e 's,(objformat=).*,\1elf,' \
-		${WRKSRC}/configure
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

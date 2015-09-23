@@ -2,17 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	rodent
-PORTVERSION=	5.2.9
-PORTREVISION=	1
+PORTVERSION=	5.3.16.3
 CATEGORIES=	x11-fm
-MASTER_SITES=	SF/xffm/rodent/
+MASTER_SITES=	SF/xffm/${PORTVERSION}
 
 MAINTAINER=	rodrigo@FreeBSD.org
 COMMENT=	Fast, small and powerful file manager
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	gawk:${PORTSDIR}/japanese/gawk \
+BUILD_DEPENDS=	gawk:${PORTSDIR}/lang/gawk \
 		bash:${PORTSDIR}/shells/bash \
 		intltoolize:${PORTSDIR}/textproc/intltool
 LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo \

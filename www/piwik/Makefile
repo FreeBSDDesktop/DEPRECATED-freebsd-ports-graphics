@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	piwik
-PORTVERSION=	2.9.1
+PORTVERSION=	2.14.3
 CATEGORIES=	www
 MASTER_SITES=	http://builds.piwik.org/
 
@@ -25,7 +25,7 @@ PHPMYSQLI_USE=	PHP=mysqli
 
 PLIST_SUB+=	WWWOWN=${WWWOWN} WWWGRP=${WWWGRP}
 
-USES=		shebangfix
+USES=		cpe shebangfix
 SHEBANG_FILES=	misc/log-analytics/import_logs.py
 
 pre-install:

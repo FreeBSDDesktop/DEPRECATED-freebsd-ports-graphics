@@ -1,22 +1,18 @@
 # Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
 # $FreeBSD$
-#    $MCom: ports/trunk/deskutils/nemo-extensions/Makefile 19704 2014-05-28 09:16:09Z gusi $
 
 PORTNAME=	nemo-extensions
-PORTVERSION=	2.2.0
-PORTREVISION=	2
+PORTVERSION=	2.4.0
+PORTREVISION=	3
 CATEGORIES=	deskutils gnome
 DIST_SUBDIR=	gnome3
 
 MAINTAINER=	gustau.perez@gmail.com
 COMMENT=	File manager extensions for the Cinnamon desktop
 
-BUILD_DEPENDS=	${LOCALBASE}/share/icons/gnome/index.theme:${PORTSDIR}/misc/gnome-icon-theme \
+BUILD_DEPENDS=	gnome-icon-theme>=0:${PORTSDIR}/misc/gnome-icon-theme \
 		gtkdocize:${PORTSDIR}/textproc/gtk-doc \
 		rst2html:${PORTSDIR}/textproc/py-docutils \
-		automake>=0:${PORTSDIR}/devel/automake \
-		autoconf>=0:${PORTSDIR}/devel/autoconf \
-		libtool:${PORTSDIR}/devel/libtool \
 		gnome-autogen.sh:${PORTSDIR}/devel/gnome-common \
 		${LOCALBASE}/libdata/pkgconfig/gsettings-desktop-schemas.pc:${PORTSDIR}/devel/gsettings-desktop-schemas
 LIB_DEPENDS=	libexif.so:${PORTSDIR}/graphics/libexif \
@@ -29,21 +25,19 @@ LIB_DEPENDS=	libexif.so:${PORTSDIR}/graphics/libexif \
 		libevdocument3.so:${PORTSDIR}/graphics/evince \
 		libclutter-gtk-1.0.so:${PORTSDIR}/graphics/clutter-gtk3 \
 		libclutter-gst-2.0.so:${PORTSDIR}/multimedia/clutter-gst \
-		libmusicbrainz5.so:${PORTSDIR}/audio/libmusicbrainz5 \
-		libwebkitgtk-3.0.so:${PORTSDIR}/www/webkit-gtk3
-RUN_DEPENDS=	${LOCALBASE}/share/icons/gnome/index.theme:${PORTSDIR}/misc/gnome-icon-theme \
-		${LOCALBASE}/libdata/pkgconfig/gsettings-desktop-schemas.pc:${PORTSDIR}/devel/gsettings-desktop-schemas
+		libmusicbrainz5.so:${PORTSDIR}/audio/libmusicbrainz5
+RUN_DEPENDS=	gnome-icon-theme>=0:${PORTSDIR}/misc/gnome-icon-theme \
+		gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	linuxmint
-GH_PROJECT=	nemo-extensions
-GH_COMMIT=	54f4d94
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	6c8ec3a
 
 USE_GNOME=	gconf2 gnomeprefix gnomedocutils gtksourceview3 intlhack \
 		introspection:build libxml2 pygtk2
-USES=		gettext gmake libtool pathfix pkgconfig shebangfix
-SHEBANG_FILES=  nemo-dropbox/dropbox.in
+USES=		autoreconf:build gettext gmake libtool pathfix pkgconfig \
+		shebangfix
+SHEBANG_FILES=	nemo-dropbox/dropbox.in
 INSTALLS_ICONS=	yes
 USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
@@ -56,6 +50,8 @@ AUTO_EXTENSIONS=	nemo-share
 post-patch:
 	@${REINPLACE_CMD} -e 's|AM_GNU_GETTEXT_VERSION(\[0.17\])||g ;\
 		s|AM_GNU_GETTEXT(\[external\])||g' \
+		${WRKSRC}/nemo-preview/configure.ac
+	@${REINPLACE_CMD} -e 's|webkitgtk-3.0||' \
 		${WRKSRC}/nemo-preview/configure.ac
 
 do-configure:

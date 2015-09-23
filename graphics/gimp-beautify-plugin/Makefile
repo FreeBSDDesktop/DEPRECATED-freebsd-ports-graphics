@@ -22,10 +22,9 @@ RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/fontconfig.pc:${PORTSDIR}/x11-fonts/
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	hejiann
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	e209c8d
+GH_TAGNAME=	e209c8d
 
-USES=		gettext gmake
+USES=		gettext gmake pkgconfig
 USE_GCC=	yes
 USE_GNOME=	atk cairo gdkpixbuf2 gtk20
 USE_XORG=	x11 xcomposite xcursor xdamage xext xfixes xi xinerama xrandr xrender

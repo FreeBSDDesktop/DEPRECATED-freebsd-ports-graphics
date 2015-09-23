@@ -4,25 +4,25 @@ PORTNAME=	cocoon
 PORTVERSION=	2.1.11
 PORTREVISION=	1
 CATEGORIES=	www java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	${PORTNAME}
+MASTER_SITES=	APACHE/${PORTNAME}
 DISTNAME=	${PDISTNAME}-src
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	XML Web Development Framework
 
-USE_RC_SUBR=		${PORTNAME}
-USE_JAVA=		yes
-JAVA_VERSION=		1.6
-USE_PYTHON=		yes
-MAKE_ENV=		JAVA_HOME=${JAVA_HOME}
-WRKSRC=			${WRKDIR}/${PDISTNAME}
-APP_NAME?=		${PORTNAME}
-APP_HOME?=		${PREFIX}/${APP_NAME}
-LATEST_LINK=		${APP_NAME}
-PLIST=			${WRKDIR}/pkg-plist
-PDISTNAME=		${PORTNAME}-${PORTVERSION}
+USE_RC_SUBR=	${PORTNAME}
+USE_JAVA=	yes
+JAVA_VERSION=	1.6
+USES=		cpe python
+CPE_VENDOR=	apache
+MAKE_ENV=	JAVA_HOME=${JAVA_HOME}
+WRKSRC=		${WRKDIR}/${PDISTNAME}
+APP_NAME?=	${PORTNAME}
+APP_HOME?=	${PREFIX}/${APP_NAME}
+PLIST=		${WRKDIR}/pkg-plist
+PDISTNAME=	${PORTNAME}-${PORTVERSION}
 PKGMESSAGE=	${WRKDIR}/pkg-message
+NO_ARCH=	yes
 
 COCOON_LIB=	${JAVASHAREDIR}/${APP_NAME}
 PLIST_SUB+=	COCOON_LIB="${COCOON_LIB}"
@@ -37,8 +37,7 @@ GROUP?=		www
 GID?=		80
 LOG_FILE?=	${APP_HOME}/${APP_NAME}.log
 
-SUB_LIST=	\
-		APP_HOME=${APP_HOME} \
+SUB_LIST=	APP_HOME=${APP_HOME} \
 		APP_NAME=${APP_NAME} \
 		PORT=${PORT} \
 		COCOON_LIB=${COCOON_LIB} \
@@ -52,8 +51,7 @@ SUB_LIST=	\
 		LOG_FILE=${LOG_FILE} \
 		PYTHON_CMD=${PYTHON_CMD}
 
-SUB_FILES=	\
-		pkg-install \
+SUB_FILES=	pkg-install \
 		pkg-deinstall \
 		${APP_NAME}ctl \
 		upstreams-cocoon.sh \
@@ -79,23 +77,23 @@ post-configure:
 	${CP} ${WRKSRC}/build.properties ${WRKSRC}/local.build.properties
 .if ! ${PORT_OPTIONS:MDOCS}
 	${REINPLACE_CMD} \
-       	-e 's/^#\(exclude.webapp.documentation=\)/\1/' \
-       	-e 's/^#\(exclude.webapp.javadocs=\)/\1/' \
-       	-e 's/^#\(exclude.documentation=\)/\1/' \
-       	-e 's/^#\(exclude.javadocs=\)/\1/' \
-       	${WRKSRC}/local.build.properties
+		-e 's/^#\(exclude.webapp.documentation=\)/\1/' \
+		-e 's/^#\(exclude.webapp.javadocs=\)/\1/' \
+		-e 's/^#\(exclude.documentation=\)/\1/' \
+		-e 's/^#\(exclude.javadocs=\)/\1/' \
+		${WRKSRC}/local.build.properties
 .endif
 .if ! ${PORT_OPTIONS:MSAMPLES}
 	${REINPLACE_CMD} \
-       	-e 's/^#\(exclude.webapp.samples=\)/\1/' \
-       	-e 's/^#\(exclude.webapp.test-suite=\)/\1/' \
-       	${WRKSRC}/local.build.properties
+		-e 's/^#\(exclude.webapp.samples=\)/\1/' \
+		-e 's/^#\(exclude.webapp.test-suite=\)/\1/' \
+		${WRKSRC}/local.build.properties
 .endif
 # Include Java source code into the binary jar files
 .if (defined(WITH_SOURCES))
 	${REINPLACE_CMD} \
-       	-e 's/^#\(include.sources-in-jars=\)/\1/' \
-       	${WRKSRC}/local.build.properties
+		-e 's/^#\(include.sources-in-jars=\)/\1/' \
+		${WRKSRC}/local.build.properties
 .endif
 
 pre-build:
@@ -114,10 +112,7 @@ post-build:
 	| ${SED} -e "s|^|${APP_NAME}/|" >> ${PLIST}
 
 	@cd ${WRKSRC} && ${FIND} -H -d ${COPYDIRS} -type d -empty \
-	| ${SED} -e "s|^|@exec mkdir -p %D/${APP_NAME}/|" >> ${PLIST}
-
-	@cd ${WRKSRC} && ${FIND} -H -d ${COPYDIRS} -type d \
-	| ${SED} -e "s|^|@dirrm ${APP_NAME}/|" >> ${PLIST}
+	| ${SED} -e "s|^|@dir ${APP_NAME}/|" >> ${PLIST}
 
 	@${CAT} ${MASTERDIR}/pkg-plist >> ${PLIST}
 

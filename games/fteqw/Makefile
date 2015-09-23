@@ -3,7 +3,7 @@
 
 PORTNAME=	fteqw
 PORTVERSION=	3343
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/Source/${PORTVERSION}
 DISTNAME=	ftesrc${PORTVERSION}-all
@@ -37,10 +37,9 @@ PLIST_FILES+=	bin/fteqw-sv
 .endif
 
 .if ${PORT_OPTIONS:MGLCLIENT} || !empty(PORT_OPTIONS:MSDLCLIENT)
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis
-CFLAGS+=	-I${LOCALBASE}/include/libpng15
+USES+=		jpeg
 .endif
 
 .if ${PORT_OPTIONS:MGLCLIENT}

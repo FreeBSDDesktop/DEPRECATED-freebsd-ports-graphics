@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	actionpack
-PORTVERSION=	3.2.19
+PORTVERSION=	3.2.22
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
@@ -19,7 +19,9 @@ RUN_DEPENDS=	rubygem-activemodel>=${PORTVERSION}:${PORTSDIR}/databases/rubygem-a
 		rubygem-rack>=1.4.5:${PORTSDIR}/www/rubygem-rack \
 		rubygem-rack-cache>=1.2:${PORTSDIR}/www/rubygem-rack-cache \
 		rubygem-rack-test>=0.6.1:${PORTSDIR}/www/rubygem-rack-test \
-		rubygem-sprockets>=2.2.1:${PORTSDIR}/devel/rubygem-sprockets
+		rubygem-sprockets22>=2.2.1:${PORTSDIR}/devel/rubygem-sprockets22
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

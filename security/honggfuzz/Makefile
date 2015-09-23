@@ -5,7 +5,7 @@ PORTNAME=	honggfuzz
 PORTVERSION=	0.3
 PORTREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 
 MAINTAINER=	sbz@FreeBSD.org
 COMMENT=	General-purpose fuzzer with simple, command-line interface
@@ -18,7 +18,8 @@ OPTIONS_DEFINE=	EXAMPLES
 # inplace replacement to remove relative binary path in examples scripts
 post-patch:
 	${REINPLACE_CMD} -i "" -E "s,\.\./,," ${WRKSRC}/examples/*.sh
-	${REINPLACE_CMD} -i "" -E 's,gcc,${CC},' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -i "" -e 's,gcc,${CC},' \
+		-e 's| -Werror||' ${WRKSRC}/Makefile
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin

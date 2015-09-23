@@ -1755,7 +1755,6 @@ share/help/zh_CN/aisleriot/will_o_the_wisp.xml
 share/help/zh_CN/aisleriot/yield.xml
 share/help/zh_CN/aisleriot/yukon.xml
 share/help/zh_CN/aisleriot/zebra.xml
-share/icons/HighContrast/scalable/apps/gnome-aisleriot.svg
 share/icons/hicolor/16x16/apps/gnome-aisleriot.png
 share/icons/hicolor/16x16/apps/gnome-freecell.png
 share/icons/hicolor/22x22/apps/gnome-aisleriot.png
@@ -1768,6 +1767,7 @@ share/icons/hicolor/32x32/apps/gnome-aisleriot.png
 share/icons/hicolor/32x32/apps/gnome-freecell.png
 share/icons/hicolor/48x48/apps/gnome-aisleriot.png
 share/icons/hicolor/48x48/apps/gnome-freecell.png
+share/icons/hicolor/symbolic/apps/gnome-aisleriot-symbolic.svg
 share/locale/af/LC_MESSAGES/aisleriot.mo
 share/locale/am/LC_MESSAGES/aisleriot.mo
 share/locale/ar/LC_MESSAGES/aisleriot.mo
@@ -1779,6 +1779,7 @@ share/locale/bg/LC_MESSAGES/aisleriot.mo
 share/locale/bn/LC_MESSAGES/aisleriot.mo
 share/locale/bn_IN/LC_MESSAGES/aisleriot.mo
 share/locale/br/LC_MESSAGES/aisleriot.mo
+share/locale/bs/LC_MESSAGES/aisleriot.mo
 share/locale/ca/LC_MESSAGES/aisleriot.mo
 share/locale/ca@valencia/LC_MESSAGES/aisleriot.mo
 share/locale/cs/LC_MESSAGES/aisleriot.mo
@@ -1855,3 +1856,20 @@ share/locale/xh/LC_MESSAGES/aisleriot.mo
 share/locale/zh_CN/LC_MESSAGES/aisleriot.mo
 share/locale/zh_HK/LC_MESSAGES/aisleriot.mo
 share/locale/zh_TW/LC_MESSAGES/aisleriot.mo
+@dir share/help/zh_CN/aisleriot/figures
+@dir share/help/sv/aisleriot/figures
+@dir share/help/sr@latin/aisleriot/figures
+@dir share/help/sr/aisleriot/figures
+@dir share/help/sl/aisleriot/figures
+@dir share/help/ru/aisleriot/figures
+@dir share/help/pt_BR/aisleriot/figures
+@dir share/help/oc/aisleriot/figures
+@dir share/help/hu/aisleriot/figures
+@dir share/help/gl/aisleriot/figures
+@dir share/help/fr/aisleriot/figures
+@dir share/help/eu/aisleriot/figures
+@dir share/help/es/aisleriot/figures
+@dir share/help/en_GB/aisleriot/figures
+@dir share/help/el/aisleriot/figures
+@dir share/help/de/aisleriot/figures
+@dir share/help/ca/aisleriot/figures

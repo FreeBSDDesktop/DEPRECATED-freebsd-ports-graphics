@@ -1,10 +1,8 @@
 # Created by: Gustau Perez <gustau.perez@gmail.com>
 # $FreeBSD$
-#    $MCom: ports/trunk/net/gfbgraph/Makefile 19822 2014-08-20 08:57:46Z gusi $
 
 PORTNAME=	gfbgraph
-PORTVERSION=	0.2.2
-PORTREVISION=	1
+PORTVERSION=	0.2.3
 CATEGORIES=	net www
 MASTER_SITES=	GNOME
 
@@ -24,5 +22,9 @@ INSTALLS_ICONS=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/doc/libgfbgraph|/share/doc/libgfbgraph|g' \
+		${WRKSRC}/Makefile.in
 
 .include <bsd.port.mk>

@@ -24,26 +24,25 @@ CONFIGURE_ARGS=	--disable-csharp --disable-java --disable-openmp \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
-USES=		charsetfix gettext-runtime iconv libtool tar:xz
+USES=		charsetfix cpe gettext-runtime iconv libtool tar:xz
 USE_LDCONFIG=	yes
 WRKSRC_SUBDIR=	gettext-tools
 
-OPTIONS_DEFINE=	DOCS
+CPE_PRODUCT=	gettext
+CPE_VENDOR=	gnu
 
-.include <bsd.port.options.mk>
+OPTIONS_DEFINE=	DOCS THREADS
+OPTIONS_DEFAULT=THREADS
+OPTIONS_EXCLUDE_DragonFly=	THREADS
 
-.if ${PORT_OPTIONS:MDOCS}
-INFO+=		gettext
-.endif
+DOCS_INFO=	gettext
 
-.if ${OPSYS} == DragonFly || (${OPSYS} == FreeBSD && ${OSVERSION} < 900506)
-CONFIGURE_ARGS+=--disable-threads
-.endif
+THREADS_CONFIGURE_ENABLE=	threads
+
+post-patch-DOCS-off:
+	@${REINPLACE_CMD} '/^SUBDIRS =/s/doc//' ${WRKSRC}/Makefile.in
 
 post-patch:
-.if ! ${PORT_OPTIONS:MDOCS}
-	@${REINPLACE_CMD} '/^SUBDIRS =/s/doc//' ${WRKSRC}/Makefile.in
-.endif
 # Exclude examples and gnulib-tests.
 	@${REINPLACE_CMD} -E '/^SUBDIRS =/s/(examples|gnulib-tests)//g' \
 		${WRKSRC}/Makefile.in

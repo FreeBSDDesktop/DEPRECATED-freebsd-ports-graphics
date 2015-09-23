@@ -5,8 +5,7 @@ PORTNAME=	isc-cron
 PORTVERSION=	4.1
 PORTREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	${MASTER_SITE_ISC}
-MASTER_SITE_SUBDIR=	cron
+MASTER_SITES=	ISC/cron
 DISTNAME=	cron_${PORTVERSION}.shar
 EXTRACT_SUFX=
 
@@ -26,7 +25,6 @@ do-extract:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cron ${STAGEDIR}${PREFIX}/sbin
 	${INSTALL_PROGRAM} ${WRKSRC}/crontab ${STAGEDIR}${PREFIX}/bin
-	${CHOWN} root ${STAGEDIR}${PREFIX}/bin/crontab
 	${CHMOD} 4555 ${STAGEDIR}${PREFIX}/bin/crontab
 	${INSTALL_MAN} ${WRKSRC}/crontab.1 ${STAGEDIR}${MANPREFIX}/man/man1
 	${INSTALL_MAN} ${WRKSRC}/crontab.5 ${STAGEDIR}${MANPREFIX}/man/man5

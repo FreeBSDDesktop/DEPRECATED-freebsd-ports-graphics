@@ -12,12 +12,12 @@ COMMENT?=	OCAML client for multiple peer-to-peer networks
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/Copying.txt
 
-BUILD_DEPENDS=	ocamlc:${PORTSDIR}/lang/ocaml
-
 CONFLICTS=	mldonkey{-{core,gui},}-devel-[0-9]*
 
 USES=		iconv tar:bzip2 gmake
 USE_AUTOTOOLS=	autoconf:env
+USE_OCAML=	yes
+USE_OCAML_CAMLP4=yes
 GNU_CONFIGURE=	yes
 ALL_TARGET=	opt
 MAKE_ENV+=	OCAMLRUNPARAM="l=256M"
@@ -25,7 +25,7 @@ MAKE_JOBS_UNSAFE=	yes
 
 CONFIGURE_ARGS+=${ICONV_CONFIGURE_ARG}
 CONFIGURE_ENV+=	NEWCXX="${CXX}" \
-		PTHREAD_LIBS="-pthread"
+		PTHREAD_LIBS="-lpthread"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 

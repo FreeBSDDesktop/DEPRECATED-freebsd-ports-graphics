@@ -1,35 +1,45 @@
 # $FreeBSD$
 
 PORTNAME=	nanumfonts
-PORTVERSION=	3.1
+PORTVERSION=	20141022
 CATEGORIES=	korean
-MASTER_SITES=	http://cdn.naver.com/naver/NanumFont/fontfiles/ \
-		LOCAL
-MASTER_SITE_SUBDIR=	jkim
+MASTER_SITES=	http://appdown.naver.com/naver/font/NanumFont/setup/ \
+		LOCAL/jkim
 PKGNAMESUFFIX=	-${FONTTYPE}
-DISTFILES=	NanumFont_${FONTTYPE:tu}_ALL${EXTRACT_SUFX} \
-		NanumFontSetup_${FONTTYPE:tu}_GOTHICECO${EXTRACT_SUFX} \
-		NanumFontSetup_${FONTTYPE:tu}_GOTHICLIGHT${EXTRACT_SUFX} \
-		NanumFontSetup_${FONTTYPE:tu}_MYUNGJOECO${EXTRACT_SUFX}
+DISTFILES=	${DISTFILE_LIST:S/^/${DISTFILE_PRFX}/:S/$/${DISTFILE_SUFX}/}
+DIST_SUBDIR=	${PORTNAME}/${PORTVERSION}
 
 MAINTAINER=	jkim@FreeBSD.org
 COMMENT=	Nanum family Hangul fonts (${FONTFORMAT})
 
 LICENSE=	OFL11
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
-		${LOCALBASE}/bin/mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
+EXTRACT_DEPENDS=	7z:${PORTSDIR}/archivers/p7zip
 
+DISTFILE_LIST=	ALL GOTHICECO MYUNGJOECO
+DISTFILE_PRFX=	NanumFontSetup_${FONTTYPE:tu}_
+DISTFILE_SUFX=	_hangeulcamp.exe
 DISTINFO_FILE=	${PKGDIR}/distinfo.${FONTTYPE}
 
-NO_WRKSUBDIR=	yes
-USES=		zip
+EXTRACT_CMD=	7z
+EXTRACT_BEFORE_ARGS=	e -y
+EXTRACT_AFTER_ARGS=	'$$WINDIR/Fonts'
+
+NO_ARCH=	yes
+NO_BUILD=	yes
+USES=		fonts
 
 FONTTYPE?=	otf
 FONTFORMAT?=	OpenType
 
-FONTSDIR=	lib/X11/fonts/nanum-${FONTTYPE}
-FONTLIST=	NanumBrush \
+FONTNAME=	nanum-${FONTTYPE}
+FONTLIST=	NanumBarunGothic \
+		NanumBarunGothicBold \
+		NanumBarunGothicLight \
+		NanumBarunGothicUltraLight \
+		NanumBarunpenB \
+		NanumBarunpenR \
+		NanumBrush \
 		NanumGothic \
 		NanumGothicBold \
 		NanumGothicEco \
@@ -44,20 +54,14 @@ FONTLIST=	NanumBrush \
 		NanumMyeongjoEcoExtraBold \
 		NanumMyeongjoExtraBold \
 		NanumPen
-FONTFILES=	${FONTLIST:S/$/.${FONTTYPE}/} fonts.dir fonts.scale
+FONTFILES=	${FONTLIST:S|$|.${FONTTYPE}|}
 
 PLIST_FILES=	${FONTFILES:S|^|${FONTSDIR}/|}
 
-do-build:
-	${LOCALBASE}/bin/mkfontscale ${WRKSRC}
-	${LOCALBASE}/bin/mkfontdir ${WRKSRC}
-
 do-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/${FONTSDIR}
-	${INSTALL_DATA} ${FONTFILES:S|^|${WRKSRC}/|} ${STAGEDIR}${PREFIX}/${FONTSDIR}
-
-post-install:
-	@${ECHO_CMD} "@exec fc-cache -s %D/${FONTSDIR} 2>/dev/null || true" >> ${TMPPLIST}
-	@${ECHO_CMD} "@unexec fc-cache -s %D/${FONTSDIR} 2>/dev/null || true" >> ${TMPPLIST}
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+.for f in ${FONTFILES}
+	${INSTALL_DATA} ${WRKDIR}/${f} ${STAGEDIR}${FONTSDIR}
+.endfor
 
 .include <bsd.port.mk>

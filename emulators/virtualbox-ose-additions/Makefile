@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	virtualbox-ose
-DISTVERSION=	4.3.20
-PORTREVISION=	2
+DISTVERSION=	4.3.30
 CATEGORIES=	emulators
 MASTER_SITES=	http://download.virtualbox.org/virtualbox/${DISTVERSION}/ \
 		http://tmp.chruetertee.ch/ \
@@ -23,7 +22,6 @@ BUILD_DEPENDS=	yasm:${PORTSDIR}/devel/yasm \
 CPE_VENDOR=	oracle
 CPE_PRODUCT=	vm_virtualbox
 
-UNIQUENAME=	${PORTNAME}${PKGNAMESUFFIX}
 PATCHDIR=	${.CURDIR}/../${PORTNAME}/files
 WRKSRC=		${WRKDIR}/VirtualBox-${PORTVERSION}
 USE_RC_SUBR=	vboxguest vboxservice
@@ -107,11 +105,22 @@ KMK_ARCH=	freebsd.${ARCH}
 
 .if ${COMPILER_TYPE} == clang
 EXTRA_PATCHES=	${PATCHDIR}/extrapatch-Config.kmk \
-		${PATCHDIR}/extrapatch-src-VBox-Additions-x11-vboxvideo-Makefile.kmk
+		${PATCHDIR}/extrapatch-src-VBox-Additions-x11-vboxvideo-Makefile.kmk \
+		${PATCHDIR}/extrapatch-src-VBox-Additions-x11-x11include-xorg-server-1.17.1-compiler.h
 .if ${COMPILER_FEATURES:Mlibc++}
 EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-x11-VBoxClient-Makefile.kmk
 .endif
 .endif
+
+.if ${OSVERSION} < 1001514
+EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-x11-vboxvideo-Makefile.kmk.dri
+.else
+EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-freebsd-drm-Makefile
+EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-freebsd-drm-Makefile.kmk
+EXTRA_PATCHES+=	${PATCHDIR}/extrapatch-src-VBox-Additions-x11-vboxvideo-Makefile.kmk.dri2
+.endif
+
+SUB_LIST+=	KMODDIR=${KMODDIR}
 
 pre-everything::
 .if ${ARCH} == "amd64"
@@ -124,6 +133,7 @@ pre-everything::
 
 post-patch:
 	@${ECHO} 'VBOX_ONLY_ADDITIONS = 1' > ${WRKSRC}/LocalConfig.kmk
+	@${ECHO} 'VBOX_WITH_DRAG_AND_DROP = ${VBOX_WITH_X11}' >> ${WRKSRC}/LocalConfig.kmk
 	@${ECHO} 'VBOX_WITH_X11_ADDITIONS = ${VBOX_WITH_X11}' >> ${WRKSRC}/LocalConfig.kmk
 .if ${COMPILER_TYPE} == clang
 	@${REINPLACE_CMD} -e 's| -finline-limit=8000||' \
@@ -147,11 +157,8 @@ post-patch:
 .endif
 
 pre-build:
-	@${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' \
-		${WRKSRC}/env.sh \
-		${WRKSRC}/src/VBox/Additions/freebsd/Installer/vboxguest.sh
-	cd ${WRKSRC} && ${SH} env.sh && \
-	    ${KMK_CONFIG} ${LOCALBASE}/bin/kmk ${KMK_FLAGS}
+	cd ${WRKSRC} && \
+	    ${SH} -c '. env.sh && ${KMK_CONFIG} ${LOCALBASE}/bin/kmk ${KMK_FLAGS}'
 
 do-install:
 	${MKDIR} ${STAGEDIR}${KMODDIR}
@@ -159,8 +166,11 @@ do-install:
 .if ${PORT_OPTIONS:MDEBUG}
 	${INSTALL_KLD} ${VBOX_BIN}/src/vboxguest/vboxguest.ko.symbols ${STAGEDIR}${KMODDIR}
 .endif
-.if ${PORT_OPTIONS:MX11}
+.if ${PORT_OPTIONS:MOPENGL}
 	${INSTALL_KLD} ${VBOX_BIN}/vboxvideo.ko ${STAGEDIR}${KMODDIR}
+.if ${PORT_OPTIONS:MDEBUG}
+	${INSTALL_KLD} ${VBOX_BIN}/vboxvideo.ko.symbols ${STAGEDIR}${KMODDIR}
+.endif
 .endif
 
 	${INSTALL_PROGRAM} ${VBOX_SBINS:S|^|${VBOX_BIN}/|} \

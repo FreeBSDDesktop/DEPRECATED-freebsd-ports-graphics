@@ -2,7 +2,6 @@
 
 PORTNAME=	geany-plugin-devhelp
 PORTVERSION=	${GEANY_VER}
-PORTREVISION=	3
 CATEGORIES=	devel
 
 MAINTAINER=	makc@FreeBSD.org
@@ -12,6 +11,13 @@ LIB_DEPENDS=	libwnck-1.so:${PORTSDIR}/x11-toolkits/libwnck \
 		libwebkitgtk-1.0.so:${PORTSDIR}/www/webkit-gtk2
 
 USE_GNOME=	gconf2
+
+# Workaround for 9.x which doesn't have zlib.pc
+LIBS=		-lz
+
+post-patch:
+	${REINPLACE_CMD} -e 's,zlib,,g' \
+		${WRKSRC}/configure
 
 .include "${.CURDIR}/../geany-plugins/files/Makefile.common"
 .include <bsd.port.mk>

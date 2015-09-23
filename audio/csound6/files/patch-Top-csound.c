@@ -1,11 +1,11 @@
---- Top/csound.c.orig	2011-10-16 22:59:03.000000000 +0900
-+++ Top/csound.c	2011-12-07 01:15:33.000000000 +0900
+--- Top/csound.c.orig	2015-04-25 19:06:23 UTC
++++ Top/csound.c
 @@ -60,10 +60,13 @@
  #include "cs_par_dispatch.h"
  #include "csound_orc_semantics.h"
  
--#if defined(linux) || defined(__HAIKU__) || defined(EMSCRIPTEN)
-+#if defined(linux) || defined(__HAIKU__) || defined(__FreeBSD__) || defined(EMSCRIPTEN)
+-#if defined(linux) || defined(__HAIKU__) || defined(__EMSCRIPTEN__)
++#if defined(linux) || defined(__HAIKU__) || defined(__FreeBSD__) || defined(__EMSCRIPTEN__)
  #define PTHREAD_SPINLOCK_INITIALIZER 0
  #endif
  
@@ -15,16 +15,7 @@
  #if defined(USE_OPENMP)
  #include <omp.h>
  #endif /* USE_OPENMP */
-@@ -919,7 +922,7 @@
- 
- #if defined(ANDROID) || (!defined(LINUX) && !defined(SGI) && \
-                          !defined(__HAIKU__) && !defined(__BEOS__) && \
--                         !defined(__MACH__))
-+                         !defined(__MACH__) && !defined(__FreeBSD__))
- static char *signal_to_string(int sig)
- {
-     switch(sig) {
-@@ -3420,7 +3423,7 @@
+@@ -3495,7 +3498,7 @@ void csoundNotifyFileOpened(CSOUND* csou
  /* ------------------------------------ */
  
  #if defined(HAVE_RDTSC)
@@ -33,7 +24,7 @@
  #undef HAVE_RDTSC
  #endif
  #endif
-@@ -3433,6 +3436,13 @@
+@@ -3508,6 +3511,13 @@ static double timeResolutionSeconds = -1
  static int getTimeResolution(void)
  {
  #if defined(HAVE_RDTSC)
@@ -47,7 +38,7 @@
      FILE    *f;
      char    buf[256];
  
-@@ -3468,9 +3478,14 @@
+@@ -3543,9 +3553,14 @@ static int getTimeResolution(void)
        }
      }
      fclose(f);

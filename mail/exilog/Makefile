@@ -3,7 +3,7 @@
 
 PORTNAME=	exilog
 PORTVERSION=	0.5
-PORTREVISION=	7
+PORTREVISION=	9
 CATEGORIES=	mail
 MASTER_SITES=	http://duncanthrax.net/exilog/
 
@@ -11,6 +11,7 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tool to centralize and visualize Exim logs with a web front end
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 #RUN_DEPENDS=	p5-Net-Netmask>=0:${PORTSDIR}/net-mgmt/p5-Net-Netmask
 
@@ -18,8 +19,9 @@ OPTIONS_DEFINE=	DOCS
 
 USES=		perl5 shebangfix
 NO_BUILD=	yes
+NO_ARCH=	yes
 
-SHEBANG_FILES=	exilog_agent.pl exilog_cleanup.pl
+SHEBANG_FILES=	exilog_agent.pl exilog_cgi.pl exilog_cleanup.pl
 
 # Default sql backend
 WITH_SQL_BACKEND?=	mysql

@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	App-Cmd
-PORTVERSION=	0.323
-PORTREVISION=	1
+PORTVERSION=	0.327
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	App::Cmd - Write command line apps with less suffering
 
 LICENSE=	ART10 GPLv1
@@ -20,9 +19,14 @@ BUILD_DEPENDS=	p5-Capture-Tiny>=0.13:${PORTSDIR}/devel/p5-Capture-Tiny \
 		p5-IO-TieCombine>=0:${PORTSDIR}/devel/p5-IO-TieCombine \
 		p5-String-RewritePrefix>=0:${PORTSDIR}/textproc/p5-String-RewritePrefix \
 		p5-Sub-Exporter>=0:${PORTSDIR}/devel/p5-Sub-Exporter \
-		p5-Sub-Install>=0:${PORTSDIR}/devel/p5-Sub-Install
+		p5-Sub-Install>=0:${PORTSDIR}/devel/p5-Sub-Install \
+		p5-Module-Pluggable>=5.1:${PORTSDIR}/devel/p5-Module-Pluggable
 RUN_DEPENDS:=	${BUILD_DEPENDS}
-TEST_DEPENDS=	p5-Test-Fatal>=0:${PORTSDIR}/devel/p5-Test-Fatal
+TEST_DEPENDS=	p5-Test-Fatal>=0:${PORTSDIR}/devel/p5-Test-Fatal \
+		p5-Data-Dumper>=0:${PORTSDIR}/devel/p5-Data-Dumper \
+		p5-PathTools>=0:${PORTSDIR}/devel/p5-PathTools \
+		p5-IPC-Cmd>=0:${PORTSDIR}/devel/p5-IPC-Cmd \
+		p5-ExtUtils-MakeMaker>=6.4:${PORTSDIR}/devel/p5-ExtUtils-MakeMaker
 
 USES=		perl5
 USE_PERL5=	configure

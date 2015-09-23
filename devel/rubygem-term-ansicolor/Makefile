@@ -2,35 +2,26 @@
 # $FreeBSD$
 
 PORTNAME=	term-ansicolor
-PORTVERSION=	1.3.0
+PORTVERSION=	1.3.2
 CATEGORIES=	devel ruby
 MASTER_SITES=	RG
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Term::ANSIColor for Ruby
 
-RUN_DEPENDS=	rubygem-tins>=0.8:${PORTSDIR}/devel/rubygem-tins
+LICENSE=	GPLv2
 
+RUN_DEPENDS=	rubygem-tins>=1.0:${PORTSDIR}/devel/rubygem-tins
+
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
 
-PLIST_FILES+=	bin/colortab bin/term_display bin/term_mandel
-
-PORTEXAMPLES=	cdiff decolor
-
-OPTIONS_DEFINE=	EXAMPLES
-
-.include <bsd.port.options.mk>
-
-post-patch:
-# Chop out the cdiff and decolor binaries; these should be installed to
-# EXAMPLESDIR
-	${REINPLACE_CMD} -e '/^- [cd][de][ic][fo][fl]o*r*$$/d' \
-		${WRKSRC}/term-ansicolor-${PORTVERSION}.gemspec
+PLIST_FILES=	bin/colortab bin/term_display bin/term_cdiff bin/term_decolor bin/term_mandel
 
 post-install:
-	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	${INSTALL_SCRIPT} ${PORTEXAMPLES:S,^,${WRKSRC}/bin/,} ${STAGEDIR}${EXAMPLESDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/bin/cdiff ${STAGEDIR}${PREFIX}/bin/term_cdiff
+	${MV} ${STAGEDIR}${PREFIX}/bin/decolor ${STAGEDIR}${PREFIX}/bin/term_decolor
 
 .include <bsd.port.mk>

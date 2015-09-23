@@ -2,14 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	openssl
-PORTVERSION=	1.0.1
-DISTVERSIONSUFFIX=	j
-PORTREVISION=	16
+PORTVERSION=	1.0.2
+DISTVERSIONSUFFIX=	d
+PORTREVISION=	4
 CATEGORIES=	security devel
-MASTER_SITES=	http://www.openssl.org/%SUBDIR%/ \
-		ftp://ftp.openssl.org/%SUBDIR%/ \
-		ftp://ftp.cert.dfn.de/pub/tools/net/openssl/%SUBDIR%/
-MASTER_SITE_SUBDIR=	source
+MASTER_SITES=	http://www.openssl.org/source/ \
+		ftp://ftp.openssl.org/source/ \
+		ftp://ftp.cert.dfn.de/pub/tools/net/openssl/source/
 DIST_SUBDIR=	${DISTNAME}
 
 MAINTAINER=	dinoex@FreeBSD.org
@@ -21,8 +20,8 @@ COMMENT=	SSL and crypto library
 
 CONFLICTS?=	libressl-*
 
-OPTIONS_DEFINE=	SHARED THREADS I386 SSE2 ASM PADLOCK ZLIB GMP SCTP SSL2 SSL3 RFC3779 MD2 RC5 EXPCIPHERS DOCS
-OPTIONS_DEFAULT=SHARED THREADS SSE2 ASM ZLIB SCTP SSL2 SSL3 MD2
+OPTIONS_DEFINE=	SHARED THREADS I386 SSE2 ASM PADLOCK ZLIB GMP SCTP SSL2 SSL3 RFC3779 MD2 RC5 EXPCIPHERS DOCS MAN3
+OPTIONS_DEFAULT=SHARED THREADS SSE2 SCTP SSL2 SSL3 MD2 MAN3
 .for a in amd64 ia64
 OPTIONS_DEFINE_${a}=	EC
 OPTIONS_DEFAULT_${a}=	EC
@@ -49,6 +48,7 @@ MD2_DESC?=	MD2 hash (obsolete)
 RC5_DESC?=	RC5 cipher (patented)
 EXPCIPHERS_DESC?=	Include experimental ciphers
 EC_DESC?=	Optimize NIST elliptic curves
+MAN3_DESC?=	Install API manpages (section 3)
 
 GMP_LIB_DEPENDS=	libgmp.so:${PORTSDIR}/math/gmp
 
@@ -64,30 +64,10 @@ SUB_FILES=	pkg-message
 
 CPE_VERSION=	${PORTVERSION}${DISTVERSIONSUFFIX}
 
-FIX_POD=apps/cms.pod \
-	apps/smime.pod \
-	ssl/SSL_COMP_add_compression_method.pod \
-	ssl/SSL_CTX_add_session.pod \
-	ssl/SSL_CTX_load_verify_locations.pod \
-	ssl/SSL_CTX_set_client_CA_list.pod \
-	ssl/SSL_CTX_set_session_id_context.pod \
-	ssl/SSL_CTX_set_ssl_version.pod \
-	ssl/SSL_CTX_use_psk_identity_hint.pod \
-	ssl/SSL_accept.pod \
-	ssl/SSL_clear.pod \
-	ssl/SSL_connect.pod \
-	ssl/SSL_do_handshake.pod \
-	ssl/SSL_read.pod \
-	ssl/SSL_session_reused.pod \
-	ssl/SSL_set_fd.pod \
-	ssl/SSL_set_session.pod \
-	ssl/SSL_shutdown.pod \
-	ssl/SSL_write.pod
-
 .include <bsd.port.pre.mk>
 
 .if ${PREFIX} == /usr
-IGNORE=	OpenSSL can not be installed over the base version
+IGNORE=	OpenSSL can not be installed over the base version.
 .endif
 
 OPENSSLDIR?=	${PREFIX}/openssl
@@ -165,18 +145,17 @@ EXTRACONFIGURE+=	no-rc5
 .endif
 
 .if ${PORT_OPTIONS:MPADLOCK}
-#BROKEN=		does not build with openssl-1.0.1f
 PATCH_DIST_STRIP=	-p1
 PATCH_SITES+=	http://git.alpinelinux.org/cgit/aports/plain/main/openssl/:padlock
-PATCHFILES+=	0001-crypto-hmac-support-EVP_MD_CTX_FLAG_ONESHOT-and-set-.patch:padlock \
-		0002-engines-e_padlock-backport-cvs-head-changes.patch:padlock \
-		0003-engines-e_padlock-implement-sha1-sha224-sha256-accel.patch:padlock \
-		0004-crypto-engine-autoload-padlock-dynamic-engine.patch:padlock
+PATCHFILES+=	1001-crypto-hmac-support-EVP_MD_CTX_FLAG_ONESHOT-and-set-.patch:padlock \
+		1002-backport-changes-from-upstream-padlock-module.patch:padlock \
+		1003-engines-e_padlock-implement-sha1-sha224-sha256-accel.patch:padlock \
+		1004-crypto-engine-autoload-padlock-dynamic-engine.patch:padlock
 .endif
 
 .if ${PORT_OPTIONS:MGMP}
 EXTRACONFIGURE+=	enable-gmp -I${LOCALBASE}/include
-IGNORE=	GMP is LGPLv3 and can not be linked
+IGNORE=	GMP is LGPLv3 and can not be linked.
 .else
 EXTRACONFIGURE+=	no-gmp
 .endif
@@ -205,12 +184,12 @@ pre-everything::
 .endif
 
 post-patch:
-	${REINPLACE_CMD} -E -e 's|^=item ([0-9])[[:blank:]]*$$|=item Z<>\1|' \
-		${FIX_POD:S,^,${WRKSRC}/doc/,}
 	${REINPLACE_CMD} -e 's|m4 -B 8192|m4|g' \
 		${WRKSRC}/crypto/des/Makefile
 	${REINPLACE_CMD} -e 's|SHLIB_VERSION_NUMBER "1.0.0"|SHLIB_VERSION_NUMBER "${OPENSSL_SHLIBVER}"|' \
 		${WRKSRC}/crypto/opensslv.h
+	${REINPLACE_CMD} -e 's|ERR_R_MALLOC_ERROR|ERR_R_MALLOC_FAILURE|' \
+		${WRKSRC}/crypto/bio/bss_dgram.c
 .if ${PORT_OPTIONS:MEXPCIPHERS}
 	${REINPLACE_CMD} -e 's|TLS1_ALLOW_EXPERIMENTAL_CIPHERSUITES	0|TLS1_ALLOW_EXPERIMENTAL_CIPHERSUITES	1|' \
 		${WRKSRC}/ssl/tls1.h
@@ -222,7 +201,6 @@ do-configure:
 .if ${PORT_OPTIONS:MTHREADS}
 	cd ${WRKSRC} \
 	&& ${SETENV} CC="${CC}" FREEBSDCC="${CC}" CFLAGS="${CFLAGS}" PERL="${PERL}" \
-		PTHREAD_CFLAGS=${PTHREAD_CFLAGS} PTHREAD_LIBS=${PTHREAD_LIBS} \
 	./config --prefix=${PREFIX} --openssldir=${OPENSSLDIR} \
 		--install_prefix=${STAGEDIR} \
 		-L${PREFIX}/lib ${EXTRACONFIGURE}
@@ -249,6 +227,10 @@ post-install:
 .if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/doc/openssl.txt ${STAGEDIR}${DOCSDIR}/
+.endif
+.if empty(PORT_OPTIONS:MMAN3)
+	${RM} -rf ${STAGEDIR}/${PREFIX}/man/man3
+	${REINPLACE_CMD} -e 's|^man/man3/.*||' ${TMPPLIST}
 .endif
 	${SED} -e 's|/usr/local|${PREFIX}|g' ${PKGMESSAGE}
 

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gemnasium-gitlab-service
-PORTVERSION=	0.2.2
+PORTVERSION=	0.2.6
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,10 +11,10 @@ COMMENT=	Gemnasium support for GitLab projects
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	rubygem-rugged>=0.21.0:${PORTSDIR}/devel/rubygem-rugged
+RUN_DEPENDS=	rubygem-rugged>=0.21:${PORTSDIR}/devel/rubygem-rugged
 
+NO_ARCH=	yes
 USE_RUBY=	yes
-USE_RAKE=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
 

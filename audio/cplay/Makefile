@@ -5,7 +5,8 @@ PORTNAME=	cplay
 PORTVERSION=	1.49
 PORTREVISION=	5
 CATEGORIES=	audio
-MASTER_SITES=	ftp://ftp.SpringDaemons.com/soft/
+MASTER_SITES=	DEBIAN
+DISTFILES=	${DISTNAME:S/-/_/}.orig${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Curses-based front-end for various audio players

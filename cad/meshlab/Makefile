@@ -2,30 +2,36 @@
 # $FreeBSD$
 
 PORTNAME=	meshlab
-DISTVERSION=	1.3.2
-PORTREVISION=	3
+PORTVERSION=	1.3.3
+PORTREVISION=	1
 CATEGORIES=	cad
-MASTER_SITES=	${MASTER_SITE_LOCAL}/gahr/ \
-		http://people.freebsd.org/~gahr/distfiles/
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/MeshLab%20v${PORTVERSION}/
+DISTNAME=	MeshLabSrc_AllInc_v${PORTVERSION:C|\.||g}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	3D triangular meshes processing and editing tool
 
-LIB_DEPENDS=	libQtSolutions_SOAP-head.so:${PORTSDIR}/devel/qt4-qtsolutions-soap
-LIB_DEPENDS=	libQtSolutions_SOAP-head.so:${PORTSDIR}/devel/qt4-qtsolutions-soap
+LICENSE=	GPLv2
 
-USES=		dos2unix qmake compiler:c++11-lib
+EXTRACT_DEPENDS=gtar:${PORTSDIR}/archivers/gtar
+LIB_DEPENDS=	libQtSolutions_SOAP-head.so:${PORTSDIR}/devel/qt4-qtsolutions-soap	\
+		libmpir.so:${PORTSDIR}/math/mpir
+
+USES=		dos2unix qmake compiler:c++11-lib tar:tgz
 USE_CXXSTD=	c++11
 USE_GL=		glew glu
 USE_QT4=	moc_build rcc_build uic_build corelib gui xml \
 		xmlpatterns opengl network script
+USE_LDCONFIG=	yes
 DOS2UNIX_FILES=	external/structuresynth/ssynth/SyntopiaCore/GLEngine/Object3D.h \
 		external/structuresynth/ssynth/SyntopiaCore/GLEngine/Raytracer/VoxelStepper.cpp \
-		meshlabplugins/edit_arc3D/fillImage.cpp
+		meshlabplugins/edit_arc3D/fillImage.cpp \
+		meshlabplugins/filter_csg/intercept.h
 
-WRKSRC=		${WRKDIR}/${DISTNAME}/${PORTNAME}/src
+EXTRACT_CMD=	gtar
+WRKSRC=		${WRKDIR}/${PORTNAME}/src
 
-post-patch:
+pre-configure:
 	${MV} "${WRKSRC}/distrib/shaders/electronic microscope.gdp" \
 	    ${WRKSRC}/distrib/shaders/electronic_microscope.gdp
 	${MV} "${WRKSRC}/distrib/shaders/shadersrm/old/Depth of Field.rfx" \
@@ -48,7 +54,7 @@ do-build:
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/meshlab/plugins
-	cd ${WRKSRC}/distrib/plugins && ${COPYTREE_SHARE} \*.so ${STAGEDIR}${PREFIX}/lib/meshlab/plugins
+	cd ${WRKSRC}/distrib/plugins && ${INSTALL_LIB} *.so ${STAGEDIR}${PREFIX}/lib/meshlab/plugins
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/meshlab/shaders
 	cd ${WRKSRC}/distrib/shaders && ${COPYTREE_SHARE} \* ${STAGEDIR}${PREFIX}/lib/meshlab/shaders
 	${INSTALL_PROGRAM} ${WRKSRC}/distrib/meshlab ${STAGEDIR}${PREFIX}/lib/meshlab

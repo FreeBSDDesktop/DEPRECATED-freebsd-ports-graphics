@@ -1,9 +1,8 @@
 # Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/deskutils/baobab/Makefile 19944 2014-10-15 05:33:09Z gusi $
 
 PORTNAME=	baobab
-PORTVERSION=	3.14.0
+PORTVERSION=	3.16.1
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -16,6 +15,7 @@ BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool \
 LIB_DEPENDS=	libgtop-2.0.so:${PORTSDIR}/devel/libgtop
 
 CONFLICTS=	gnome-utils-2.[0-9]*
+PORTSCOUT=	limitw:1,even
 
 USES=		desktop-file-utils gettext gmake pathfix \
 		pkgconfig tar:xz

@@ -3,7 +3,7 @@
 
 PORTNAME=	dvda-author
 PORTVERSION=	09.05
-PORTREVISION=	11
+PORTREVISION=	13
 PORTEPOCH=	1
 CATEGORIES=	audio
 MASTER_SITES=	SF/dvd-audio/${PORTNAME}-core/${PORTNAME}-${PORTVERSION}-core
@@ -12,12 +12,13 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-7
 MAINTAINER=	martin.dieringer@gmx.de
 COMMENT=	Author and playback unencrypted and uncompressed Audio-DVDs
 
+BROKEN=		Fails to fetch
 LIB_DEPENDS=	libFLAC.so:${PORTSDIR}/audio/flac \
 		libogg.so:${PORTSDIR}/audio/libogg \
 		libsox.so:${PORTSDIR}/audio/sox \
 		libsamplerate.so:${PORTSDIR}/audio/libsamplerate \
 		libltdl.so:${PORTSDIR}/devel/libltdl \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -32,11 +33,7 @@ USE_CSTD=	gnu89
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
-.if ! ${PORT_OPTIONS:MDOCS}
-CONFIGURE_ARGS+=	--docdir=${WRKDIR}/doc
-.endif
+DOCS_CONFIGURE_OFF=	--docdir=${WRKDIR}/doc
 
 post-patch:
 	@${REINPLACE_CMD} 's|-std=c99||g' \

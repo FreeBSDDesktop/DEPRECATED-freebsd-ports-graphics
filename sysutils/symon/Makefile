@@ -3,18 +3,18 @@
 
 PORTNAME=	symon
 PORTVERSION=	2.86
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	sysutils
 MASTER_SITES=	http://wpd.home.xs4all.nl/symon/philes/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	uqs
+		LOCAL/uqs
 
 MAINTAINER=	uqs@FreeBSD.org
 COMMENT=	Performance and information monitoring tool
 
 SUB_FILES=	pkg-message
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	client/getsymonitem.pl
 USE_PERL5=	build
 MAKE_JOBS_UNSAFE=	yes
 
@@ -59,10 +59,13 @@ MAKE_ARGS+=	SUBDIR="${SUBDIR}" RRDDIR="${LOCALBASE}" \
 post-extract:
 	@${MV} ${WRKDIR}/${PORTNAME} ${WRKSRC}
 
+post-patch:
 # We need to teach symon about mbstat changes/removal in r253351 and r253361.
 .if ${OSVERSION} > 1000000
-post-patch:
 	@${RM} ${WRKSRC}/platform/FreeBSD/sm_mbuf.c
+.endif
+.if ${OSVERSION} >= 1100070
+	@${REINPLACE_CMD} 's|altq/|net/&|' ${WRKSRC}/platform/FreeBSD/sm_pfq.c
 .endif
 
 .include <bsd.port.post.mk>

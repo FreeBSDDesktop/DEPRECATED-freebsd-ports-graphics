@@ -1,12 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	fldigi
-PORTVERSION=	3.22.02
-PORTREVISION=	1
+PORTVERSION=	3.22.13
 CATEGORIES=	comms hamradio
 MASTER_SITES=	http://www.w1hkj.com/downloads/fldigi/\
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	shurd
+		LOCAL/shurd
 
 MAINTAINER=	hamradio@FreeBSD.org
 COMMENT=	Digital decoder for psk, cw, psk31, olivia
@@ -24,10 +22,9 @@ LIB_DEPENDS=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo \
 
 USE_CXXSTD=	gnu++0x
 GNU_CONFIGURE=	yes
-USES=		gmake pkgconfig compiler:c++11-lib perl5 shebangfix
+USES=		compiler:c++11-lib gmake perl5 pkgconfig shebangfix
 CONFIGURE_ENV=	FLTK_CONFIG="${LOCALBASE}/bin/fltk-config" \
 		    EXTRA_LIBS="-lexecinfo"
-SHEBANG_FILES=	scripts/fldigi-shell
 
 OPTIONS_DEFINE=	NATIVE_OPT FLARQ OSS SNDFILE PORTAUDIO PULSEAUDIO HAMLIB NLS DOCS
 
@@ -40,64 +37,26 @@ PULSEAUDIO_DESC=	PulseAudio support
 HAMLIB_DESC=		Support rig control via hamlib
 
 OPTIONS_DEFAULT=	FLARQ OSS HAMLIB
+OPTIONS_SUB=		yes
 
-.include <bsd.port.pre.mk>
+NATIVE_OPT_CONFIGURE_ON=	--enable-optimizations=native
+NATIVE_OPT_CONFIGURE_OFF=	--enable-optimizations=none
+FLARQ_CONFIGURE_ENABLE=		flarq
+OSS_CONFIGURE_ENABLE=		oss
+SNDFILE_CONFIGURE_WITH=		sndfile
+SNDFILE_LIB_DEPENDS=		libsndfile.so:${PORTSDIR}/audio/libsndfile
+PORTAUDIO_CONFIGURE_WITH=	portaudio
+PORTAUDIO_LIB_DEPENDS=		libportaudio.so:${PORTSDIR}/audio/portaudio
+PULSEAUDIO_CONFIGURE_WITH=	pulseaudio
+PULSEAUDIO_LIB_DEPENDS=		libpulse.so:${PORTSDIR}/audio/pulseaudio
+HAMLIB_CONFIGURE_WITH=		hamlib
+HAMLIB_LIB_DEPENDS=		libhamlib.so:${PORTSDIR}/comms/hamlib
+NLS_CONFIGURE_ENABLE=		nls
+NLS_USES=			gettext
 
-.if ${ARCH} == "sparc64"
-BROKEN=		Fails to install
-.endif
-.if ${PORT_OPTIONS:MNATIVE_OPT}
-CONFIGURE_ARGS+=--enable-optimizations=native
-.else
-CONFIGURE_ARGS+=--enable-optimizations=none
-.endif
-.if ${PORT_OPTIONS:MFLARQ}
-CONFIGURE_ARGS+=--enable-flarq
-MAN1+=		flarq.1
-PLIST_SUB+=	FLARQ=""
-.else
-CONFIGURE_ARGS+=--disable-flarq
-PLIST_SUB+=	FLARQ="@comment "
-.endif
+BROKEN_sparc64=		Fails to install
+
 PLIST_SUB+=	XMLRPC=""
-.if ${PORT_OPTIONS:MOSS}
-CONFIGURE_ARGS+=--enable-oss
-.else
-CONFIGURE_ARGS+=--disable-oss
-.endif
-.if ${PORT_OPTIONS:MSNDFILE}
-CONFIGURE_ARGS+=--with-sndfile
-LIB_DEPENDS+=	libsndfile.so:${PORTSDIR}/audio/libsndfile
-.else
-CONFIGURE_ARGS+=--without-sndfile
-.endif
-.if ${PORT_OPTIONS:MPORTAUDIO}
-CONFIGURE_ARGS+=--with-portaudio
-BUILD_DEPENDS+=	${LOCALBASE}/lib/portaudio2/libportaudio.so:${PORTSDIR}/audio/portaudio2
-RUN_DEPENDS+=	${LOCALBASE}/lib/portaudio2/libportaudio.so:${PORTSDIR}/audio/portaudio2
-.else
-CONFIGURE_ARGS+=--without-portaudio
-.endif
-.if ${PORT_OPTIONS:MPULSEAUDIO}
-CONFIGURE_ARGS+=--with-pulseaudio
-LIB_DEPENDS+=	libpulse.so:${PORTSDIR}/audio/pulseaudio
-.else
-CONFIGURE_ARGS+=--without-pulseaudio
-.endif
-.if ${PORT_OPTIONS:MHAMLIB}
-CONFIGURE_ARGS+=--with-hamlib
-LIB_DEPENDS+=	libhamlib.so:${PORTSDIR}/comms/hamlib
-.else
-CONFIGURE_ARGS+=--without-hamlib
-.endif
-.if ${PORT_OPTIONS:MNLS}
-USES+=	gettext
-CONFIGURE_ARGS+=--enable-nls
-PLIST_SUB+=	NLS=""
-.else
-CONFIGURE_ARGS+=--disable-nls
-PLIST_SUB+=	NLS="@comment "
-.endif
 # Always need asciidoc for man pages
 CONFIGURE_ARGS+=--with-asciidoc
 
@@ -108,17 +67,14 @@ post-patch:
 		${WRKSRC}/Makefile.in
 
 post-configure:
-	@${REINPLACE_CMD} -e 's|-pthread|${PTHREAD_LIBS}|' \
-		-e 's|^CPPFLAGS|#CPPFLAGS|' \
+	@${REINPLACE_CMD} -e 's|^CPPFLAGS|#CPPFLAGS|' \
 		${WRKSRC}/src/Makefile
 # force rebuild of man pages
 	${RM} ${WRKSRC}/doc/*.1
 
 post-install:
-.if ${PORT_OPTIONS:MDOCS}
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/doc/guide.html ${STAGEDIR}${DOCSDIR}
-.endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

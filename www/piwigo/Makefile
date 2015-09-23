@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	piwigo
-PORTVERSION=	2.7.2
+PORTVERSION=	2.7.4
 CATEGORIES=	www
 MASTER_SITES=	http://piwigo.org/download/dlcounter.php?code=${PORTVERSION}&/ \
 		SF/${PORTNAME}/Piwigo/${PORTVERSION}
@@ -18,7 +18,7 @@ USE_PHP=	calendar ctype dom exif filter gd gettext hash iconv json \
 		mbstring mcrypt mysql mysqli openssl pcre pdf pdo posix \
 		session simplexml sockets spl tokenizer xml xmlreader \
 		xmlwriter zlib
-USES=		zip
+USES=		cpe zip
 WANT_PHP_WEB=	yes
 WRKSRC=		${WRKDIR}/${PORTNAME}
 

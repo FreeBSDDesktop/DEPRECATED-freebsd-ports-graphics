@@ -3,9 +3,9 @@
 
 PORTNAME=	xfce4-vala
 PORTVERSION=	4.10.3
+PORTREVISION=	2
 CATEGORIES=	devel xfce
-MASTER_SITES=	${MASTER_SITE_XFCE}
-MASTER_SITE_SUBDIR=	src/bindings/${PORTNAME}/${PORTVERSION:R}
+MASTER_SITES=	XFCE/src/bindings/${PORTNAME}/${PORTVERSION:R}
 DIST_SUBDIR=	xfce4
 
 MAINTAINER=	xfce@FreeBSD.org
@@ -16,14 +16,9 @@ LICENSE=	LGPL21
 BUILD_DEPENDS=	valac:${PORTSDIR}/lang/vala
 
 GNU_CONFIGURE=	yes
-USES=	pkgconfig gmake pathfix tar:bzip2
-USE_XFCE=	configenv garcon libexo libmenu libutil panel xfconf
+USES=	pkgconfig gmake pathfix xfce tar:bzip2
+USE_XFCE=	panel
 
-# vala-1.0.pc is symlink to libvala-${VALA_VER}.pc
-CONFIGURE_ARGS=	--with-vala-api=1.0
-
-post-patch:
-	@${REINPLACE_CMD} -e 's|libvala-|vala-|g' ${WRKSRC}/acinclude.m4 \
-		${WRKSRC}/configure
+CONFIGURE_ARGS=	--with-vala-api=0.28
 
 .include <bsd.port.mk>

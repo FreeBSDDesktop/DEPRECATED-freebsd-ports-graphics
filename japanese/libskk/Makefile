@@ -3,7 +3,7 @@
 
 PORTNAME=	libskk
 PORTVERSION=	1.0.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	japanese
 MASTER_SITES=	https://bitbucket.org/libskk/libskk/downloads/
 
@@ -33,6 +33,7 @@ OPTIONS_SUB=	yes
 
 NLS_CONFIGURE_ENABLE=	nls
 NLS_USES=	gettext
+NLS_USES_OFF=	gettext-tools
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

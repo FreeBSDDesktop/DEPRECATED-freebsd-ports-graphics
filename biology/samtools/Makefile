@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	samtools
-PORTVERSION=	1.1
+PORTVERSION=	1.2
 CATEGORIES=	biology
 
 MAINTAINER=	cartwright@asu.edu
@@ -11,11 +11,10 @@ COMMENT=	Tools for manipulating next-generation sequencing data
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BUILD_DEPENDS=	htslib>=1.2:${PORTSDIR}/biology/htslib
 LIB_DEPENDS=	libhts.so:${PORTSDIR}/biology/htslib
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	samtools
-GH_COMMIT=	34c6691
 
 USES=		gmake
 SUB_FILES=	pkg-message

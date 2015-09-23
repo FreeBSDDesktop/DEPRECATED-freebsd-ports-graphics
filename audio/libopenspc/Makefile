@@ -5,8 +5,8 @@ PORTNAME=	libopenspc
 PORTVERSION=	0.3.99a
 PORTREVISION=	1
 CATEGORIES=	audio
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	kwm
+MASTER_SITES=	http://rainbow-runner.nl/freebsd/ \
+		LOCAL/kwm
 
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Library for playing SPC (SNES audio) files

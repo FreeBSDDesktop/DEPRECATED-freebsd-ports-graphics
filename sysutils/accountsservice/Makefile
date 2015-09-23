@@ -1,21 +1,23 @@
 # Created by: Koop Mast <kwm@FreeBSD.org>
 # $FreeBSD$
-#    $MCom: ports/trunk/sysutils/accountsservice/Makefile 20031 2014-11-02 21:47:55Z kwm $
 
 PORTNAME=	accountsservice
-PORTVERSION=	0.6.37
-PORTREVISION=	1
+PORTVERSION=	0.6.40
 CATEGORIES=	sysutils devel
 MASTER_SITES=	http://www.freedesktop.org/software/${PORTNAME}/
 
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	D-Bus interface for user account query and manipulation
 
+LICENSE=	GPLv3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 LIB_DEPENDS=	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
 		libpolkit-gobject-1.so:${PORTSDIR}/sysutils/polkit
 
 USE_GNOME=	glib20 intlhack introspection:build libxslt
-USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+USES=		cpe gettext gmake libtool pathfix pkgconfig tar:xz
+CPE_VENDOR=	ray_stode
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--disable-systemd --localstatedir=/var/

@@ -3,7 +3,7 @@
 
 PORTNAME=	libflame
 DISTVERSION=	r7421
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	math
 MASTER_SITES=	http://www.cs.utexas.edu/users/%SUBDIR%/:1,2 LOCAL/bf:3
 MASTER_SITE_SUBDIR=	flame/snapshots/:1 field/docs/:2
@@ -174,8 +174,6 @@ CFLAGS+=		${OPENMP_CFLAGS}
 LDFLAGS+=		${OPENMP_CFLAGS}
 CONFIGURE_ARGS+=	--enable-multithreading=openmp
 .elif ${PORT_OPTIONS:MTHREADS}
-CFLAGS+=		${PTHREAD_CFLAGS}
-LDFLAGS+=		${PTHREAD_CFLAGS}
 CONFIGURE_ARGS+=	--enable-multithreading=pthreads
 .else
 CONFIGURE_ARGS+=	--enable-multithreading=no
@@ -243,7 +241,6 @@ post-patch:
 	-e 's@(#!)(/bin/bash)@\1${LOCALBASE}\2@'
 	@${FIND} ${WRKSRC} -type f \( -name 'makefile' -o -name 'config.mk.in' \) | \
 	${XARGS} ${REINPLACE_CMD} \
-	-e 's@-lpthread@${PTHREAD_LIBS}@g' \
 	-e 's@-fPIC@${PICFLAG}@g'
 	@${REINPLACE_CMD} \
 	-e '\@MK_INCL_DIR_INST_W_ARCH_VERS[[:blank:]]*:=@ \
@@ -299,12 +296,11 @@ do-install:
 	@cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${_MAKE_JOBS} \
 	${MAKE_ARGS} install-headers
 .if ${PORT_OPTIONS:MSHARED}
-	@cd ${WRKSRC}/lib; ${STRIP_CMD} */libflame.so */libflame.a
+	@cd ${WRKSRC}/lib; ${STRIP_CMD} */libflame.so
 	@cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${_MAKE_JOBS} \
 	${MAKE_ARGS} install-libs install-lib-symlinks
 .endif
 .if ${PORT_OPTIONS:MSTATIC}
-	@cd ${WRKSRC}_STATIC/lib; ${STRIP_CMD} */libflame.a
 	@cd ${WRKSRC}_STATIC; ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${_MAKE_JOBS} \
 	${MAKE_ARGS} install-libs
 .endif

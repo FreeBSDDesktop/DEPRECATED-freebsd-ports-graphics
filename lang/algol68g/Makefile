@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	algol68g
-PORTVERSION=	2.8
-PORTREVISION=	2
+PORTVERSION=	2.8.1
 CATEGORIES=	lang
 MASTER_SITES=	http://jmvdveer.home.xs4all.nl/
 
@@ -30,7 +29,7 @@ PLIST_FILES=	bin/a68g man/man1/a68g.1.gz \
 post-patch:
 #	Skip broken check, assume our $CC works
 	@${REINPLACE_CMD} -Ee 's/.*(\*-freebsd)/\1/' \
-		-e 's/"xgcc"/"x${CC}"/; s/-ldl //' ${WRKSRC}/configure
+		-e 's|"xgcc"|"x${CC}"|; s/-ldl //' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e '/^install-data-am/s/install-docDATA//' \
 		${WRKSRC}/Makefile.in
 

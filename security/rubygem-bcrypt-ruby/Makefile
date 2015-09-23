@@ -9,7 +9,11 @@ MASTER_SITES=	RG
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Sophisticated and secure hash algorithm for passwords
 
-RUN_DEPENDS=	rubygem-bcrypt>=0:${PORTSDIR}/security/rubygem-bcrypt
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-bcrypt>=3.1.3:${PORTSDIR}/security/rubygem-bcrypt
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

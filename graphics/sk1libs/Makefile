@@ -3,7 +3,7 @@
 
 PORTNAME=	sk1libs
 PORTVERSION=	0.9.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics python
 MASTER_SITES=	GOOGLE_CODE \
 		http://mirror.amdmi3.ru/distfiles/
@@ -12,12 +12,11 @@ MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Set of python libraries for sK1 Project
 
 LIB_DEPENDS=	liblcms.so:${PORTSDIR}/graphics/lcms \
-		libfreetype.so:${PORTSDIR}/print/freetype2 \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg
+		libfreetype.so:${PORTSDIR}/print/freetype2
 
 PROJECTHOST=	uniconvertor
 
-USES=		python
+USES=		jpeg python
 USE_PYTHON=	distutils
 PYDISTUTILS_BUILD_TARGET=build_ext
 PYDISTUTILS_BUILDARGS=	-L${LOCALBASE}/lib \

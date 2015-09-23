@@ -4,8 +4,7 @@
 PORTNAME=	io-like
 PORTVERSION=	0.3.0.20130301
 CATEGORIES=	devel rubygems
-MASTER_SITES=	LOCAL
-MASTER_SITE_SUBDIR=	tota/${PORTNAME}
+MASTER_SITES=	LOCAL/tota/${PORTNAME}
 PKGNAMEPREFIX=	rubygem-
 
 MAINTAINER=	tota@FreeBSD.org
@@ -14,8 +13,7 @@ COMMENT=	The interface of IO objects to classes providing a few simple methods
 LICENSE=	RUBY
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${RUBYGEMBIN}:${PORTSDIR}/devel/ruby-gems \
-		rdoc:${PORTSDIR}/devel/rubygem-rdoc
+BUILD_DEPENDS=	${RUBYGEMBIN}:${PORTSDIR}/devel/ruby-gems
 RUN_DEPENDS=	${RUBYGEMBIN}:${PORTSDIR}/devel/ruby-gems
 
 USE_RUBY=	yes

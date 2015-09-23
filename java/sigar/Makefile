@@ -5,7 +5,6 @@ PORTNAME=	sigar
 PORTVERSION=	1.7.3
 PORTREVISION=	1
 CATEGORIES=	java devel
-MASTER_SITES=	GH
 PKGNAMEPREFIX=	java-
 
 MAINTAINER=	tj@FreeBSD.org
@@ -19,8 +18,7 @@ LIB_DEPENDS=	libsigar.so:${PORTSDIR}/devel/sigar
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	amishHammer
-GH_COMMIT=	b5af695
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	b5af695
 
 USES=		perl5
 USES_PERL5=	build
@@ -31,8 +29,6 @@ USE_GCC=	any
 ANT_CMD?=	${LOCALBASE}/bin/ant
 ANT=		${SETENV} JAVA_HOME=${JAVA_HOME} ${ANT_CMD}
 
-WRKSRC=		${WRKDIR}/amishHammer-sigar-${GH_COMMIT}
-
 .include <bsd.port.pre.mk>
 
 .if ${OPSYS} == FreeBSD
@@ -40,14 +36,8 @@ WRKSRC=		${WRKDIR}/amishHammer-sigar-${GH_COMMIT}
 PLATFORM_VER=	1
 .  elif ${OSVERSION} >= 900000
 PLATFORM_VER=	9
-.  elif ${OSVERSION} >= 800000
-PLATFORM_VER=	8
-.  elif ${OSVERSION} >= 700000
-PLATFORM_VER=	7
-.  elif ${OSVERSION} >= 600000
-PLATFORM_VER=	6
 .  else
-BROKEN=		Unsupported FreeBSD version
+PLATFORM_VER=	8
 .  endif
 .else
 BROKEN=		${OPSYS} platform is not supported

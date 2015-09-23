@@ -7,6 +7,7 @@
     SUBDIR += 9box
     SUBDIR += 9menu
     SUBDIR += alltray
+    SUBDIR += antimicro
     SUBDIR += appres
     SUBDIR += apwal
     SUBDIR += arandr
@@ -32,6 +33,7 @@
     SUBDIR += cinnamon-session
     SUBDIR += cl-clx
     SUBDIR += compositeproto
+    SUBDIR += cool-retro-term
     SUBDIR += damageproto
     SUBDIR += decurs
     SUBDIR += deforaos-desktop
@@ -44,7 +46,7 @@
     SUBDIR += dgs
     SUBDIR += dmenu
     SUBDIR += dmxproto
-    SUBDIR += docker
+    SUBDIR += docker-tray
     SUBDIR += dri2proto
     SUBDIR += dri3proto
     SUBDIR += dxpc
@@ -69,12 +71,12 @@
     SUBDIR += gdkxft
     SUBDIR += gdm
     SUBDIR += glproto
-    SUBDIR += gmessage
     SUBDIR += gmrun
     SUBDIR += gnome-clipboard-daemon
     SUBDIR += gnome-desktop
     SUBDIR += gnome-desktop-reference
     SUBDIR += gnome-menus
+    SUBDIR += gnome-pie
     SUBDIR += gnome-session
     SUBDIR += gnome-shell
     SUBDIR += gnome-shell-extensions
@@ -158,6 +160,7 @@
     SUBDIR += libdnd
     SUBDIR += libexo
     SUBDIR += libfm
+    SUBDIR += libfm-extra
     SUBDIR += libgnome
     SUBDIR += libgnome-reference
     SUBDIR += libgnomekbd
@@ -182,6 +185,7 @@
     SUBDIR += lsw
     SUBDIR += luit
     SUBDIR += lumina
+    SUBDIR += lumina-i18n
     SUBDIR += lupe
     SUBDIR += lxde-meta
     SUBDIR += lxmenu-data
@@ -191,7 +195,6 @@
     SUBDIR += mate-applets
     SUBDIR += mate-base
     SUBDIR += mate-desktop
-    SUBDIR += mate-dialogs
     SUBDIR += mate-menus
     SUBDIR += mate-panel
     SUBDIR += mate-screensaver
@@ -210,6 +213,7 @@
     SUBDIR += nvidia-driver
     SUBDIR += nvidia-driver-173
     SUBDIR += nvidia-driver-304
+    SUBDIR += nvidia-driver-340
     SUBDIR += nvidia-settings
     SUBDIR += nvidia-xconfig
     SUBDIR += nxcomp
@@ -219,7 +223,9 @@
     SUBDIR += p5-X11-IdleTime
     SUBDIR += p5-X11-Protocol
     SUBDIR += p5-X11-Resolution
-    SUBDIR += peeper
+    SUBDIR += p5-X11-XCB
+    SUBDIR += p5-X11-Xlib
+    SUBDIR += p5-XTerm-Conf
     SUBDIR += pixman
     SUBDIR += plasma-scriptengine-python
     SUBDIR += plasma-scriptengine-ruby
@@ -240,6 +246,7 @@
     SUBDIR += renderproto
     SUBDIR += resourceproto
     SUBDIR += rgb
+    SUBDIR += rofi
     SUBDIR += rox-wallpaper
     SUBDIR += roxbg
     SUBDIR += roxterm
@@ -248,7 +255,6 @@
     SUBDIR += ruby-X11
     SUBDIR += rubygem-gnome2
     SUBDIR += rxvt
-    SUBDIR += rxvt-devel
     SUBDIR += rxvt-unicode
     SUBDIR += sakura
     SUBDIR += sbxkb
@@ -261,6 +267,7 @@
     SUBDIR += sisctrl
     SUBDIR += slim
     SUBDIR += slock
+    SUBDIR += slop
     SUBDIR += smproxy
     SUBDIR += sselp
     SUBDIR += stalonetray
@@ -279,6 +286,7 @@
     SUBDIR += thingylaunch
     SUBDIR += tilda
     SUBDIR += tint
+    SUBDIR += tint-devel
     SUBDIR += tkXwin
     SUBDIR += trapproto
     SUBDIR += trayer

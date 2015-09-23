@@ -2,18 +2,21 @@
 # $FreeBSD$
 
 PORTNAME=	jbuilder
-PORTVERSION=	2.2.2
+PORTVERSION=	2.3.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Create JSON structures via a Builder-style DSL
 
-RUN_DEPENDS=	rubygem-activesupport4>=${PORTVERSION}:${PORTSDIR}/devel/rubygem-activesupport4 \
+LICENSE=	MIT
+
+RUN_DEPENDS?=	rubygem-activesupport4>=3.0.0:${PORTSDIR}/devel/rubygem-activesupport4 \
 		rubygem-multi_json>=1.2:${PORTSDIR}/devel/rubygem-multi_json
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
-RUBYGEM_AUTOPLIST=yes
+RUBYGEM_AUTOPLIST=	yes
 
 .include <bsd.port.mk>

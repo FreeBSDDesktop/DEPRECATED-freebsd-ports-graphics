@@ -16,6 +16,7 @@
     SUBDIR += bg5ps
     SUBDIR += big5width
     SUBDIR += bitchx
+    SUBDIR += brise
     SUBDIR += bsdconv-opencc
     SUBDIR += bug5
     SUBDIR += c2t
@@ -31,6 +32,7 @@
     SUBDIR += dictd-database
     SUBDIR += docproj
     SUBDIR += enscript
+    SUBDIR += eric6
     SUBDIR += eterm
     SUBDIR += fcitx
     SUBDIR += fcitx-chewing
@@ -54,6 +56,7 @@
     SUBDIR += gugod-clean
     SUBDIR += hc
     SUBDIR += ibus-chewing
+    SUBDIR += ibus-libpinyin
     SUBDIR += ibus-pinyin
     SUBDIR += ibus-table-chinese
     SUBDIR += irssi

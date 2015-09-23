@@ -4,18 +4,19 @@
 PORTNAME=	type-conv
 PORTVERSION=	109.60.01
 CATEGORIES=	devel
-MASTER_SITES=	https://ocaml.janestreet.com/ocaml-core/%SUBDIR%/
-MASTER_SITE_SUBDIR=	${PORTVERSION:R}.00/individual
+MASTER_SITES=	https://ocaml.janestreet.com/ocaml-core/${PORTVERSION:R}.00/individual/
 PKGNAMEPREFIX=	ocaml-
 DISTNAME=	${PORTNAME:S,-,_,}-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Type conversion routines for OCaml
 
-LICENSE=	BSD
+LICENSE=	APACHE20 BSD3CLAUSE
+LICENSE_COMB=	multi
 
 USE_OCAML=	yes
 USE_OCAML_FINDLIB=yes
+USE_OCAML_CAMLP4=yes
 USE_OCAMLFIND_PLIST=yes
 OCAML_PKGDIRS=	${PORTNAME:S,-,_,}
 

@@ -16,7 +16,7 @@
 . /etc/rc.subr
 
 name="redis"
-rcvar=redis_enable
+rcvar="${name}_enable"
 
 extra_commands="reload"
 
@@ -31,5 +31,4 @@ load_rc_config "$name"
 
 command_args="${redis_config}"
 required_files="${redis_config}"
-
 run_rc_command "$1"

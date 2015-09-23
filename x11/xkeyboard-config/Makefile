@@ -1,9 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	xkeyboard-config
-PORTVERSION=	2.13
+PORTVERSION=	2.14
 CATEGORIES=	x11
-MASTER_SITE_SUBDIR=	individual/${XORG_CAT}/${PORTNAME}
+MASTER_SITES=	XORG/individual/${XORG_CAT}/${PORTNAME}
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	X Keyboard Configuration Database

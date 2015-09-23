@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	syslog-ng
-PORTVERSION=	3.6.2
-PORTREVISION=	2
+PORTVERSION=	3.6.4
 CATEGORIES=	sysutils
 DISTVERSION=	$(PORTVERSION:S/a/alpha/:S/b/beta/:S/r/rc/)
-DISTFILES=	syslog-ng_${DISTVERSION}.tar.gz
-MASTER_SITES=	http://www.balabit.com/downloads/files/syslog-ng/open-source-edition/${DISTVERSION}/source/
+DISTFILES=	syslog-ng-${DISTVERSION}.tar.gz
+MASTER_SITES=	https://github.com/balabit/${PORTNAME}/releases/download/${PORTNAME}-${DISTVERSION}/ \
+		http://www.balabit.com/downloads/files/syslog-ng/open-source-edition/${DISTVERSION}/source/ \
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Powerful syslogd replacement
@@ -21,12 +21,8 @@ CONFLICTS?=	syslog-ng-[0-9]* syslog-ng[0-9]-[0-9]* \
 WRKSRC=		$(WRKDIR)/$(PORTNAME)-$(DISTVERSION)
 
 MAKE_JOBS_UNSAFE=	yes
-OPTIONS_RADIO=	SSL
-OPTIONS_RADIO_SSL=	SYS_SSL PORTS_SSL
-OPTIONS_DEFINE=	TCP_WRAPPERS SQL SPOOF IPV6 SMTP JSON GEOIP DOCS REDIS
-OPTIONS_DEFAULT=	PORTS_SSL JSON
-SYS_SSL_DESC=		Build with OpenSSL support (from system)
-PORTS_SSL_DESC=		Build with OpenSSL support (from ports)
+OPTIONS_DEFINE=	TCP_WRAPPERS SQL SPOOF IPV6 SMTP JSON GEOIP DOCS REDIS OPENSSL
+OPTIONS_DEFAULT=	OPENSSL JSON
 TCP_WRAPPERS_DESC=	Build with TCP Wrappers
 SQL_DESC=		Build with database (libdbi) support
 SPOOF_DESC=		Build with spoof source support
@@ -36,7 +32,7 @@ JSON_DESC=		Build with JSON-C support
 GEOIP_DESC=		Build with GeoIP support
 REDIS_DESC=		Build with Redis support
 
-USES=		gmake libtool pathfix pkgconfig
+USES=		alias gmake libtool pathfix pkgconfig
 USE_LDCONFIG=	yes
 USE_RC_SUBR=	syslog-ng
 GNU_CONFIGURE=	yes
@@ -46,25 +42,22 @@ INSTALL_TARGET=	install-strip
 
 CONFIGURE_ARGS=	--sysconfdir=${LOCALBASE}/etc --localstatedir=/var/db \
 		--enable-dynamic-linking \
-		--enable-debug \
+		--enable-debug --enable-manpages \
 		--datadir=${PREFIX}/share/syslog-ng/
 
 BROKEN_sparc64=	Does not compile on sparc64: gcc core dump
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MSYS_SSL} || ${PORT_OPTIONS:MPORTS_SSL}
+.if ${PORT_OPTIONS:MOPENSSL}
 USE_OPENSSL=		yes
+WITH_OPENSSL_PORT=	yes
 CONFIGURE_ARGS+=	--enable-ssl
-CONFIGURE_ENV+=		OPENSSL_CFLAGS="${OPENSSL_CFLAGS}" \
-			OPENSSL_LIBS="${OPENSSL_LDFLAGS} -lcrypto -lssl"
+CONFIGURE_ENV+=		OPENSSL_CFLAGS="-I${OPENSSLINC}" \
+			OPENSSL_LIBS="-L${OPENSSLLIB} -lcrypto -lssl"
 PLIST_FILES+=		lib/syslog-ng/libafsocket-tls.so
 .else
 CONFIGURE_ARGS+=	--disable-ssl
-.endif
-
-.if ${PORT_OPTIONS:MPORTS_SSL}
-WITH_OPENSSL_PORT=	yes
 .endif
 
 .if ${PORT_OPTIONS:MTCP_WRAPPERS}
@@ -99,7 +92,7 @@ CONFIGURE_ARGS+=	--disable-geoip
 .endif
 
 .if ${PORT_OPTIONS:MREDIS}
-CONFIGURE_ARGS+=        --enable-redis
+CONFIGURE_ARGS+=        --enable-redis --with-libhiredis=${LOCALBASE}/lib
 LIB_DEPENDS+=           libhiredis.so:${PORTSDIR}/databases/hiredis
 PLIST_FILES+=           lib/syslog-ng/libredis.so
 .else

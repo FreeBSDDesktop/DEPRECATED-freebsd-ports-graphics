@@ -13,11 +13,12 @@ COMMENT=	Java NIO client server framework
 LICENSE=	APACHE20
 
 USE_JAVA=	yes
-USES=		tar:bzip2
+USES=		cpe tar:bzip2
+CPE_VENDOR=	netty_project
 JAVA_VERSION=	1.6+
 NO_BUILD=	yes
-DATADIR=	${PREFIX}/share/${UNIQUENAME}
-DOCSDIR=	${PREFIX}/share/doc/${UNIQUENAME}
+DATADIR=	${PREFIX}/share/${PKGBASE}
+DOCSDIR=	${PREFIX}/share/doc/${PKGBASE}
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}.Final
 
 PLIST_FILES=	%%JAVAJARDIR%%/netty-${PORTVERSION}.jar \

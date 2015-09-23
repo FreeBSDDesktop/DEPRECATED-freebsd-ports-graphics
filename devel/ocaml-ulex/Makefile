@@ -14,6 +14,7 @@ COMMENT=	Lexer generator for Unicode and OCaml
 USES=		gmake
 USE_OCAML=	true
 USE_OCAML_FINDLIB=	true
+USE_OCAML_CAMLP4=	true
 USE_OCAML_LDCONFIG=	true
 USE_OCAMLFIND_PLIST=	yes
 
@@ -25,14 +26,10 @@ PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
+DOCS_ALL_TARGET=	doc
 
-.if ${PORT_OPTIONS:MDOCS}
-ALL_TARGET+=	doc
-
-post-install:
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/*.html ${WRKSRC}/*.css ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

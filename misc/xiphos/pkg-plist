@@ -1,3 +1,4 @@
+@unexec /bin/rm %D/share/icons/hicolor/icon-theme.cache 2>/dev/null || /usr/bin/true
 bin/xiphos
 bin/xiphos-nav
 share/applications/xiphos.desktop
@@ -121,7 +122,6 @@ share/gnome/help/xiphos/fr/figures/sword_install.png
 share/gnome/help/xiphos/fr/figures/sword_remove.png
 share/gnome/help/xiphos/fr/figures/sword_sources.png
 share/gnome/help/xiphos/fr/xiphos.xml
-share/icons/hicolor/icon-theme.cache
 share/icons/hicolor/scalable/apps/xiphos.svg
 share/locale/ar/LC_MESSAGES/xiphos.mo
 share/locale/cs/LC_MESSAGES/xiphos.mo
@@ -222,3 +222,5 @@ share/omf/xiphos/xiphos-fr.omf
 %%DATADIR%%/xiphos-button-125.png
 %%DATADIR%%/xiphos-x-16.png
 %%DATADIR%%/xiphos.xpm
+@exec /usr/local/bin/gtk-update-icon-cache -q -f %D/share/icons/hicolor 2>/dev/null || /usr/bin/true
+@unexec /usr/local/bin/gtk-update-icon-cache -q -f %D/share/icons/hicolor 2>/dev/null || /usr/bin/true

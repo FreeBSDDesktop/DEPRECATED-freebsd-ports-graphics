@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	isync
-PORTVERSION=	1.1.1
-PORTREVISION=	1
+PORTVERSION=	1.2.0
 CATEGORIES=	mail
 MASTER_SITES=	SF
 
@@ -12,7 +11,8 @@ COMMENT=	Maintain local copies of remote IMAP folders w/synchronized flags
 
 LICENSE=	GPLv2
 
-USES=		alias
+USES=		alias cpe
+CPE_VENDOR=	oswald_buddenhagen
 GNU_CONFIGURE=	yes
 USE_OPENSSL=	yes
 USE_BDB=	46+

@@ -3,7 +3,7 @@
 
 PORTNAME=	netradiant
 PORTVERSION=	20130630
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	games cad
 MASTER_SITES=	http://ingar.satgnu.net/gtkradiant/files/ \
 		http://freebsd.nsu.ru/distfiles/
@@ -17,10 +17,9 @@ COMMENT=	Fork of the well-known GtkRadiant 1.5 FPS games map editor
 LICENSE=	GPLv2
 
 LIB_DEPENDS=	libgtkglext-x11-1.0.so:${PORTSDIR}/x11-toolkits/gtkglext \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libwebp.so:${PORTSDIR}/graphics/webp
 
-USES=		gmake pkgconfig tar:bzip2
+USES=		gmake jpeg pkgconfig tar:bzip2
 USE_GL=		gl
 USE_GNOME=	gtk20 libxml2
 MAKE_ENV=	BUILD=release DOWNLOAD_GAMEPACKS=no LIBS_DL="" \
@@ -48,7 +47,7 @@ pre-install:
 # Fix permissions of some files (drop bogus execute bit)
 	@${FIND} ${WRKSRC}/install/osirion.game -type f | ${XARGS} ${CHMOD} a-x
 	@${CHMOD} a-x ${WRKSRC}/install/games/osirion.game
-# Remove extra copy of GNU GPL from what we install
+# Remove a copy of GNU GPL from what we are going to install
 	@${RM} ${WRKSRC}/install/GPL.txt
 
 do-install:

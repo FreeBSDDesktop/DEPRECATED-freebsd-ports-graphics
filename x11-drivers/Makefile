@@ -3,8 +3,11 @@
 
     COMMENT = X11 drivers
 
+    SUBDIR += drm-kmod
     SUBDIR += xf86-input-acecad
+    SUBDIR += xf86-input-egalax
     SUBDIR += xf86-input-elographics
+    SUBDIR += xf86-input-evdev
     SUBDIR += xf86-input-fpit
     SUBDIR += xf86-input-hyperpen
     SUBDIR += xf86-input-joystick

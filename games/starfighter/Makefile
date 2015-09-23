@@ -24,14 +24,14 @@ WITH_ZLIB=	yes
 MAKEFILE=	makefile
 
 SHEBANG_FILES=	pack.py unpack.py
-python_OLD_CMD=	${SETENV} python
-python_CMD=	${PYTHON_CMD}
+python_OLD_CMD=	/usr/bin/env python
 
 INSTALLS_ICONS=	yes
 
 PLIST_FILES=	bin/${PORTNAME} \
 		share/pixmaps/${PORTNAME}.png \
 		%%DATADIR%%/${PORTNAME}.pak
+PLIST_DIRS=	%%DATADIR%%
 
 PORTDOCS=	index.html
 

@@ -5,7 +5,7 @@ PORTNAME=	sea-defender
 PORTVERSION=	0.9
 PORTREVISION=	3
 CATEGORIES=	games
-MASTER_SITES=	http://mirror.amdmi3.ru/distfiles/:DEFAULT,icon \
+MASTER_SITES=	http://mirror.amdmi3.ru/distfiles/:icon \
 		SF/nemysisfreebsdp/:icon
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
 		${PORTNAME}.png:icon
@@ -21,8 +21,7 @@ BUILD_DEPENDS=	${LOCALBASE}/lib/libglfw.a:${PORTSDIR}/graphics/glfw2
 USE_GITHUB=	yes
 GH_ACCOUNT=	snoutmate
 GH_PROJECT=	Sea-Defender
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	d628051
+GH_TAGNAME=	d628051
 
 USES=		gmake
 USE_SDL=	sdl mixer image ttf
@@ -44,12 +43,6 @@ DESKTOP_ENTRIES="Sea Defender" \
 		""
 
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
-
-.if defined(WITH_NEW_XORG)
-EXTRA_PATCHES+=	${FILESDIR}/extra-snoutlib_gldefs.h
-.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/sea ${STAGEDIR}${PREFIX}/libexec/${PORTNAME}

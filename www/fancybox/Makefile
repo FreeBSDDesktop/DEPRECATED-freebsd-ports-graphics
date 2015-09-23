@@ -3,18 +3,19 @@
 
 PORTNAME=	fancybox
 PORTVERSION=	2.1.5
+DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	JavaScript library for image/html/multimedia content display
 
+USES=		cpe
+CPE_VENDOR=	fancybox_project
 NO_BUILD=	yes
 
-USE_GITHUB=	yes
 GH_ACCOUNT=	fancyapps
-GH_COMMIT=	18d1712
 GH_PROJECT=	fancyBox
-GH_TAGNAME=	v${PORTVERSION}
+USE_GITHUB=	yes
 
 do-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/

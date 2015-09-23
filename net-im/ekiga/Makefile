@@ -20,7 +20,7 @@ LIB_DEPENDS=	libboost_signals.so:${PORTSDIR}/devel/boost-libs \
 RUN_DEPENDS=	gnome-icon-theme>=3.0.0:${PORTSDIR}/misc/gnome-icon-theme
 
 GNU_CONFIGURE=	yes
-USES=		gettext gmake libtool pathfix perl5 pkgconfig \
+USES=		cpe gettext gmake libtool pathfix perl5 pkgconfig \
 		tar:xz
 USE_XORG=	xv
 USE_GNOME=	gtk20 intlhack libxml2
@@ -51,7 +51,7 @@ LOUDMOUTH_DESC=	XMPP (jabber) support
 PLIST_SUB+=	VERSION=${PORTVERSION}
 
 .if ${PORT_OPTIONS:MKDE} || ${PORT_OPTIONS:MKAB}
-USE_KDE4=	kdehier kdelibs
+USE_KDE4=	kdelibs
 USE_QT4=	corelib
 CONFIGURE_ARGS+=--enable-kde
 #CONFIGURE_ENV+=KDE_CFLAGS="-I${KDE4_PREFIX}/include -I${QT_INCDIR} \

@@ -1,9 +1,8 @@
 # Created by: Andreas Kohn <andreas@syndrom23.de>
 # $FreeBSD$
-#   $MCom: ports/trunk/deskutils/notification-daemon/Makefile 19804 2014-08-13 14:55:11Z kwm $
 
 PORTNAME=	notification-daemon
-PORTVERSION=	0.7.6
+PORTVERSION=	3.16.1
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libdbus-1.so:${PORTSDIR}/devel/dbus \
 		libcanberra-gtk3.so:${PORTSDIR}/audio/libcanberra-gtk3
 
-CONFLICTS=	xfce4-notification-daemon-[0-9]* xfce4-notifyd-[0-9]*
+PORTSCOUT=	limitw:1,even
 
 USE_GNOME=	gnomeprefix intlhack gtk30
 USES=		gettext gmake pathfix pkgconfig tar:xz

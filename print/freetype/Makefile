@@ -9,13 +9,12 @@ MASTER_SITES=	SF \
 		http://sunsite.cnlab-switch.ch/ftp/mirror/freetype/freetype1/ \
 		http://www.funet.fi/pub/mirrors/ftp.freetype.org/freetype1/ \
 		http://ftp.sunet.se/pub/text-processing/freetype/freetype1/ \
-		${MASTER_SITE_RINGSERVER:S,%SUBDIR%,graphics/freetype/&,} \
 		ftp://ftp.freetype.org/freetype/freetupe1/
 
 MAINTAINER=	doceng@FreeBSD.org
 COMMENT=	Free and portable TrueType font rendering engine
 
-USES=		desthack libtool
+USES=		cpe desthack libtool
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--disable-nls --enable-static --enable-shared

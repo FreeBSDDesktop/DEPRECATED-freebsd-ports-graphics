@@ -5,7 +5,7 @@ PORTVERSION=	0.8.1.5
 PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	net-im
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 PKGNAMEPREFIX=	jabber-
 PKGNAMESUFFIX=	-transport
 DISTNAME=	${PORTNAME}t-${PORTVERSION}
@@ -44,7 +44,7 @@ PORTDOCS=	NEWS README
 PORTEXAMPLES=	db-setup.mysql jabber-pyicq.xml
 
 MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}MySQLdb>=0:${PORTSDIR}/databases/py-MySQLdb
-TWISTED_USES=		twisted:core,web,words
+TWISTED_USES=		twisted:web,words
 
 .include <bsd.port.options.mk>
 

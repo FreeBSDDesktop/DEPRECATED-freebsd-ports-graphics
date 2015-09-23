@@ -5,9 +5,7 @@ PORTNAME=	a2ps
 PORTVERSION=	4.13b
 PORTREVISION=	6
 CATEGORIES=	print
-MASTER_SITES=	${MASTER_SITE_GNU} \
-		${MASTER_SITE_LOCAL:S/$/:i18n/}
-MASTER_SITE_SUBDIR=	${PORTNAME} hrs/a2ps/:i18n
+MASTER_SITES=	GNU LOCAL/hrs/a2ps/:i18n
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	Formats an ASCII file for printing on a postscript printer
@@ -18,13 +16,14 @@ LIB_DEPENDS=	libpaper.so:${PORTSDIR}/print/libpaper
 
 PORTSCOUT=	skipv:4.14
 
-USES=		perl5
+USES=		perl5 cpe
 USE_CSTD=	gnu89
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 INFO=		a2ps ogonkify regex
 WRKSRC=		${WRKDIR}/${PORTNAME}-4.13
 I18N_PACKAGE=	i18n-fonts-0.1
+CPE_VENDOR=	gnu
 
 CONFIGURE_ARGS=	--with-medium=libpaper --sharedstatedir=${PREFIX}/share \
 	--sysconfdir=${PREFIX}/etc --datadir=${PREFIX}/share \

@@ -4,11 +4,10 @@
 PORTNAME=	autoconf
 PORTVERSION=	2.69
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	autoconf
+MASTER_SITES=	GNU
 DISTNAME=	autoconf-${PORTVERSION}
 
-MAINTAINER=	autotools@FreeBSD.org
+MAINTAINER=	tijl@FreeBSD.org
 COMMENT=	Automatically configure source code on many Un*x platforms
 
 BUILD_DEPENDS=	gm4:${PORTSDIR}/devel/m4 \
@@ -22,7 +21,7 @@ USES=		gmake makeinfo perl5 tar:xz
 INFO=		autoconf
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV+=	CONFIG_SHELL=${SH} M4=${LOCALBASE}/bin/gm4 AWK=${AWK} \
+CONFIGURE_ENV=	M4=${LOCALBASE}/bin/gm4 AWK=${AWK} \
 		ac_cv_prog_TEST_EMACS=no
 CONFIGURE_ARGS=	--program-suffix=-${BUILD_VERSION} --without-lispdir
 

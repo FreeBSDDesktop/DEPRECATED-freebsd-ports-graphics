@@ -1,14 +1,14 @@
 # Created by: sten@blinkenlights.nl
 # $FreeBSD$
 
-PORTNAME=	powerdns-recursor
-PORTVERSION=	3.6.2
+PORTNAME=	recursor
+PORTVERSION=	3.7.3
 CATEGORIES=	dns ipv6
-MASTER_SITES=	http://downloads.powerdns.com/releases/ \
-		http://mirrors.evolva.ro/powerdns.com/releases/
-DISTNAME=	pdns-recursor-${PORTVERSION}
+MASTER_SITES=	http://downloads.powerdns.com/releases/
+PKGNAMEPREFIX=	powerdns-
+DISTNAME=	pdns-${PORTNAME}-${PORTVERSION}
 
-MAINTAINER=	sten@blinkenlights.nl
+MAINTAINER=	tremere@cainites.net
 COMMENT=	Advanced DNS recursor
 
 LICENSE=	GPLv2
@@ -16,7 +16,10 @@ LICENSE=	GPLv2
 BUILD_DEPENDS=	bjam:${PORTSDIR}/devel/boost-jam \
 		${LOCALBASE}/include/boost/shared_ptr.hpp:${PORTSDIR}/devel/boost-libs
 
-USES=		gmake tar:bzip2
+USES=		cpe gmake tar:bzip2
+GNU_CONFIGURE=	YES
+
+CPE_VENDOR=	powerdns
 
 OPTIONS_DEFINE=	SETUID LUA STATIC
 OPTIONS_DEFAULT=	SETUID
@@ -43,7 +46,7 @@ GROUPS=		pdns
 .endif
 
 .if ${PORT_OPTIONS:MLUA}
-USES+=		lua:51
+USES+=		lua
 MAKE_ENV+=LUA=1
 MAKE_ENV+="LUA_CPPFLAGS_CONFIG=-I${LUA_INCDIR}"
 MAKE_ENV+="LUA_LIBS_CONFIG=-L${LUA_LIBDIR} -llua-${LUA_VER}"
@@ -65,9 +68,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's;SBINDIR=/usr/sbin/;SBINDIR=${PREFIX}/sbin/;' \
 	   -e 's;BINDIR=/usr/bin/;BINDIR=${PREFIX}/bin/;' \
 	   -e 's;SYSCONFDIR=/etc/powerdns/;SYSCONFDIR=${PREFIX}/etc/pdns/;' \
-		${WRKSRC}/Makefile
-
-post-install:
-	${INSTALL_MAN} ${WRKSRC}/*.8 ${STAGEDIR}${PREFIX}/man/man8/
+	   -e 's;/usr/share;${MANPREFIX};' \
+		${WRKSRC}/Makefile.in
 
 .include <bsd.port.mk>

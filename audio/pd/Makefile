@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pd
-DISTVERSION=	0.46-2
+DISTVERSION=	0.46-6
 DISTVERSIONSUFFIX=	.src
 CATEGORIES=	audio
 MASTER_SITES=	http://msp.ucsd.edu/Software/
@@ -52,8 +52,7 @@ post-patch:
 	@${REINPLACE_CMD} -e \
 		'/^pkgconfigdir/s|=.*|= $$(prefix)/libdata/pkgconfig| ; \
 		 /^libpddir/s|=.*|= $$(pkglibdir)| ; \
-		 s|make -C|$$(MAKE) -C| ; \
-		 s|metro.pd|metro-help.pd|' ${WRKSRC}/Makefile.am
+		 s|make -C|$$(MAKE) -C|' ${WRKSRC}/Makefile.am
 	@${REINPLACE_CMD} -e \
 		'/^pd_LDADD/s| =.*| = $$(LIBM)|' ${WRKSRC}/src/Makefile.am
 	@${REINPLACE_CMD} -e \
@@ -69,12 +68,6 @@ post-patch:
 		 s|-lc ||g' ${WRKSRC}/extra/expr~/makefile
 	@${REINPLACE_CMD} -e \
 		'/libpthread/s|_ERROR|_WARN|' ${WRKSRC}/portaudio/configure.in
-
-pre-configure:
-	@(cd ${WRKSRC}/portaudio \
-		&& ${SETENV} ${AUTOTOOLS_ENV} ${ACLOCAL} \
-		&& ${SETENV} ${AUTOTOOLS_ENV} ${LIBTOOLIZE} ${LIBTOOLIZE_ARGS} \
-		&& ${SETENV} ${AUTOTOOLS_ENV} ${AUTOCONF})
 
 do-install:
 .for i in src man tcl po extra

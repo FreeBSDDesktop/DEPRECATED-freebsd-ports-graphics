@@ -9,15 +9,15 @@ CATEGORIES=	games
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Best old-school Deathmatch game ever (only for two players)
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	keithfancher
 GH_PROJECT=	Bomns-for-Linux
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	113be27
+GH_TAGNAME=	113be27
 
 USES=		cmake
 USE_SDL=	mixer sdl

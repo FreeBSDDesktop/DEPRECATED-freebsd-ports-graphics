@@ -32,6 +32,8 @@
     SUBDIR += deforaos-phone
     SUBDIR += dfu-programmer
     SUBDIR += dfu-util
+    SUBDIR += dump1090
+    SUBDIR += dump1090_mr
     SUBDIR += ebook2cw
     SUBDIR += ebook2cwgui
     SUBDIR += echolinux
@@ -61,6 +63,7 @@
     SUBDIR += gsmlib
     SUBDIR += gstreamer1-plugins-spandsp
     SUBDIR += gtkmmorse
+    SUBDIR += hackrf
     SUBDIR += hamfax
     SUBDIR += hamlib
     SUBDIR += hcidump
@@ -74,7 +77,9 @@
     SUBDIR += jsdr
     SUBDIR += kb
     SUBDIR += kermit
+    SUBDIR += klog
     SUBDIR += kremotecontrol
+    SUBDIR += kvasd
     SUBDIR += libconcord
     SUBDIR += libfec
     SUBDIR += libimobiledevice
@@ -84,6 +89,7 @@
     SUBDIR += libticables2
     SUBDIR += libticalcs2
     SUBDIR += libusbmuxd
+    SUBDIR += linpsk
     SUBDIR += linrad
     SUBDIR += lirc
     SUBDIR += locator
@@ -96,6 +102,7 @@
     SUBDIR += nasawash
     SUBDIR += ncid
     SUBDIR += nec2c
+    SUBDIR += nmealib
     SUBDIR += nokryptia
     SUBDIR += o2sms
     SUBDIR += obexapp
@@ -134,6 +141,7 @@
     SUBDIR += qrq
     SUBDIR += qsstv
     SUBDIR += qt5-serialport
+    SUBDIR += qtel
     SUBDIR += quisk
     SUBDIR += remserial
     SUBDIR += rtl-sdr
@@ -148,7 +156,6 @@
     SUBDIR += smstools3
     SUBDIR += soundmodem
     SUBDIR += spandsp
-    SUBDIR += spandsp-devel
     SUBDIR += splat
     SUBDIR += sredird
     SUBDIR += svxlink

@@ -1,12 +1,12 @@
 # Created by: Gerald Pfeifer <gerald@FreeBSD.org>
 # $FreeBSD$
 
-PORTNAME=	gcc5
-PORTVERSION=	5.0.s20141214
+PORTNAME=	gcc
+PORTVERSION=	5.2.0
+PORTREVISION=	1
 CATEGORIES=	lang java
-MASTER_SITES=	${MASTER_SITE_GCC}
-MASTER_SITE_SUBDIR=	snapshots/${DISTVERSION}
-DISTNAME=	gcc-${DISTVERSION}
+MASTER_SITES=	GCC/releases/gcc-${DISTVERSION}
+PKGNAMESUFFIX=	${SUFFIX}
 
 MAINTAINER=	gerald@FreeBSD.org
 COMMENT=	GNU Compiler Collection 5
@@ -24,15 +24,18 @@ RUN_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils
 BUILD_DEPENDS+=	runtest:${PORTSDIR}/misc/dejagnu
 .endif
 
+CPE_VENDOR=	gnu
+CPE_VERSION=	${GCC_VERSION}
+
 # DISTVERSION relates to downloads, GCC_VERSION and SUFFIX to names
 # of executables and directories once installed.  A PORTVERSION of
-# Y.2.s20140817 results in values of Y-20140817, Y.2.0, and Y
+# Y.2.1.s20140817 results in values of Y-20140817, Y.2.1, and Y
 # for these three.
 DISTVERSION=	${PORTVERSION:C/([0-9]+).*\.s([0-9]+)/\1-\2/}
-GCC_VERSION=	${PORTVERSION:C/(.+)\.s[0-9]{8}/\1.0/}
+GCC_VERSION=	${PORTVERSION:C/(.+)\.s[0-9]{8}/\1/}
 SUFFIX=		${PORTVERSION:C/([0-9]+).*/\1/}
-ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 sparc64
-USES=		gmake iconv libtool makeinfo perl5 tar:bzip2
+ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 sparc64 arm armv6 armv6hf
+USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
 USE_BINUTILS=	yes
 USE_PERL5=	build
 SSP_UNSAFE=	yes
@@ -46,6 +49,7 @@ OPTIONS_DEFINE_amd64=	JAVA
 OPTIONS_DEFAULT=	BOOTSTRAP
 OPTIONS_DEFAULT_i386=	JAVA
 OPTIONS_DEFAULT_amd64=	JAVA
+OPTIONS_EXCLUDE_DragonFly=	JAVA
 BOOTSTRAP_DESC=		Build using a full bootstrap
 
 .include <bsd.port.pre.mk>
@@ -60,6 +64,16 @@ CONFIGURE_TARGET=	${ARCH}-portbld-${OPSYS:tl}${OSREL}
 CONFIGURE_ENV+=	UNAME_m="powerpc64"
 .endif
 
+.if ${ARCH} == "armv6" || ${ARCH} == "armv6hf"
+. if ${COMPILER_TYPE} == clang
+.  if empty(PORT_OPTIONS:MBOOTSTRAP)
+MAKE_ARGS+=CXXFLAGS=-fbracket-depth=512
+.  else
+MAKE_ARGS+=STAGE1_CXXFLAGS=-fbracket-depth=512
+.  endif
+. endif
+.endif
+
 LANGUAGES:=	c,c++,objc,fortran
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
 WRKSRC=		${WRKDIR}/build
@@ -69,6 +83,7 @@ GNU_CONFIGURE=	yes
 .if empty(PORT_OPTIONS:MBOOTSTRAP)
 CONFIGURE_ARGS+=--disable-bootstrap
 .else
+CONFIGURE_ARGS+=--with-build-config=bootstrap-debug
 ALL_TARGET=	bootstrap-lean
 .endif
 CONFIGURE_ARGS+=--disable-nls \
@@ -95,10 +110,11 @@ INFO=		gcc${SUFFIX}/cpp \
 		gcc${SUFFIX}/gccint \
 		gcc${SUFFIX}/gfortran \
 		gcc${SUFFIX}/libgomp
-.if ${ARCH} == "i386" || ${ARCH} == "amd64"
+# Release tarballs (as opposed to snapshots) always carry this.
+#.if ${ARCH} == "i386" || ${ARCH} == "amd64"
 INFO+=		gcc${SUFFIX}/libquadmath \
 		gcc${SUFFIX}/libitm
-.endif
+#.endif
 SUB_FILES=	pkg-message
 SUB_LIST+=	TARGLIB=${TARGLIB}
 

@@ -3,7 +3,7 @@
 
 PORTNAME=	vtk
 PORTVERSION=	6.1.0
-PORTREVISION=	6
+PORTREVISION=	8
 CATEGORIES=	math graphics
 MASTER_SITES=	http://www.vtk.org/files/release/${VTK_SHORT_VER}/
 PKGNAMESUFFIX=	6
@@ -14,11 +14,8 @@ COMMENT=	The Visualization Toolkit
 
 LICENSE=	BSD3CLAUSE
 
-BROKEN=		Fails to build
-
 LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
     		libpng.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libfreetype.so:${PORTSDIR}/print/freetype2 \
 		libexpat.so:${PORTSDIR}/textproc/expat2
 
@@ -26,12 +23,10 @@ LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
 # TODO
 # * VTK Groups
 
-UNIQUENAME=	${PKGBASE}
-
 CONFLICTS=	vtk-4*
 USE_LDCONFIG=	${PREFIX}/lib/vtk-${VTK_SHORT_VER}
 USE_XORG=	xt
-USES=		cmake:outsource
+USES=		alias cmake:outsource jpeg
 CXXFLAGS+=	-I${LOCALBASE}/include
 
 VTK_SHORT_VER=	${PORTVERSION:R}

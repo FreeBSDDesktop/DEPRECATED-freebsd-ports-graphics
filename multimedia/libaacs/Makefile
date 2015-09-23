@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	libaacs
-PORTVERSION=	0.7.0
-PORTREVISION=	2
+PORTVERSION=	0.8.0
 CATEGORIES=	multimedia
 MASTER_SITES=	ftp://ftp.videolan.org/pub/videolan/${PORTNAME}/${PORTVERSION}/ \
 		http://blu.opsec.eu/
 
-MAINTAINER=	kamikaze@bsdforen.de
+MAINTAINER=	kami@FreeBSD.org
 COMMENT=	Advanced Access Content System implementation
 
 LICENSE=	LGPL21
@@ -18,10 +17,11 @@ LIB_DEPENDS=	libgcrypt.so:${PORTSDIR}/security/libgcrypt \
 		libgpg-error.so:${PORTSDIR}/security/libgpg-error
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--disable-debug
 CONFIGURE_ENV=	LEX="${LOCALBASE}/bin/flex"
 INSTALL_TARGET=	install-strip
-USES=		bison gettext iconv libtool pathfix tar:bzip2
+USES=		autoreconf bison gettext iconv libtool pathfix tar:bzip2
 USE_LDCONFIG=	yes
+
+.include "${.CURDIR}/../libbluray/Makefile.include"
 
 .include <bsd.port.mk>

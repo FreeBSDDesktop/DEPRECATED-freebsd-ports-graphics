@@ -2,14 +2,14 @@
 
 PORTNAME=	compiz
 PORTVERSION=	0.8.8
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	x11-wm
 MASTER_SITES=	http://releases.compiz.org/${PORTVERSION}/
 
 MAINTAINER=	freebsd-ports@dan.me.uk
 COMMENT=	Compiz Composite/Window Manager
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libgtop-2.0.so:${PORTSDIR}/devel/libgtop \
 		libstartup-notification-1.so:${PORTSDIR}/x11/startup-notification
 RUN_DEPENDS=	glxinfo:${PORTSDIR}/graphics/mesa-demos \
@@ -20,7 +20,7 @@ GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 USES=		gettext gmake libtool pathfix tar:bzip2
 USE_GL=		glu
-USE_GNOME=	gconf2 libxslt
+USE_GNOME=	gconf2 libxslt intltool
 USE_XORG=	glproto ice sm x11 xcomposite xdamage xext xfixes xinerama \
 		xrandr xrender
 USE_LDCONFIG=	yes
@@ -108,10 +108,6 @@ RUN_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/dbus-glib-1.pc:${PORTSDIR}/devel/db
 .else
 CONFIGURE_ARGS+=	--disable-dbus --disable-dbus-glib
 .endif
-
-post-patch:
-	@${REINPLACE_CMD} -e 's|libpng|libpng15|' \
-		${WRKSRC}/configure
 
 post-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/compiz-manager ${STAGEDIR}${PREFIX}/bin/compiz-manager

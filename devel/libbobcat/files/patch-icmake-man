@@ -1,6 +1,6 @@
---- icmake/man.orig	2013-11-13 11:44:52.000000000 +0100
-+++ icmake/man	2013-11-27 12:47:25.000000000 +0100
-@@ -9,7 +9,10 @@
+--- icmake/man.orig	2014-06-04 17:51:49 UTC
++++ icmake/man
+@@ -9,7 +9,10 @@ void man()
  
      special(0, 0);
  
@@ -12,18 +12,18 @@
  
      chdir("documentation/man");
  
-@@ -35,8 +38,10 @@
+@@ -36,8 +39,10 @@ void man()
      
-             run("yodl2man  --no-warnings -r 3 -o ../../tmp/man/man3/" + 
+             run("yodl2man  --no-warnings -r 3 -l 3 -o ../../tmp/man/man3/" + 
                                              base + ".3" LIBRARY " " + yodl);
 +#ifdef MANHTML
-             run("yodl2html --no-warnings -r 3 -o ../../tmp/manhtml/" + 
+             run("yodl2html --no-warnings -r 3 -l 3 -o ../../tmp/manhtml/" + 
                                              base + ".3.html " + yodl);
 +#endif
          }
      }
  
-@@ -44,9 +49,11 @@
+@@ -45,16 +50,20 @@ void man()
      {
          run("yodl2man  --no-warnings  -r 3 -o ../../tmp/man/man7/" 
                                                  LIBRARY ".7 " LIBRARY ".yo");
@@ -31,6 +31,15 @@
          run("yodl2html --no-warnings  -r 3 "
                          "-o ../../tmp/manhtml/" LIBRARY ".7.html " 
                                                              LIBRARY ".yo");
++#endif
+ 
+         run("yodl2man  --no-warnings  -r 3 -l 3 "
+                     "-o ../../tmp/man/man7/sharedreadme.7" LIBRARY
+                     " sharedreadme.yo");
++#ifdef MANHTML
+         run("yodl2html --no-warnings  -r 3 "
+                         "-o ../../tmp/manhtml/sharedreadme.7.html "
+                                     "sharedreadme.yo");
 +#endif
      }
  

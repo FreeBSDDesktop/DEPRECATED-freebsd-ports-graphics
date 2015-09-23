@@ -1,7 +1,6 @@
 include/gtkspell-3.0/gtkspell/gtkspell.h
 lib/girepository-1.0/GtkSpell-3.0.typelib
 lib/libgtkspell3-3.a
-lib/libgtkspell3-3.la
 lib/libgtkspell3-3.so
 lib/libgtkspell3-3.so.0
 lib/libgtkspell3-3.so.0.1.0
@@ -11,6 +10,7 @@ share/locale/af/LC_MESSAGES/gtkspell3.mo
 share/locale/ak/LC_MESSAGES/gtkspell3.mo
 share/locale/ast/LC_MESSAGES/gtkspell3.mo
 share/locale/be/LC_MESSAGES/gtkspell3.mo
+share/locale/ca/LC_MESSAGES/gtkspell3.mo
 share/locale/cs/LC_MESSAGES/gtkspell3.mo
 share/locale/da/LC_MESSAGES/gtkspell3.mo
 share/locale/de/LC_MESSAGES/gtkspell3.mo

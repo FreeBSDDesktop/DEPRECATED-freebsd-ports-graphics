@@ -2,11 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	liferea
-PORTVERSION=	1.10.8
-PORTREVISION=	3
+PORTVERSION=	1.10.16
 CATEGORIES=	net gnome
-MASTER_SITES=	https://github.com/lwindolf/liferea/releases/download/v${PORTVERSION}/ \
-		http://rainbow-runner.nl/~kwm/distfiles/
+MASTER_SITES=	https://github.com/lwindolf/liferea/releases/download/v${PORTVERSION}/
 
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Simple RSS/RDF feed reader
@@ -17,19 +15,27 @@ BUILD_DEPENDS=	gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-
 LIB_DEPENDS=	libwebkitgtk-3.0.so:${PORTSDIR}/www/webkit-gtk3 \
 		libpeas-1.0.so:${PORTSDIR}/devel/libpeas \
 		libjson-glib-1.0.so:${PORTSDIR}/devel/json-glib
-RUN_DEPENDS=	gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas
+RUN_DEPENDS=	gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas \
+		${PYTHON_PKGNAMEPREFIX}libpeas>=0:${PORTSDIR}/devel/py-libpeas
 
 USES=		desktop-file-utils gettext gmake libtool pathfix pkgconfig \
-		tar:bzip2
-USE_GNOME=	gnomeprefix gtk30 introspection:build libxslt:build libxml2
+		python:2 tar:bzip2
+USE_GNOME=	dconf:run gtk30 intltool introspection:build \
+		libxslt:build libxml2
 USE_SQLITE=	3
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
-CONFIGURE_ARGS=	--disable-libnotify --disable-libindicate
+CONFIGURE_ARGS=	--disable-libindicate --enable-introspection
 
 GLIB_SCHEMAS=	net.sf.liferea.gschema.xml
 INSTALLS_ICONS=	yes
+
+OPTIONS_DEFINE=	NOTIFY
+OPTIONS_DEFAULT=NOTIFY
+
+NOTIFY_LIB_DEPENDS=	libnotify.so:${PORTSDIR}/devel/libnotify
+NOTIFY_CONFIGURE_ENABLE=libnotify 
 
 .include <bsd.port.mk>

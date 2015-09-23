@@ -2,22 +2,21 @@
 # $FreeBSD$
 
 # Please do not submit untested updates.  Be sure to start hadoop in
-# distributed mode and run few map/reduce.  Be sure there are no exception
-# in any of it's log files.  This version is tested under the load and
+# distributed mode and to run few map/reduce.  Be sure there are no exception
+# in any of it's log files.  This version was tested under the load and
 # no problems encountered so far.  Thanks.
 PORTNAME=	hadoop
-PORTVERSION=	2.4.1
-PORTREVISION=	4
+PORTVERSION=	2.7.1
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE} \
-		LOCAL/demon/ \
-		http://people.freebsd.org/~demon/:maven \
+MASTER_SITES=	APACHE/${PORTNAME}/common/stable \
+		LOCAL/demon/:maven \
 		http://archive.apache.org/dist/tomcat/tomcat-6/v${TOMCAT_VERSION}/bin/:tomcat \
 		http://dist.codehaus.org/jetty/jetty-6.1.14/:jetty
-MASTER_SITE_SUBDIR=${PORTNAME}/common/stable
 PKGNAMESUFFIX=	2
-DISTFILES=	${PORTNAME}-${PORTVERSION}-src${EXTRACT_SUFX} FreeBSD-hadoop2-${PORTVERSION}-maven-repository.tar.gz:maven apache-tomcat-${TOMCAT_VERSION}.tar.gz:tomcat jetty-6.1.14.zip:jetty
+DISTNAME=	${PORTNAME}-${PORTVERSION}-src
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} FreeBSD-hadoop2-${PORTVERSION}-maven-repository.tar.gz:maven apache-tomcat-${TOMCAT_VERSION}.tar.gz:tomcat jetty-6.1.14.zip:jetty
 DIST_SUBDIR=	hadoop
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX} FreeBSD-hadoop2-${PORTVERSION}-maven-repository.tar.gz jetty-6.1.14.zip
 
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	Apache Map/Reduce framework
@@ -28,19 +27,23 @@ BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:${PORTSDIR}/devel/maven3 \
 		cmake:${PORTSDIR}/devel/cmake \
 		${LOCALBASE}/protobuf25/bin/protoc:${PORTSDIR}/devel/protobuf25
 LIB_DEPENDS=	libsnappy.so:${PORTSDIR}/archivers/snappy
-RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
+RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
+		ssid:${PORTSDIR}/sysutils/ssid
 
-CONFLICTS_INSTALL=	apache-hadoop-1*
+CONFLICTS_INSTALL=	hadoop-1*
 
-USES=		shebangfix
+USES=		cpe shebangfix
+CPE_VENDOR=	apache
 USE_JAVA=	yes
-JAVA_VERSION=	1.7+
+JAVA_VERSION=	1.7
 USE_LDCONFIG=	yes
-SHEBANG_FILES=	hadoop-hdfs-project/hadoop-hdfs-httpfs/src/main/sbin/httpfs.sh hadoop-hdfs-project/hadoop-hdfs-httpfs/src/main/libexec/httpfs-config.sh
+SHEBANG_FILES=	hadoop-hdfs-project/hadoop-hdfs-httpfs/src/main/sbin/httpfs.sh hadoop-hdfs-project/hadoop-hdfs-httpfs/src/main/libexec/httpfs-config.sh hadoop-hdfs-project/hadoop-hdfs-httpfs/src/main/conf/httpfs-env.sh hadoop-common-project/hadoop-kms/src/main/sbin/kms.sh hadoop-common-project/hadoop-kms/src/main/libexec/kms-config.sh hadoop-common-project/hadoop-kms/src/main/conf/kms-env.sh hadoop-tools/hadoop-sls/src/main/bin/rumen2sls.sh hadoop-tools/hadoop-sls/src/main/bin/slsrun.sh
 MAKE_ENV+=	HADOOP_PROTOC_PATH=${LOCALBASE}/protobuf25/bin/protoc
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-src
 
-TOMCAT_VERSION=	6.0.36
+OPTIONS_DEFINE=		EXAMPLES
+OPTIONS_DEFAULT=	EXAMPLES
+
+TOMCAT_VERSION=	6.0.41
 HADOOP_DIST=	${WRKSRC}/hadoop-dist/target/hadoop-${PORTVERSION}
 
 HADOOP_LOGDIR=	/var/log/hadoop
@@ -53,7 +56,7 @@ USERS=		${HDFS_USER} ${MAPRED_USER}
 GROUPS=		${HADOOP_GROUP}
 
 SUB_FILES=	hadoop-layout.sh
-USE_RC_SUBR=	historyserver nodemanager resourcemanager webappproxyserver datanode namenode secondarynamenode
+USE_RC_SUBR=	historyserver nodemanager resourcemanager webappproxyserver datanode namenode secondarynamenode journalnode
 
 PLIST_SUB=	PORTVERSION="${PORTVERSION}" \
 		HADOOP_LOGDIR="${HADOOP_LOGDIR}" \
@@ -69,12 +72,14 @@ SUB_LIST=	HDFS_USER="${HDFS_USER}" \
 		HADOOP_RUNDIR="${HADOOP_RUNDIR}"
 
 post-patch:
-	${REINPLACE_CMD} -e "s#/bin/bash#${LOCALBASE}/bin/bash#" ${WRKSRC}/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/DefaultContainerExecutor.java ${WRKSRC}/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/src/main/java/org/apache/hadoop/mapreduce/MRJobConfig.java ${WRKSRC}/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/launcher/ContainerLaunch.java ${WRKSRC}/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/util/Shell.java
+	${REINPLACE_CMD} -e "s#/bin/bash#${LOCALBASE}/bin/bash#" ${WRKSRC}/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/DefaultContainerExecutor.java ${WRKSRC}/hadoop-mapreduce-project/hadoop-mapreduce-client/hadoop-mapreduce-client-core/src/main/java/org/apache/hadoop/mapreduce/MRJobConfig.java ${WRKSRC}/hadoop-yarn-project/hadoop-yarn/hadoop-yarn-server/hadoop-yarn-server-nodemanager/src/main/java/org/apache/hadoop/yarn/server/nodemanager/containermanager/launcher/ContainerLaunch.java ${WRKSRC}/hadoop-common-project/hadoop-common/src/main/java/org/apache/hadoop/util/Shell.java ${WRKSRC}/hadoop-common-project/hadoop-common/src/main/bin/hadoop-daemon.sh
 
 do-build:
 	${MKDIR} ${WRKSRC}/hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads
 	${CP} ${DISTDIR}/${DIST_SUBDIR}/apache-tomcat-${TOMCAT_VERSION}.tar.gz ${WRKSRC}/hadoop-hdfs-project/hadoop-hdfs-httpfs/downloads/
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/m2 --offline clean package -Pdist,native -DskipTests -Drequire.snappy -Dsnappy.prefix=${LOCALBASE}
+	${MKDIR} ${WRKSRC}/hadoop-common-project/hadoop-kms/downloads
+	${CP} ${DISTDIR}/${DIST_SUBDIR}/apache-tomcat-${TOMCAT_VERSION}.tar.gz ${WRKSRC}/hadoop-common-project/hadoop-kms/downloads/
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/m2 --offline  package -Pdist,native -DskipTests -Drequire.snappy -Dsnappy.prefix=${LOCALBASE} -Drequire.openssl
 
 post-build:
 	${RM} ${HADOOP_DIST}/etc/hadoop/*.cmd
@@ -85,6 +90,10 @@ post-build:
 .for dir in share/hadoop/common/lib share/hadoop/hdfs/lib share/hadoop/yarn/lib share/hadoop/tools/lib
 	${RM} ${HADOOP_DIST}/${dir}/jetty-util-6.1.26.jar ${HADOOP_DIST}/${dir}/jetty-6.1.26.jar
 	${CP} ${WRKDIR}/jetty-6.1.14/lib/jetty-6.1.14.jar ${WRKDIR}/jetty-6.1.14/lib/jetty-util-6.1.14.jar ${HADOOP_DIST}/${dir}/
+.endfor
+.for dir in share/hadoop/httpfs/tomcat/webapps/webhdfs/WEB-INF/lib share/hadoop/kms/tomcat/webapps/kms/WEB-INF/lib
+	${RM} ${HADOOP_DIST}/${dir}/jetty-util-6.1.26.jar
+	${CP} ${WRKDIR}/jetty-6.1.14/lib/jetty-util-6.1.14.jar ${HADOOP_DIST}/${dir}/
 .endfor
 
 do-install:

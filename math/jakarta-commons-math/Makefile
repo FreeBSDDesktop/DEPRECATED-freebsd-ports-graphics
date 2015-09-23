@@ -5,23 +5,21 @@ PORTNAME=	commons-math
 PORTVERSION=	2.2
 PORTREVISION=	1
 CATEGORIES=	math java
-MASTER_SITES=	${MASTER_SITE_APACHE_COMMONS_SOURCE}/:source1 \
+MASTER_SITES=	APACHE_COMMONS_SOURCE \
 		http://repo1.maven.org/maven2/junit/junit/4.8.2/:source2
-MASTER_SITE_SUBDIR=	${PORTNAME:S,commons-math,math,}/:source1
 PKGNAMEPREFIX=	jakarta-
-DISTFILES=	${PORTNAME}-${PORTVERSION}-src.tar.gz:source1 \
+DISTNAME=	${PORTNAME}-${PORTVERSION}-src
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
 		junit-4.8.2.jar:source2
-EXTRACT_ONLY=	${PORTNAME}-${PORTVERSION}-src.tar.gz
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Java library of self-contained mathematics and statistics components
 
 LICENSE=	APACHE20
 
-WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}-src
-
 USE_JAVA=	yes
-JAVA_VERSION=	1.6+
+JAVA_VERSION=	1.6 1.7
 USE_ANT=	yes
 
 ALL_TARGET=	jar
@@ -55,7 +53,7 @@ post-extract:
 do-install:
 	@${ECHO_MSG} -n ">> Installing JAR as ${JAVAJARDIR}/${DESTJARFILE}..."
 	@${MKDIR} ${STAGEDIR}${JAVAJARDIR}
-	@${INSTALL_DATA} ${WRKSRC}/target/${JARFILE} ${STAGEDIR}${JAVAJARDIR}/${DESTJARFILE}
+	${INSTALL_DATA} ${WRKSRC}/target/${JARFILE} ${STAGEDIR}${JAVAJARDIR}/${DESTJARFILE}
 	@${ECHO_MSG} " [ DONE ]"
 
 .if ${PORT_OPTIONS:MDOCS}
@@ -64,7 +62,7 @@ do-install:
 	@cd ${WRKSRC}/target \
 	  && ${FIND} -s apidocs -type d -exec ${MKDIR} ${STAGEDIR}${DOCSDIR}/{} \; \
 	  && ${FIND} -s apidocs -type f -exec ${INSTALL_DATA} {} ${STAGEDIR}${DOCSDIR}/{} \;
-	@${INSTALL_DATA} ${OTHERDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}/
+	${INSTALL_DATA} ${OTHERDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}/
 	@${ECHO_MSG} " [ DONE ]"
 .endif
 

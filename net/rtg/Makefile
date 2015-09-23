@@ -3,7 +3,7 @@
 
 PORTNAME=	rtg
 PORTVERSION=	0.7.4
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	net
 MASTER_SITES=	SF \
 		ftp://ftpmirror.uk/freebsd-ports/rtg/
@@ -21,7 +21,7 @@ USE_RC_SUBR=	rtgpoll
 USE_MYSQL=	client
 WANT_PERL=	yes
 USES=		shebangfix
-SHEBANG_FILES=	etc/95.pl etc/report.pl
+SHEBANG_FILES=	etc/95.pl etc/report.pl etc/rtgtargmkr.pl.in
 SUB_FILES=	pkg-message
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/etc/${PORTNAME} \
@@ -43,18 +43,11 @@ WANT_PHP_WEB=	yes
 USE_PHP=	mysqli spl
 .endif
 
-.include <bsd.port.pre.mk>
-
-.if ( ${OSVERSION} >= 800040 )
 CFLAGS+=	-fstack-protector
 LDFLAGS+=	-fstack-protector
-.endif
-
-pre-configure:
-	@${REINPLACE_CMD} -e 's,-pthread,${PTHREAD_LIBS},g' ${WRKSRC}/configure
 
 post-patch:
 	@${MV} ${WRKSRC}/etc/rtg.conf ${WRKSRC}/etc/rtg.conf.sample
 	@${MV} ${WRKSRC}/etc/routers ${WRKSRC}/etc/routers.sample
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

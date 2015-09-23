@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	geographiclib
-PORTVERSION=	1.39
+PORTVERSION=	1.44
 CATEGORIES=	astro
 MASTER_SITES=	SF/geographiclib/distrib\
 		SF/geographiclib:geoids,gravity,magnetic
@@ -15,12 +15,13 @@ COMMENT=	Library for geographic projections
 
 LICENSE=	MIT
 
-USES=		gmake libtool python
-USE_GCC=	any
-USE_AUTOTOOLS=	autoconf
+BUILD_DEPENDS=	${LOCALBASE}/share/aclocal/ax_check_compile_flag.m4:${PORTSDIR}/devel/autoconf-archive
+
+USES=		autoreconf gmake libtool python
 WRKSRC=		${WRKDIR}/${DISTNAME}
 NO_WRKSUBDIR=	yes
 PORTDOCS=	*
+FETCH_ENV+=	HTTP_REFERER=
 GNU_CONFIGURE=	yes
 MAKE_ARGS+=	geographiclib_data=${DATADIR:Q}
 MAKE_ARGS+=	pythondir=${PYTHON_SITELIBDIR}/geographiclib
@@ -30,7 +31,7 @@ USE_LDCONFIG=	yes
 OPTIONS_DEFINE=	DOXYGEN PERL
 OPTIONS_DEFAULT=	DOXYGEN PERL\
 			GEOID_EGM96_5 GRAVITY_EGM96 GRAVITY_WGS84\
-			MAGNETIC_WMM2010 MAGNETIC_IGRF11
+			MAGNETIC_WMM2015 MAGNETIC_IGRF12
 PERL_DESC=	Build documentation with pod2man and pod2html
 OPTIONS_GROUP=	DATASETS
 OPTIONS_SUB=	yes
@@ -40,10 +41,10 @@ PERL_USE=	PERL5=build
 PERL_USES=	perl5
 PERL_CONFIGURE_ENV_OFF=	ac_cv_prog_POD2MAN= ac_cv_prog_POD2HTML=
 
-GEOID_NAMES:=		egm84-30 egm84-15 egm96-15 egm96-5\
+GEOID_NAMES=		egm84-30 egm84-15 egm96-15 egm96-5\
 			egm2008-5 egm2008-2_5 egm2008-1
-GRAVITY_NAMES:=		egm84 egm96 egm2008 wgs84 grs80
-MAGNETIC_NAMES:=	wmm2010 igrf11 emm2010
+GRAVITY_NAMES=		egm84 egm96 egm2008 wgs84 grs80
+MAGNETIC_NAMES=		wmm2010 wmm2015 igrf11 igrf12 emm2010 emm2015
 
 .for n in ${GEOID_NAMES}
 GEOID_${n:C/[^0-9A-Z_a-z]/_/g:tu}_DESC=		Install ${n} geoid dataset

@@ -14,14 +14,17 @@ LIB_DEPENDS=	liboop.so:${PORTSDIR}/devel/liboop \
 		libgmp.so:${PORTSDIR}/math/gmp \
 		libnettle.so:${PORTSDIR}/security/nettle
 
+BROKEN_FreeBSD_9=	does not build
+
 USE_CSTD=	c89
 GNU_CONFIGURE=	yes
 USE_XORG=	xau
-USES=		gmake shebangfix
+USES=		cpe gmake shebangfix
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 INFO=		lsh
+CPE_VENDOR=	gnu
 
 SHEBANG_FILES=	src/lcp
 

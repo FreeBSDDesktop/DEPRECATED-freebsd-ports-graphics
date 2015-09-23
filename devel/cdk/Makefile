@@ -2,17 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	cdk
-PORTVERSION=	5.0.20120323
+DISTVERSION=	5.0-20120323
 PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	devel
 MASTER_SITES=	ftp://invisible-island.net/cdk/
-DISTNAME=	${PORTNAME}-${PORTVERSION:R}-${PORTVERSION:E}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Curses Development Kit for speedy development of full screen programs
 
-LICENSE=	BSD
+LICENSE=	BSD4CLAUSE
 
 USES=		ncurses gmake tar:tgz
 GNU_CONFIGURE=	yes
@@ -36,15 +35,10 @@ post-patch:
 
 post-install:
 .if ${PORT_OPTIONS:MEXAMPLES}
-	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/cli
-	cd ${WRKSRC}/cli; \
-	${FIND} . | ${CPIO} -pdm -R ${LIBOWN}:${LIBGRP} ${STAGEDIR}${EXAMPLESDIR}/cli
-	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/demos
-	cd ${WRKSRC}/demos; \
-	${FIND} . | ${CPIO} -pdm -R ${LIBOWN}:${LIBGRP} ${STAGEDIR}${EXAMPLESDIR}/demos
-	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/examples
-	cd ${WRKSRC}/examples; \
-	${FIND} . | ${CPIO} -pdm -R ${LIBOWN}:${LIBGRP} ${STAGEDIR}${EXAMPLESDIR}/examples
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}; \
+		${COPYTREE_SHARE} "cli demos examples" \
+		${STAGEDIR}${EXAMPLESDIR} "! -type d"
 .endif
 
 .include <bsd.port.mk>

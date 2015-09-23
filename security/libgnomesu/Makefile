@@ -4,7 +4,7 @@
 
 PORTNAME=	libgnomesu
 PORTVERSION=	1.0.0
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	security gnome
 MASTER_SITES=	http://members.chello.nl/~h.lai/libgnomesu/
 
@@ -14,9 +14,11 @@ COMMENT=	Library and frontend for running commands as root
 USES=		gmake gettext-tools libtool pathfix pkgconfig
 GNU_CONFIGURE=	yes
 USE_GNOME=	gnomeprefix libgnomeui
-CONFIGURE_ARGS+=--disable-install-pam
+CONFIGURE_ARGS+=--disable-install-pam \
+		--disable-setuid-error
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
 
 SUB_FILES=	pkg-message
 

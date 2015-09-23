@@ -5,35 +5,27 @@ PORTNAME=	qt47-x11
 PORTVERSION=	4.7.2
 PORTREVISION=	1
 CATEGORIES=	x11-toolkits linux
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	xmj
-DIST_SUBDIR=	rpm/${LINUX_RPM_ARCH}/centos/c5
+MASTER_SITES=	http://dl.atrpms.net/el6-${LINUX_REPO_ARCH}/atrpms/testing/ LOCAL/xmj
+DIST_SUBDIR=	rpm/${LINUX_RPM_ARCH}/atrpms/6
 
 MAINTAINER=	emulation@FreeBSD.org
-COMMENT=	RPM of QT4 (Linux CentOS 5)
+COMMENT=	RPM of QT4 (Linux CentOS 6)
 
 ONLY_FOR_ARCHS=	i386 amd64
 SRC_DISTFILES:=		# unretrievable.
 
 USE_LINUX=	c6
 USE_LDCONFIG=	yes
-LINUX_DIST_VER=	5
 
 OPTIONS_DEFINE=	NVIDIA_GL
-NVIDIA_GL_DESC=	Use GL driver from nvidia-driver
-NVIDIA_GL_RUN_DEPENDS=	${LINUXBASE}/usr/lib/libGL.so.1:${PORTSDIR}/x11/nvidia-driver
+
+NVIDIA_GL_RUN_DEPENDS=	${LINUXBASE}/usr/lib/libGL.so.1:${PORTSDIR}/x11/nvidia-driver \
+			linux-c6-libGLU>0:${PORTSDIR}/graphics/linux-c6-libGLU
+NVIDIA_GL_USE_OFF=	linux_apps=dri
 
 USE_LINUX_APPS=	fontconfig png  xorglibs png alsalib  jpeg tiff qt47
 USE_LINUX_RPM=	yes
-RPMVERSION=	1_18.el5
-LINUX_RPM_ARCH=	i386
-
-.include <bsd.port.options.mk>
-
-.if ! ${PORT_OPTIONS:MNVIDIA_GL}
-USE_LINUX_APPS+=	dri
-.endif
-
+RPMVERSION=	1_18.el6
 
 DESCR=	${.CURDIR}/../../devel/qt4/pkg-descr
 

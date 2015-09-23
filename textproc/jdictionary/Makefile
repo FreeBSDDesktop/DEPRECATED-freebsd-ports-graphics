@@ -2,16 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	jdictionary
-PORTVERSION=	1.8
+DISTVERSION=	1_8
 PORTREVISION=	4
 CATEGORIES=	textproc java
 MASTER_SITES=	SF/jdictionary/jDictionary/jDictionary%20version%20${PORTVERSION}
-DISTNAME=	${PORTNAME}-${PORTVERSION:S,.,_,}
 
 MAINTAINER=	jmohacsi@bsd.hu
 COMMENT=	Platform independent, plugin based dictionary
-
-RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper
 
 USE_JAVA=	yes
 JAVA_VERSION=	1.6+

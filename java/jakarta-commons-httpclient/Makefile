@@ -5,8 +5,7 @@ PORTNAME=	commons-httpclient
 DISTVERSION=	3.1
 PORTREVISION=	1
 CATEGORIES=	java www
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	httpcomponents/${PORTNAME}/source
+MASTER_SITES=	APACHE/httpcomponents/${PORTNAME}/source
 PKGNAMEPREFIX=	jakarta-
 DISTNAME=	${PORTNAME}-${DISTVERSION}-src
 
@@ -22,6 +21,8 @@ RUN_DEPENDS+=	${JAVAJARDIR}/commons-codec.jar:${PORTSDIR}/java/jakarta-commons-c
 
 OPTIONS_DEFINE=	DOCS
 
+USES+=		cpe
+CPE_VENDOR=	apache
 USE_JAVA=	yes
 JAVA_VERSION=	1.6+
 USE_ANT=	yes

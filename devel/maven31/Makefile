@@ -5,8 +5,7 @@ PORTNAME=	maven31
 DISTVERSION=	3.1.1
 PORTREVISION=	1
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	maven/binaries
+MASTER_SITES=	APACHE/maven/binaries
 DISTNAME=	apache-maven-${DISTVERSION}-bin
 
 MAINTAINER=	yerenkow@gmail.com
@@ -15,6 +14,10 @@ COMMENT=	Java project management tool, 3.1.x branch
 LICENSE=	APACHE20
 
 RUN_DEPENDS=	mvn:${PORTSDIR}/devel/maven-wrapper
+
+USES=		cpe
+CPE_PRODUCT=	maven
+CPE_VENDOR=	apache
 
 USE_JAVA=	yes
 JAVA_VERSION=	1.6+

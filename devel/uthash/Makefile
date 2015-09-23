@@ -4,21 +4,21 @@
 PORTNAME=	uthash
 PORTVERSION=	1.9.8p2
 CATEGORIES=	devel
-MASTER_SITES=	GH
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	hash table for C structures
 
-LICENSE=	BSD
+LICENSE=	BSD1CLAUSE
+LICENSE_NAME=	BSD 1-Clause License
+LICENSE_FILE=	${WRKSRC}/LICENSE
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
 OPTIONS_DEFINE=	DOCS
 
-USES=	tar:bzip2
 NO_BUILD=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	troydhanson
-GH_COMMIT=	d10c46a
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	d10c46a
 
 PORTDOCS=	ChangeLog.txt todo.txt userguide.txt utarray.txt \
 		utlist.txt utstring.txt

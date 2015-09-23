@@ -1,36 +1,44 @@
 # $FreeBSD$
 
 PORTNAME=	openntpd
-PORTVERSION=	4.6
-PORTREVISION=	3
+PORTVERSION=	5.7p4
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	net
-MASTER_SITES=	${MASTER_SITE_OPENBSD}
-MASTER_SITE_SUBDIR=	OpenNTPD
-EXTRACT_SUFX=	.tgz
+MASTER_SITES=	OPENBSD/OpenNTPD
 
 MAINTAINER=	naddy@FreeBSD.org
-COMMENT=	OpenBSD's Network Time Protocol daemon
+COMMENT=	Network Time Protocol (NTP) daemon
+
+LICENSE=	ISCL
 
 USERS=		_ntp
 GROUPS=		_ntp
 
 USE_RC_SUBR=	openntpd
 
-WRKSRC=		${WRKDIR}/ntpd
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-silent-rules
 
-post-extract:
-	@${CP} ${FILESDIR}/compat.h ${FILESDIR}/adjfreq.c ${WRKSRC}
+# XXX:
+# * LibreSSL fails with the certificiate bundle from ca_root_nss.
+# * USE_OPENSSL does not handle LibreSSL yet.
+#
+#OPTIONS_DEFINE=		RESSL
+#RESSL_DESC=		SSL/TLS support via LibreSSL
+#
+#OPTIONS_DEFAULT=	RESSL
+#
+#RESSL_LIB_DEPENDS=	libtls.so:${PORTSDIR}/security/libressl
+#RESSL_CONFIGURE_WITH=	cacert=${LOCALBASE}/etc/ssl/cert.pem
+#RESSL_CPPFLAGS=		-I${LOCALBASE}/include
+#RESSL_LDFLAGS=		-L${LOCALBASE}/lib
 
 pre-build:
 	${REINPLACE_CMD} -e 's,%%PREFIX%%,${PREFIX},g' \
-	    ${WRKSRC}/ntpd.h ${WRKSRC}/ntpd.conf.5 ${WRKSRC}/ntpd.8
+	    ${WRKSRC}/src/ntpd.conf.5 ${WRKSRC}/src/ntpd.8
 
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/ntpd ${STAGEDIR}${PREFIX}/sbin
-	${INSTALL_MAN} ${WRKSRC}/ntpd.conf.5 ${STAGEDIR}${PREFIX}/man/man5
-	${INSTALL_MAN} ${WRKSRC}/ntpd.8 ${STAGEDIR}${PREFIX}/man/man8
-	${INSTALL_DATA} ${FILESDIR}/ntpd.conf \
-	    ${STAGEDIR}${PREFIX}/etc/ntpd.conf.sample
+post-install:
+	cd ${STAGEDIR}${PREFIX}/etc; ${MV} ntpd.conf ntpd.conf.sample
 
 .include <bsd.port.mk>

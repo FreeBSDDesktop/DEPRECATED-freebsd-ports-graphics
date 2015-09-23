@@ -3,15 +3,16 @@
 
 PORTNAME=	Math-TrulyRandom
 PORTVERSION=	1.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Perl interface to a truly random number generator function
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
 USES=		perl5
 USE_PERL5=	configure
@@ -19,8 +20,6 @@ USE_PERL5=	configure
 OPTIONS_DEFINE=	DOCS
 
 PORTDOCS=	*
-
-.include <bsd.port.options.mk>
 
 post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}

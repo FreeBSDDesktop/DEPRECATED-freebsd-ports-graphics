@@ -2,20 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	minetest
-PORTVERSION=	0.4.10
-PORTREVISION=	1
+PORTVERSION=	0.4.12
 CATEGORIES=	games
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Infiniminer/Minecraft inspired game
 
-LICENSE=	LGPL21
+LICENSE=	LGPL21 # or later
+LICENSE_FILE=	${WRKSRC}/doc/lgpl-2.1.txt
 
 LIB_DEPENDS=	libsqlite3.so:${PORTSDIR}/databases/sqlite3
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	minetest
-GH_COMMIT=	e14c4cd
 
 USES=		cmake
 CMAKE_ARGS=	-DCUSTOM_MANDIR="${PREFIX}/man" \
@@ -39,9 +38,9 @@ LUAJIT_DESC=	LuaJIT support
 
 CLIENT_CMAKE_ON=	-DBUILD_CLIENT=1
 CLIENT_CMAKE_OFF=	-DBUILD_CLIENT=0
-CLIENT_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-			libpng.so:${PORTSDIR}/graphics/png \
+CLIENT_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 			libIrrlicht.so:${PORTSDIR}/x11-toolkits/irrlicht
+CLIENT_USES=		jpeg
 CLIENT_USE=		GL=gl XORG=x11
 SERVER_CMAKE_ON=	-DBUILD_SERVER=1
 SERVER_CMAKE_OFF=	-DBUILD_SERVER=0
@@ -89,8 +88,6 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-irrlichtdepend
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
 		${WRKSRC}/cmake/Modules/*.cmake
-	@${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|' \
-		${WRKSRC}/src/CMakeLists.txt
 .if ! ${PORT_OPTIONS:MLUAJIT}
 	@${REINPLACE_CMD} -e '/find_/ s|LUA_|NO&|g' \
 		${WRKSRC}/src/CMakeLists.txt

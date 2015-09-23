@@ -5,7 +5,7 @@ PORTVERSION=	20121210
 PORTREVISION=	3
 CATEGORIES=	textproc
 
-MAINTAINER=	bdrewery@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	json parser for the shell
 
 LICENSE=	MIT
@@ -15,8 +15,7 @@ LIB_DEPENDS=	libjansson.so:${PORTSDIR}/devel/jansson
 USES=		gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	keenerd
-GH_COMMIT=	b21bc98
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	b21bc98
 
 CFLAGS+=	-I${LOCALBASE}/include
 

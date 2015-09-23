@@ -1,11 +1,11 @@
 # Created by: Christopher Key <cjk32@cam.ac.uk>
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	2
 CATEGORIES=	audio lang
 PKGNAMESUFFIX=	-oggvorbis
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Free Pascal interface to ogg & vorbis libraries
 
 USE_FPC=	yes

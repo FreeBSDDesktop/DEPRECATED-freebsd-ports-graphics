@@ -3,12 +3,11 @@
 
 PORTNAME=	grub2-efi
 PORTVERSION=	2.02
-PORTREVISION=	8
+PORTREVISION=	14
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.pcbsd.org/~kris/software/ \
 		ftp://ftp.pcbsd.org/pub/software/
-DISTNAME=	grub-${PORTVERSION}_3
-WRKSRC=		${WRKDIR}/grub-${PORTVERSION}
+DISTNAME=	grub-${PORTVERSION}_7
 
 MAINTAINER=	kmoore@FreeBSD.org
 COMMENT=	Multiboot EFI boot loader
@@ -21,14 +20,17 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex \
 		${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash \
 		help2man:${PORTSDIR}/misc/help2man
 
+WRKSRC=		${WRKDIR}/grub-${PORTVERSION}
 SSP_UNSAFE=	yes
 USE_GCC=	yes
-USE_AUTOTOOLS=	automake aclocal autoconf
 ACLOCAL_ARGS=	-Im4
 GNU_CONFIGURE=	yes
-USES=		bison gettext gmake python tar:xz
+USES=		autoreconf bison cpe gettext gmake python tar:xz
 ONLY_FOR_ARCHS=	amd64
 MAKE_JOBS_UNSAFE=	yes
+
+CPE_PRODUCT=	grub
+CPE_VENDOR=	gnu
 
 CONFIGURE_ARGS=	--with-platform=efi --disable-werror --localedir=${PREFIX}/share/locale
 CONFIGURE_ENV=	CPP="${CC} -E" \
@@ -37,7 +39,7 @@ CONFIGURE_ENV=	CPP="${CC} -E" \
 .include <bsd.port.pre.mk>
 
 post-patch:
-	@${LN} -s ${LOCALBASE}/lib/X11/fonts/dejavu/DejaVuSans.ttf ${WRKSRC}
+	@${LN} -s ${LOCALBASE}/share/fonts/dejavu/DejaVuSans.ttf ${WRKSRC}
 	@${TOUCH} -t 200001010000 ${WRKSRC}/Makefile.util.def
 
 pre-configure:
@@ -48,8 +50,8 @@ post-configure:
 	@${LN} -sfh /usr/include/machine /usr/include/sys /usr/include/x86 ${WRKSRC}/grub-core
 
 do-install:
-	@cd ${WRKSRC}/grub-core && gmake install DESTDIR=${STAGEDIR}
-
-.include <bsd.port.post.mk>
+	@cd ${WRKSRC}/grub-core && ${GMAKE} install DESTDIR=${STAGEDIR}
 
 RUN_DEPENDS:=	${RUN_DEPENDS:Ngcc*}
+
+.include <bsd.port.post.mk>

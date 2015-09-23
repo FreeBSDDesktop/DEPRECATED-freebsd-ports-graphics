@@ -3,7 +3,7 @@
 
 PORTNAME=		spamprobe
 PORTVERSION=	1.4d
-PORTREVISION=	10
+PORTREVISION=	12
 CATEGORIES=		mail
 MASTER_SITES=	SF
 
@@ -42,11 +42,11 @@ GIF_LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib
 
 # PNG support
 PNG_CONFIGURE_WITH=	png
-PNG_LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+PNG_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 # JPEG support
 JPEG_CONFIGURE_WITH=jpeg
-JPEG_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+JPEG_USES=		jpeg
 
 .include <bsd.port.options.mk>
 

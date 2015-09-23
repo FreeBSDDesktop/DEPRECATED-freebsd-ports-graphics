@@ -2,16 +2,15 @@
 
 PORTNAME=	calligra
 PORTVERSION=	${CALLIGRA_VERSION}
-PORTREVISION=	13
+PORTREVISION=	18
 CATEGORIES=	editors kde
-MASTER_SITES=	${MASTER_SITE_KDE}
-MASTER_SITE_SUBDIR=	${CALLIGRA_BRANCH}/${PORTNAME}-${PORTVERSION}/
+MASTER_SITES=	KDE/${CALLIGRA_BRANCH}/${PORTNAME}-${PORTVERSION}
 DIST_SUBDIR=	KDE
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KDE graphic art and office suite
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libIlmImf.so:${PORTSDIR}/graphics/OpenEXR \
 		libboost_thread.so:${PORTSDIR}/devel/boost-libs \
 		libqca.so:${PORTSDIR}/devel/qca \
@@ -23,12 +22,11 @@ LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
 		libwpg-0.2.so:${PORTSDIR}/graphics/libwpg \
 		libpoppler-qt4.so:${PORTSDIR}/graphics/poppler-qt4 \
 		libopenjpeg.so:${PORTSDIR}/graphics/openjpeg15 \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libdcmdata.so:${PORTSDIR}/devel/dcmtk \
 		libfftw3.so:${PORTSDIR}/math/fftw3 \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
 		libgsl.so:${PORTSDIR}/math/gsl \
-		libwps-0.2.so:${PORTSDIR}/textproc/libwps \
+		libwps-0.2.so:${PORTSDIR}/textproc/libwps02 \
 		libvisio-0.0.so:${PORTSDIR}/textproc/libvisio \
 		libOpenColorIO.so:${PORTSDIR}/graphics/opencolorio
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/eigen2.pc:${PORTSDIR}/math/eigen2
@@ -38,14 +36,14 @@ CONFLICTS_BUILD=qt-3.*
 
 USE_GL=		glew
 USE_GNOME=	glib20 libxml2 libxslt
-USE_KDE4=	kactivities kdehier kdelibs kdeprefix libkdcraw nepomuk-core \
+USE_KDE4=	kactivities kdelibs kdeprefix libkdcraw nepomuk-core \
 		okular pimlibs attica automoc4 soprano
 USE_QT4=	corelib dbus designer_build gui opengl phonon porting_build \
 		qt3support qtestlib_build script sql svg webkit xml xmlpatterns \
 		moc_build qmake_build rcc_build uic_build uic3_build
 USE_SQLITE=	3
-USES=		cmake:outsource compiler:c++11-lang iconv perl5 pkgconfig tar:xz\
-		shared-mime-info
+USES=		cmake:outsource cpe compiler:c++11-lang iconv:translit jpeg \
+		perl5 pkgconfig shared-mime-info tar:xz
 CMAKE_ARGS=	-DCMAKE_INCLUDE_PATH:STRING="${QT_INCDIR} ${LOCALBASE}/include" \
 		-DPRODUCTSET:STRING="DESKTOP"
 USE_LDCONFIG=	yes

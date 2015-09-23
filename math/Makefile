@@ -11,6 +11,7 @@
     SUBDIR += R-cran-KFAS
     SUBDIR += R-cran-LearnBayes
     SUBDIR += R-cran-MCMCpack
+    SUBDIR += R-cran-NMF
     SUBDIR += R-cran-RHmm
     SUBDIR += R-cran-RSvgDevice
     SUBDIR += R-cran-RcppArmadillo
@@ -28,8 +29,10 @@
     SUBDIR += R-cran-gtable
     SUBDIR += R-cran-igraph
     SUBDIR += R-cran-inline
+    SUBDIR += R-cran-irlba
     SUBDIR += R-cran-labeling
     SUBDIR += R-cran-memisc
+    SUBDIR += R-cran-minqa
     SUBDIR += R-cran-mvtnorm
     SUBDIR += R-cran-nnls
     SUBDIR += R-cran-outliers
@@ -51,6 +54,7 @@
     SUBDIR += algae
     SUBDIR += algotutor
     SUBDIR += alt-ergo
+    SUBDIR += alt-ergo-spark
     SUBDIR += analitza
     SUBDIR += ann
     SUBDIR += apc
@@ -84,15 +88,21 @@
     SUBDIR += chryzodus
     SUBDIR += clarence
     SUBDIR += clasp
+    SUBDIR += clblas
+    SUBDIR += clfft
     SUBDIR += clipper
     SUBDIR += cln
     SUBDIR += cloog
     SUBDIR += clp
+    SUBDIR += clrng
+    SUBDIR += cminpack
+    SUBDIR += cmlib
     SUBDIR += coinmp
     SUBDIR += concorde
     SUBDIR += convertall
     SUBDIR += coq
     SUBDIR += crlibm
+    SUBDIR += cryptominisat
     SUBDIR += cvc3
     SUBDIR += dcdflib
     SUBDIR += diehard
@@ -164,7 +174,9 @@
     SUBDIR += hexcalc
     SUBDIR += hfst
     SUBDIR += hs-Agda
+    SUBDIR += hs-Agda-stdlib
     SUBDIR += hs-NumInstances
+    SUBDIR += hs-adjunctions
     SUBDIR += hs-categories
     SUBDIR += hs-comonad
     SUBDIR += hs-contravariant
@@ -173,9 +185,9 @@
     SUBDIR += hs-distributive
     SUBDIR += hs-erf
     SUBDIR += hs-ieee754
+    SUBDIR += hs-kan-extensions
     SUBDIR += hs-math-functions
     SUBDIR += hs-mwc-random
-    SUBDIR += hs-nats
     SUBDIR += hs-pointed
     SUBDIR += hs-probability
     SUBDIR += hs-semigroupoids
@@ -184,7 +196,6 @@
     SUBDIR += hs-vector-space
     SUBDIR += igraph
     SUBDIR += ipopt
-    SUBDIR += isabelle
     SUBDIR += ised
     SUBDIR += jacal
     SUBDIR += jags
@@ -223,6 +234,7 @@
     SUBDIR += libproj4
     SUBDIR += libqalculate
     SUBDIR += libranlip
+    SUBDIR += librsb
     SUBDIR += libtommath
     SUBDIR += libtsnnls
     SUBDIR += linpack
@@ -232,7 +244,6 @@
     SUBDIR += ltl
     SUBDIR += ltl2ba
     SUBDIR += lybniz
-    SUBDIR += mate-calc
     SUBDIR += mathomatic
     SUBDIR += matio
     SUBDIR += matlab-installer
@@ -285,6 +296,7 @@
     SUBDIR += octave-forge-dataframe
     SUBDIR += octave-forge-dicom
     SUBDIR += octave-forge-divand
+    SUBDIR += octave-forge-doctest
     SUBDIR += octave-forge-econometrics
     SUBDIR += octave-forge-engine
     SUBDIR += octave-forge-fenv
@@ -303,8 +315,10 @@
     SUBDIR += octave-forge-image
     SUBDIR += octave-forge-informationtheory
     SUBDIR += octave-forge-integration
+    SUBDIR += octave-forge-interval
     SUBDIR += octave-forge-io
     SUBDIR += octave-forge-irsa
+    SUBDIR += octave-forge-level-set
     SUBDIR += octave-forge-linear-algebra
     SUBDIR += octave-forge-lssa
     SUBDIR += octave-forge-ltfat
@@ -422,6 +436,7 @@
     SUBDIR += p5-Math-Geometry-Planar
     SUBDIR += p5-Math-Geometry-Planar-GPC
     SUBDIR += p5-Math-Geometry-Planar-GPC-Polygon
+    SUBDIR += p5-Math-Geometry-Planar-GPC-PolygonXS
     SUBDIR += p5-Math-Geometry-Planar-Offset
     SUBDIR += p5-Math-Geometry-Voronoi
     SUBDIR += p5-Math-Gradient
@@ -480,6 +495,7 @@
     SUBDIR += p5-NetCDF
     SUBDIR += p5-Number-Compare
     SUBDIR += p5-Number-Fraction
+    SUBDIR += p5-Number-Misc
     SUBDIR += p5-Number-Uncertainty
     SUBDIR += p5-Number-WithError
     SUBDIR += p5-Number-WithError-LaTeX
@@ -521,8 +537,6 @@
     SUBDIR += pecl-trader
     SUBDIR += php5-bcmath
     SUBDIR += php5-gmp
-    SUBDIR += php53-bcmath
-    SUBDIR += php53-gmp
     SUBDIR += php55-bcmath
     SUBDIR += php55-gmp
     SUBDIR += php56-bcmath
@@ -544,8 +558,11 @@
     SUBDIR += py-apgl
     SUBDIR += py-basemap
     SUBDIR += py-basemap-data
+    SUBDIR += py-bitmath
     SUBDIR += py-bitvector
     SUBDIR += py-bottleneck
+    SUBDIR += py-colormath
+    SUBDIR += py-cryptominisat
     SUBDIR += py-fastcluster
     SUBDIR += py-ffc
     SUBDIR += py-fiat
@@ -580,6 +597,7 @@
     SUBDIR += py-svgmath
     SUBDIR += py-symeig
     SUBDIR += py-sympy
+    SUBDIR += py-theano
     SUBDIR += py-ufl
     SUBDIR += py-viper
     SUBDIR += qalculate
@@ -602,12 +620,13 @@
     SUBDIR += rpy
     SUBDIR += rpy2
     SUBDIR += ruby-algebra
-    SUBDIR += ruby-numru_units
+    SUBDIR += rubygem-expression_parser
     SUBDIR += rubygem-fftw3
     SUBDIR += rubygem-narray
     SUBDIR += rubygem-narray_miss
     SUBDIR += rubygem-numru-misc
     SUBDIR += rubygem-numru-units
+    SUBDIR += rubygem-rb-gsl
     SUBDIR += saga
     SUBDIR += sage
     SUBDIR += sc
@@ -649,6 +668,7 @@
     SUBDIR += ump
     SUBDIR += units
     SUBDIR += unuran
+    SUBDIR += vowpal_wabbit
     SUBDIR += vtk5
     SUBDIR += vtk5-data
     SUBDIR += vtk6

@@ -3,10 +3,9 @@
 
 PORTNAME=	kicad
 DISTVERSION=	r${BZR_SRC_REV}
-PORTREVISION=	8
+#PORTREVISION=	1
 CATEGORIES=	cad
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	mr
+MASTER_SITES=	LOCAL/mr
 PKGNAMESUFFIX=	-devel
 DIST_SUBDIR=		${PORTNAME}
 
@@ -23,8 +22,10 @@ CONFLICTS=	kicad-2014*
 DOCVERSION=	1.1
 LIBVERSION=	1.0
 
+CXXFLAGS+=	-std=c++11
 USE_GL=		glew glu
 USE_WX=		3.0
+WX_COMPS=	wx
 WX_UNICODE=	yes
 USE_GNOME=	atk	# Required by libwx_gtk2_aui-2.8.so
 
@@ -36,7 +37,7 @@ PLIST_SUB=	OPSYS=${OPSYS}	\
 BINS=		cvpcb eeschema gerbview kicad pcbnew
 EXTRAS2RM=	linux-non_unicode linux wings3d LINUX.README	\
 		contrib_makefiles.txt running_kicad_under_W98.txt
-USES=		desktop-file-utils shared-mime-info compiler:c++11-lang tar:bzip2 cmake \
+USES=		desktop-file-utils shared-mime-info compiler:c++11-lib tar:bzip2 cmake \
 		gettext python
 		
 CMAKE_ARGS=	-DLOCALBASE="${LOCALBASE}" \
@@ -66,7 +67,7 @@ BZR_DOC_REV!=	bzr revno lp:~kicad-developers/kicad/doc
 
 # Updating to new rev:
 # make do-fetch BOOTSTRAP=YES
-# make makesum && make && make makeplist
+# make makesum && make && make makeplist && make generate-plist && make check-plist
 # < Check PLIST_FILE_LIST below >
 
 FETCH_DEPENDS+=	svn:${PORTSDIR}/devel/subversion
@@ -85,8 +86,8 @@ do-fetch:
 	bzr export -r ${BZR_SRC_REV} ${WRKSRC} lp:kicad
 	${FETCH_CMD} --no-verify-peer -o ${WRKDIR}/master.zip https://github.com/KiCad/kicad-library/archive/master.zip
 	bzr export -r ${BZR_DOC_REV} ${WRKDIR}/kicad-doc lp:~kicad-developers/kicad/doc
-	fetch -o ${WRKDIR}/${DISTNAME}/boost_${BOOST_VERS}.tar.bz2 \
-		http://downloads.sourceforge.net/project/boost/boost/${BOOST_RELEASE}/boost_${BOOST_VERS}.tar.bz2
+#	fetch -o ${WRKDIR}/${DISTNAME}/boost_${BOOST_VERS}.tar.bz2 \
+#		http://downloads.sourceforge.net/project/boost/boost/${BOOST_RELEASE}/boost_${BOOST_VERS}.tar.bz2
 	cd ${WRKDIR}; \
 	tar xvf master.zip; \
 	tar cvfy ${DISTDIR}/${DIST_SUBDIR}/${DISTNAME}.tar.bz2 \
@@ -157,23 +158,6 @@ PLIST_DIR_LIST=		lib/kicad
 PLIST_SHAREDDIR_LIST=	share/mimelnk/application \
 			share/mimelnk
 
-build-plist:
-	${RM} -f ${PLIST}
-	cd ${STAGEDIR}${PREFIX} && \
-		(ls ${PLIST_FILE_LIST}; ${FIND} ${PLIST_DIR_LIST} -type f) | \
-		${SORT} >> ${PLIST}
-	${FIND} ${STAGEDIR}${DATADIR} ${DOCSDIR} -type f | \
-		${SED} -e 's|${STAGEDIR}${DATADIR}|%%DATADIR%%|' \
-		-e 's|${STAGEDIR}${DOCSDIR}|%%DOCSDIR%%|' | ${SORT} >> ${PLIST}
-	cd ${STAGEDIR}${PREFIX} && \
-		${FIND} ${PLIST_DIR_LIST} -type d | \
-		${SORT} -r | ${SED} -e 's|^|@dirrm |' >> ${PLIST}
-.for subdir in ${PLIST_SHAREDDIR_LIST}
-	@${ECHO_CMD} '@unexec ${RMDIR} %D/${subdir} 2> /dev/null || true' >> ${PLIST}
-.endfor
-	${FIND} ${STAGEDIR}${DATADIR} ${STAGEDIR}${DOCSDIR} -type d | ${SORT} -r | \
-		${SED} -e 's|${STAGEDIR}${DATADIR}|%%DATADIR%%|' \
-			-e 's|${STAGEDIR}${DOCSDIR}|%%DOCSDIR%%|' \
-			-e 's|^|@dirrm |' >> ${PLIST}
+BROKEN_FreeBSD_8=	does not build: absence of strtoll(3)
 
 .include <bsd.port.mk>

@@ -4,10 +4,12 @@
 PORTNAME=	libgooglepinyin
 PORTVERSION=	0.1.2
 CATEGORIES=	chinese devel
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 
 MAINTAINER=	lichray@gmail.com
 COMMENT=	Fork of Google Pinyin IME on Android
+
+LICENSE=	APACHE20
 
 USE_LDCONFIG=	yes
 USES=		tar:bzip2 cmake

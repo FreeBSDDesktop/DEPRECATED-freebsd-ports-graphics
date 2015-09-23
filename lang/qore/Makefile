@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	qore
-PORTVERSION=	0.8.8
-PORTREVISION=	1
+PORTVERSION=	0.8.11
 CATEGORIES=	lang
 MASTER_SITES=	SF/qore/qore/${PORTVERSION}/
 
@@ -21,13 +20,12 @@ USE_OPENSSL=	yes
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 
-CONFIGURE_ENV=	LEX="${LOCALBASE}/bin/flex" \
-		PTHREAD_LIBS="${PTHREAD_LIBS}" \
-		PTHREAD_CFLAGS="${PTRHEAD_CFLAGS}"
+CONFIGURE_ENV=	LEX="${LOCALBASE}/bin/flex" PTHREAD_LIBS="-lpthread"
 CONFIGURE_ARGS=	--disable-debug --disable-static --with-doxygen=no
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 PLIST_SUB=	PORTVERSION=${PORTVERSION}
+INSTALL_TARGET=	install-strip
 
 .include <bsd.port.pre.mk>
 

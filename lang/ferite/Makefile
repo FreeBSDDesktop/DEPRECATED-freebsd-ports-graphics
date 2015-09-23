@@ -10,13 +10,16 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Embeddable scripting language
 
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
 LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre \
 		libxml2.so:${PORTSDIR}/textproc/libxml2
 
 USES=		gmake libtool
 GNU_CONFIGURE=	yes
-CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-lpthread -L${LOCALBASE}/lib
 USE_LDCONFIG=	yes
 PLIST_SUB=	MACHINE_ARCH=${MACHINE_ARCH}
 INSTALL_TARGET=	install-strip
@@ -25,11 +28,7 @@ PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
-.if ! ${PORT_OPTIONS:MDOCS}
-MAKE_ENV+=	NOPORTDOCS=1
-.endif
+DOCS_MAKE_ENV_OFF=	NOPORTDOCS=1
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|<stdint\.h>|<inttypes.h>|' \

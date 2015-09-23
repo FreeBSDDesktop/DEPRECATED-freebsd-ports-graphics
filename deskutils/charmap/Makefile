@@ -3,11 +3,9 @@
 
 PORTNAME=	charmap
 PORTVERSION=	0.2
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	deskutils gnustep
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITES=	${MASTER_SITE_GNUSTEP_CH}
-MASTER_SITE_SUBDIR=	charmap
+MASTER_SITES=	SAVANNAH
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Character map for GNUstep
@@ -15,9 +13,10 @@ COMMENT=	Character map for GNUstep
 LICENSE=	GPLv2
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/Charmap.app/Charmap
 
 .include <bsd.port.mk>

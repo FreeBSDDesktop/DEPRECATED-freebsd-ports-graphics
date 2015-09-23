@@ -10,13 +10,12 @@ MASTER_SITES=	http://www.bigorno.net/xrick/
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Clone of Rick Dangerous
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
-
 RESTRICTED=	Copyright status of the graphics and sounds is uncertain
-USES=		gmake tar:tgz
+USES=		gmake jpeg tar:tgz
 USE_SDL=	sdl
 
 PLIST_FILES=	bin/xrick man/man6/xrick.6.gz share/xrick/data.zip
+PLIST_DIRS=	share/xrick
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|sysarg_args_data = NULL|sysarg_args_data = "${PREFIX}/share/xrick/data.zip"|' ${WRKSRC}/src/sysarg.c

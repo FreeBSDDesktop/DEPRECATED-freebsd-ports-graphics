@@ -3,6 +3,7 @@
 
 PORTNAME=	yum
 PORTVERSION=	3.4.3
+PORTREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	http://yum.baseurl.org/download/${PORTVERSION:R}/
 
@@ -10,17 +11,21 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Installer/updater for rpm
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 		msgfmt:${PORTSDIR}/devel/gettext \
 		intltool-update:${PORTSDIR}/textproc/intltool
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/rpm:${PORTSDIR}/archivers/rpm4 \
+RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
+		${PYTHON_SITELIBDIR}/rpm/__init__.py:${PORTSDIR}/archivers/rpm4 \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:${PORTSDIR}/databases/py-sqlite3 \
 		${PYTHON_SITELIBDIR}/sqlitecachec.py:${PORTSDIR}/devel/py-yum-metadata-parser \
-		${PYTHON_SITELIBDIR}/iniparse:${PORTSDIR}/devel/py-iniparse \
-		${PYTHON_SITELIBDIR}/urlgrabber:${PORTSDIR}/www/py-urlgrabber
+		${PYTHON_PKGNAMEPREFIX}iniparse>0:${PORTSDIR}/devel/py-iniparse \
+		${PYTHON_PKGNAMEPREFIX}urlgrabber>0:${PORTSDIR}/www/py-urlgrabber
 
-USES=		gettext gmake python
+USES=		cpe gettext gmake python shebangfix
+SHEBANG_FILES=	etc/yum-updatesd.init
+CPE_VENDOR=	baseurl
 
 MAKE_ARGS=	MAKE=${MAKE_CMD} PYTHON=${PYTHON_CMD} \
 		prefix=${PREFIX} mandir=${MANPREFIX}/man sysconfdir=${PREFIX}/etc

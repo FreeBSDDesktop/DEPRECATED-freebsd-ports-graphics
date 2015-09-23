@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	ecs
-PORTVERSION=	2.0.3
+PORTVERSION=	2.0.4
+PORTREVISION=	1
 CATEGORIES=	science
 MASTER_SITES=	http://code-saturne.org/releases/
 
@@ -32,7 +33,7 @@ CONFIGURE_ARGS=	--with-bft=${LOCALBASE}		\
 		--with-med=${LOCALBASE}		\
 		--with-metis=${LOCALBASE}	\
 		--with-metis-include=${LOCALBASE}/include/metis
-CONFIGURE_ENV=	PTHREAD_LIBS=${PTHREAD_LIBS}
+CONFIGURE_ENV=	PTHREAD_LIBS=-lpthread
 
 OPTIONS_DEFINE=	DOCS NLS
 OPTIONS_SUB=	yes

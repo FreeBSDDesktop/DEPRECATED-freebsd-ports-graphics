@@ -3,11 +3,12 @@
 
 PORTNAME=	dvd-slideshow
 PORTVERSION=	0.8.4
-PORTREVISION=	2
+DISTVERSIONSUFFIX=	-2
+PORTREVISION=	3
 CATEGORIES=	multimedia
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}-2 \
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}${DISTVERSIONSUFFIX} \
 		SF/${PORTNAME}/${PORTNAME}-themes/${THEMEVERSION}-1:themes
-DISTFILES=	${PORTNAME}-${PORTVERSION}-2${EXTRACT_SUFX}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 THEMEVERSION=	0.8.4
 
 MAINTAINER=	oz@nixil.net
@@ -21,10 +22,8 @@ RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 		dvdauthor:${PORTSDIR}/multimedia/dvdauthor \
 		jhead:${PORTSDIR}/graphics/jhead \
 		flvtool2:${PORTSDIR}/multimedia/rubygem-flvtool2 \
-		${LOCALBASE}/lib/X11/fonts/urwfonts-ttf/README:${PORTSDIR}/x11-fonts/urwfonts-ttf \
+		${LOCALBASE}/share/fonts/urwfonts-ttf/README:${PORTSDIR}/x11-fonts/urwfonts-ttf \
 		cdrecord:${PORTSDIR}/sysutils/cdrtools
-
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-2
 
 NO_BUILD=	yes
 DATADIR=	${PREFIX}/share/apps/${PORTNAME}
@@ -49,7 +48,7 @@ PLIST_SUB+=	NOTHEMES="@comment "
 post-patch:
 .for f in dvd-slideshow dvd-menu dir2slideshow gallery1-to-slideshow jigl2slideshow
 	@${REINPLACE_CMD} -e 's|!/bin/bash|!${PREFIX}/bin/bash|g ; \
-		s|/usr/share/fonts/|${LOCALBASE}/lib/X11/fonts/|g ; \
+		s|/usr/share/fonts/|${LOCALBASE}/share/fonts/|g ; \
 		s|seq |seq2 |g' ${WRKSRC}/${f}
 .  if ${PORT_OPTIONS:MTHEMES}
 	@${REINPLACE_CMD} -e 's|/opt/dvd-slideshow/themes|${DATADIR}/themes|g' \

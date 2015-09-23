@@ -1,11 +1,11 @@
 # Created by: Christopher Key <cjk32@cam.ac.uk>
 # $FreeBSD$
 
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	graphics lang
 PKGNAMESUFFIX=	-proj4
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Free Pascal interface to proj library
 
 USE_FPC=	yes

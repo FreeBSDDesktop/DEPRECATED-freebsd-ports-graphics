@@ -2,23 +2,23 @@
 
 PORTNAME=	batmon
 PORTVERSION=	0.6
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	sysutils gnustep
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITE_SUBDIR=	gap
+MASTER_SITES=	SAVANNAH/gap
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	GNUstep battery monitor for laptops
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^GNUSTEP_INSTALLATION_DIR|#GNUSTEP_INSTALLATION_DIR|' \
 		${WRKSRC}/GNUmakefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/batmon.app/batmon
 
 .include <bsd.port.mk>

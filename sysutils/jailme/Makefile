@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	jailme
-PORTVERSION=	0.1
-PORTREVISION=	1
+PORTVERSION=	0.2.0
 CATEGORIES=	sysutils
 
 MAINTAINER=	freebsd-ports-maintainers@intermedix.com
@@ -14,7 +13,6 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Intermedix
-GH_COMMIT=	a54cc09
 
 PLIST_FILES=	"@(,,4751) sbin/jailme"
 

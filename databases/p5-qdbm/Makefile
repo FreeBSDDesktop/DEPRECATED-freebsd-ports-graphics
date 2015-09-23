@@ -1,9 +1,12 @@
 # Created by: Michael Johnson <ahze@FreeBSD.org>
 # $FreeBSD$
 
+PORTREVISION=	2
 PKGNAMEPREFIX=	p5-
 
 COMMENT=	Perl API for QDBM
+
+BROKEN=		does not build
 
 SLAVEPORT=	perl
 USES=		perl5 shebangfix

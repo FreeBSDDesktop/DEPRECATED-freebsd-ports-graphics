@@ -6,10 +6,14 @@ PORTVERSION=	0.07
 CATEGORIES=	print python
 MASTER_SITES=	http://www.pykota.com/software/pkipplib/download/tarballs/
 
-MAINTAINER=	rafan@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Create and parse IPP requests
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		python
 USE_PYTHON=	distutils
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

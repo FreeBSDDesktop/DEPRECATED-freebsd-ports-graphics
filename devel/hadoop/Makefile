@@ -5,10 +5,9 @@ PORTNAME=	hadoop
 PORTVERSION=	1.2.1
 PORTREVISION=	3
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE} \
+MASTER_SITES=	APACHE/${PORTNAME}/core/${PORTNAME}-${PORTVERSION} \
 		http://dist.codehaus.org/jetty/jetty-6.1.14/:jetty
-MASTER_SITE_SUBDIR=	${PORTNAME}/core/${PORTNAME}-${PORTVERSION}
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX} jetty-6.1.14.zip:jetty
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} jetty-6.1.14.zip:jetty
 DIST_SUBDIR=	hadoop
 
 MAINTAINER=	demon@FreeBSD.org
@@ -20,9 +19,10 @@ BUILD_DEPENDS=	gmake:${PORTSDIR}/devel/gmake \
 		gsed:${PORTSDIR}/textproc/gsed
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
-CONFLICTS_INSTALL=	apache-hadoop2-2*
+CONFLICTS_INSTALL=	hadoop2-2*
 
-USES=		libtool
+USES=		cpe libtool
+CPE_VENDOR=	apache
 USE_JAVA=	yes
 JAVA_VERSION=	1.7+
 USE_ANT=	yes
@@ -128,16 +128,16 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${EXAMPLESDIR}
 .endfor
 
-.if ${PORT_OPTIONS:MDOCS}
+	${INSTALL_SCRIPT} ${WRKDIR}/hadoop ${STAGEDIR}${PREFIX}/bin
+	cd ${WRKSRC} && ${COPYTREE_SHARE} conf ${STAGEDIR}${EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${HADOOP_LOGDIR}
+	${MKDIR} ${STAGEDIR}${HADOOP_RUNDIR}
+
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${DOCSDIR}
 .for f in ${DOC}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
 .endfor
-.endif
-	${INSTALL_SCRIPT} ${WRKDIR}/hadoop ${STAGEDIR}${PREFIX}/bin
-	cd ${WRKSRC} && ${COPYTREE_SHARE} conf ${STAGEDIR}${EXAMPLESDIR}
-	${MKDIR} ${STAGEDIR}${HADOOP_LOGDIR}
-	${MKDIR} ${STAGEDIR}${HADOOP_RUNDIR}
 
 .include <bsd.port.mk>

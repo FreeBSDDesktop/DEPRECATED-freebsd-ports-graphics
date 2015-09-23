@@ -6,8 +6,7 @@
 # Mk/Uses/perl5.mk.
 
 PORTNAME=	Module-Build
-PORTVERSION=	0.4206
-PORTREVISION=	1
+PORTVERSION=	0.4214
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -21,23 +20,22 @@ LICENSE_COMB=	dual
 TEST_DEPENDS=	p5-Archive-Zip>=0:${PORTSDIR}/archivers/p5-Archive-Zip \
 		p5-PAR-Dist>=0.17:${PORTSDIR}/devel/p5-PAR-Dist
 
-OPTIONS_DEFINE=	DOCS
-
 PORTSCOUT=	skipv:0.31011,0.31012
 
+NO_ARCH=	yes
 USES=		perl5
 USE_PERL5=	modbuild
 
-PORTDOCS=	Changes INSTALL README
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 502105
+BUILD_DEPENDS+=	p5-CPAN-Meta>=2.142060:${PORTSDIR}/devel/p5-CPAN-Meta
+RUN_DEPENDS+=	p5-CPAN-Meta>=2.142060:${PORTSDIR}/devel/p5-CPAN-Meta
+.endif
 
 post-patch:
 	@${RM} -f ${WRKSRC}/bin/config_data
 	@${REINPLACE_CMD} -e '/script_files/d' ${WRKSRC}/Build.PL
 	@${REINPLACE_CMD} -e '/^bin\/config_data/d' ${WRKSRC}/MANIFEST
 
-post-install:
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
-	@${ECHO_MSG} "===> Documentation installed in ${DOCSDIR}."
-
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

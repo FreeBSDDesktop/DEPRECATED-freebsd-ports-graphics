@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	vlc
-PORTVERSION=	1.12.0
+PORTVERSION=	1.15.0
 CATEGORIES=	multimedia enlightenment
 MASTER_SITES=	http://download.enlightenment.org/rel/libs/${PKGNAMEPREFIX:S/-//}/
 PKGNAMEPREFIX=	emotion_generic_players-
 DISTNAME=	${PKGNAMEPREFIX}${DISTVERSION}
 
-MAINTAINER=	gblach@FreeBSD.org
+MAINTAINER=	enlightenment@FreeBSD.org
 COMMENT=	Additional loader for Emotion (vlc)
 
 LICENSE=	BSD2CLAUSE

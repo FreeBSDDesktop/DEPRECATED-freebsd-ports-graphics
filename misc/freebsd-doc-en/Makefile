@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	freebsd-doc
-PORTVERSION=	46070
+PORTVERSION=	47011
 PORTEPOCH=	1
 CATEGORIES=	misc docs
 MASTER_SITES=	LOCAL/blackend
@@ -62,10 +62,10 @@ PLIST_FORMATS+=	${O:tl:S,_,-,}
 
 .if ${PORT_OPTIONS:MPDF} || ${PORT_OPTIONS:MPS}
 BUILD_DEPENDS+=	fop:${PORTSDIR}/textproc/fop \
-		${LOCALBASE}/lib/X11/fonts/GentiumPlus/GentiumPlus-R.ttf:${PORTSDIR}/x11-fonts/gentium-plus \
-		${LOCALBASE}/lib/X11/fonts/Droid/DroidSans.ttf:${PORTSDIR}/x11-fonts/droid-fonts-ttf \
-		${LOCALBASE}/lib/X11/fonts/Lohit/Lohit-Bengali.ttf:${PORTSDIR}/x11-fonts/lohit \
-		${LOCALBASE}/lib/X11/fonts/dejavu/DejaVuSansMono.ttf:${PORTSDIR}/x11-fonts/dejavu \
+		${LOCALBASE}/share/fonts/GentiumPlus/GentiumPlus-R.ttf:${PORTSDIR}/x11-fonts/gentium-plus \
+		${LOCALBASE}/share/fonts/Droid/DroidSans.ttf:${PORTSDIR}/x11-fonts/droid-fonts-ttf \
+		${LOCALBASE}/share/fonts/Lohit/Lohit-Bengali.ttf:${PORTSDIR}/x11-fonts/lohit \
+		${LOCALBASE}/share/fonts/dejavu/DejaVuSansMono.ttf:${PORTSDIR}/x11-fonts/dejavu \
 		${LOCALBASE}/share/fonts/TrueType/gkai00mp.ttf:${PORTSDIR}/chinese/arphicttf \
 		${LOCALBASE}/share/fonts/OTF/ipam.otf:${PORTSDIR}/japanese/font-ipa
 .endif
@@ -80,7 +80,11 @@ PLIST_FORMATS+=	html-common
 PLIST_FORMATS+=	extras common
 
 pre-build:
-	${CAT} ${PLIST_FORMATS:S,^,${.CURDIR}/pkg-plist.,} > ${PLIST}
+.for i in ${PLIST_FORMATS:S,^,${.CURDIR}/pkg-plist.,}
+	if ${TEST} -f ${i}; then \
+		${CAT} ${i} >> ${PLIST}; \
+	fi
+.endfor
 
 # For HTML files, images links are hardcoded during the build
 # with absolute pathnames.  Make these pathnames relative.

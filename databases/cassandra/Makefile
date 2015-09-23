@@ -5,8 +5,7 @@ PORTNAME=	cassandra
 PORTVERSION=	1.2.18
 PORTREVISION=	1
 CATEGORIES=	databases java
-MASTER_SITES=	APACHE
-MASTER_SITE_SUBDIR=	cassandra/${PORTVERSION}
+MASTER_SITES=	APACHE/cassandra/${PORTVERSION}
 DISTNAME=	apache-cassandra-${PORTVERSION}
 EXTRACT_SUFX=	-bin.tar.gz
 
@@ -51,7 +50,7 @@ SUB_FILES=	repaircluster
 
 MX4J_RUN_DEPENDS=	${JAVAJARDIR}/mx4j-tools.jar:${PORTSDIR}/java/mx4j
 JNA_RUN_DEPENDS=	${JAVAJARDIR}/jna.jar:${PORTSDIR}/devel/jna
-CQL_USE=		PYTHON=yes
+CQL_USES=		python
 
 PORTDOCS=	javadoc *.txt
 

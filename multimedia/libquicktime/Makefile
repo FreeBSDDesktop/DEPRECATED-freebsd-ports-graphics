@@ -3,7 +3,7 @@
 
 PORTNAME=	libquicktime
 PORTVERSION=	1.2.4
-PORTREVISION?=	9
+PORTREVISION?=	11
 CATEGORIES=	multimedia
 MASTER_SITES=	SF
 
@@ -22,6 +22,7 @@ USES=		gettext gmake libtool pathfix pkgconfig
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib -lintl
+INSTALL_TARGET=	install-strip
 
 .if !defined(_BUILDING_LIBQUICKTIME_PLUGINS)
 USE_XORG=	xaw xv
@@ -77,14 +78,14 @@ CONFIGURE_ARGS+=	--without-libdv
 .endif
 
 .if ${PORT_OPTIONS:MJPEG}
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+USES+=		jpeg
 CONFIGURE_ARGS+=	--with-libjpeg
 .else
 CONFIGURE_ARGS+=	--without-libjpeg
 .endif
 
 .if ${PORT_OPTIONS:MPNG}
-LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
 CONFIGURE_ARGS+=	--with-libpng
 .else
 CONFIGURE_ARGS+=	--without-libpng

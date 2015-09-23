@@ -11,14 +11,16 @@ DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Portable library for handling Apple's QuickTime(TM) files
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 GNU_CONFIGURE=	yes
 USE_GNOME=	gtk12
-USES=		gmake tar:tgz
+USES=		gmake jpeg tar:tgz
 USE_LDCONFIG=	yes
 PKGDEINSTALL=	${PKGINSTALL}
 
+CFLAGS_aarch64=	-fPIC
 CFLAGS_amd64=	-fPIC
 
 OPTIONS_DEFINE=	DEBUG
@@ -35,5 +37,8 @@ post-patch:
 		${WRKSRC}/videoplugin/PHOTO_JPEG/Makefile.in
 	@${REINPLACE_CMD} -e 's|"m"|"g"|' \
 		${WRKSRC}/audioplugin/MP3/audioencoder/lame3.70/quantize-pvt.c
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 
 .include <bsd.port.mk>

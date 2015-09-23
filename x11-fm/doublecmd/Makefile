@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	doublecmd
-PORTVERSION=	0.5.11
+PORTVERSION=	0.6.5
+PORTREVISION=	1
 CATEGORIES=	x11-fm
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE}
-MASTER_SITE_SUBDIR=	${PORTNAME}/Double%20Commander%20Source
+MASTER_SITES=	SF/${PORTNAME}/Double%20Commander%20Source
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
-DISTFILES=	${PORTNAME}-${PORTVERSION}-src.tar.gz ${PORTNAME}-help-${HELPVERSION}-src.tar.gz
+DISTFILES=	${DISTNAME}.tar.gz ${PORTNAME}-help-${HELPVERSION}-src.tar.gz
 
 MAINTAINER=	bbtruk@users.sourceforge.net
 COMMENT=	Total Commander like file manager for the X Window System
@@ -22,18 +22,19 @@ ONLY_FOR_ARCHS=	i386 amd64
 PORTDOCS=	*
 
 USES=		dos2unix
+USE_FPC=	cairo fcl-base fcl-db fcl-image fcl-json fcl-process fcl-registry \
+		fcl-xml hash iconvenc pasjpeg paszlib x11
 DOS2UNIX_FILES=	src/dmhelpmanager.pas
-USE_FPC=	yes
 WANT_GNOME=	yes
 
 PLIST=		${WRKDIR}/pkg-plist
 
 PROJECT_FILE=	src/doublecmd.lpi
-LAZARUS_VER=	1.2.4
+LAZARUS_VER=	1.4.2
 LAZBUILD_CMD=	${LOCALBASE}/bin/lazbuild -d --pcp=${WRKSRC}/tmppcp
 LAZARUS_DIR=	${LOCALBASE}/share/lazarus-${LAZARUS_VER}
 
-HELPVERSION=	0.5.5
+HELPVERSION=	0.6.0
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 DOCSRC=		${WRKDIR}/${PORTNAME}-help-${HELPVERSION}
 
@@ -41,15 +42,10 @@ OPTIONS_DEFINE=		DOCS DEBUG
 OPTIONS_SINGLE=		LCL
 OPTIONS_SINGLE_LCL=	GTK2 QT4
 OPTIONS_GROUP=		WCX WDX WFX WLX DSX
-WCX_DESC=	Packer plugins
-WDX_DESC=	Content plugins
-WFX_DESC=	File system plugins
-WLX_DESC=	Lister plugins
-DSX_DESC=	Search plugins
 OPTIONS_GROUP_WCX=	WCX_CPIO \
 			WCX_DEB \
-			WCX_LZMA \
 			WCX_RPM \
+			WCX_UNBZ2 \
 			WCX_UNRAR \
 			WCX_ZIP
 OPTIONS_GROUP_WDX=	WDX_RPM \
@@ -62,10 +58,34 @@ OPTIONS_GROUP_WFX=	WFX_FTP \
 OPTIONS_GROUP_WLX=	WLX_MPLAYER
 OPTIONS_GROUP_DSX=	DSX_LOCATE
 
+WCX_DESC=	Packer plugins to work with archives
+WCX_CPIO_DESC=	CPIO format support
+WCX_DEB_DESC=	Debian package archive support
+WCX_RPM_DESC=	Red Hat package archive support
+WCX_UNBZ2_DESC=	BZIP2 format support
+WCX_UNRAR_DESC=	RAR format support
+WCX_ZIP_DESC=	ZIP format support
+
+WDX_DESC=	Plugins to display and search extended file attributes
+WDX_DEB_DESC=	Debian package file information
+WDX_RPM_DESC=	Red Hat package file information
+WDX_SCRIPTS_DESC=	Add support to use custom Lua scripts
+WDX_SVN_DESC=	Subversion repository information
+WDX_XPI_DESC=	Mozilla plugin file information
+
+WFX_DESC=	File system plugins
+WFX_FTP_DESC=	FTP protocol support
+WFX_SAMBA_DESC=	SMB protocol support
+
+WLX_DESC=	Internal viewer plugins
+WLX_MPLAYER_DESC=	Use MPlayer for multimedia files
+
+DSX_DESC=	Search plugins
+DSX_LOCATE_DESC=	Support locate command
+
 OPTIONS_DEFAULT=	GTK2 \
 			WCX_CPIO \
 			WCX_DEB \
-			WCX_LZMA \
 			WCX_RPM \
 			WCX_UNRAR \
 			WCX_ZIP \
@@ -78,37 +98,33 @@ OPTIONS_DEFAULT=	GTK2 \
 			WFX_SAMBA \
 			DSX_LOCATE
 
-.include <bsd.port.pre.mk>
+GTK2_USE=		fpc=gtk2 gnome=gtk20
+GTK2_BUILD_DEPENDS=	${LAZARUS_DIR}/lcl/units/${BUILDNAME}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-gtk2
+
+QT4_USE=		fpc=yes
+QT4_LIB_DEPENDS=	libQt4Pas.so:${PORTSDIR}/x11-toolkits/qt4pas
+QT4_BUILD_DEPENDS=	${LAZARUS_DIR}/lcl/units/${BUILDNAME}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-qt
+
+WCX_UNRAR_LIB_DEPENDS=	libunrar.so:${PORTSDIR}/archivers/libunrar
+WFX_SAMBA_LIB_DEPENDS=	libsmbclient.so:${PORTSDIR}/net/samba-libsmbclient
+WLX_MPLAYER_RUN_DEPENDS=	mplayer:${PORTSDIR}/multimedia/mplayer
+
+.include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MGTK2}
-USE_FPC+=	gtk2
-USE_GNOME=	gtk20
 LCL_PLATFORM=	gtk2
-BUILD_DEPENDS+=	${LAZARUS_DIR}/lcl/units/${BUILDNAME}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-gtk2
-.endif
-
-.if ${PORT_OPTIONS:MQT4}
-LIB_DEPENDS+=	libQt4Pas.so:${PORTSDIR}/x11-toolkits/qt4pas
+.elif ${PORT_OPTIONS:MQT4}
 LCL_PLATFORM=	qt
-BUILD_DEPENDS+=	${LAZARUS_DIR}/lcl/units/${BUILDNAME}/${LCL_PLATFORM}/interfaces.ppu:${PORTSDIR}/editors/lazarus-lcl-qt
-.endif
-
-.if ${PORT_OPTIONS:MWCX_UNRAR}
-LIB_DEPENDS+=	libunrar.so:${PORTSDIR}/archivers/libunrar
-.endif
-
-.if ${PORT_OPTIONS:MWFX_SAMBA}
-LIB_DEPENDS+=	libsmbclient.so:${PORTSDIR}/net/samba-libsmbclient
-.endif
-
-.if ${PORT_OPTIONS:MWLX_MPLAYER}
-RUN_DEPENDS+=	mplayer:${PORTSDIR}/multimedia/mplayer
 .endif
 
 .if ${PORT_OPTIONS:MDEBUG}
 BUILD_MODE=	Debug
 .else
 BUILD_MODE=	NoDebug Full Optimizations
+.endif
+
+.if ${PORT_OPTIONS:MWFX_FTP}
+USE_FPC+=	fcl-net
 .endif
 
 pre-patch:
@@ -126,72 +142,72 @@ do-build:
 	doublecmd/doublecmd_common.lpk KASToolBar/kascomp.lpk \
 	viewer/viewerpackage.lpk gifanim/pkg_gifanim.lpk \
 	ZVDateTimeCtrls/zvdatetimectrls.lpk
-	@cd ${WRKSRC}/components && \
+	@cd ${WRKSRC}/components && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "${FILE}"
 .endfor
 
 .if ${PORT_OPTIONS:MWCX_CPIO}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/cpio/src/cpio.lpi"
 .endif
 .if ${PORT_OPTIONS:MWCX_DEB}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/deb/src/deb.lpi"
 .endif
-.if ${PORT_OPTIONS:MWCX_LZMA}
-	@cd ${WRKSRC}/plugins && \
-		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/lzma/src/lzma.lpi"
+.if ${PORT_OPTIONS:MWCX_UNBZ2}
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
+		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/unbz2/src/unbz2.lpi"
 .endif
 .if ${PORT_OPTIONS:MWCX_RPM}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/rpm/src/rpm.lpi"
 .endif
 .if ${PORT_OPTIONS:MWCX_UNRAR}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/unrar/src/unrar.lpi"
 .endif
 .if ${PORT_OPTIONS:MWCX_ZIP}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wcx/zip/src/Zip.lpi"
 .endif
 
 .if ${PORT_OPTIONS:MWDX_RPM}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wdx/rpm_wdx/src/rpm_wdx.lpi"
 .endif
 .if ${PORT_OPTIONS:MWDX_DEB}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wdx/deb_wdx/src/deb_wdx.lpi"
 .endif
 .if ${PORT_OPTIONS:MWDX_SVN}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wdx/svn_wdx/src/svn_wdx.lpi"
 .endif
 .if ${PORT_OPTIONS:MWDX_XPI}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wdx/xpi_wdx/src/xpi_wdx.lpi"
 .endif
 
 .if ${PORT_OPTIONS:MWFX_FTP}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wfx/ftp/src/ftp.lpi"
 .endif
 .if ${PORT_OPTIONS:MWFX_SAMBA}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wfx/samba/src/samba.lpi"
 .endif
 
 .if ${PORT_OPTIONS:MWLX_MPLAYER}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "wlx/WlxMplayer/src/wlxMplayer.lpi"
 .endif
 
 .if ${PORT_OPTIONS:MDSX_LOCATE}
-	@cd ${WRKSRC}/plugins && \
+	@cd ${WRKSRC}/plugins && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --lazarusdir=${LAZARUS_DIR} --ws=${LCL_PLATFORM} "dsx/DSXLocate/src/DSXLocate.lpi"
 .endif
 
-	@cd ${WRKSRC} && \
+	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${LAZBUILD_CMD} --ws=${LCL_PLATFORM} --bm="${BUILD_MODE}" --lazarusdir=${LAZARUS_DIR} ${PROJECT_FILE}
 
 post-build:
@@ -200,17 +216,23 @@ post-build:
 pre-install:
 	@${RM} -f ${PLIST}
 
+	@${ECHO_CMD} "@dir %%DATADIR%%/plugins/wcx" >> ${PLIST}
+	@${ECHO_CMD} "@dir %%DATADIR%%/plugins/wdx" >> ${PLIST}
+	@${ECHO_CMD} "@dir %%DATADIR%%/plugins/wfx" >> ${PLIST}
+	@${ECHO_CMD} "@dir %%DATADIR%%/plugins/wlx" >> ${PLIST}
+	@${ECHO_CMD} "@dir %%DATADIR%%/plugins/dsx" >> ${PLIST}
+
 .if ${PORT_OPTIONS:MWCX_CPIO}
 	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/cpio/cpio.wcx" >> ${PLIST}
 .endif
 .if ${PORT_OPTIONS:MWCX_DEB}
 	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/deb/deb.wcx" >> ${PLIST}
 .endif
-.if ${PORT_OPTIONS:MWCX_LZMA}
-	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/lzma/lzma.wcx" >> ${PLIST}
-.endif
 .if ${PORT_OPTIONS:MWCX_RPM}
 	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/rpm/rpm.wcx" >> ${PLIST}
+.endif
+.if ${PORT_OPTIONS:MWCX_UNBZ2}
+	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/unbz2/unbz2.wcx" >> ${PLIST}
 .endif
 .if ${PORT_OPTIONS:MWCX_UNRAR}
 	@${ECHO_CMD} "%%DATADIR%%/plugins/wcx/unrar/unrar.wcx" >> ${PLIST}
@@ -284,13 +306,13 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}/plugins/wcx/deb
 	${INSTALL_LIB} ${WRKSRC}/plugins/wcx/deb/lib/deb.wcx ${STAGEDIR}${DATADIR}/plugins/wcx/deb/
 .endif
-.if ${PORT_OPTIONS:MWCX_LZMA}
-	@${MKDIR} ${STAGEDIR}${DATADIR}/plugins/wcx/lzma/
-	${INSTALL_LIB} ${WRKSRC}/plugins/wcx/lzma/lib/lzma.wcx ${STAGEDIR}${DATADIR}/plugins/wcx/lzma/
-.endif
 .if ${PORT_OPTIONS:MWCX_RPM}
 	@${MKDIR} ${STAGEDIR}${DATADIR}/plugins/wcx/rpm/
 	${INSTALL_LIB} ${WRKSRC}/plugins/wcx/rpm/lib/rpm.wcx ${STAGEDIR}${DATADIR}/plugins/wcx/rpm/
+.endif
+.if ${PORT_OPTIONS:MWCX_UNBZ2}
+	@${MKDIR} ${STAGEDIR}${DATADIR}/plugins/wcx/unbz2/
+	${INSTALL_LIB} ${WRKSRC}/plugins/wcx/unbz2/lib/unbz2.wcx ${STAGEDIR}${DATADIR}/plugins/wcx/unbz2/
 .endif
 .if ${PORT_OPTIONS:MWCX_UNRAR}
 	@${MKDIR} ${STAGEDIR}${DATADIR}/plugins/wcx/unrar/
@@ -368,4 +390,4 @@ post-install:
 			${FIND} * -type f -exec ${INSTALL_DATA} "{}" "${STAGEDIR}${DOCSDIR}/{}" \;
 .endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

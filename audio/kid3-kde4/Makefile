@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	kid3
-PORTVERSION=	3.1.2
-PORTREVISION=	1
+PORTVERSION=	3.2.1
 CATEGORIES=	audio kde
 MASTER_SITES=	SF
 
@@ -15,12 +14,13 @@ USE_PERL5=	build
 USES=		cmake:outsource perl5
 CMAKE_ARGS=	-DWITH_DOCBOOKDIR=${LOCALBASE}/share/xsl/docbook \
 		-DWITH_MANDIR=man \
-		-DFFMPEG_ROOT=${LOCALBASE}
+		-DFFMPEG_ROOT=${LOCALBASE} \
+		-DWITH_QML=OFF
 CXXFLAGS+=	-I${LOCALBASE}/include
 
 OPTIONS_DEFINE=	CHROMAPRINT FLAC ID3LIB MP4V2 VORBIS TAGLIB \
 		CLI
-OPTIONS_DEFAULT=	${OPTIONS_DEFINE}
+OPTIONS_DEFAULT:=	${OPTIONS_DEFINE}
 OPTIONS_SUB=	yes
 NO_OPTIONS_SORT=	yes
 
@@ -33,7 +33,8 @@ CMAKE_ARGS+=	-DWITH_QT5=true
 .else
 # Qt 4 and KDE 4
 USE_QT4=	qmake_build moc_build rcc_build uic_build \
-		linguist_build
+		linguisttools_build
+PLIST_SUB+=	QML="@comment "
 .endif
 
 .if defined(PKGNAMESUFFIX) && ${PKGNAMESUFFIX} == "-qt4"

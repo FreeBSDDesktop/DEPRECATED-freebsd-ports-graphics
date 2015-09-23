@@ -3,7 +3,7 @@
 
 PORTNAME=	xv
 PORTVERSION=	3.10a
-PORTREVISION=	15
+PORTREVISION=	16
 CATEGORIES+=	graphics
 MASTER_SITES=	ftp://ftp.cis.upenn.edu/pub/xv/:base \
 		SF/png-mng/XV%20jumbo%20patches/20070520
@@ -18,12 +18,11 @@ PATCHFILES=	xv-3.10a-enhancements.20070520-20081216.diff
 MAINTAINER?=	dinoex@FreeBSD.org
 COMMENT?=	X11 program that displays images of various formats
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libtiff.so:${PORTSDIR}/graphics/tiff \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libjasper.so:${PORTSDIR}/graphics/jasper
 
-USES=		imake
+USES=		imake jpeg
 USE_XORG=	xext x11 xt
 
 OPTIONS_DEFINE=	M17N DOCS
@@ -38,7 +37,6 @@ CFLAGS:= ${CFLAGS:S/-O2//g}
 .endif
 
 .if ${PORT_OPTIONS:MM17N}
-PKGNAMESUFFIX=	-m17n${PKGNAMESUFFIX2}
 MAKE_ENV=	LOCALE_EXTENSION=-DTV_MULTILINGUAL
 DESCR=	${FILESDIR}/pkg-descr
 .endif

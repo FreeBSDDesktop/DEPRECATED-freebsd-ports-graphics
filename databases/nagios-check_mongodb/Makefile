@@ -9,17 +9,15 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}nagios-
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	Nagios plugin to check mongodb server
 
-RUN_DEPENDS=	pymongo>=0:${PORTSDIR}/databases/pymongo
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pymongo>=0:${PORTSDIR}/databases/pymongo
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	mzupan
 GH_PROJECT=	nagios-plugin-mongodb
-GH_COMMIT=	9d17373
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	9d17373
 USES=		python shebangfix
 SHEBANG_FILES=	${WRKSRC}/check_mongodb.py
-python_OLD_CMD=	"/usr/bin/env\ python"
-python_CMD=	${PYTHON_CMD}
+python_OLD_CMD=	/usr/bin/env python
 NO_BUILD=	yes
 PLIST_FILES=	libexec/nagios/check_mongodb
 

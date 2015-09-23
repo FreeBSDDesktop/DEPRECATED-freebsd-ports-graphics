@@ -18,6 +18,12 @@ TEST_DEPENDS=	p5-Devel-Declare>=0:${PORTSDIR}/devel/p5-Devel-Declare \
 		p5-Sub-Identify>=0:${PORTSDIR}/devel/p5-Sub-Identify
 
 USES=		perl5
-USE_PERL5=	configure
+USE_PERL5=	modbuild
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} >= 502200
+BROKEN=		Fails to build with Perl >= 5.22
+.endif
+
+.include <bsd.port.post.mk>

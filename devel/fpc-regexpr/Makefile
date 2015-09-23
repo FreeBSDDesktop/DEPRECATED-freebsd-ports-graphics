@@ -1,11 +1,11 @@
 # Created by: John Merryweather Cooper et al
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	devel lang
 PKGNAMESUFFIX=	-regexpr
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Free Pascal regular expression routines
 
 USE_FPC=	yes

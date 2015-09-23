@@ -2,9 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	httpie
-PORTVERSION=	0.8.0
+PORTVERSION=	0.9.2
 CATEGORIES=	www
-MASTER_SITES=	GH
 
 MAINTAINER=	ale@FreeBSD.org
 COMMENT=	Command line HTTP client
@@ -17,10 +16,8 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>0:${PORTSDIR}/www/py-requests \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	jakubroztocil
-GH_COMMIT=	43cc3e7
 
-USE_PYTHON=	yes
-USE_PYDISTUTILS=yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python
+USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	freedroid
 PORTVERSION=	1.0.2
-PORTREVISION=	18
+PORTREVISION=	19
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}Classic/FreedroidClassic-${PORTVERSION}
 
@@ -13,10 +13,9 @@ COMMENT=	Clone of the Commodore game Paradroid
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
-USES=		iconv
+USES=		iconv jpeg
 USE_SDL=	mixer image sdl
 
 GNU_CONFIGURE=	yes

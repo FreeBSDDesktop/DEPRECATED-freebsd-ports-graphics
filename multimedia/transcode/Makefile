@@ -3,7 +3,7 @@
 
 PORTNAME=	transcode
 PORTVERSION=	1.1.7
-PORTREVISION=	20
+PORTREVISION=	23
 CATEGORIES=	multimedia
 MASTER_SITES=	http://cdn.bitbucket.org/france/transcode-tcforge/downloads/
 
@@ -21,11 +21,10 @@ WANT_SDL=	yes
 WANT_GNOME=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-oss
-CPPFLAGS+=	-isystem ${LOCALBASE}/include
+CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
 
-NO_OPTIONS_SORT=	yes
 OPTIONS_DEFINE=		DOCS OPTIMIZED_CFLAGS X11 MPEG2 BKTR POSTPROC FREETYPE LAME \
 			XVID X264 OGG VORBIS THEORA DVDREAD DV QUICKTIME LZO A52 \
 			FAAC LIBXML2 MJPEGTOOLS SDL IMAGEMAGICK JPEG ICONV V4L
@@ -100,36 +99,32 @@ SDL_USE=			SDL=sdl
 SDL_CONFIGURE_ENABLE=		sdl
 SDL_CONFIGURE_ENV_ON=		SDL_CONFIG="${SDL_CONFIG}"
 
-IMAGEMAGICK_LIB_DEPENDS=	libMagickWand-6.Q16.so:${PORTSDIR}/graphics/ImageMagick
+IMAGEMAGICK_LIB_DEPENDS=	libMagickWand-6.so:${PORTSDIR}/graphics/ImageMagick
 IMAGEMAGICK_CONFIGURE_ENABLE=	imagemagick
 IMAGEMAGICK_CONFIGURE_ON=	--with-imagemagick-prefix=${LOCALBASE}
 
-JPEG_LIB_DEPENDS=		libjpeg.so:${PORTSDIR}/graphics/jpeg
+JPEG_USES=			jpeg
 JPEG_CONFIGURE_ENABLE=		libjpeg
 JPEG_CONFIGURE_ON=		--with-libjpeg-prefix=${LOCALBASE}
 
 ICONV_USES=			iconv
 ICONV_CONFIGURE_ENABLE=		iconv
-ICONV_CONFIGURE_ON=		${ICONV_CONFIGURE_ARG}
+ICONV_CONFIGURE_ON=		--with-iconv-prefix=${ICONV_PREFIX}
 
 V4L_BUILD_DEPENDS=		${LOCALBASE}/include/linux/videodev2.h:${PORTSDIR}/multimedia/v4l_compat
 V4L_CONFIGURE_ENABLE=		v4l
 
-.include <bsd.port.options.mk>
+.include <bsd.port.pre.mk>
+
+.if empty(ICONV_LIB)
+CONFIGURE_ARGS+=ac_cv_lib_iconv_iconv_open=no \
+		ac_cv_lib_iconv_libiconv_open=no
+.endif
 
 post-extract:
 	@${RM} ${WRKSRC}/import/v4l/videodev*
 
 post-patch:
-.if ${PORT_OPTIONS:MLZO}
-	@${REINPLACE_CMD} -e 's|%%NUV%%|nuv|' ${WRKSRC}/import/Makefile.in
-.else
-	@${REINPLACE_CMD} -e 's|%%NUV%%||' ${WRKSRC}/import/Makefile.in
-.endif
-.if !${PORT_OPTIONS:MOPTIMIZED_CFLAGS}
-	@${FIND} ${WRKSRC} -type f | ${XARGS} -n 10 -x ${REINPLACE_CMD} \
-		-e 's|-O[236]|${CFLAGS}|'
-.endif
 	@${REINPLACE_CMD} -E -e 's|loff_t|uint64_t|' ${WRKSRC}/avilib/avidump.c
 	@${REINPLACE_CMD} -E -e 's|<SDL/|<|' ${WRKSRC}/filter/preview/display.h
 	@${REINPLACE_CMD} -e '/^static.*lrint/s|static ||' ${WRKSRC}/filter/filter_modfps.c
@@ -149,8 +144,18 @@ post-patch:
 		${WRKSRC}/import/import_mov.c \
 		${WRKSRC}/import/probe_mov.c
 
+post-patch-LZO-on:
+	@${REINPLACE_CMD} -e 's|%%NUV%%|nuv|' ${WRKSRC}/import/Makefile.in
+
+post-patch-LZO-off:
+	@${REINPLACE_CMD} -e 's|%%NUV%%||' ${WRKSRC}/import/Makefile.in
+
+post-patch-OPTIMIZED_CFLAGS-off:
+	@${FIND} ${WRKSRC} -type f | ${XARGS} -n 10 -x ${REINPLACE_CMD} \
+		-e 's|-O[236]|${CFLAGS}|'
+
 post-stage:
 	@(cd ${STAGEDIR}${PREFIX} && \
 		${FIND} -s lib/transcode -type f -or -type l >> ${TMPPLIST})
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

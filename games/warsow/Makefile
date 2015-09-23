@@ -3,11 +3,11 @@
 
 PORTNAME=	warsow
 PORTVERSION=	1.51
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	games
-MASTER_SITES=	SF/warsow.mirror/Warsow%20${PORTVERSION}
+MASTER_SITES=	http://update.warsow.net/mirror/ \
+		http://mirror.amdmi3.ru/distfiles/
 DISTNAME=	${PORTNAME}_${PORTVERSION}_sdk
-EXTRACT_SUFX=	.tar.gz.1
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Futuristic, fast-paced first person shooter
@@ -58,7 +58,7 @@ DESKTOP_ENTRIES="Warsow" "${COMMENT}" \
 	"Game;Shooter;" false
 
 . if ${PORT_OPTIONS:MFTLIB} || ${PORT_OPTIONS:MREF_GL}
-LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
 . endif
 
 . if ${PORT_OPTIONS:MFTLIB}
@@ -69,7 +69,7 @@ ALL_TARGET+=	ftlib
 . if ${PORT_OPTIONS:MREF_GL}
 USE_GL=		gl
 USE_XORG+=	xinerama
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+USES+=		jpeg
 ALL_TARGET+=	ref_gl
 . endif
 

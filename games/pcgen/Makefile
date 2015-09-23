@@ -9,8 +9,6 @@ DISTNAME=	pcgen${PORTVERSION:S/.//g}_full
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Java-based RPG character generator and maintenance program
 
-RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper
-
 USES=		zip
 WRKSRC=		${WRKDIR}/${PORTNAME}${PORTVERSION:S/.//g}
 USE_JAVA=	yes
@@ -25,6 +23,7 @@ SUB_FILES=	pcgen.sh
 PLIST_FILES=	bin/pcgen
 PORTDATA=	*
 PORTDOCS=	*
+PLIST_DIRS=	%%DATADIR%%/characters
 
 OPTIONS_DEFINE=	DOCS
 

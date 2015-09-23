@@ -1,4 +1,4 @@
---- cmake/modules/pkg-config.cmake.orig	2014-02-06 00:06:07.000000000 -0500
+--- cmake/modules/pkg-config.cmake.orig	2015-04-12 10:08:04 UTC
 +++ cmake/modules/pkg-config.cmake
 @@ -39,7 +39,7 @@ include(FindPkgConfig)
  

@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	lsw
-PORTVERSION=	0.2
+PORTVERSION=	0.3
 CATEGORIES=	x11
 MASTER_SITES=	http://dl.suckless.org/tools/
 
-MAINTAINER=	dhn@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Lists the titles of all running X windows to stdout, similar to ls(1)
 
 MAKE_ARGS=	PREFIX="${PREFIX}" X11LIB="${LOCALBASE}/lib" \

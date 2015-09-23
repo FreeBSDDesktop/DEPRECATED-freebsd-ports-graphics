@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	treesheets
-PORTVERSION=	0.0.20141104
+PORTVERSION=	0.0.20150711
 CATEGORIES=	deskutils
 
 MAINTAINER=	lightside@gmx.com
@@ -13,14 +13,14 @@ LICENSE_FILE=	${WRKSRC}/ZLIB_LICENSE.txt
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	aardappel
-GH_PROJECT=	${PORTNAME}
-GH_COMMIT=	4417a4f
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	3a6be83
 
 BUILD_WRKSRC=	${WRKSRC}/src
 EXTRACT_AFTER_ARGS=	--exclude .gitignore
+PACKAGE_VERSION=	\"${PORTVERSION}\"
+MAKE_ENV=	PACKAGE_VERSION=${PACKAGE_VERSION:Q}
 
-USES=		compiler:c++11-lang
+USES=		compiler:c++11-lib
 USE_WX=		3.0+
 WX_UNICODE=	yes
 
@@ -44,20 +44,12 @@ CXXFLAGS+=	-D__LONG_LONG_SUPPORTED
 .endif
 
 post-patch: .SILENT
-	${REINPLACE_CMD} -e 's|c++|${CXX}|; \
-		s|-O3|${CXXFLAGS}| ; \
-		s|wx-config|${WX_CONFIG}| ; \
-		/^mv treesheets/d' \
-		${BUILD_WRKSRC}/build.sh
-	${REINPLACE_CMD} -e 's|sys->frame->exepath+L"|L"${DOCSDIR}|' \
+	${REINPLACE_CMD} -e 's|sys->frame->GetPath(L"|(L"${DOCSDIR}/|' \
 		${BUILD_WRKSRC}/document.h
 	${REINPLACE_CMD} -e 's|wxFileName(exename).GetPath()|L"${DATADIR}"|' \
 		${BUILD_WRKSRC}/myframe.h
-	${REINPLACE_CMD} -e 's|frame->exepath+L"/examples|L"${EXAMPLESDIR}|' \
+	${REINPLACE_CMD} -e 's|frame->GetPath(L"examples|(L"${EXAMPLESDIR}|' \
 		${BUILD_WRKSRC}/system.h
-
-do-build:
-	(cd ${BUILD_WRKSRC} && ${SH} build.sh)
 
 do-install:
 	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin

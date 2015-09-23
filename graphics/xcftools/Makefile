@@ -2,23 +2,20 @@
 
 PORTNAME=	xcftools
 PORTVERSION=	1.0.8.20130212
+PORTREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	GH \
-		http://freeheimdall.spdns.org/files/
+MASTER_SITES=	http://freeheimdall.spdns.org/files/
 
 MAINTAINER=	kalten@gmx.at
 COMMENT=	Command-line tools for extracting from XCF format (graphics/gimp)
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 # xcftools is under a public domain licence
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	j-jorge
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	d72ba82
-
-DIST_SUBDIR=	${PORTNAME}
+GH_TAGNAME=	d72ba82
 
 # option NLS (for gettext) is wrong as this port allways needs NLS:
 USES=	libtool cmake gmake iconv pkgconfig perl5 gettext
@@ -36,7 +33,7 @@ PLIST_FILES=	bin/xcf2png \
 		bin/xcfinfo \
 		bin/xcfview
 
-CFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/libpng15
+CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lintl
 
 MAKE_JOBS_UNSAFE=	yes

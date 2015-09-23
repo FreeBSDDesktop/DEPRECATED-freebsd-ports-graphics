@@ -2,9 +2,8 @@
 
 PORTNAME=	libcfu
 DISTVERSION=	0.04a
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	GH
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	Simple library of tools for developing multithreaded software
@@ -13,14 +12,13 @@ LICENSE=	BSD3CLAUSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	crees
-GH_COMMIT=	947dba4
 GH_TAGNAME=	947dba4
 
-USES=		makeinfo pkgconfig pathfix libtool
+USES=		autoreconf makeinfo pkgconfig pathfix libtool
 PATHFIX_MAKEFILEIN=	Makefile.am
+INSTALL_TARGET=	install-strip
 
-USE_AUTOTOOLS=	autoconf autoheader automake aclocal libtoolize
-AUTOMAKE_ARGS=	--add-missing
+GNU_CONFIGURE=	yes
 INFO=		${PORTNAME}
 
 .include <bsd.port.mk>

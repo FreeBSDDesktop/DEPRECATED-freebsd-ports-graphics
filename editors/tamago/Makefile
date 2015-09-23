@@ -3,15 +3,13 @@
 
 PORTNAME=	tamago
 PORTVERSION=	4.0.6.0.20041122.19
-PORTREVISION=	8
+PORTREVISION=	13
 CATEGORIES=	editors elisp
-MASTER_SITES=	${MASTER_SITE_DEBIAN}
-MASTER_SITE_SUBDIR=	pool/main/e/egg
+MASTER_SITES=	DEBIAN/pool/main/e/egg
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
 DISTNAME=	egg_4.0.6+0.20041122cvs.orig
 
-PATCH_SITES=	${MASTER_SITE_DEBIAN:S,%SUBDIR%,pool/main/e/egg,} \
-		${MASTER_SITE_LOCAL:S,%SUBDIR%,nork,}
+PATCH_SITES=	DEBIAN/pool/main/e/egg LOCAL/nork
 PATCHFILES=	egg_4.0.6+0.20041122cvs-19.diff.gz
 PATCH_DIST_STRIP=	-p1
 
@@ -22,7 +20,6 @@ LICENSE=	GPLv2
 
 USES=		gmake
 USE_EMACS=	yes
-POST_PATCHES=	${PATCHDIR}/post-patch-*
 WRKSRC=		${WRKDIR}/egg-4.0.6+0.20041122cvs
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	lispdir="${LOCALBASE}/${EMACS_VERSION_SITE_LISPDIR}"
@@ -31,17 +28,6 @@ PORTDOCS=	AUTHORS ChangeLog ChangeLog.1997-1998 \
 		ChangeLog.2000-2001 PROBLEMS README.ja.txt TODO \
 		README.Debian changelog.Debian
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.pre.mk>
-
-.if ${EMACS_PORT_NAME:Memacs2[1234]}
-PLIST_SUB+=	HAS_JISX0213=""
-.else
-PLIST_SUB+=	HAS_JISX0213="@comment "
-.endif
-
-post-patch:
-	cd ${PATCH_WRKSRC} && (${CAT} ${POST_PATCHES} | ${PATCH})
 
 post-build:
 	cd ${WRKSRC}/helper && \
@@ -53,9 +39,9 @@ post-build:
 post-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/helper/egg-helper \
 	    ${STAGEDIR}${PREFIX}/bin/egg-helper
-.if ${PORT_OPTIONS:MDOCS}
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
-.endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

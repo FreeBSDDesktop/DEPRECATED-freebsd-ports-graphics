@@ -4,7 +4,8 @@
 PORTNAME=	osynctool
 PORTVERSION=	0.39
 CATEGORIES=	deskutils
-MASTER_SITES=	http://www.opensync.org/download/releases/${PORTVERSION}/
+MASTER_SITES=	http://www.opensync.org/download/releases/${PORTVERSION}/ \
+		LOCAL/danilo
 
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Command line client for the OpenSync framework

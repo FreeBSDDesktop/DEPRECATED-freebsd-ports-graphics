@@ -3,7 +3,7 @@
 
 PORTNAME=	vde2
 PORTVERSION=	2.3.2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	SF/vde/${PORTNAME}/${PORTVERSION}
 
@@ -17,7 +17,8 @@ CONFLICTS=	vde-[0-9]*
 
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
-USES=		gmake libtool pathfix
+USES=		gmake libtool pathfix shebangfix
+SHEBANG_FILES=	src/lib/python/VdePlug.py
 USE_LDCONFIG=	yes
 MAKE_ENV=	V=1
 MAKE_JOBS_UNSAFE=yes
@@ -27,7 +28,7 @@ OPTIONS_DEFAULT=	PYTHON
 
 OPTIONS_SUB=	yes
 PYTHON_CONFIGURE_OFF=	--disable-python
-PYTHON_USE=	PYTHON=yes
+PYTHON_USES=	python
 PYTHON_CPPFLAGS=	-I${LOCALBASE}/include
 PYTHON_LDFLAGS=	-L${LOCALBASE}/lib
 

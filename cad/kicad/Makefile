@@ -21,8 +21,14 @@ RUN_DEPENDS=	xpdf:${PORTSDIR}/graphics/xpdf
 CONFLICTS=	kicad-devel*
 
 USES=		cmake dos2unix desktop-file-utils shared-mime-info tar:xz
-# Boost templates and compiler and library support for the ISO C++ 2011 standard from include/wx-3.0
-USES+=		compiler:gcc-c++11-lib
+
+# Does not compile with Gcc48
+USE_GCC=	4.7
+#USES+=		compiler:gcc-c++11-lib
+LDFLAGS+=	-L${LOCALBASE}/lib/c++
+CXXFLAGS+=	-nostdinc++ -isystem ${LOCALBASE}/include/c++/v1
+BUILD_DEPENDS+=	${LOCALBASE}/lib/c++/libstdc++.so:${PORTSDIR}/devel/libc++
+
 DOS2UNIX_GLOB=	*.cmake sch_bus_entry.h sch_line.h sch_no_connect.h
 USE_XORG=	x11 ice xext
 USE_GL=		yes
@@ -48,13 +54,10 @@ BINS=		cvpcb eeschema gerbview kicad pcbnew
 EXTRAS2RM=	linux-non_unicode linux wings3d LINUX.README	\
 		contrib_makefiles.txt running_kicad_under_W98.txt
 
+# undefined reference to `std::chrono::_V2::steady_clock::now()@GLIBCXX_3.4.19'
+BROKEN_FreeBSD_9=	does not link
 
-.include <bsd.port.options.mk>
-
-.if {PORT_OPTIONS:MDOCS}
-LICENSE+=	GFDL
-LICENSE_COMB=	multi
-.endif
+DOCS_VARS=	LICENSE+=GFDL LICENSE_COMB=multi
 
 post-patch:
 	${MV} ${WRKSRC}/include/boost ${WRKSRC}/include/boost.orig
@@ -73,17 +76,17 @@ post-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}
 	(cd ${WRKSRC}/library && ${COPYTREE_SHARE} library ${STAGEDIR}${DATADIR})
 	(cd ${WRKSRC}/library && ${COPYTREE_SHARE} modules ${STAGEDIR}${DATADIR})
-.if ${PORT_OPTIONS:MNLS}
+
+post-install-NLS-on:
 	${MKDIR} ${STAGEDIR}${DATADIR}/internat
 	(cd ${WRKSRC}/doc/internat &&	\
 		${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}/internat)
 	${RM} -f ${STAGEDIR}${DATADIR}/internat/CMakeLists.txt
 	${FIND} ${STAGEDIR}${DATADIR}/internat -name kicad.po -delete
-.endif
-.if ${PORT_OPTIONS:MDOCS}
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC}/doc/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
 	(cd ${WRKSRC}/Documentation && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
-.endif
 
 .include <bsd.port.mk>

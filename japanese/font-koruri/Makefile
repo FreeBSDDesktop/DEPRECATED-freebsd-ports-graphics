@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	koruri
-PORTVERSION=	20140904
+PORTVERSION=	20150701
+DISTVERSIONPREFIX=	Koruri-
+PORTREVISION=	1
 CATEGORIES=	japanese x11-fonts
-MASTER_SITES=	SFJP/koruri/61919
 PKGNAMEPREFIX=	ja-font-
 DISTNAME=	Koruri-${PORTVERSION}
 
@@ -13,33 +14,27 @@ COMMENT=	Koruri Japanese TrueType fonts
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	fc-cache:${PORTSDIR}/x11-fonts/fontconfig
-
-USES=		tar:xz
+USES=		fonts:fc tar:xz
+FONTNAME=	TTF
+USE_GITHUB=	yes
+GH_ACCOUNT=	Koruri
+GH_PROJECT=	Koruri
 NO_BUILD=	yes
+NO_ARCH=	yes
 PKGINSTALL=	${WRKDIR}/pkg-install
 PKGDEINSTALL=	${WRKDIR}/pkg-install
 SUB_FILES=	pkg-install
-SUB_LIST=	X_FONTSDIR=${PREFIX}/${X_FONTSDIR}
-PLIST_SUB=	X_FONTSDIR=${X_FONTSDIR} \
-		LOCAL_FONTSDIR=${LOCAL_FONTSDIR}
 DATADIR=	${PREFIX}/share/font-${PORTNAME}
 PORTDOCS=	README.md
-
-LOCAL_FONTSDIR=	share/fonts
-X_FONTSDIR=	lib/X11/fonts
 
 OPTIONS_DEFINE=	DOCS
 
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} ${WRKSRC}/*.ttf ${STAGEDIR}${DATADIR}
-	${MKDIR} ${STAGEDIR}${PREFIX}/${LOCAL_FONTSDIR}/TTF
-	cd ${STAGEDIR}${PREFIX}/${LOCAL_FONTSDIR}/TTF && ${LN} -s -f \
-	    ../${LOCAL_FONTSDIR:C,[^/]+,..,g}/${DATADIR_REL}/*.ttf .
-	${MKDIR} ${STAGEDIR}${PREFIX}/${X_FONTSDIR}/TTF
-	cd ${STAGEDIR}${PREFIX}/${X_FONTSDIR}/TTF && ${LN} -s -f \
-	    ../${X_FONTSDIR:C,[^/]+,..,g}/${DATADIR_REL}/*.ttf .
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	cd ${STAGEDIR}${FONTSDIR} && ${LN} -s -f \
+	    ../../../${DATADIR_REL}/*.ttf .
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/fonts/conf.avail \
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d
 	${INSTALL_DATA} ${FILESDIR}/20-unhint-${PORTNAME}.conf \
@@ -50,7 +45,7 @@ do-install:
 	${LN} -s -f ../conf.avail/62-fonts-${PORTNAME}.conf \
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${PORTNAME}.conf
 
-post-install:
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
 

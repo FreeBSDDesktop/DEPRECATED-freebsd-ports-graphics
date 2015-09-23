@@ -3,13 +3,11 @@
 
 PORTNAME=	trafshow
 PORTVERSION=	3.1
-PORTREVISION=	6
+PORTREVISION=	7
 PORTEPOCH=	1
 CATEGORIES=	net
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	sem
+MASTER_SITES=	LOCAL/sem
 PKGNAMESUFFIX=	3
-EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	sem@FreeBSD.org
 COMMENT=	Full screen visualization of network traffic (an ancient version)
@@ -21,6 +19,7 @@ CONFLICTS=	trafshow-[45].*
 LIB_DEPENDS=	libslang.so:${PORTSDIR}/devel/libslang2
 .endif
 
+USES=		tar:tgz
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
@@ -32,9 +31,6 @@ post-patch:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/trafshow ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/trafshow.1 ${STAGEDIR}${PREFIX}/man/man1
-	${INSTALL_DATA} ${WRKSRC}/.trafshow ${STAGEDIR}${PREFIX}/etc/trafshow.dist
-	if [ ! -f ${STAGEDIR}${PREFIX}/etc/trafshow ]; then \
-		${CP} ${STAGEDIR}${PREFIX}/etc/trafshow.dist ${STAGEDIR}${PREFIX}/etc/trafshow; \
-	fi
+	${INSTALL_DATA} ${WRKSRC}/.trafshow ${STAGEDIR}${PREFIX}/etc/trafshow.sample
 
 .include <bsd.port.mk>

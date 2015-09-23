@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	aria2
-PORTVERSION=	1.18.8
-PORTREVISION=	1
+PORTVERSION=	1.19.0
 CATEGORIES=	www
 MASTER_SITES=	SF/${PORTNAME}/stable/${PORTNAME}-${PORTVERSION}
 
@@ -18,11 +17,13 @@ OPTIONS_SUB=	yes
 CA_BUNDLE_DESC=	Use CA bundle from Mozilla Project
 
 CONFIGURE_ARGS=	--disable-epoll --enable-bittorrent --enable-libaria2 \
-		--enable-metalink --enable-shared --enable-static \
-		--enable-threads=posix --with-disk-cache=${ARIA2_DISK_CACHE} \
-		--with-libxml2 --with-libz --with-openssl --without-gnutls \
-		--without-libcares --without-libexpat --without-libgcrypt \
-		--without-libgmp --without-libnettle
+		--enable-metalink --enable-shared --enable-ssl --enable-static \
+		--enable-threads=posix --enable-websocket \
+		--with-disk-cache=${ARIA2_DISK_CACHE} \
+		--with-libxml2 --with-libz --with-openssl \
+		--without-appletls --without-gnutls --without-libcares \
+		--without-libexpat --without-libgcrypt --without-libgmp \
+		--without-libnettle --without-libuv
 CONFIGURE_ENV=	OPENSSL_CFLAGS=-I${OPENSSLINC} \
 		OPENSSL_LIBS="-L${OPENSSLLIB} -lcrypto -lssl" \
 		ZLIB_CFLAGS=-I${INCLUDEDIR} \
@@ -51,10 +52,4 @@ SQLITE_USE=		SQLITE=yes
 
 ARIA2_DISK_CACHE?=	16M
 
-.include <bsd.port.pre.mk>
-
-.if ${ARCH} == "powerpc" && ${OSVERSION} > 900000
-BROKEN=		Does not install on powerpc-9
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

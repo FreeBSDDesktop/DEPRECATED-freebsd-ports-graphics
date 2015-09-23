@@ -3,7 +3,7 @@
 
 PORTNAME=	gd
 PORTVERSION=	0.8.0
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	graphics ruby
 MASTER_SITES=	http://www.daifukuya.com/archive/kagemai/lib/
 PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
@@ -16,6 +16,9 @@ COMMENT=	Ruby extension library to use Thomas Boutell's gd library
 
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2 \
 		libgd.so:${PORTSDIR}/graphics/gd
+
+BROKEN_RUBY21=	yes
+BROKEN_RUBY22=	yes
 
 USE_RUBY=	yes
 USE_RUBY_EXTCONF=	yes
@@ -62,7 +65,7 @@ DOCS_JA=	readme.ja	\
 		doc/INSTALL.ja
 
 post-patch:
-	${RUBY} -i -pe 'sub %r:/win98/windows/FONTS:, "${LOCALBASE}/lib/X11/fonts/TrueType"' ${WRKSRC}/sample/gdtestttf.rb
+	${RUBY} -i -pe 'sub %r:/win98/windows/FONTS:, "${LOCALBASE}/share/fonts/TrueType"' ${WRKSRC}/sample/gdtestttf.rb
 	${RUBY} -i -pe 'sub %r:%%GD%%:, "gd"' ${WRKSRC}/extconf.rb
 
 post-configure:
@@ -87,10 +90,4 @@ post-install:
 .endfor
 .endif
 
-.include <bsd.port.pre.mk>
-
-.if ${RUBY_VER} == 2.1
-BROKEN=		Does not build with Ruby 2.1
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

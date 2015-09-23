@@ -13,7 +13,7 @@ MAINTAINER=	knu@FreeBSD.org
 COMMENT=	Git "merge" driver for GNU style ChangeLog files
 
 EXTRACT_DEPENDS=	${GNULIB_DIR}/lib/${PORTNAME}.c:${GNULIB_PORTDIR}	\
-			automake-1.14:${PORTSDIR}/devel/automake		\
+			automake-1.15:${PORTSDIR}/devel/automake		\
 			autoconf-2.69:${PORTSDIR}/devel/autoconf
 
 GNU_CONFIGURE=	yes
@@ -33,8 +33,5 @@ GNULIB_PORTEPOCH!=	cd ${GNULIB_PORTDIR} && ${MAKE} -V PORTEPOCH
 do-extract:
 	${MKDIR} ${WRKDIR}
 	cd ${GNULIB_DIR}; ./gnulib-tool --create-testdir --dir="${WRKSRC}" ${PORTNAME}
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.post.mk>

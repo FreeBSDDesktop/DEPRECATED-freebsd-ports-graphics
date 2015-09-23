@@ -1,12 +1,11 @@
 # Created by: Gerald Pfeifer <gerald@FreeBSD.org>
 # $FreeBSD$
 
-PORTNAME=	gcc48
-PORTVERSION=	4.8.4.s20141218
+PORTNAME=	gcc
+PORTVERSION=	4.8.5
 CATEGORIES=	lang java
-MASTER_SITES=	${MASTER_SITE_GCC}
-MASTER_SITE_SUBDIR=	snapshots/${DISTVERSION}
-DISTNAME=	gcc-${DISTVERSION}
+MASTER_SITES=	GCC/releases/gcc-${DISTVERSION}
+PKGNAMESUFFIX=	${SUFFIX}
 
 MAINTAINER=	gerald@FreeBSD.org
 COMMENT=	GNU Compiler Collection 4.8
@@ -24,15 +23,17 @@ RUN_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils
 BUILD_DEPENDS+=	runtest:${PORTSDIR}/misc/dejagnu
 .endif
 
+CONFLICTS=	gcc-4.8.*
+CPE_VENDOR=	gnu
+CPE_VERSION=	${GCC_VERSION}
+
 # DISTVERSION relates to downloads, GCC_VERSION and SUFFIX to names
-# of executables and directories once installed.  A PORTVERSION of
-# 4.Y.2.s20130808 results in values of 4.Y-20130808, 4.Y.2, and 4Y
-# for these three.
-DISTVERSION=	${PORTVERSION:C/([0-9]+\.[0-9]+).*\.s([0-9]+)/\1-\2/}
-GCC_VERSION=	${PORTVERSION:C/(.+)\.s[0-9]{8}/\1/}
+# of executables and directories once installed.
+DISTVERSION=	${PORTVERSION}
+GCC_VERSION=	${PORTVERSION:C/(.+)\.[0-9]{8}/\1/}
 SUFFIX=		${PORTVERSION:C/([0-9]+).([0-9]+).*/\1\2/}
 ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 sparc64
-USES=		gmake iconv libtool makeinfo perl5 tar:bzip2
+USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
 USE_BINUTILS=	yes
 USE_PERL5=	build
 SSP_UNSAFE=	yes
@@ -46,6 +47,7 @@ OPTIONS_DEFINE_amd64=	JAVA
 OPTIONS_DEFAULT=	BOOTSTRAP
 OPTIONS_DEFAULT_i386=	JAVA
 OPTIONS_DEFAULT_amd64=	JAVA
+OPTIONS_EXCLUDE_DragonFly=	JAVA
 BOOTSTRAP_DESC=		Build using a full bootstrap
 
 .include <bsd.port.pre.mk>
@@ -69,6 +71,7 @@ GNU_CONFIGURE=	yes
 .if empty(PORT_OPTIONS:MBOOTSTRAP)
 CONFIGURE_ARGS+=--disable-bootstrap
 .else
+CONFIGURE_ARGS+=--with-build-config=bootstrap-debug
 ALL_TARGET=	bootstrap-lean
 .endif
 CONFIGURE_ARGS+=--disable-nls \
@@ -95,10 +98,11 @@ INFO=		gcc${SUFFIX}/cpp \
 		gcc${SUFFIX}/gccint \
 		gcc${SUFFIX}/gfortran \
 		gcc${SUFFIX}/libgomp
-.if ${ARCH} == "i386" || ${ARCH} == "amd64"
+# Release tarballs (as opposed to snapshots) always carry this.
+#.if ${ARCH} == "i386" || ${ARCH} == "amd64"
 INFO+=		gcc${SUFFIX}/libquadmath \
 		gcc${SUFFIX}/libitm
-.endif
+#.endif
 SUB_FILES=	pkg-message
 SUB_LIST+=	TARGLIB=${TARGLIB}
 

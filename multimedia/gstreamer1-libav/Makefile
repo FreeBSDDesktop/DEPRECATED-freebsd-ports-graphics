@@ -1,9 +1,8 @@
 # Created by: Koop Mast <kwm@rainbow-runner.nl>
 # $FreeBSD$
-#    $MCom: ports/multimedia/gstreamer1-libav/Makefile,v 1.4 2013/01/15 21:43:45 kwm Exp $
 
 PORTNAME=	gstreamer1-libav
-PORTVERSION=	1.4.4
+PORTVERSION=	1.4.5
 CATEGORIES=	multimedia
 MASTER_SITES=	http://gstreamer.freedesktop.org/src/gst-libav/
 DISTNAME=	gst-libav-${PORTVERSION}
@@ -18,6 +17,8 @@ BUILD_DEPENDS=	yasm:${PORTSDIR}/devel/yasm \
 		orc>=0.4.16:${PORTSDIR}/devel/orc
 LIB_DEPENDS=	liborc-0.4.so:${PORTSDIR}/devel/orc
 
+PORTSCOUT=	limitw:1,even
+
 USES=		compiler:features gmake libtool pkgconfig tar:xz
 USE_LDCONFIG=	yes
 USE_GSTREAMER1=	yes
@@ -30,6 +31,10 @@ LDFLAGS+=	-Wl,-Bsymbolic
 INSTALL_TARGET=	install-strip
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == "armv6"
+CONFIGURE_ENV+=	ASFLAGS=-no-integrated-as
+.endif
 
 .if ${OSVERSION} < 900033 || ${ARCH} == ia64
 BUILD_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils

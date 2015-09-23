@@ -2,14 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	caja-extensions
-PORTVERSION=	1.8.0
-PORTREVISION=	1
+PORTVERSION=	1.10.0
 CATEGORIES=	deskutils mate
 MASTER_SITES=	MATE
 DIST_SUBDIR=	mate
 
 MAINTAINER=	gnome@FreeBSD.org
-COMMENT=	Caja extension which allows you to open a terminal
+COMMENT=	Set of extensions for Caja
 
 LIB_DEPENDS=	libgupnp-1.0.so:${PORTSDIR}/net/gupnp
 
@@ -23,5 +22,8 @@ GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
+
+GLIB_SCHEMAS=	org.mate.Caja.Sendto.gschema.xml \
+		org.mate.caja-open-terminal.gschema.xml
 
 .include <bsd.port.mk>

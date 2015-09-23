@@ -2,7 +2,6 @@ bin/goobox
 share/GConf/gsettings/goobox.convert
 share/appdata/goobox.appdata.xml
 share/applications/goobox.desktop
-share/glib-2.0/schemas/org.gnome.Goobox.gschema.xml
 share/help/C/goobox/index.page
 share/help/C/goobox/legal.xml
 share/help/C/goobox/preferences.page
@@ -45,8 +44,10 @@ share/help/sv/goobox/preferences.page
 share/help/sv/goobox/shortcuts.page
 share/icons/hicolor/256x256/apps/goobox.png
 share/icons/hicolor/48x48/apps/goobox.png
+share/icons/hicolor/scalable/apps/goobox-symbolic.svg
 share/locale/ar/LC_MESSAGES/goobox.mo
 share/locale/bg/LC_MESSAGES/goobox.mo
+share/locale/bs/LC_MESSAGES/goobox.mo
 share/locale/ca/LC_MESSAGES/goobox.mo
 share/locale/cs/LC_MESSAGES/goobox.mo
 share/locale/da/LC_MESSAGES/goobox.mo

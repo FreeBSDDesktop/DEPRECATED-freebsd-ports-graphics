@@ -56,6 +56,7 @@
     SUBDIR += claws-mail-gdata
     SUBDIR += claws-mail-libravatar
     SUBDIR += claws-mail-mailmbox
+    SUBDIR += claws-mail-managesieve
     SUBDIR += claws-mail-newmail
     SUBDIR += claws-mail-notification
     SUBDIR += claws-mail-pdf_viewer
@@ -80,6 +81,7 @@
     SUBDIR += cvsmail
     SUBDIR += cyrus-imapd23
     SUBDIR += cyrus-imapd24
+    SUBDIR += cyrus-imapd25
     SUBDIR += cyrus2courier
     SUBDIR += cyrus2dovecot
     SUBDIR += davmail
@@ -108,6 +110,7 @@
     SUBDIR += elm
     SUBDIR += elmo
     SUBDIR += elmo-devel
+    SUBDIR += emailrelay
     SUBDIR += emil
     SUBDIR += enma
     SUBDIR += eps
@@ -159,6 +162,7 @@
     SUBDIR += gotmail
     SUBDIR += grepmail
     SUBDIR += greyfix
+    SUBDIR += greylite
     SUBDIR += gubby
     SUBDIR += hashcash
     SUBDIR += hbiff
@@ -209,16 +213,16 @@
     SUBDIR += lmtp2nntp
     SUBDIR += lookout
     SUBDIR += lurker
-    SUBDIR += mail-notification
     SUBDIR += mail2sms
     SUBDIR += mailagent
-    SUBDIR += maildirsync
     SUBDIR += maildrop
+    SUBDIR += mailest
     SUBDIR += mailfmt
     SUBDIR += mailfront
     SUBDIR += mailgraph
     SUBDIR += mailman
     SUBDIR += mailmgr
+    SUBDIR += mailpile
     SUBDIR += mailscanner
     SUBDIR += mailsync
     SUBDIR += mailtray
@@ -289,6 +293,7 @@
     SUBDIR += p5-CGP-CLI
     SUBDIR += p5-Clamd
     SUBDIR += p5-Dancer-Plugin-Email
+    SUBDIR += p5-Dancer2-Plugin-Email
     SUBDIR += p5-Data-Validate-Email
     SUBDIR += p5-Email-Abstract
     SUBDIR += p5-Email-Address
@@ -410,6 +415,7 @@
     SUBDIR += p5-POE-Component-Client-SMTP
     SUBDIR += p5-POE-Component-SMTP
     SUBDIR += p5-POE-Filter-Transparent-SMTP
+    SUBDIR += p5-Parse-MIME
     SUBDIR += p5-Parse-Syslog-Mail
     SUBDIR += p5-Qmail-Envelope
     SUBDIR += p5-SES
@@ -432,6 +438,7 @@
     SUBDIR += pear-Horde_Kolab_Storage
     SUBDIR += pear-Horde_ListHeaders
     SUBDIR += pear-Horde_Mail
+    SUBDIR += pear-Horde_Mail_Autoconfig
     SUBDIR += pear-Horde_Mapi
     SUBDIR += pear-Horde_Mime
     SUBDIR += pear-Horde_Mime_Viewer
@@ -454,7 +461,6 @@
     SUBDIR += pfqueue
     SUBDIR += pgpsendmail
     SUBDIR += php5-imap
-    SUBDIR += php53-imap
     SUBDIR += php55-imap
     SUBDIR += php56-imap
     SUBDIR += phplist
@@ -484,8 +490,6 @@
     SUBDIR += postfix-policyd-spf-python
     SUBDIR += postfix-policyd-weight
     SUBDIR += postfix-postfwd
-    SUBDIR += postfix-tls
-    SUBDIR += postfix210
     SUBDIR += postfixadmin
     SUBDIR += postgrey
     SUBDIR += postsrsd
@@ -500,6 +504,7 @@
     SUBDIR += py-apolicy
     SUBDIR += py-authres
     SUBDIR += py-cyruslib
+    SUBDIR += py-dkimpy
     SUBDIR += py-libgmail
     SUBDIR += py-milter
     SUBDIR += py-ppolicy
@@ -511,7 +516,6 @@
     SUBDIR += pymsgauth
     SUBDIR += pysieved
     SUBDIR += pyzor
-    SUBDIR += qar-bufo
     SUBDIR += qconfirm
     SUBDIR += qgmailnotifier
     SUBDIR += qmail
@@ -541,6 +545,7 @@
     SUBDIR += queue-fix
     SUBDIR += queue-repair
     SUBDIR += rainloop
+    SUBDIR += rainloop-community
     SUBDIR += raysfilter
     SUBDIR += razor-agents
     SUBDIR += rbl-milter
@@ -572,6 +577,7 @@
     SUBDIR += ruby-rmail
     SUBDIR += rubygem-actionmailer
     SUBDIR += rubygem-actionmailer4
+    SUBDIR += rubygem-actionmailer41
     SUBDIR += rubygem-email_reply_parser-discourse
     SUBDIR += rubygem-exception_notification
     SUBDIR += rubygem-larch
@@ -579,8 +585,8 @@
     SUBDIR += rubygem-mail25
     SUBDIR += rubygem-mailfactory
     SUBDIR += rubygem-pony
-    SUBDIR += rubygem-qmail
     SUBDIR += rubygem-rmail
+    SUBDIR += rubygem-ruby-qmail
     SUBDIR += rubygem-tmail
     SUBDIR += rubygem-vmail
     SUBDIR += sa-stats
@@ -597,6 +603,7 @@
     SUBDIR += simscan
     SUBDIR += slapd-cyrus
     SUBDIR += sma
+    SUBDIR += smfsav
     SUBDIR += smtp-cli
     SUBDIR += smtp-gated
     SUBDIR += smtpfeed

@@ -1,8 +1,7 @@
 # Created by: clive
 # $FreeBSD$
 
-PORTNAME=	BitchX
-PORTREVISION=	7
+PORTNAME=	bitchx
 CATEGORIES=	chinese
 
 MAINTAINER=	ports@FreeBSD.org
@@ -13,10 +12,6 @@ EXTRA_PATCHES=	${.CURDIR}/files/patch-source__input.c \
 		${.CURDIR}/files/patch-include__config.h \
 		${.CURDIR}/files/patch-source__screen.c
 
-WITH_LATIN=	YES
-# Cursor movement and words wrapping aren't hacked if compiled with gnome.
-WITHOUT_GNOME=	YES
-# If without gnome, esound support isn't needed.
-WITHOUT_ESOUND=	YES
+OPTIONS_SLAVE=	LATIN
 
 .include "${MASTERDIR}/Makefile"

@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	corsixth
-PORTVERSION=	0.30
-PORTREVISION=	3
+PORTVERSION=	0.40
+DISTVERSIONPREFIX=	v
 CATEGORIES=	games
 
 MAINTAINER=	madpilot@FreeBSD.org
@@ -13,30 +13,28 @@ LICENSE=	MIT
 
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2
 
-USES=		cmake compiler:c++11-lang dos2unix lua:51 pkgconfig
+USES=		cmake compiler:c++11-lang dos2unix pkgconfig
 USE_SDL=	mixer
 DOS2UNIX_FILES=	CMake/FindFFmpeg.cmake \
 		CorsixTH/CMakeLists.txt \
 		CorsixTH/Src/iso_fs.cpp
 
 USE_GITHUB=	yes
-GH_ACCOUNT=     CorsixTH
-GH_PROJECT=     CorsixTH
-GH_COMMIT=	69a3ed8
+GH_ACCOUNT=	CorsixTH
+GH_PROJECT=	CorsixTH
 
-OPTIONS_DEFINE=	MOVIES
-OPTIONS_DEFAULT=	MOVIES
+OPTIONS_DEFINE=	LUAJIT MOVIES
+OPTIONS_DEFAULT=	LUAJIT MOVIES
+LUAJIT_DESC=	Use LUAJIT compiler
 MOVIES_DESC=	Play in-game movies
 
 MOVIES_CMAKE_ON=	-DWITH_MOVIES=ON
 MOVIES_CMAKE_OFF=	-DWITH_MOVIES=OFF
 MOVIES_LIB_DEPENDS=	libswresample.so:${PORTSDIR}/multimedia/ffmpeg
-
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MMOVIES} && ${OSVERSION} < 900014
-FAVORITE_COMPILER=	gcc
-.endif
+LUAJIT_CMAKE_ON=	-DWITH_LUAJIT=ON
+LUAJIT_CMAKE_OFF=	-DWITH_LUAJIT=OFF
+LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:${PORTSDIR}/lang/luajit
+LUAJIT_USES_OFF=	lua:51
 
 post-patch:
 # Allow the game to find its resources without wrapper scripts

@@ -9,10 +9,10 @@ MASTER_SITES=	https://fedorahosted.org/releases/x/m/xmlto/:xmlto \
 		LOCAL/mandree/:xmlto \
 		http://www.antennahouse.com/XSLsample/sample-xsl-xhtml2fo/:xsl \
 		LOCAL/mandree/:xsl
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:xmlto \
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:xmlto \
 		xhtml2fo.xsl:xsl
 DIST_SUBDIR=	${PORTNAME}
-EXTRACT_ONLY=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	mandree@FreeBSD.org
 COMMENT=	Front-end to an XSL toolchain
@@ -23,10 +23,10 @@ BUILD_DEPENDS=	${BASH_CMD}:${PORTSDIR}/shells/bash \
 		${GETOPT_CMD}:${PORTSDIR}/misc/getopt \
 		xmllint:${PORTSDIR}/textproc/libxml2 \
 		xsltproc:${PORTSDIR}/textproc/libxslt \
-		${XSL_DIR}:${PORTSDIR}/textproc/docbook-xsl \
+		docbook-xsl>0:${PORTSDIR}/textproc/docbook-xsl \
 		paperconf:${PORTSDIR}/print/libpaper \
 		w3m:${PORTSDIR}/www/w3m \
-		${LOCALBASE}/share/xml/docbook/4.2:${PORTSDIR}/textproc/docbook-xml
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 SUB_FILES=	pkg-message

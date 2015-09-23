@@ -3,7 +3,7 @@
 
 PORTNAME=	ezquake
 PORTVERSION=	1.9
-PORTREVISION=	7
+PORTREVISION=	8
 PORTEPOCH=	2
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/stable/${PORTVERSION}:ezquake \
@@ -19,7 +19,7 @@ EXTRACT_DEPENDS=${UNZIP_CMD}:${PORTSDIR}/archivers/unzip \
 		7z:${PORTSDIR}/archivers/p7zip
 LIB_DEPENDS=	libexpat.so:${PORTSDIR}/textproc/expat2 \
 		libpcre.so:${PORTSDIR}/devel/pcre \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 USES=		gmake tcl dos2unix
 DOS2UNIX_GLOB=	*.[ch] Makefile*
@@ -36,7 +36,7 @@ OPTIONS_DEFINE=	OPTIMIZED_CFLAGS
 OPTIONS_DEFAULT=	OPENGL X11 OPTIMIZED_CFLAGS
 OPTIONS_SUB=	yes
 
-OPENGL_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+OPENGL_USES=		jpeg
 OPENGL_USE=		GL=yes
 
 X11_USE=		XORG=xxf86dga

@@ -3,7 +3,7 @@
 
 PORTNAME=	bacula
 DISTVERSION=	5.2.12
-PORTREVISION?=	0
+PORTREVISION?=	2
 CATEGORIES?=	sysutils
 MASTER_SITES=	SF/bacula/bacula/${PORTVERSION}
 PKGNAMEPREFIX?=	#
@@ -12,7 +12,9 @@ PKGNAMESUFFIX?=	5-server
 MAINTAINER=	dan@langille.org
 COMMENT?=	Network backup solution (server)
 
-USES+=		libtool:keepla
+USES+=		libtool:keepla shebangfix
+SHEBANG_FILES=	scripts/dvd-handler.in
+python_OLD_CMD=	@PYTHON@
 
 CONFLICTS?=	bacula-server-*
 
@@ -39,7 +41,7 @@ OPENSSL_CONFIGURE_OFF=	--with-openssl="no"
 
 .if ${PKGNAMESUFFIX} == "5-client" || ${PKGNAMESUFFIX} == "5-server"  #Till end of the file
 
-PYTHON_USE=		PYTHON=yes
+PYTHON_USES=		python
 PYTHON_CONFIGURE_ON=	--with-python=yes
 
 .if !defined(WITH_CLIENT_ONLY)
@@ -168,9 +170,6 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|fd_plugins.h|filed/fd_plugins.h|g' -e 's|dir_plugins.h|dird/dir_plugins.h|g' -e 's|stored.h|stored/stored.h|g' \
 		${WRKSRC}/src/tools/bpluginfo.c
 .endif
-
-pre-install:
-	${MKDIR} ${STAGEDIR}${BACULA_DIR}
 
 .if !target(post-install)
 post-install:

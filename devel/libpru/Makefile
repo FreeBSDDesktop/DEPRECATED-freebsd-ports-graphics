@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	libpru
-PORTVERSION=	0.1
+PORTVERSION=	0.4
 CATEGORIES=	devel
 MASTER_SITES=	https://bitbucket.org/rpaulo/libpru/get/
 
@@ -22,6 +22,6 @@ IGNORE=	Only supported on FreeBSD 10+
 
 USES=		cmake
 
-WRKSRC=		${WRKDIR}/rpaulo-libpru-e1aae0486927
+WRKSRC=		${WRKDIR}/rpaulo-libpru-5a74157b82b8
 
 .include <bsd.port.mk>

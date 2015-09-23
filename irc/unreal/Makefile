@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	Unreal
-PORTVERSION=	3.2.10.4
-PORTREVISION=	2
+PORTVERSION=	3.2.10.5
+PORTREVISION=	0
 CATEGORIES=	irc ipv6
 MASTER_SITES=	http://www.unrealircd.com/downloads/
 DISTNAME=	${PORTNAME}${PORTVERSION}
@@ -28,8 +28,10 @@ USE_RC_SUBR=	unrealircd
 
 USERS=		ircd
 GROUPS=		ircd
+CPE_VENDOR=	unrealircd
+CPE_PRODUCT=	unrealircd
 
-USES=		pkgconfig
+USES=		pkgconfig cpe
 
 SUB_LIST+=	RUNDIR=${RUNDIR}
 SUB_LIST+=	USERS=${USERS}
@@ -72,8 +74,7 @@ IPV6_CONFIGURE_ENABLE=	inet6
 SSL_CONFIGURE_ENABLE=	ssl
 SSL_USE=	OPENSSL=yes
 REMOTE_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
-REMOTE_CONFIGURE_ON=	--enable-libcurl=${LOCALBASE}
-REMOTE_CONFIGURE_OFF=	--disable-libcurl
+REMOTE_CONFIGURE_ENABLE=	--enable-libcurl=${LOCALBASE}
 PREFIXAQ_CONFIGURE_ENABLE=	prefixaq
 
 SQLMOD=		${PORTNAME}/SQLMod.tar.gz

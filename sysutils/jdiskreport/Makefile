@@ -2,15 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	jdiskreport
-PORTVERSION=	1.4.1
+DISTVERSION=	1_4_1
 CATEGORIES=	sysutils java
 MASTER_SITES=	http://www.jGoodies.com/download/${PORTNAME}/
-DISTNAME=	${PORTNAME}-${PORTVERSION:S,.,_,g}
 
 MAINTAINER=	jon@witchspace.com
 COMMENT=	Java program to graphically display disk usage statistics
-
-RUN_DEPENDS=	${JAVAVM}:${PORTSDIR}/java/javavmwrapper
 
 USES=		zip
 USE_JAVA=	YES

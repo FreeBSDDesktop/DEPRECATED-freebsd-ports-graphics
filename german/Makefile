@@ -13,6 +13,7 @@
     SUBDIR += ding
     SUBDIR += dtaus
     SUBDIR += eric4
+    SUBDIR += eric6
     SUBDIR += geonext
     SUBDIR += gimp-help
     SUBDIR += hunspell
@@ -23,7 +24,6 @@
     SUBDIR += libreoffice
     SUBDIR += mediathek
     SUBDIR += mythes
-    SUBDIR += pecl-konto_check
     SUBDIR += phone
     SUBDIR += php_doc
     SUBDIR += schwobifyer
@@ -31,7 +31,6 @@
     SUBDIR += steak
     SUBDIR += tipp10
     SUBDIR += trytond28_account_de_skr03
-    SUBDIR += trytond_account_de_skr03
     SUBDIR += unix-connect
     SUBDIR += webalizer2
     SUBDIR += wordpress

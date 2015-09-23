@@ -5,7 +5,7 @@ PORTNAME=	planets
 PORTVERSION=	0.1.13
 PORTREVISION=	1
 CATEGORIES=	astro
-MASTER_SITES=	GENTOO/distfiles \
+MASTER_SITES=	GENTOO \
 		http://planets.homedns.org/dist/
 
 MAINTAINER=	ports@FreeBSD.org
@@ -15,6 +15,8 @@ LICENSE=	GPLv2
 
 USES=		gmake tar:tgz
 USE_OCAML=	yes
+USE_OCAML_CAMLP4=yes
+USE_OCAML_TK=	yes
 USE_XORG=	x11
 ALL_TARGET=	${PORTNAME}
 

@@ -26,8 +26,8 @@ Qt_Pre_Include=	bsd.qt.mk
 
 # Qt versions currently supported by the framework.
 _QT_SUPPORTED?=	4 5
-QT4_VERSION?=	4.8.6
-QT5_VERSION?=	5.3.2
+QT4_VERSION?=	4.8.7
+QT5_VERSION?=	5.4.1
 
 QT_PREFIX?=		${LOCALBASE}
 
@@ -88,7 +88,7 @@ MASTER_SITE_SUBDIR=	official_releases/qt/${_QT_VERSION:R}/${_QT_VERSION}/submodu
 DISTNAME=		${QT_DIST:S,^,qt,:S,$,-opensource-src-${_QT_VERSION},}
 DISTFILES=		${DISTNAME:S,$,${EXTRACT_SUFX},}
 DIST_SUBDIR=		KDE/Qt/${_QT_VERSION}
-USE_XZ=			yes
+USES+=			tar:xz
 
 .  if ${.TARGETS:Mmakesum} || ${.TARGETS:Mfetch} && \
 	defined(DISABLE_SIZE) && defined(NO_CHECKSUM)
@@ -96,7 +96,7 @@ USE_XZ=			yes
 # devel/qt*/distinfo for every port.
 QT_DIST=		base declarative doc graphicaleffects imageformats \
 				multimedia quick1 quickcontrols script serialport svg tools \
-				translations webkit webkit-examples x11extras xmlpatterns
+				translations webchannel webkit webkit-examples websockets x11extras xmlpatterns
 .  endif
 
 .  if ${QT_DIST} == "base" && ${PORTNAME} != "qmake"
@@ -146,6 +146,9 @@ CONFIGURE_ARGS+=-nomake examples -nomake tests \
 				-qmldir ${PREFIX}/${QT_QMLDIR_REL} \
 				-examplesdir ${PREFIX}/${QT_EXAMPLEDIR_REL} \
 				-testsdir ${PREFIX}/${QT_TESTDIR_REL}
+.  if ${ARCH} == i386 && empty(MACHINE_CPU:Msse2)
+CONFIGURE_ARGS+=-no-sse2
+.  endif
 . endif
 
 . if defined(WANT_QT_DEBUG) || defined(WITH_DEBUG)
@@ -168,13 +171,13 @@ CONFIGURE_ARGS+=-verbose
 . endif
 
 . if ${QT_DIST} == "base" || ${_QT_VERSION:M4*}
+.  if ${_QT_VERSION:M4*}
+_EXTRA_PATCHES_QT4=	${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-src-corelib-global-qglobal.h
+.  endif
 EXTRA_PATCHES?=	${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-configure \
 		${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-config.tests-unix-compile.test \
-		${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-libtool
-.  if ${_QT_VERSION:M4*}
-EXTRA_PATCHES?=	${EXTRA_PATCHES} \
-				${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-src-corelib-global-qglobal.h
-.  endif
+		${.CURDIR:H:H}/devel/${_QT_RELNAME}/files/extrapatch-libtool \
+		${_EXTRA_PATCHES_QT4}
 . endif
 
 # Override settings installed in qconfig.h and *.pri files. The flags will be
@@ -285,7 +288,7 @@ PLIST_SUB+=		QT_${dir}DIR="${QT_${dir}DIR_REL}"
 Qt_Post_Include=	bsd.qt.mk
 
 _USE_QT_ALL=	assistant clucene dbus declarative designer gui help \
-				imageformats linguist multimedia network opengl pixeltool \
+				imageformats linguist linguisttools multimedia network opengl pixeltool \
 				qdbusviewer qmake script scripttools sql sql-ibase sql-mysql \
 				sql-odbc sql-pgsql sql-sqlite2 sql-sqlite3 svg testlib webkit \
 				xml xmlpatterns
@@ -296,9 +299,10 @@ _USE_QT4_ONLY=	accessible assistant-adp assistantclient codecs-cn codecs-jp \
 				phonon-gst porting qdoc3 qmlviewer qt3support qtconfig \
 				qtestlib qvfb rcc uic uic3 xmlpatterns-tool
 
-_USE_QT5_ONLY=	buildtools concurrent core graphicaleffects linguisttools \
-				printsupport qdbus qdoc qev qml quick \
-				quickcontrols serialport uitools widgets x11extras
+_USE_QT5_ONLY=	buildtools concurrent core graphicaleffects \
+				paths phonon4 printsupport qdbus qdoc qev qml quick \
+				quickcontrols serialport uitools webchannel websockets \
+				widgets x11extras
 
 accessible_PORT=	accessibility/${_QT_RELNAME}-accessible
 accessible_PATH=	${QT_PLUGINDIR}/accessible/libqtaccessiblewidgets.so
@@ -402,11 +406,17 @@ network_PATH=		${QT_LIBDIR}/libQt${_QT_LIBVER}Network.so
 opengl_PORT=		graphics/${_QT_RELNAME}-opengl
 opengl_PATH=		${QT_LIBDIR}/libQt${_QT_LIBVER}OpenGL.so
 
+paths_PORT=		sysutils/${_QT_RELNAME}-qtpaths
+paths_PATH=		${QT_BINDIR}/qtpaths
+
 pixeltool_PORT=		graphics/${_QT_RELNAME}-pixeltool
 pixeltool_PATH=		${QT_BINDIR}/pixeltool
 
 phonon_PORT=		multimedia/phonon
 phonon_PATH=		${QT_LIBDIR}/libphonon.so
+
+phonon4_PORT=		multimedia/${_QT_RELNAME}-phonon4
+phonon4_PATH=		${QT_LIBDIR}/libphonon4${_QT_RELNAME}.so
 
 phonon-gst_PORT=	multimedia/phonon-gstreamer
 phonon-gst_PATH=	${QT_PLUGINDIR}/phonon_backend/libphonon_gstreamer.so
@@ -505,6 +515,12 @@ uic3_PATH=			${QT_BINDIR}/uic3
 
 uitools_PORT=		devel/${_QT_RELNAME}-uitools
 uitools_PATH=		${QT_LIBDIR}/libQt${_QT_LIBVER}UiTools.a
+
+webchannel_PORT=	www/${_QT_RELNAME}-webchannel
+webchannel_PATH=	${QT_LIBDIR}/libQt${_QT_LIBVER}WebChannel.so
+
+websockets_PORT=	www/${_QT_RELNAME}-websockets
+websockets_PATH=	${QT_LIBDIR}/libQt${_QT_LIBVER}WebSockets.so
 
 webkit_PORT=		www/webkit-${_QT_RELNAME}
 webkit_PATH=		${QT_LIBDIR}/libQt${_QT_LIBVER}WebKit.so

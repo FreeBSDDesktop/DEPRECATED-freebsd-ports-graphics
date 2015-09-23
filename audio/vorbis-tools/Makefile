@@ -3,13 +3,16 @@
 
 PORTNAME=	vorbis-tools
 PORTVERSION=	1.4.0
-PORTREVISION=	8
+PORTREVISION=	10
 PORTEPOCH=	3
 CATEGORIES=	audio
 MASTER_SITES=	http://downloads.xiph.org/releases/vorbis/
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	Play, encode, and manage Ogg Vorbis files
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libao.so:${PORTSDIR}/audio/libao \
 		libcurl.so:${PORTSDIR}/ftp/curl \
@@ -18,10 +21,10 @@ LIB_DEPENDS=	libao.so:${PORTSDIR}/audio/libao \
 		libspeex.so:${PORTSDIR}/audio/speex \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis
 
-USES=		iconv pkgconfig
+USES=		cpe iconv pkgconfig
+CPE_VENDOR=	xiph
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
-		PTHREAD_LIBS="${PTHREAD_LIBS}"
+CONFIGURE_ENV=	PTHREAD_LIBS="-lpthread"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 

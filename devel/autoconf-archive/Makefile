@@ -7,11 +7,11 @@ CATEGORIES=	devel
 MASTER_SITES=	GNU
 DISTNAME=	${PORTNAME}-${DISTDATE}
 
-MAINTAINER=	mkamm@gmx.net
+MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Set of useful GNU Autoconf macros
 
-USES=		makeinfo tar:bzip2
-DISTDATE=	2011.01.02
+USES=		makeinfo tar:xz
+DISTDATE=	2015.02.24
 GNU_CONFIGURE=	yes
 INFO=		${PORTNAME}
 

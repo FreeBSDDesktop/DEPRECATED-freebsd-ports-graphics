@@ -5,10 +5,13 @@ PORTNAME=	streamtranscoder
 PORTVERSION=	1.2.8
 PORTREVISION=	13
 CATEGORIES=	audio
-MASTER_SITES=	http://www.oddsock.org/tools/streamTranscoder/
+MASTER_SITES=	http://BSDforge.com/projects/source/audio/streamtranscoder/
 
 MAINTAINER=	mark@mkproductions.org
 COMMENT=	Transcode and stream audio to a SHOUTcast/Icecast/Peercast server
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libogg.so:${PORTSDIR}/audio/libogg \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis \
@@ -25,12 +28,8 @@ PORTDOCS=	AUTHORS README
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
 post-patch:
-	@${REINPLACE_CMD} -e 's|-D_REENTRANT|${PTHREAD_CFLAGS}|g; \
-		s|-pthread|${PTHREAD_LIBS}|g; s|-O20|$$CFLAGS|g' \
-		${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's|-O20|$$CFLAGS|g' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e '/<curl\/types.h>/d' \
 		${WRKSRC}/aclocal.m4 ${WRKSRC}/configure \
 		${WRKSRC}/src/libtranscoder/transcurl.cpp

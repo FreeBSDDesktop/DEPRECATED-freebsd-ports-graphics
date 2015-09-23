@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	sudo
-DISTVERSION=	1.8.11p1
+PORTVERSION=	1.8.14p3
 CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_SUDO}
+MASTER_SITES=	SUDO
 
-MAINTAINER=	wxs@FreeBSD.org
+MAINTAINER=	garga@FreeBSD.org
 COMMENT=	Allow others to run commands as root
 
 LICENSE=	sudo
@@ -14,7 +14,9 @@ LICENSE_NAME=	Sudo license
 LICENSE_FILE=	${WRKSRC}/doc/LICENSE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		libtool
+USES=		cpe libtool
+CPE_VENDOR=	todd_miller
+USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-lgcc
 LDFLAGS+=	-lssp_nonshared
@@ -81,13 +83,8 @@ post-patch:
 	@${REINPLACE_CMD} -E '/install-(binaries|noexec):/,/^$$/ \
 		s/\$$\(INSTALL\)/& ${STRIP}/;s/-b\~/-b ~/' \
 		${WRKSRC}/src/Makefile.in
-	@${REINPLACE_CMD} -e 's,$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(docdir),$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(bindir),' ${WRKSRC}/plugins/sudoers/Makefile.in
-.if empty(PORT_OPTIONS:MDOCS)
-	@${REINPLACE_CMD} -e 's/mkinstalldirs $$(DESTDIR)$$(docdir)/mkinstalldirs/' \
-		${WRKSRC}/doc/Makefile.in
-	@${REINPLACE_CMD} -e '/for f in $$(OTHER_DOCS); do/d;/@LDAP@for f in $$(OTHER_DOCS_LDAP); do/d' ${WRKSRC}/doc/Makefile.in
-	@${REINPLACE_CMD} -e 's/$$(DESTDIR)$$(sudoersdir) $$(DESTDIR)$$(docdir)/$$(DESTDIR)$$(sudoersdir)/' ${WRKSRC}/plugins/sudoers/Makefile.in
-.endif
+	@${REINPLACE_CMD} -e 's,$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(docdir),$$(srcdir)/sudoers2ldif $$(DESTDIR)$$(bindir),' \
+		${WRKSRC}/plugins/sudoers/Makefile.in
 
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/pam.conf ${STAGEDIR}${PREFIX}/etc/pam.d/sudo.default

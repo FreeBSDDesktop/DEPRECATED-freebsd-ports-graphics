@@ -5,8 +5,7 @@ PORTNAME=	tags
 DISTVERSION=	0.7.r${SVN_REV}
 PORTREVISION=	2
 CATEGORIES=	www devel python
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	brooks
+MASTER_SITES=	LOCAL/brooks
 PKGNAMEPREFIX=	trac-
 DIST_SUBDIR=	trac
 
@@ -15,10 +14,8 @@ COMMENT=	Generic tags frontend for trac
 
 RUN_DEPENDS+=	tracd:${PORTSDIR}/www/trac
 
-USES=		tar:bzip2
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python:2 tar:bzip2
+USE_PYTHON=	distutils autoplist
 
 .include "${.CURDIR}/../../www/trac/plugin.mk"
 .include <bsd.port.pre.mk>

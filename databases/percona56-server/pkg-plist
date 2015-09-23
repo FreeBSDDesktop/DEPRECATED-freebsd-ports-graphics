@@ -37,6 +37,7 @@ lib/mysql/plugin/libfnv_udf.so
 %%INNODBMEMCACHED%%lib/mysql/plugin/libmemcached.so
 lib/mysql/plugin/libmurmur_udf.so
 lib/mysql/plugin/mypluglib.so
+lib/mysql/plugin/mysql_no_login.so
 lib/mysql/plugin/qa_auth_client.so
 lib/mysql/plugin/qa_auth_interface.so
 lib/mysql/plugin/qa_auth_server.so
@@ -138,6 +139,10 @@ man/man8/mysqld.8.gz
 %%DATADIR%%/swedish/errmsg.sys
 %%DATADIR%%/tests/suite/query_response_time/basic.result
 %%DATADIR%%/tests/suite/query_response_time/basic.test
+%%DATADIR%%/tests/suite/query_response_time/query_response_time-rw-begin.inc
+%%DATADIR%%/tests/suite/query_response_time/query_response_time-rw-end.inc
+%%DATADIR%%/tests/suite/query_response_time/query_response_time-rw.result
+%%DATADIR%%/tests/suite/query_response_time/query_response_time-rw.test
 %%DATADIR%%/tests/suite/query_response_time/query_response_time-stored.inc
 %%DATADIR%%/tests/suite/query_response_time/query_response_time-stored.result
 %%DATADIR%%/tests/suite/query_response_time/query_response_time-stored.test

@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	lacaml
-PORTVERSION=	7.1.3
-PORTREVISION=	1
+PORTVERSION=	7.2.6
+DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
-MASTER_SITES=	GH
 PKGNAMEPREFIX=	ocaml-
 
 MAINTAINER=	ports@FreeBSD.org
@@ -13,14 +12,8 @@ COMMENT=	OCaml interface to BLAS and LAPACK libraries
 
 LICENSE=	LGPL21
 
-LIB_DEPENDS=	libblas.so:${PORTSDIR}/math/blas \
-		liblapack.so:${PORTSDIR}/math/lapack
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	mmottl
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	${PORTVERSION:S/^/v/}
-GH_COMMIT=	7731438
 
 USE_OCAML=	yes
 USE_OCAML_FINDLIB=yes
@@ -29,15 +22,15 @@ USE_OCAML_LDCONFIG=yes
 USE_OCAML_WASH=	yes
 OCAMLFIND_LDCONF=ignore
 
-USES=		fortran
+USES=		blaslapack fortran
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix ${PREFIX} --disable-docs --disable-examples \
 		--override conf_ccopt "${CFLAGS}" \
-		--override conf_cclib "${LDFLAGS:S,^.*[[:space:]],,}"
+		--override conf_cclib "${LDFLAGS}"
 MAKE_JOBS_UNSAFE=yes
 
 CFLAGS+=	-fPIC -DEXTERNAL_EXP10
-LDFLAGS+=	-L${LOCALBASE}/lib -lblas -llapack
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 DOCSDIR=	${OCAML_DOCSDIR}/${PORTNAME}
 EXAMPLESDIR=	${OCAML_EXAMPLESDIR}/${PORTNAME}
@@ -46,6 +39,12 @@ PORTDOCS=	*
 PORTEXAMPLES=	*
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|%%BLASLIB%%|${BLASLIB}| ; \
+		 s|%%LAPACKLIB%%|${LAPACKLIB}| ; \
+		 s|%%LOCALBASE%%|${LOCALBASE}|' ${WRKSRC}/myocamlbuild.ml
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

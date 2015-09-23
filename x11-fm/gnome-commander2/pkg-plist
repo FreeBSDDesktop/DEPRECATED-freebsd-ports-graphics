@@ -18,6 +18,20 @@ lib/gnome-commander/plugins/sha1sum.pyo
 man/man1/gnome-commander.1.gz
 share/appdata/gnome-commander.appdata.xml
 share/applications/gnome-commander.desktop
+%%DATADIR%%/mime/XMLnamespaces
+%%DATADIR%%/mime/aliases
+%%DATADIR%%/mime/generic-icons
+%%DATADIR%%/mime/globs
+%%DATADIR%%/mime/globs2
+%%DATADIR%%/mime/icons
+%%DATADIR%%/mime/image/png.xml
+%%DATADIR%%/mime/magic
+%%DATADIR%%/mime/mime.cache
+%%DATADIR%%/mime/packages/gnome-commander-mime.xml
+%%DATADIR%%/mime/subclasses
+%%DATADIR%%/mime/treemagic
+%%DATADIR%%/mime/types
+%%DATADIR%%/mime/version
 share/gnome/help/gnome-commander/C/figures/create_archive.png
 share/gnome/help/gnome-commander/C/figures/dev_cd.png
 share/gnome/help/gnome-commander/C/figures/extract_archive.png
@@ -236,6 +250,7 @@ share/gnome/help/gnome-commander/sl/legal.xml
 share/gnome/help/gnome-commander/sl/releases.xml
 share/locale/ar/LC_MESSAGES/gnome-commander.mo
 share/locale/bg/LC_MESSAGES/gnome-commander.mo
+share/locale/bs/LC_MESSAGES/gnome-commander.mo
 share/locale/ca/LC_MESSAGES/gnome-commander.mo
 share/locale/cs/LC_MESSAGES/gnome-commander.mo
 share/locale/da/LC_MESSAGES/gnome-commander.mo
@@ -377,27 +392,3 @@ share/pixmaps/gnome-commander/terminal.svg
 share/pixmaps/gnome-commander/toggle_horizontal.xpm
 share/pixmaps/gnome-commander/toggle_vertical.xpm
 share/pixmaps/gnome-commander/unpin.png
-@dirrm share/pixmaps/gnome-commander/mime-icons
-@dirrm share/pixmaps/gnome-commander/file-type-icons
-@dirrm share/pixmaps/gnome-commander/device-icons
-@dirrm share/pixmaps/gnome-commander
-@dirrm share/omf/gnome-commander
-@dirrm share/gnome/help/gnome-commander/sl/figures
-@dirrm share/gnome/help/gnome-commander/sl
-@dirrm share/gnome/help/gnome-commander/ru/figures
-@dirrm share/gnome/help/gnome-commander/ru
-@dirrm share/gnome/help/gnome-commander/fr/figures
-@dirrm share/gnome/help/gnome-commander/fr
-@dirrm share/gnome/help/gnome-commander/es/figures
-@dirrm share/gnome/help/gnome-commander/es
-@dirrm share/gnome/help/gnome-commander/el/figures
-@dirrm share/gnome/help/gnome-commander/el
-@dirrm share/gnome/help/gnome-commander/de/figures
-@dirrm share/gnome/help/gnome-commander/de
-@dirrm share/gnome/help/gnome-commander/cs/figures
-@dirrm share/gnome/help/gnome-commander/cs
-@dirrm share/gnome/help/gnome-commander/C/figures
-@dirrm share/gnome/help/gnome-commander/C
-@dirrm share/gnome/help/gnome-commander
-@dirrm lib/gnome-commander/plugins
-@dirrm lib/gnome-commander

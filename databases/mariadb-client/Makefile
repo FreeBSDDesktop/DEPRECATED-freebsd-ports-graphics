@@ -1,9 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	mariadb
+PORTREVISION=	7
 PKGNAMESUFFIX=	53-client
-
-UNIQUENAME=	${PORTNAME}${PKGNAMESUFFIX}
 
 COMMENT=	Database client - drop-in replacement for MySQL
 
@@ -24,6 +23,7 @@ CONFLICTS=	mariadb5[4-9]-client-* \
 
 PATCHDIR=	${.CURDIR}/files
 PLIST=		${.CURDIR}/pkg-plist
+PKGMESSAGE=	${.CURDIR}/pkg-message
 
 MANS=	mysql_config.1 mysql_upgrade.1 mysql.1 mysqladmin.1 \
 	mysqlbinlog.1 mysqlbug.1 mysqlcheck.1 \
@@ -38,8 +38,12 @@ post-patch:
 	@${REINPLACE_CMD} -e "s|install-exec-am: install-binPROGRAMS|install-exec-am:|g" ${WRKSRC}/extra/Makefile.in
 	@${REINPLACE_CMD} -e "s|%%MANS%%|${MANS}|" ${WRKSRC}/man/Makefile.in
 	@${REINPLACE_CMD} -e "s|^\(install-man: install-man1\).*|\1|" ${WRKSRC}/man/Makefile.in
+	@${REINPLACE_CMD} -e "s|-fno-implicit-templates||g" ${WRKSRC}/configure
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/support-files/mysql.m4 ${STAGEDIR}${PREFIX}/share/aclocal/
+
+post-stage:
+	@${RM} -rf ${STAGEDIR}/${PREFIX}/include/mysql/private
 
 .include "${MASTERDIR}/Makefile"

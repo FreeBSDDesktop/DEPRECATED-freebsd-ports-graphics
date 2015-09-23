@@ -5,7 +5,7 @@ PORTNAME=	cmospwd
 PORTVERSION=	5.1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.cgsecurity.org/ \
-		CRITICAL
+		LOCAL/ehaupt
 
 MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	BIOS password recovery tool
@@ -21,13 +21,9 @@ ONLY_FOR_ARCHS=	i386 amd64
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
-post-patch:
-.if ${PORT_OPTIONS:MDOCS}
+post-patch-DOCS-on:
 	@${REINPLACE_CMD} -e "s/`${ECHO_CMD} -e '\r'`*$$//" \
 		${WRKSRC}/cmospwd.txt
-.endif
 
 do-build:
 	${CC} ${CFLAGS} ${WRKSRC}/src/${PORTNAME}.c -o ${WRKSRC}/${PORTNAME}

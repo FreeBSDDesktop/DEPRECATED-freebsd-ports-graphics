@@ -3,11 +3,10 @@
 
 PORTNAME?=	gimp-app
 PORTVERSION=	2.8.14
-PORTREVISION?=	0
+PORTREVISION?=	4
 PORTEPOCH?=	1
 CATEGORIES?=	graphics gnome
-MASTER_SITES=	GIMP
-MASTER_SITE_SUBDIR=	gimp/v${PORTVERSION:R}
+MASTER_SITES=	GIMP/gimp/v${PORTVERSION:R}
 DISTNAME=	gimp-${PORTVERSION}
 
 MAINTAINER=	gnome@FreeBSD.org
@@ -17,8 +16,7 @@ LICENSE=	GPLv3 LGPL3
 LICENSE_COMB=	multi
 
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-codes
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
 		liblcms2.so:${PORTSDIR}/graphics/lcms2 \
 		libgegl-0.2.so:${PORTSDIR}/graphics/gegl \
@@ -26,7 +24,7 @@ LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
 RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-codes
 
 GNU_CONFIGURE=	yes
-USES+=		desktop-file-utils gettext gmake libtool pathfix \
+USES+=		cpe desktop-file-utils gettext gmake jpeg libtool pathfix \
 		pkgconfig tar:bzip2
 USE_XORG=	xpm xmu xext
 USE_GNOME+=	intlhack gtk20
@@ -44,9 +42,11 @@ CONFIGURE_ARGS?=--with-html-dir=${PREFIX}/share/doc/gimp \
 		--with-desktop-dir=${PREFIX}/share \
 		--docdir=${PREFIX}/share/doc/gimp \
 		--enable-default-binary
-CONFIGURE_ENV=	GIMP_THREAD_LIBS=${PTHREAD_LIBS}
+CONFIGURE_ENV=	GIMP_THREAD_LIBS=-lpthread
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
+CPE_PRODUCT=	gimp
+CPE_VENDOR=	gnu
 
 PLIST_SUB+=	LIBVER=0.800.14
 
@@ -93,7 +93,7 @@ CONFIGURE_ARGS+=	--without-dbus
 .endif
 
 .if ${PORT_OPTIONS:MGHOSTSCRIPT}
-USE_GHOSTSCRIPT=	yes
+USES+=			ghostscript
 CONFIGURE_ARGS+=	--with-gs
 PLIST_SUB+=		GS=""
 .else

@@ -15,19 +15,15 @@ LIB_DEPENDS=	librtmp.so:${PORTSDIR}/multimedia/librtmp
 
 USES=		pkgconfig
 USE_OPENSSL=	yes
-MAKE_ENV=	THREADLIB="${PTHREAD_LIBS}"
-CFLAGS+=	${PTHREAD_CFLAGS} -I${OPENSSLINC}
+MAKE_ENV=	THREADLIB="-lpthread"
+CFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${LOCALBASE}/lib -L${OPENSSLLIB}
 PORTDOCS=	ChangeLog README
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-post-install:
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

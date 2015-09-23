@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	gnuchess
-PORTVERSION=	6.1.2
+PORTVERSION=	6.2.1
 CATEGORIES=	games
-MASTER_SITES=	GNU
-MASTER_SITE_SUBDIR=	chess
+MASTER_SITES=	GNU/chess
 # The DISTFILES here is explicitly needed because it can be extended later.
 DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}
 
@@ -15,8 +14,10 @@ COMMENT=	"Classic" Gnu Chess
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	MKDIR_P="${MKDIR}"
 INFO=		gnuchess
-USES=		shebangfix
+USES=		cpe shebangfix
 SHEBANG_FILES=	doc/quotes.rb
+CPE_PRODUCT=	chess
+CPE_VENDOR=	gnu
 
 OPTIONS_DEFINE=		OPENING_BOOK DOCS NLS
 OPTIONS_DEFAULT=	OPENING_BOOK

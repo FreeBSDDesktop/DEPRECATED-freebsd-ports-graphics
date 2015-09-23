@@ -3,10 +3,10 @@
 
 PORTNAME=	sguil
 PORTVERSION=	0.9.0
-REVISION=	1
+PORTREVISION=	1
 CATEGORIES=	security
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Sguil is a network security monitoring program
 
 LICENSE=	GPLv3
@@ -16,9 +16,7 @@ RUN_DEPENDS=	tcltls>=0:${PORTSDIR}/devel/tcltls \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	bammv
-GH_PROJECT=	${USERS}
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	0b16167
+GH_TAGNAME=	0b16167
 
 OPTIONS_DEFINE=		DOCS
 OPTIONS_DEFAULT=	SERVER CLIENT SENSOR
@@ -45,10 +43,10 @@ SERVER_RUN_DEPENDS=	p0f:${PORTSDIR}/net-mgmt/p0f \
 	                tcpflow:${PORTSDIR}/net/tcpflow \
 	                dtplite:${PORTSDIR}/devel/tcllib
 CLIENT_RUN_DEPENDS=	dtplite:${PORTSDIR}/devel/tcllib \
-			${LOCALBASE}/lib/iwidgets/iwidgets.tcl:${PORTSDIR}/x11-toolkits/iwidgets \
+			iwidgets>0:${PORTSDIR}/x11-toolkits/iwidgets \
 			gpg2:${PORTSDIR}/security/gnupg
 SENSOR_RUN_DEPENDS=	barnyard2:${PORTSDIR}/security/barnyard2-sguil
-MYSQL_LIB_DEPENDS=	libmysqltcl3.052.so:${PORTSDIR}/databases/mysqltcl
+MYSQL_LIB_DEPENDS=	mysqltcl>=3.052:${PORTSDIR}/databases/mysqltcl
 AUDIO_RUN_DEPENDS=	festival:${PORTSDIR}/audio/festival
 SANCP_RUN_DEPENDS=	sancp:${PORTSDIR}/security/sancp
 WIRESHARK_RUN_DEPENDS=	wireshark:${PORTSDIR}/net/wireshark

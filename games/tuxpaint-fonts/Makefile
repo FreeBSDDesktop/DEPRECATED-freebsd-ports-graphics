@@ -42,9 +42,6 @@ ${l:tu}_DESC=	${l:S/_/ /} fonts
 MASTER_SITES+=	SF/${PORTNAME}/${PORTNAME}-fonts/${${l:tu}_DISTNAME}:${l:tu}
 .endfor
 
-# Do not use the same OPTIONS directory as "games/tuxpaint".
-LATEST_LINK=	${PORTNAME}${PKGNAMESUFFIX}
-
 .include <bsd.port.options.mk>
 
 # Set DISTFILES and PLIST_FILES according to OPTIONS.
@@ -54,6 +51,7 @@ DISTFILES+=	${PORTNAME}-ttf-${${l:tu}_DISTNAME}${EXTRACT_SUFX}:${l:tu}
 PLIST_FILES+=	%%DATADIR%%/fonts/locale/${${l:tu}_CODE}.ttf
 PLIST_FILES+=	%%DATADIR%%/fonts/locale/${${l:tu}_CODE}_docs/COPYING.txt
 PLIST_FILES+=	%%DATADIR%%/fonts/locale/${${l:tu}_CODE}_docs/README.txt
+PLIST_DIRS+=	%%DATADIR%%/fonts/locale/${${l:tu}_CODE}_docs
 .	endif
 .endfor
 

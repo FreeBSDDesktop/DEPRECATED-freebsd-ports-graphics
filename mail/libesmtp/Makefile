@@ -3,12 +3,12 @@
 
 PORTNAME=	libesmtp
 PORTVERSION=	1.0.6
-PORTREVISION=	1
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://www.stafford.uklinux.net/libesmtp/ \
 		http://ftp.osuosl.org/pub/blfs/svn/l/ \
-		GENTOO/distfiles
+		GENTOO
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library for posting electronic mail
@@ -22,7 +22,7 @@ OPTIONS_SUB=	yes
 
 DEBUG_CONFIGURE_ENABLE=	debug
 OPENSSL_CONFIGURE_WITH=	openssl=${OPENSSLBASE}
-OPENSSL_USE=	openssl
+OPENSSL_USE=		OPENSSL=yes
 
 GNU_CONFIGURE=	yes
 # require-all-recipients (implied by enable-all) is required for Balsa

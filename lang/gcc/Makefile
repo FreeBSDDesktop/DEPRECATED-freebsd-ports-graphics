@@ -2,11 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	gcc
-PORTVERSION=	4.8.3
-PORTREVISION=	2
+PORTVERSION=	4.8.5
 CATEGORIES=	lang java
-MASTER_SITES=	${MASTER_SITE_GCC}
-MASTER_SITE_SUBDIR=	releases/gcc-${DISTVERSION}
+MASTER_SITES=	GCC/releases/gcc-${DISTVERSION}
 
 MAINTAINER=	gerald@FreeBSD.org
 COMMENT=	GNU Compiler Collection 4.8
@@ -25,14 +23,15 @@ BUILD_DEPENDS+=	runtest:${PORTSDIR}/misc/dejagnu
 .endif
 
 CONFLICTS=	gcc48*
+CPE_VENDOR=	gnu
 
 # DISTVERSION relates to downloads, GCC_VERSION and SUFFIX to names
 # of executables and directories once installed.
 DISTVERSION=	${PORTVERSION}
 GCC_VERSION=	${PORTVERSION:C/(.+)\.[0-9]{8}/\1/}
 SUFFIX=		${PORTVERSION:C/([0-9]+).([0-9]+).*/\1\2/}
-ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 sparc64
-USES=		gmake iconv libtool makeinfo perl5 tar:bzip2
+ONLY_FOR_ARCHS=	amd64 armv6 armv6hf i386 powerpc powerpc64 sparc64
+USES=		cpe gmake iconv libtool makeinfo perl5 tar:bzip2
 USE_BINUTILS=	yes
 USE_PERL5=	build
 SSP_UNSAFE=	yes
@@ -45,6 +44,7 @@ OPTIONS_DEFINE_i386=	JAVA
 OPTIONS_DEFINE_amd64=	JAVA
 OPTIONS_DEFAULT_i386=	JAVA
 OPTIONS_DEFAULT_amd64=	JAVA
+OPTIONS_EXCLUDE_DragonFly=	JAVA
 BOOTSTRAP_DESC=		Build using a full bootstrap
 
 .include <bsd.port.pre.mk>
@@ -59,6 +59,18 @@ CONFIGURE_TARGET=	${ARCH}-portbld-${OPSYS:tl}${OSREL}
 CONFIGURE_ENV+=	UNAME_m="powerpc64"
 .endif
 
+.if ${ARCH} == "armv6" || ${ARCH} == "armv6hf"
+# Override sys.mk including -O in CFLAGS which breaks libgomp building.
+CFLAGS:=	${CFLAGS:S/-O/-O2/g}
+. if ${COMPILER_TYPE} == clang
+.  if empty(PORT_OPTIONS:MBOOTSTRAP)
+MAKE_ARGS+=CXXFLAGS=-fbracket-depth=512
+.  else
+MAKE_ARGS+=STAGE1_CXXFLAGS=-fbracket-depth=512
+.  endif
+. endif
+.endif
+
 LANGUAGES:=	c,c++,objc,fortran
 SRCDIR=		${WRKDIR}/gcc-${DISTVERSION}
 WRKSRC=		${WRKDIR}/build
@@ -68,6 +80,7 @@ GNU_CONFIGURE=	yes
 .if empty(PORT_OPTIONS:MBOOTSTRAP)
 CONFIGURE_ARGS+=--disable-bootstrap
 .else
+CONFIGURE_ARGS+=--with-build-config=bootstrap-debug
 ALL_TARGET=	bootstrap-lean
 .endif
 CONFIGURE_ARGS+=--disable-nls \

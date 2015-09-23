@@ -3,7 +3,7 @@
 
 PORTNAME=	zoneminder
 PORTVERSION=	1.25.0
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	multimedia
 MASTER_SITES=	http://www2.zoneminder.com/downloads/ \
 		http://www.zoneminder.com/downloads/
@@ -15,12 +15,10 @@ COMMENT=	Complete security camera solution, fully web based with image analysis
 LICENSE=	GPLv2
 
 RUN_DEPENDS=	${LOCALBASE}/bin/sudo:${PORTSDIR}/security/sudo
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libnetpbm.so:${PORTSDIR}/graphics/netpbm \
+LIB_DEPENDS=	libnetpbm.so:${PORTSDIR}/graphics/netpbm \
 		libpcre.so:${PORTSDIR}/devel/pcre \
 		libavutil0.so:${PORTSDIR}/multimedia/ffmpeg0
-BUILD_DEPENDS=	${LOCALBASE}/bin/php-config:${PORTSDIR}/lang/php5-extensions \
-		p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
+BUILD_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 		p5-DBD-mysql>=0:${PORTSDIR}/databases/p5-DBD-mysql \
 		p5-Date-Manip>=0:${PORTSDIR}/devel/p5-Date-Manip \
 		p5-libwww>=0:${PORTSDIR}/www/p5-libwww \
@@ -30,7 +28,7 @@ BUILD_DEPENDS=	${LOCALBASE}/bin/php-config:${PORTSDIR}/lang/php5-extensions \
 		p5-MIME-Tools>=0:${PORTSDIR}/mail/p5-MIME-Tools \
 		${LOCALBASE}/include/linux/videodev.h:${PORTSDIR}/multimedia/v4l_compat
 
-USES=		perl5 shebangfix
+USES=		jpeg perl5 shebangfix
 GNU_CONFIGURE=	yes
 USE_PHP=	json mysql session
 USE_MYSQL=	yes

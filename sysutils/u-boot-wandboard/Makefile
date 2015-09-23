@@ -2,25 +2,25 @@
 
 PORTNAME=	u-boot
 PORTVERSION=	2013.10
+PORTREVISION=	2
 CATEGORIES=	sysutils
 PKGNAMESUFFIX=	-wandboard
-DISTNAME=	u-boot-${PORTVERSION}-technexion-edm
 
 MAINTAINER=	ian@FreeBSD.org
 COMMENT=	Cross-build U-Boot loader for Wandboard (solo, dual, and quad)
 
 LICENSE=	GPLv2
 
-BUILD_DEPENDS=  arm-none-eabi-gcc:${PORTSDIR}/devel/arm-none-eabi-gcc
+BUILD_DEPENDS=	${CROSS_GCC}:${PORTSDIR}/devel/arm-none-eabi-gcc492
+
+CROSS_GCC=	arm-none-eabi-gcc-4.9.2
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	TechNexion
 GH_PROJECT=	u-boot-edm
-GH_COMMIT=	87f595d
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	87f595d
 NO_ARCH=	yes
 
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_TAGNAME}
 USES=		gmake
 SSP_UNSAFE=	yes # cross-build static linking dies with -fstack-protector
 
@@ -29,8 +29,9 @@ PLIST_FILES=	${U_BOOT_DIR}/u-boot.imx \
 		${U_BOOT_DIR}/README
 
 MAKE_ARGS+=	ARCH=arm \
+		CC=${CROSS_GCC} \
 		CROSS_COMPILE=arm-none-eabi- \
-		HOSTCC=clang
+		HOSTCC=cc
 
 do-configure:
 	cd ${WRKSRC}; ${GMAKE} ${MAKE_ARGS} edm_cf_imx6_config

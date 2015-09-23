@@ -5,12 +5,11 @@ PORTNAME=	mplayer-skins
 PORTVERSION=	1.1.3
 PORTREVISION=	2
 CATEGORIES=	multimedia
-MASTER_SITES=	${MASTER_SITE_MPLAYERHQ}
-MASTER_SITE_SUBDIR=	skins
+MASTER_SITES=	MPLAYERHQ/skins
 DISTFILES=	# filled in later after options
 DIST_SUBDIR=	mplayer-skins
 
-MAINTAINER=	riggs@freebsd.org
+MAINTAINER=	riggs@FreeBSD.org
 COMMENT=	Skins for MPlayer's Graphical User Interface (GUI)
 
 #

@@ -14,6 +14,7 @@ LICENSE=	GPLv3
 USES=		gmake
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
+PORTSCOUT=	skipv:1.5.0~rc0,1.5.0~rc1
 
 LIBVERSION=	1
 PLIST_SUB+=	LIBVERSION="${LIBVERSION}"
@@ -33,15 +34,10 @@ TOSTRIP=	bin/adnsheloex \
 		lib/libadns.so.1
 
 OPTIONS_DEFINE=		DOCS
-OPTIONS_DEFAULT=	DOCS
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-post-install:
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR})
-.endif
 
 post-stage:
 .for f in ${TOSTRIP}

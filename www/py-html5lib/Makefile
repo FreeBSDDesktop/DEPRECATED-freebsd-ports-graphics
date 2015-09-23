@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	html5lib
-PORTVERSION=	0.999
+PORTVERSION=	0.999999
 CATEGORIES=	www python
-MASTER_SITES=	GOOGLE_CODE:master \
-		CHEESESHOP:master \
+MASTER_SITES=	CHEESESHOP \
 		http://magemana.nl/ports/dist/:test
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -13,20 +12,22 @@ MAINTAINER=	rm@FreeBSD.org
 COMMENT=	Python based HTML parser based on the HTML5 spec
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:${PORTSDIR}/devel/py-six
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}nose>0:${PORTSDIR}/devel/py-nose
 
 OPTIONS_DEFINE=	TEST
 
+NO_ARCH=	yes
 USES=		python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.options.mk>
 
 .if !empty(PORT_OPTIONS:MTEST)
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:master \
-		${PORTNAME}-${PORTVERSION}-testdata${EXTRACT_SUFX}:test
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:master \
+		${DISTNAME}-testdata${EXTRACT_SUFX}:test
 BUILD_DEPENDS+=	${TEST_DEPENDS}
 .endif
 

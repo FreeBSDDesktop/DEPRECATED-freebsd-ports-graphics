@@ -14,12 +14,13 @@ BUILD_DEPENDS=	bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf \
 		gccmakedep:${PORTSDIR}/devel/gccmakedep \
 		mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
 		mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale \
-		${LOCALBASE}/lib/X11/fonts/misc/10x20-ISO8859-1.pcf.gz:${PORTSDIR}/x11-fonts/font-misc-misc
-RUN_DEPENDS=	mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir
+		${LOCALBASE}/share/fonts/misc/10x20-ISO8859-1.pcf.gz:${PORTSDIR}/x11-fonts/font-misc-misc
 
 RESTRICTED=	Contains ROM (C) by Atari
 
 TOSIMG?=	tos.img
+USES=		fonts
+FONTNAME=	# empty
 USE_XORG=	x11 sm ice xext xextproto
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--x-includes=${LOCALBASE}/include \
@@ -27,7 +28,7 @@ CONFIGURE_ARGS=	--x-includes=${LOCALBASE}/include \
 ALL_TARGET=	all fnttobdf tosfonts fonts
 
 BINDIR=	${PREFIX}/bin
-FNTDIR=	${PREFIX}/lib/X11/fonts/misc
+FNTDIR=	${PREFIX}/share/fonts/misc
 
 DATA=	atari/bench1.pas atari/bench1.prg
 ETCFILES=	keysyms-alternative keysyms-german keysyms-spanish

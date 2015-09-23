@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	swe
-PORTVERSION=	2.00.00
+PORTVERSION=	2.02.01
 CATEGORIES=	astro devel
 MASTER_SITES=	ftp://ftp.astro.com/pub/swisseph/
 DISTNAME=	${PORTNAME}_unix_src_${PORTVERSION}
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	High Precision Ephemeris Developed By Astrodienst
 
 LICENSE=	GPLv2
@@ -21,7 +21,7 @@ USE_LDCONFIG=	yes
 OPTIONS_DEFINE=	DOCS
 
 do-install:
-	${INSTALL_LIB} ${WRKSRC}/libswe.a ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${WRKSRC}/libswe.a ${STAGEDIR}${PREFIX}/lib
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/swe
 	${INSTALL_DATA} ${WRKSRC}/*.h ${STAGEDIR}${PREFIX}/include/swe
 	${MKDIR} ${STAGEDIR}${DOCSDIR}

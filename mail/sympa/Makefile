@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	sympa
-PORTVERSION=	6.1.23
+PORTVERSION=	6.1.24
+PORTREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://www.sympa.org/distribution/ \
 		http://www.sympa.org/distribution/old/
@@ -43,7 +44,7 @@ PORTSCOUT=	limit:^[0-9]+(\.[0-9]+)*$$
 USERS=		sympa
 GROUPS=		sympa
 # Shebang is corrected by configure script
-USES=		perl5
+USES=		cpe perl5 fakeroot
 GNU_CONFIGURE=	yes
 ICONSDIR?=	www/icons
 CONFIGURE_ARGS+=--bindir=${PREFIX}/libexec/${PORTNAME}	\

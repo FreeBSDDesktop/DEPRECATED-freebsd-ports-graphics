@@ -12,8 +12,9 @@ EXTRACT_SUFX=	.tgz
 MAINTAINER=	mjl@luckie.org.nz
 COMMENT=	Portable debug memory allocation library
 
-HAS_CONFIGURE=	yes
-CONFIGURE_ARGS=	--enable-threads --enable-shlib --prefix="${STAGEDIR}${PREFIX}"
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-threads --enable-shlib
+GNU_CONFIGURE_PREFIX=	"${STAGEDIR}${PREFIX}"
 CONFIGURE_ENV=	INSTALL_PROGRAM="${INSTALL_DATA}"
 CFLAGS=		-fPIC
 USE_LDCONFIG=	yes
@@ -24,11 +25,7 @@ INSTALL_TARGET=	install
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-INSTALL_TARGET+=installdocs
-.endif
+DOCS_INSTALL_TARGET=	installdocs
 
 post-install:
 	${CHMOD} 755 ${STAGEDIR}${PREFIX}/bin/dmalloc

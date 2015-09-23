@@ -19,14 +19,8 @@ BUILD_DEPENDS=	p5-CPAN-DistnameInfo>=0.10:${PORTSDIR}/devel/p5-CPAN-DistnameInfo
 		p5-local-lib>=0:${PORTSDIR}/devel/p5-local-lib
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
+NO_ARCH=	yes
 USE_PERL5=	configure
 USES=		perl5
 
-.include <bsd.port.pre.mk>
-
-.if ${PERL_LEVEL} < 501600
-BUILD_DEPENDS+=	p5-Module-Metadata>=1.000007:${PORTSDIR}/devel/p5-Module-Metadata
-RUN_DEPENDS+=	p5-Module-Metadata>=1.000007:${PORTSDIR}/devel/p5-Module-Metadata
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

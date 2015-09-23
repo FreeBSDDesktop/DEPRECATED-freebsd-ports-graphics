@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	libav
-PORTVERSION=	10.2
-PORTREVISION=	7
+PORTVERSION=	11.4
+PORTREVISION=	1
 CATEGORIES=	multimedia audio ipv6 net
 MASTER_SITES=	http://libav.org/releases/
 
@@ -11,39 +11,39 @@ COMMENT=	Realtime audio/video conversion library
 
 BUILD_DEPENDS=	yasm:${PORTSDIR}/devel/yasm
 
-USES=		pkgconfig:build gmake compiler:features perl5
+USES=		cpe gmake perl5 pkgconfig tar:xz
 USE_LDCONFIG=	${PREFIX}/lib/${PORTNAME}
 HAS_CONFIGURE=	yes
-WANT_SDL=	yes
 USE_PERL5=	build
 
 CPPFLAGS+=	-I${LOCALBASE}/include
-CONFIGURE_ARGS+=	--prefix="${PREFIX}" \
-			--libdir="${PREFIX}/lib/${PORTNAME}" \
-			--shlibdir="${PREFIX}/lib/${PORTNAME}" \
-			--incdir="${PREFIX}/include/${PORTNAME}" \
-			--mandir="${PREFIX}/man" \
-			--datadir="${DATADIR}" \
-			--extra-ldflags="-L${LOCALBASE}/lib" \
-			--enable-pthreads \
-			--enable-shared \
-			--enable-runtime-cpudetect \
-			--disable-debug \
-			--cc="${CC}" \
-			--disable-avserver
+CONFIGURE_ARGS=	--prefix="${PREFIX}" \
+		--libdir="${PREFIX}/lib/${PORTNAME}" \
+		--shlibdir="${PREFIX}/lib/${PORTNAME}" \
+		--incdir="${PREFIX}/include/${PORTNAME}" \
+		--mandir="${PREFIX}/man" \
+		--datadir="${DATADIR}" \
+		--extra-ldflags="-L${LOCALBASE}/lib" \
+		--enable-pthreads \
+		--enable-shared \
+		--enable-runtime-cpudetect \
+		--disable-debug \
+		--cc="${CC}"
 
-OPTIONS_DEFINE=	ALSA AMR_NB AMR_WB BZIP2 CDIO FAAC FDK_AAC DOCS FREETYPE \
+OPTIONS_DEFINE=	ALSA AMR_NB AMR_WB BZIP2 CDIO FAAC FDK_AAC DC1394 DOCS FREETYPE \
 		FREI0R GNUTLS GSM ILBC JACK LAME OPENCV OPENJPEG OPENSSL \
-		OPUS PULSEAUDIO RTMP SCHROEDINGER SPEEX THEORA V4L VAAPI \
+		OPUS PULSEAUDIO RTMP SCHROEDINGER SDL SPEEX THEORA V4L VAAPI \
 		VDPAU VO_AACENC VO_AMRWBENC VORBIS VPX WAVPACK WEBP X11GRAB \
 		X264 XVID ZLIB
-
-OPTIONS_DEFAULT=	BZIP2 FREETYPE FREI0R GNUTLS OPENCV SCHROEDINGER \
-			THEORA VO_AACENC VORBIS VPX X264 XVID ZLIB
+OPTIONS_DEFAULT=BZIP2 FREETYPE FREI0R GNUTLS OPENCV SCHROEDINGER \
+		THEORA VO_AACENC VORBIS VPX X264 XVID ZLIB
 
 FDK_AAC_DESC=	AAC audio encoding via Fraunhofer FDK
 ILBC_DESC=	iLBC en/decoding via libilbc
 X11GRAB_DESC=	X11 grabbing
+DC1394_DESC=	IIDC-1394 grabbing using libdc1394
+
+OPTIONS_SUB=	yes
 
 ALSA_LIB_DEPENDS=		libasound.so:${PORTSDIR}/audio/alsa-lib
 ALSA_CONFIGURE_ON=		--enable-indev=alsa --enable-outdev=alsa
@@ -57,12 +57,14 @@ AMR_WB_CONFIGURE_ENABLE=	libopencore-amrwb
 
 BZIP2_CONFIGURE_ENABLE=		bzlib
 
-CDIO_LIB_DEPENDS=		libcdio.so:${PORTSDIR}/sysutils/libcdio
+CDIO_LIB_DEPENDS=		libcdio.so:${PORTSDIR}/sysutils/libcdio \
+				libcdio_paranoia.so:${PORTSDIR}/sysutils/libcdio-paranoia
 CDIO_CONFIGURE_ENABLE=		libcdio
 
-# --enable-libdc1394
-# DC1394_LIB_DEPENDS=		libdc1394.so:${PORTSDIR}/multimedia/libdc1394
-# DC1394_CONFIGURE_ENABLE=	libdc1394
+DC1394_LIB_DEPENDS=		libdc1394.so:${PORTSDIR}/multimedia/libdc1394
+DC1394_CONFIGURE_ENABLE=	libdc1394
+
+DOCS_BUILD_DEPENDS=		texi2html:${PORTSDIR}/textproc/texi2html
 
 FREI0R_BUILD_DEPENDS=		${LOCALBASE}/include/frei0r.h:${PORTSDIR}/graphics/frei0r
 FREI0R_CONFIGURE_ENABLE=	frei0r
@@ -86,7 +88,8 @@ ILBC_BUILD_DEPENDS=		${LOCALBASE}/include/ilbc.h:${PORTSDIR}/net/libilbc
 ILBC_CONFIGURE_ENABLE=		libilbc
 
 JACK_LIB_DEPENDS=		libjack.so:${PORTSDIR}/audio/jack
-JACK_CONFIGURE_ENABLE=		indev=jack
+JACK_CONFIGURE_ON=		--enable-indev=jack
+JACK_CONFIGURE_OFF=		--disable-indev=jack
 
 LAME_LIB_DEPENDS=		libmp3lame.so:${PORTSDIR}/audio/lame
 LAME_CONFIGURE_ENABLE=		libmp3lame
@@ -98,6 +101,7 @@ OPENJPEG_LIB_DEPENDS=		libopenjpeg.so:${PORTSDIR}/graphics/openjpeg15
 OPENJPEG_CONFIGURE_ENABLE=	libopenjpeg
 
 OPENSSL_CONFIGURE_ENABLE=	openssl
+OPENSSL_USE=		OPENSSL=yes
 
 OPUS_LIB_DEPENDS=		libopus.so:${PORTSDIR}/audio/opus
 OPUS_CONFIGURE_ENABLE=		libopus
@@ -111,6 +115,9 @@ RTMP_CONFIGURE_ENABLE=		librtmp
 SCHROEDINGER_LIB_DEPENDS=	libschroedinger-1.0.so:${PORTSDIR}/multimedia/schroedinger
 SCHROEDINGER_CONFIGURE_ENABLE=	libschroedinger
 
+SDL_USE=			SDL=sdl
+SDL_CONFIGURE_ENABLE=		avplay
+
 SPEEX_LIB_DEPENDS=		libspeex.so:${PORTSDIR}/audio/speex
 SPEEX_CONFIGURE_ENABLE=		libspeex
 
@@ -118,7 +125,8 @@ THEORA_LIB_DEPENDS=		libtheora.so:${PORTSDIR}/multimedia/libtheora
 THEORA_CONFIGURE_ENABLE=	libtheora
 
 V4L_BUILD_DEPENDS=		${LOCALBASE}/include/linux/videodev2.h:${PORTSDIR}/multimedia/v4l_compat
-V4L_CONFIGURE_ENABLE=		indev=v4l2
+V4L_CONFIGURE_ON=		--enable-indev=v4l2
+V4L_CONFIGURE_OFF=		--disable-indev=v4l2
 
 VAAPI_LIB_DEPENDS=		libva.so:${PORTSDIR}/multimedia/libva
 VAAPI_CONFIGURE_ENABLE=		vaapi
@@ -156,32 +164,12 @@ ZLIB_CONFIGURE_ENABLE=		zlib
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MDOCS}
-BUILD_DEPENDS+=		texi2html:${PORTSDIR}/textproc/texi2html
+.if ${ARCH} == "armv6"
+CONFIGURE_ENV+=	ASFLAGS=-no-integrated-as
 .endif
-
-.if ${PORT_OPTIONS:MOPENSSL}
-USE_OPENSSL=	yes
-.endif
-
-.include <bsd.port.pre.mk>
 
 .if ${ARCH} == "i386"
 CONFIGURE_ARGS+=	--extra-cflags=-m32
-.endif
-
-.if ${OSVERSION} < 900000 || ${COMPILER_TYPE} == gcc
-USE_GCC=	yes
-.endif
-
-.if ${HAVE_SDL:Msdl}
-USE_SDL+=	sdl
-MAN1+=		avplay.1
-CONFIGURE_ARGS+=	--enable-avplay
-PLIST_SUB+=	AVPLAY=""
-.else
-CONFIGURE_ARGS+=	--disable-avplay
-PLIST_SUB+=	AVPLAY="@comment "
 .endif
 
 # License definitions
@@ -217,16 +205,23 @@ LICENSE=	LGPL21
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|freetype/freetype.h|freetype2/freetype.h|' \
+		-e 's|-ldc1394 -lraw1394|-ldc1394|' \
 		${WRKSRC}/configure
 	@${REINPLACE_CMD} -e 's|gsm/gsm.h|gsm.h|' \
 		${WRKSRC}/configure \
-		${WRKSRC}/libavcodec/libgsm.c
+		${WRKSRC}/libavcodec/libgsmdec.c
 	@${REINPLACE_CMD} -e 's|$$(LIBDIR)/pkgconfig|${STAGEDIR}${PREFIX}/libdata/pkgconfig|' \
 		${WRKSRC}/library.mak
 
-post-configure:
-.if !${PORT_OPTIONS:MDOCS}
+post-configure-DOCS-off:
 	@${REINPLACE_CMD} -e 's|CONFIG_TEXI2HTML=yes|!CONFIG_TEXI2HTML=yes|' ${WRKSRC}/config.mak
-.endif
 
-.include <bsd.port.post.mk>
+post-stage:
+.for a in bin/avconv bin/avprobe lib/libav/libavdevice.so.55.0.0\
+	lib/libav/libavfilter.so.5.0.0 lib/libav/libavformat.so.56.1.0\
+	lib/libav/libavcodec.so.56.1.0 lib/libav/libavresample.so.2.1.0\
+	lib/libav/libswscale.so.3.0.0 lib/libav/libavutil.so.54.3.0
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${a}
+.endfor
+
+.include <bsd.port.mk>

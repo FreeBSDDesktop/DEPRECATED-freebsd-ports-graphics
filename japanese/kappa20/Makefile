@@ -3,9 +3,9 @@
 
 PORTNAME=	k20fonts
 PORTVERSION=	0.396
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	japanese x11-fonts
-MASTER_SITES=	${MASTER_SITE_NETBSD:S/$/:kappa20/:S/%SUBDIR%/LOCAL_PORTS/} \
+MASTER_SITES=	NETBSD/LOCAL_PORTS:kappa20 \
 		SFJP/x-tt/8412/:ayu20
 DISTNAME=	Kappa20-${PORTVERSION}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:kappa20 \
@@ -15,18 +15,14 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 MAINTAINER=	ginga-freebsd@ginganet.org
 COMMENT=	X11 20-dot Kanji font 'Kappa20dot + ayu font'
 
-USES=	tar:bzip2
+USES=	fonts tar:bzip2
 AYUDISTNAME=	ayu20gothic-1.6
 AYU_SUFFIX=	.tar.gz
 
 BUILD_DEPENDS=	mkitalic:${PORTSDIR}/x11-fonts/mkbold-mkitalic \
 		bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf
-RUN_DEPENDS=	mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
-		mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
 
-FONTSDIR=	lib/X11/fonts/local
-MAKE_ARGS=	FONTSDIR="${FONTSDIR}"
-PLIST_SUB=	FONTSDIR=${FONTSDIR}
+MAKE_ARGS=	FONTSDIR="${FONTSDIR:S,${PREFIX},,}"
 DOCSDIR=	${PREFIX}/share/doc/ja/${PORTNAME}
 
 OPTIONS_DEFINE=	DOCS

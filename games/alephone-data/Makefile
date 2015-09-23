@@ -5,7 +5,7 @@ PORTNAME=	data
 PORTVERSION=	1.0
 PORTREVISION=	10
 CATEGORIES=	games
-MASTER_SITES=	http://www.mariusnet.com/files/Marathon/
+MASTER_SITES=	http://files3.bungie.org/trilogy/
 PKGNAMEPREFIX=	alephone-
 DISTFILES=	#
 DIST_SUBDIR=	alephone
@@ -16,6 +16,7 @@ COMMENT=	Released Marathon data files for the Aleph One port
 RUN_DEPENDS=	alephone:${PORTSDIR}/games/alephone
 
 USES=		zip
+NO_ARCH=	yes
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
 NO_CDROM=	Bungie/Microsoft do not allow charging for Marathon data files

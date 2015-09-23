@@ -7,7 +7,7 @@ CATEGORIES?=	mail
 MASTER_SITES=	GNOME
 PKGNAMESUFFIX?=	26
 
-MAINTAINER?=	5u623l20@gmail.com
+MAINTAINER?=	bofh@FreeBSD.org
 COMMENT?=	Library (written in C) for parsing and creating messages using MIME
 
 LICENSE=	LGPL21
@@ -28,22 +28,19 @@ CONFIGURE_ARGS?=--with-html-dir=${PREFIX}/share/doc \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-OPTIONS_DEFINE=	DOCS
+PORTDOCS=	*
 
-.include <bsd.port.options.mk>
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^SUBDIRS =/s/tests//' \
 		${WRKSRC}/Makefile.in
 
-.if ${PORT_OPTIONS:MDOCS}
-PORTDOCS=	*
 
-post-install:
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for i in docs/reference/html/*
 	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
 .endfor
-.endif
 
 .include <bsd.port.mk>

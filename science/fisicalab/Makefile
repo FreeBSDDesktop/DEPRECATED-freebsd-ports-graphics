@@ -4,8 +4,7 @@ PORTNAME=	fisicalab
 PORTVERSION=	0.3.3
 PORTREVISION=	2
 CATEGORIES=	science gnustep
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITE_SUBDIR=	fisicalab
+MASTER_SITES=	SAVANNAH
 
 MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	Physics simulation program for educational use
@@ -14,10 +13,8 @@ LICENSE=	GPLv3
 
 LIB_DEPENDS+=	libgsl.so:${PORTSDIR}/math/gsl
 
-USE_GNUSTEP_CONFIGURE=	yes
-USE_GNUSTEP=	yes
-USE_GNUSTEP_GUI=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+GNU_CONFIGURE=	yes
+USE_GNUSTEP=	build gui
 
 .include <bsd.port.mk>

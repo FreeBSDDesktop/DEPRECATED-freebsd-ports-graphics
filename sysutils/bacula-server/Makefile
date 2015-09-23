@@ -3,16 +3,19 @@
 
 PORTNAME=	bacula
 DISTVERSION=	7.0.5
-PORTREVISION?=	1
+PORTREVISION?=	4
 CATEGORIES?=	sysutils
 MASTER_SITES=	SF/bacula/bacula/${PORTVERSION}
 PKGNAMEPREFIX?=	#
 PKGNAMESUFFIX?=	-server
 
-MAINTAINER=	dan@langille.org
+MAINTAINER=	dvl@FreeBSD.org
 COMMENT?=	Network backup solution (server)
 
-USES+=		libtool
+USES+=		libtool shebangfix
+SHEBANG_FILES=	scripts/dvd-handler.in
+python_OLD_CMD=	@PYTHON@
+USE_OPENSSL=	yes
 
 CONFLICTS?=	bacula5-server-*
 
@@ -29,13 +32,13 @@ USE_LDCONFIG=	yes
 CPPFLAGS+=	-I/usr/include/readline -I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
-OPTIONS_DEFINE?=	SQLITE3 MYSQL PGSQL MTX PYTHON NLS OPENSSL
-OPTIONS_DEFAULT?=	NLS OPENSSL PGSQL
+OPTIONS_DEFINE?=	SQLITE3 MYSQL PGSQL MTX PYTHON NLS
+OPTIONS_DEFAULT?=	NLS PGSQL
 MTX_DESC=		Install mtx for control of autochanger devices
 
 .if ${PKGNAMESUFFIX} == "-client" || ${PKGNAMESUFFIX} == "-server"  #Till end of the file
 
-PYTHON_USE=		PYTHON=yes
+PYTHON_USES=		python
 PYTHON_CONFIGURE_ON=	--with-python=yes
 
 .if !defined(WITH_CLIENT_ONLY)
@@ -173,9 +176,6 @@ post-patch:
 		${WRKSRC}/src/tools/Makefile.in
 .endif
 
-
-pre-install:
-	${MKDIR} ${STAGEDIR}${BACULA_DIR}
 
 .if !target(post-install)
 post-install:

@@ -3,6 +3,7 @@
 
 PORTNAME=	archiveopteryx
 PORTVERSION=	3.2.99.20140730
+PORTREVISION=	1
 CATEGORIES=	mail
 PKGNAMESUFFIX=	-devel
 
@@ -16,10 +17,10 @@ BUILD_DEPENDS=	jam:${PORTSDIR}/devel/jam
 USE_GITHUB=	yes
 GH_ACCOUNT=	aox
 GH_PROJECT=	aox
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	39bdb8b
+GH_TAGNAME=	39bdb8b
 
 USES=		perl5 tar:bzip2 pgsql:9.1+
+USE_OPENSSL=	yes
 USE_PERL5=	build
 
 PORTDOCS=	COPYING README bsd.txt
@@ -54,8 +55,5 @@ do-build:
 
 do-install:
 	@cd ${WRKSRC} && ${JAM} ${JAMARG} install
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.post.mk>

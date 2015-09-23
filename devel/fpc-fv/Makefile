@@ -1,11 +1,11 @@
 # Created by: John Merryweather Cooper
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	devel lang
 PKGNAMESUFFIX=	-fv
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	FreeVision is a Free Pascal unit for Delphi support
 
 USE_FPC=	yes

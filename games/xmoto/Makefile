@@ -3,7 +3,7 @@
 
 PORTNAME=	xmoto
 PORTVERSION=	0.5.11
-PORTREVISION=	5
+PORTREVISION=	7
 CATEGORIES=	games
 MASTER_SITES=	http://download.tuxfamily.org/xmoto/xmoto/${PORTVERSION}/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -13,7 +13,6 @@ MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Challenging 2D motocross platform game
 
 LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libxdg-basedir.so:${PORTSDIR}/x11/libxdg-basedir
 BUILD_DEPENDS=	${LOCALBASE}/lib/libode.a:${PORTSDIR}/devel/ode
@@ -22,7 +21,7 @@ LICENSE=	GPLv2 # or later
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 GNU_CONFIGURE=	yes
-USES=		gmake dos2unix lua:51
+USES=		compiler:features dos2unix gmake jpeg lua:51
 USE_GNOME=	libxml2
 USE_SQLITE=	3
 USE_SDL=	sdl mixer ttf net
@@ -42,8 +41,8 @@ OPTIONS_SUB=	yes
 
 ASIAN_TTF_DESC=	Use asian TTF font
 
-ASIAN_TTF_RUN_DEPENDS=	${LOCALBASE}/lib/X11/fonts/TrueType/bkai00mp.ttf:${PORTSDIR}/chinese/arphicttf
-ASIAN_TTF_CONFIGURE_ON=	--with-asian-ttf-file=${LOCALBASE}/lib/X11/fonts/TrueType/bsmi00lp.ttf
+ASIAN_TTF_RUN_DEPENDS=	${LOCALBASE}/share/fonts/TrueType/bkai00mp.ttf:${PORTSDIR}/chinese/arphicttf
+ASIAN_TTF_CONFIGURE_ON=	--with-asian-ttf-file=${LOCALBASE}/share/fonts/TrueType/bsmi00lp.ttf
 ASIAN_TTF_CONFIGURE_OFF=--without-asian-ttf-file
 
 NLS_USES=		gettext
@@ -58,8 +57,8 @@ DESKTOP_ENTRIES="XMoto" \
 
 .include <bsd.port.pre.mk>
 
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
-BROKEN=		does not build
+.if ${COMPILER_TYPE} == gcc && ${COMPILER_VERSION} <= 42
+BROKEN=		does not build with gcc 4.2
 .endif
 
 post-extract:

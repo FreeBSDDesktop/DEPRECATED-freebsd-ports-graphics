@@ -17,14 +17,7 @@ USE_PYTHON=	distutils autoplist
 
 GH_ACCOUNT=	dotpy
 GH_PROJECT=	py-${PORTNAME:tl}
-GH_TAGNAME=	${PORTVERSION}
-GH_COMMIT=	4edf8ee
 
 SUB_FILES=	pkg-message
-
-post-install:
-.if !defined(BATCH)
-	@${CAT} ${PKGMESSAGE}
-.endif
 
 .include <bsd.port.mk>

@@ -28,20 +28,12 @@ OPTIONS_DEFAULT=SSH THREADS
 SSH_DESC=	Use ssh in distributed measurement
 THREADS_DESC=	Enable threading (uses pthreads)
 
-.include <bsd.port.options.mk>
+THREADS_LDFLAGS=	-lpthread
+THREADS_CFLAGS_OFF=	-DNO_THREADS
 
-.if ${PORT_OPTIONS:MTHREADS}
-CFLAGS+=	${PTHREAD_CFLAGS}
-LDFLAGS+=	${PTHREAD_LIBS}
-.else
-CFLAGS+=	-DNO_THREADS
-.endif
-
-post-patch:
-.if ${PORT_OPTIONS:MSSH}
-	@${REINPLACE_CMD} -e 's|shell\,\"rsh\"|shell\,\"ssh\"|' ${WRKSRC}/iozone.c
-.endif
-	@${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|g' ${WRKSRC}/makefile
+post-patch-SSH-on:
+	@${REINPLACE_CMD} -e 's|shell\,\"rsh\"|shell\,\"ssh\"|' \
+		${WRKSRC}/iozone.c
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/iozone ${STAGEDIR}${PREFIX}/bin

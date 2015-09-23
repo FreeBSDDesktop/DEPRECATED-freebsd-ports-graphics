@@ -7,15 +7,15 @@ CATEGORIES=	databases
 MASTER_SITES=	https://forge.ocamlcore.org/frs/download.php/728/
 PKGNAMEPREFIX=	ocaml-
 DISTNAME=	caml${PORTNAME}-${PORTVERSION}
-EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	jaapb@kerguelen.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OCaml binding to the NDBM and GDBM database library
 
 LICENSE=	LGPL20
 
 CONFLICTS=	ocaml-[0-3]* ocaml-nox11-[0-3]*
 
+USES=		tar:tgz
 HAS_CONFIGURE=	yes
 USE_OCAML=	yes
 DOCSDIR=	${PREFIX}/share/doc/ocaml/${PORTNAME}

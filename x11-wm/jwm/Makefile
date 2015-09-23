@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	jwm
-PORTVERSION=	2.2.2
-PORTREVISION=	1
+PORTVERSION=	2.3.1
 CATEGORIES=	x11-wm
 MASTER_SITES=	http://joewing.net/programs/jwm/releases/
 
@@ -12,7 +11,7 @@ COMMENT=	Joe's Window Manager
 
 LICENSE=	GPLv2
 
-USES=		pkgconfig tar:xz
+USES=		iconv pkgconfig tar:xz
 USE_XORG=	x11
 GNU_CONFIGURE=	yes
 
@@ -30,11 +29,11 @@ DEBUG_CONFIGURE_ENABLE=	debug
 FRIBIDI_DESC=		Unicode Bidirectional Algorithm support
 FRIBIDI_LIB_DEPENDS=	libfribidi.so:${PORTSDIR}/converters/fribidi
 FRIBIDI_CONFIGURE_ENABLE=fribidi
-JPEG_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+JPEG_USES=		jpeg
 JPEG_CONFIGURE_ENABLE=	jpeg
 NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls
-PNG_LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+PNG_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 PNG_CONFIGURE_ENABLE=	png
 SVG_USE=		GNOME=librsvg2
 SVG_CONFIGURE_ENABLE=	rsvg

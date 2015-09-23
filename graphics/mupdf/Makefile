@@ -2,11 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	mupdf
-PORTVERSION=	1.6
+PORTVERSION=	1.7
 PORTEPOCH=	1
 CATEGORIES=	graphics
-MASTER_SITES=	GOOGLE_CODE \
-		http://www.mupdf.com/download/
+MASTER_SITES=	http://www.mupdf.com/download/
 EXTRACT_SUFX=	-source.tar.gz
 
 MAINTAINER=	udvzsolt@gmail.com
@@ -16,14 +15,15 @@ LICENSE=	AGPLv3
 
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 		libfreetype.so:${PORTSDIR}/print/freetype2 \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libjbig2dec.so:${PORTSDIR}/graphics/jbig2dec \
 		libopenjp2.so:${PORTSDIR}/graphics/openjpeg
 
 LIBS+=		-L${LOCALBASE}/lib
 MAKE_ARGS=	build=release prefix=${PREFIX} mandir=${PREFIX}/man verbose=yes
-USES=		compiler:c++11-lang pkgconfig gmake
+USES=		cpe compiler:c++11-lang gmake jpeg pkgconfig
 USE_XORG=	x11 xext
+
+CPE_VENDOR=	artifex
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-source
 

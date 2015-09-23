@@ -2,27 +2,24 @@
 # $FreeBSD$
 
 PORTNAME=	spamassassin
-PORTVERSION=	3.4.0
-PORTREVISION?=	15	# also bump japanese/spamassassin
+PORTVERSION=	3.4.1
+PORTREVISION?=	3	# also bump japanese/spamassassin
 CATEGORIES?=	mail perl5
-MASTER_SITES=	${MASTER_SITE_APACHE:S/$/:apache/} ${MASTER_SITE_PERL_CPAN:S/$/:cpan/}
-MASTER_SITE_SUBDIR=	spamassassin/source/:apache Mail/:cpan
+MASTER_SITES=	APACHE/spamassassin/source CPAN/Mail
 DISTNAME=	Mail-SpamAssassin-${PORTVERSION}
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:apache,cpan
 
 MAINTAINER?=	adamw@FreeBSD.org
 COMMENT?=	Highly efficient mail filter for identifying spam
 
 LICENSE=	APACHE20
 
-ALL_DEPENDS=	p5-Encode-Detect>=0:${PORTSDIR}/converters/p5-Encode-Detect \
+BUILD_DEPENDS=	p5-Encode-Detect>=0:${PORTSDIR}/converters/p5-Encode-Detect \
 		p5-HTML-Parser>=3.46:${PORTSDIR}/www/p5-HTML-Parser \
 		p5-HTTP-Date>=0:${PORTSDIR}/www/p5-HTTP-Date \
 		p5-IO-Socket-IP>=0:${PORTSDIR}/net/p5-IO-Socket-IP \
 		p5-Net-DNS>=0.63:${PORTSDIR}/dns/p5-Net-DNS \
 		p5-NetAddr-IP>=4.010:${PORTSDIR}/net-mgmt/p5-NetAddr-IP
-BUILD_DEPENDS=	${ALL_DEPENDS}
-RUN_DEPENDS=	${ALL_DEPENDS} \
+RUN_DEPENDS:=	${BUILD_DEPENDS} \
 		re2c>=.12.0:${PORTSDIR}/devel/re2c
 
 CONFLICTS?=	ja-spamassassin-[0-9]*
@@ -46,18 +43,24 @@ CONFIGURE_ARGS=	SYSCONFDIR="${PREFIX}/etc" \
 		LOCALSTATEDIR="${DBDIR}/spamassassin" \
 		BUILD_SPAMC=yes
 
-OPTIONS_DEFINE=		AS_ROOT GNUPG SSL UPDATE_AND_COMPILE
-OPTIONS_GROUP=		DATABASE PLUGINS
+OPTIONS_DEFINE=		AS_ROOT SSL UPDATE_AND_COMPILE
+OPTIONS_GROUP=		DATABASE GPG PLUGINS
 OPTIONS_GROUP_DATABASE=	MYSQL PGSQL
 OPTIONS_GROUP_PLUGINS=	DCC DKIM PYZOR RAZOR RELAY_COUNTRY SPF_QUERY
+OPTIONS_SINGLE=		GPG
+OPTIONS_SINGLE_GPG=	GNUPG_NONE GNUPG GNUPG2
 OPTIONS_DEFAULT=	AS_ROOT GNUPG SSL UPDATE_AND_COMPILE
 
 AS_ROOT_DESC=		Run spamd as root (recommended)
-GNUPG_DESC=		Install GnuPG (for sa-update, optional)
 SSL_DESC=		Build spamd/spamc with SSL support
 UPDATE_AND_COMPILE_DESC=Download and compile rulesets (recommended)
 
 DATABASE_DESC=		Optional user-config/bayes database backends
+
+GPG_DESC=		GnuPG (for sa-update, optional)
+GNUPG_NONE_DESC=	Do not use GnuPG
+GNUPG_DESC=		GnuPG 1 (security/gnupg1)
+GNUPG2_DESC=		GnuPG 2 (security/gnupg)
 
 PLUGINS_DESC=		Optional SpamAssassin plugins
 DCC_DESC=		DCC digest list support (mail/dcc-dccd)
@@ -77,6 +80,7 @@ DKIM_RUN_DEPENDS=	p5-IO-Socket-SSL>=0:${PORTSDIR}/security/p5-IO-Socket-SSL \
 			p5-Mail-DKIM>=0.37:${PORTSDIR}/mail/p5-Mail-DKIM \
 			p5-Crypt-OpenSSL-RSA>=0.26_1:${PORTSDIR}/security/p5-Crypt-OpenSSL-RSA
 GNUPG_RUN_DEPENDS=	gnupg1>=1.4.7:${PORTSDIR}/security/gnupg1
+GNUPG2_RUN_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg
 MYSQL_RUN_DEPENDS=	p5-DBD-mysql>=0:${PORTSDIR}/databases/p5-DBD-mysql
 PGSQL_RUN_DEPENDS=	p5-DBD-Pg>=0:${PORTSDIR}/databases/p5-DBD-Pg
 PYZOR_RUN_DEPENDS=	pyzor:${PORTSDIR}/mail/pyzor
@@ -98,7 +102,7 @@ RELAY_COUNTRY_INITVAR=	RelayCountry
 SPF_QUERY_INITVAR=	SPF
 UPDATE_AND_COMPILE_INITVAR=	Rule2XSBody
 
-DOCS=		CREDITS Changes INSTALL NOTICE PACKAGING README TRADEMARK UPGRADE USAGE procmailrc.example 3.4.0-RELEASE-NOTES.txt
+DOCS=		CREDITS Changes INSTALL NOTICE PACKAGING README TRADEMARK UPGRADE USAGE procmailrc.example
 DOCSSQL=	README README.awl README.bayes awl_mysql.sql awl_pg.sql bayes_mysql.sql bayes_pg.sql userpref_mysql.sql userpref_pg.sql
 DOCSLDAP=	README README.testing sa_test.ldif
 PORTDOCS=	${DOCS} sql ldap
@@ -134,10 +138,6 @@ PLIST_SUB+=	UPDATE_ON_INSTALL="no"
 .endif
 
 post-patch::
-	# The 3.4.0 release notes never made it into the tarball
-	${INSTALL_DATA} ${FILESDIR}/3.4.0-RELEASE-NOTES.txt ${WRKSRC}
-	${REINPLACE_CMD} -e 's,%%DOCSDIR%%,${DOCSDIR},' ${WRKSRC}/UPGRADE
-
 	${REINPLACE_CMD} -e 's,B_CONFDIR)/local.cf,B_CONFDIR)/local.cf.sample,g' \
 		-e 's,B_CONFDIR)/init.pre,B_CONFDIR)/init.pre.sample,g' \
 		-e 's,B_CONFDIR)/v310.pre,B_CONFDIR)/v310.pre.sample,g' \
@@ -145,6 +145,7 @@ post-patch::
 		-e 's,B_CONFDIR)/v320.pre,B_CONFDIR)/v320.pre.sample,g' \
 		-e 's,B_CONFDIR)/v330.pre,B_CONFDIR)/v330.pre.sample,g' \
 		-e 's,B_CONFDIR)/v340.pre,B_CONFDIR)/v340.pre.sample,g' \
+		-e 's,B_CONFDIR)/v341.pre,B_CONFDIR)/v341.pre.sample,g' \
 		-e 's/require DBI/0/' \
 		${WRKSRC}/Makefile.PL
 	${REINPLACE_CMD} -e '/^CC =/d; \
@@ -158,7 +159,7 @@ post-patch::
 .  endif
 .endfor
 
-	${FIND} ${WRKSRC} -name '*.orig' -or -name '*.bak' | ${XARGS} ${RM}
+	${FIND} ${WRKSRC} -name '*.orig' -or -name '*.bak' -delete
 
 pre-su-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

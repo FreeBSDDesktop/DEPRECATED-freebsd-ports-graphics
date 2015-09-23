@@ -11,6 +11,7 @@
     SUBDIR += d1489
     SUBDIR += emkatic
     SUBDIR += eric4
+    SUBDIR += eric6
     SUBDIR += fortune-bashorgru
     SUBDIR += fortuneru
     SUBDIR += gd
@@ -32,8 +33,10 @@
     SUBDIR += p5-Text-Hyphen-RU
     SUBDIR += p5-XML-Parser-encodings
     SUBDIR += p5-cyrillic
+    SUBDIR += py-pytils
     SUBDIR += rubygem-russian
     SUBDIR += rubygem-rutils
+    SUBDIR += rux
     SUBDIR += stardict-bars
     SUBDIR += stardict-computer
     SUBDIR += stardict-dal

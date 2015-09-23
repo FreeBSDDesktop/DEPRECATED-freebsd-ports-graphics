@@ -4,7 +4,7 @@
 PORTNAME=	boost-libs
 COMMENT=	Free portable C++ libraries (without Boost.Python)
 
-PORTREVISION=	4
+PORTREVISION=	8
 
 BUILD_DEPENDS+=	bjam:${PORTSDIR}/devel/boost-jam
 
@@ -33,10 +33,6 @@ BJAM_ARGS+=	-sICU_PATH=${LOCALBASE}
 .else
 USES+=		iconv
 BJAM_ARGS+=	-sICONV_PATH=${LOCALBASE}
-.endif
-
-.if ${ARCH} == "sparc64"
-BROKEN=		Does not compile on sparc64: invokes i386 assembler
 .endif
 
 do-build:

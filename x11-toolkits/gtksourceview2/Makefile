@@ -6,8 +6,7 @@ PORTNAME=	gtksourceview2
 PORTVERSION=	2.10.5
 PORTREVISION?=	4
 CATEGORIES=	x11-toolkits gnome
-MASTER_SITES=	GNOME
-MASTER_SITE_SUBDIR=	sources/${PORTNAME:S/2$//}/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
+MASTER_SITES=	GNOME/sources/${PORTNAME:S/2$//}/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
 DISTNAME=	${PORTNAME:S/2$//}-${PORTVERSION}
 DIST_SUBDIR=	gnome2
 
@@ -15,6 +14,8 @@ MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Widget that adds syntax highlighting to GtkTextView
 
 USES=		tar:bzip2
+
+PORTSCOUT=	ignore:1
 
 .if !defined(REFERENCE_PORT)
 

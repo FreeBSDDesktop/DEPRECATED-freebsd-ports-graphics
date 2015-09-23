@@ -14,7 +14,6 @@ COMMENT=	Unix source-port of the famous Heretic game by id Software
 
 USES=		gmake
 USE_XORG=	x11 xi xpm xau
-MAKE_ENV=	PTHREAD_LIBS=${PTHREAD_LIBS}
 
 OPTIONS_DEFINE=	WAD DOCS
 OPTIONS_SINGLE=	SG1
@@ -47,9 +46,9 @@ CFLAGS+=	`${SDL_CONFIG} --cflags`
 .if ${PORT_OPTIONS:MWAD}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:source heretic_share.wad.gz:wad
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
-PLIST_SUB=	WAD:=""
+PLIST_SUB+=	WAD=""
 .else
-PLIST_SUB=	WAD:="@comment "
+PLIST_SUB+=	WAD="@comment "
 .endif
 
 post-extract:

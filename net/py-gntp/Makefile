@@ -2,7 +2,8 @@
 
 PORTNAME=	gntp
 PORTVERSION=	0.8
-PORTREVISION=	1
+DISTVERSIONPREFIX=	v
+PORTREVISION=	2
 CATEGORIES=	net
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -12,17 +13,12 @@ COMMENT=	Growl Notification Transport Protocol for Python
 LICENSE=	MIT
 
 GH_ACCOUNT=	kfdm
-GH_COMMIT=	a4c1c69
-GH_TAGNAME=	v${PORTVERSION}
 
-OPTIONSFILE=	${PORT_DBDIR}/py-${PORTNAME}/options
 OPTIONS_DEFINE=	DOCS
 
 USE_GITHUB=	yes
 USES=		python:2
 USE_PYTHON=	distutils autoplist
-
-.include <bsd.port.options.mk>
 
 .include <bsd.port.pre.mk>
 

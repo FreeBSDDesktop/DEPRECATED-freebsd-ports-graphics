@@ -1,11 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	gnupg
-PORTVERSION=	2.0.26
-PORTREVISION=	2
+PORTVERSION=	2.0.29
+#PORTREVISION=	0
 CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_GNUPG}
-MASTER_SITE_SUBDIR=	gnupg
+MASTER_SITES=	GNUPG
 PKGNAMESUFFIX=	20
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${DISTNAME}${EXTRACT_SUFX}.sig
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
@@ -26,10 +25,11 @@ BUILD_DEPENDS=	libgpg-error>=1.11:${PORTSDIR}/security/libgpg-error
 RUN_DEPENDS=	pinentry>0:${PORTSDIR}/security/pinentry
 
 GNU_CONFIGURE=	YES
-USES=		gmake iconv tar:bzip2
+USES=		cpe gmake iconv tar:bzip2
 USE_LDCONFIG=	YES
 CONFIGURE_ARGS+=	--enable-symcryptrun
 CONFLICTS=	gnupg-2.1.*
+CPE_VENDOR=	gnupg
 
 OPTIONS_DEFINE=		LDAP SCDAEMON CURL GPGSM KDNS STD_SOCKET NLS DOCS SUID_GPG
 LDAP_DESC=		LDAP keyserver interface
@@ -81,8 +81,6 @@ verify:	checksum
 	gpg2 --verify ${DISTDIR}/${DISTNAME}${EXTRACT_SUFX}.sig
 
 post-patch:
-	@${REINPLACE_CMD} -e "s@-lpthread@${PTHREAD_LIBS}@g" ${CONFIGURE_SUB} \
-		${WRKSRC}/acinclude.m4 ${WRKSRC}/aclocal.m4 ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e "/#include <utmp.h>/d" \
 		${WRKSRC}/tools/symcryptrun.c
 

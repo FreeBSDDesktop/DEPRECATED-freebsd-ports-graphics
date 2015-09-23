@@ -3,7 +3,7 @@
 
 PORTNAME=	joequake
 PORTVERSION=	0.15b1329
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES=	games
 MASTER_SITES=	http://joequake.runecentral.com/
 DISTNAME=	${PORTNAME}-v${PORTVERSION}-source
@@ -16,7 +16,7 @@ COMMENT=	Improved NQ engine with ZQuake and FuhQuake graphical effects
 
 LICENSE=	GPLv2 # or later
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 WRKSRC=		${WRKDIR}/src
 
@@ -40,7 +40,7 @@ X86_ASM_DESC= Enable x86 assembly code
 
 .if ${PORT_OPTIONS:MOPENGL}
 USE_GL=		yes
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+USES+=		jpeg
 ALL_TARGET+=	glx
 PLIST_SUB+=	GLX=""
 .else

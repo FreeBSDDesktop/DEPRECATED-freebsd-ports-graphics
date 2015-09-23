@@ -13,11 +13,10 @@ COMMENT=	Network auditing tool
 
 LIB_DEPENDS=	libtcl84.so:${PORTSDIR}/lang/tcl84
 
-NO_LATEST_LINK=	yes
 CONFLICTS=	hping-[0-9]*
 
 GNU_CONFIGURE=	yes
-USES=		gmake
+USES=		alias gmake
 
 PLIST_FILES=	sbin/hping lib/hping/hpingstdlib.htcl man/man8/hping.8.gz
 PORTDOCS=	AS-BACKDOOR HPING2-HOWTO.txt HPING2-IS-OPEN \
@@ -28,9 +27,6 @@ PORTEXAMPLES=	README apd.htcl apd2.htcl ciscoios.htcl ciscoios0.htcl \
 		cloner.htcl igrp.htcl isn-spectrogram.htcl nat-noise.htcl \
 		passivets.htcl ping.htcl raw.htcl show-tcpseq.htcl \
 		showled.htcl
-
-pre-configure:
-	${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|' ${WRKSRC}/configure
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/hping3 ${STAGEDIR}${PREFIX}/sbin/hping

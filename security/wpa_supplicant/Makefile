@@ -1,15 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	wpa_supplicant
-PORTVERSION=	2.3
-PORTREVISION=	3
+PORTVERSION=	2.4
+PORTREVISION=	4
 CATEGORIES=	security net
 MASTER_SITES=	http://w1.fi/releases/
 
 MAINTAINER=	marino@FreeBSD.org
 COMMENT=	Supplicant (client) for WPA/802.1x protocols
 
-USES=		gmake readline
+USES=		cpe gmake readline
 USE_OPENSSL=	yes
 BUILD_WRKSRC=	${WRKSRC}/wpa_supplicant
 INSTALL_WRKSRC=	${WRKSRC}/src
@@ -17,10 +17,6 @@ CFLAGS+=	${CPPFLAGS} # USES=readline only augments CPPFLAGS and LDFLAGS
 LDFLAGS=	-lutil
 
 SUB_FILES=	pkg-message
-PLIST_FILES=	sbin/wpa_supplicant \
-		sbin/wpa_passphrase \
-		sbin/wpa_cli \
-		"@sample etc/wpa_supplicant.conf.sample"
 PORTDOCS=	README ChangeLog
 
 CFG=		${BUILD_WRKSRC}/.config

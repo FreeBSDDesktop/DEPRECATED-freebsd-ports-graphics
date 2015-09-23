@@ -22,7 +22,7 @@ GROUPS=		${PORTNAME}
 USES=		gettext gmake libtool pathfix pkgconfig tar:bzip2
 USE_LDCONFIG=	yes
 USE_CSTD=	gnu89
-USE_GNOME=	intltool
+USE_GNOME=	glib20 intltool
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--enable-security
 CPPFLAGS+=	-I${LOCALBASE}/include
@@ -58,7 +58,6 @@ PLIST_SUB+=	SMSD='@comment ' MSM='@comment ' PGM='@comment ' SQLT='@comment '
 CONFIGURE_ARGS+=	--disable-smsd
 .else
 PLIST_SUB+=	SMSD=''
-USE_GNOME+=	glib20
 . if ${PORT_OPTIONS:MMYSQL}
 USE_MYSQL=	yes
 PLIST_SUB+=	MSM=''
@@ -99,8 +98,6 @@ post-patch:
 	@${REINPLACE_CMD} -e "s:/etc/gnokiirc:${PREFIX}/etc/gnokiirc:g" \
 		${WRKSRC}/${f}
 .endfor
-	@${REINPLACE_CMD} -e "s:%%PTHREAD_LIBS%%:${PTHREAD_LIBS}:; \
-		s:%%PTHREAD_CFLAGS%%:${PTHREAD_CFLAGS}:" ${WRKSRC}/configure
 .for f in common/data/virtmodem.c utils/mgnokiidev.c
 	@${REINPLACE_CMD} -E -e "s:^(#ifdef.*)__OpenBSD__:\1__FreeBSD__:" \
 		${WRKSRC}/${f}

@@ -11,7 +11,7 @@ DISTFILES=	${DISTNAME}.tar.gz \
 		${DJBDNS_DIST}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	bdrewery@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Configure various qmail services to run under daemontools
 
 USES=		qmail:run
@@ -40,7 +40,8 @@ post-patch:
 		@${ECHO_CMD} "${LOCALBASE}" > ${WRKSRC}/conf-ucspi-tcp
 
 pre-build:
-		@(cd ${WRKSRC} && ${MAKE} djbdns=${DJBDNS_NAME} -f Makefile.ini)
+		@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} \
+		    djbdns=${DJBDNS_NAME} -f Makefile.ini)
 
 # Do a dance to stage and keep out of resulting binaries (see r346769
 # and r349241)

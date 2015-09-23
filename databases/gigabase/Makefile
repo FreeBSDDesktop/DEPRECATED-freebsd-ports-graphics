@@ -3,6 +3,7 @@
 
 PORTNAME=	gigabase
 PORTVERSION=	3.91
+PORTREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-src/${PORTVERSION} \
 		http://www.garret.ru/
@@ -14,16 +15,13 @@ LICENSE=	MIT
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USES=		dos2unix gmake libtool
-DOS2UNIX_FILES=	Makefile.in *.cpp *.h
+GNU_CONFIGURE=	yes
+USES=		autoreconf dos2unix gmake libtool
+DOS2UNIX_FILES=	Makefile.in configure.in *.cpp *.h
 USE_GCC=	any
-USE_AUTOTOOLS=	libtoolize aclocal autoconf
 USE_LDCONFIG=	yes
 
-LDFLAGS+=	-pthread
-
-post-patch:
-	@${REINPLACE_CMD} -e \
-		's|-lpthread|-pthread|' ${WRKSRC}/GiST/Makefile
+post-build:
+	${STRIP_CMD} ${WRKSRC}/.libs/*.so
 
 .include <bsd.port.mk>

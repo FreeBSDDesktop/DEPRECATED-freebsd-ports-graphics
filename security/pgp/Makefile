@@ -3,7 +3,7 @@
 
 PORTNAME=	pgp
 PORTVERSION=	2.6.3i
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	PACKETSTORM/crypt/pgp/V5.0
 DISTNAME=	pgp263is
@@ -11,7 +11,7 @@ DISTNAME=	pgp263is
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	PGP International version - Public-Key encryption for the masses
 
-ONLY_FOR_ARCHS=	i386 alpha amd64 sparc64
+ONLY_FOR_ARCHS=	i386 amd64 sparc64
 BROKEN_amd64=	unable to validate signatures
 
 WRKSRC=		${WRKDIR}/src
@@ -30,10 +30,8 @@ do-install:
 	-${MKDIR} ${PGPLIB}
 	cd ${WRKSRC}/.. && \
 		${INSTALL_DATA} pgp.hlp doc/pgpdoc1.txt doc/pgpdoc2.txt ${PGPLIB}/
-	${INSTALL_DATA} ${WRKSRC}/../language.txt ${PGPLIB}/language.txt-dist
-	${INSTALL_DATA} ${WRKSRC}/../config.txt ${PGPLIB}/config.txt-dist
-
-post-install:
+	${INSTALL_DATA} ${WRKSRC}/../language.txt ${PGPLIB}/language.txt.sample
+	${INSTALL_DATA} ${WRKSRC}/../config.txt ${PGPLIB}/config.txt.sample
 	${INSTALL_MAN} ${STAGEDIR}${PREFIX}/man/man1/pgp.1 ${STAGEDIR}${PREFIX}/man/man1/pgp2.1
 
 .include <bsd.port.mk>

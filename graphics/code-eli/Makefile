@@ -4,7 +4,6 @@
 PORTNAME=	code-eli
 PORTVERSION=	0.3.6
 CATEGORIES=	graphics
-MASTER_SITES=	GH
 
 MAINTAINER=	fernando.apesteguia@gmail.com
 COMMENT=	Library with functionalities for geometries
@@ -17,8 +16,6 @@ BUILD_DEPENDS=	eigen>3:${PORTSDIR}/math/eigen3
 USE_GITHUB=	yes
 GH_PROJECT=	Code-Eli
 GH_ACCOUNT=	ddmarshall
-GH_TAGNAME=	${PORTVERSION}
-GH_COMMIT=	2196ee5
 
 USES=		cmake:outsource compiler:c++11-lib
 PORTEXAMPLES=	AirfoilFitExample VSPPodExample test
@@ -36,6 +33,10 @@ DOCS_BUILD_DEPENDS=	${LOCALBASE}/bin/doxygen:${PORTSDIR}/devel/doxygen
 DOCS_ALL_TARGET=	doc
 
 .include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
+BROKEN=	Can not compile if FreeBSD version lower than 10.0-RELEASE
+.endif
 
 post-patch:
 .if ! ${PORT_OPTIONS:MEXAMPLES}

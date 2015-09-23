@@ -6,8 +6,7 @@ PORTVERSION=		1.20.0
 PORTREVISION=		1
 CATEGORIES=		devel
 MASTER_SITES=		ftp://sources.redhat.com/pub/ \
-			${MASTER_SITE_SOURCEWARE}
-MASTER_SITE_SUBDIR=	${PORTNAME}
+			SOURCEWARE/${PORTNAME}
 PKGNAMEPREFIX=		psptoolchain-
 
 MAINTAINER=		tphilipp@potion-studios.com
@@ -34,11 +33,9 @@ post-patch:
 	@${REINPLACE_CMD} -E 's/^(install.*:.*)install-info(.*)/\1\2/' ${WRKSRC}/etc/Makefile.in
 	@${REINPLACE_CMD} -E 's#(-I\$${prefix}/)psp(/sdk/include)#-I${LOCALBASE}/${PSP_SDK_STAGE_PREFIX:S,/,\\/,}\2#' ${WRKSRC}/newlib/configure.host
 
-.include <bsd.port.pre.mk>
-
 # Rename installed crt0.o as real crt0.o used by PSP code comes with psptoolchain-pspsdk-stage2
 # and would overwrite the one from this port.
 post-install:
 	@${MV} ${STAGEDIR}${PREFIX}/psp/lib/crt0.o ${STAGEDIR}${PREFIX}/psp/lib/crt0.newlib.o
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

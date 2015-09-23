@@ -3,7 +3,7 @@
 
 PORTNAME=	scantailor
 PORTVERSION=	0.9.11.1
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	graphics
 MASTER_SITES=	SF
 
@@ -12,13 +12,12 @@ COMMENT=	Interactive post-processing tool for scanned pages
 
 LICENSE=	GPLv3
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libtiff.so:${PORTSDIR}/graphics/tiff \
+LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
 		libjbig.so:${PORTSDIR}/graphics/jbigkit \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 BUILD_DEPENDS=	${LOCALBASE}/include/boost/shared_ptr.hpp:${PORTSDIR}/devel/boost-libs
 
-USES=		cmake gettext iconv
+USES=		cmake gettext jpeg
 USE_GCC=	yes
 USE_QT4=	gui xml qmake_build uic_build moc_build rcc_build \
 		linguist_build

@@ -157,14 +157,16 @@
     SUBDIR += sourcesanspro-ttf
     SUBDIR += stix-fonts
     SUBDIR += suxus
+    SUBDIR += symbola
     SUBDIR += terminus-font
     SUBDIR += tkfont
+    SUBDIR += tlwg-ttf
     SUBDIR += tmu
-    SUBDIR += ttmkfdir
     SUBDIR += tv-fonts
     SUBDIR += ubuntu-font
     SUBDIR += urwfonts
     SUBDIR += urwfonts-ttf
+    SUBDIR += uw-ttyp0
     SUBDIR += vollkorn-ttf
     SUBDIR += webfonts
     SUBDIR += wqy

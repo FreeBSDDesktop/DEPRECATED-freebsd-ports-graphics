@@ -2,24 +2,21 @@
 # $FreeBSD$
 
 PORTNAME=	umurmur
-PORTVERSION=	0.2.15
+PORTVERSION=	0.2.16
 CATEGORIES=	audio net
 
 MAINTAINER=	ayu@commun.jp
 COMMENT=	Minimalistic Murmur (Mumble server)
 
-LICENSE=	BSD2CLAUSE
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libconfig.so:${PORTSDIR}/devel/libconfig \
 		libprotobuf-c.so:${PORTSDIR}/devel/protobuf-c
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	fatbob313
-GH_COMMIT=	17daa7e
 
-USES=		gmake libtool
-USE_AUTOTOOLS=	aclocal autoconf autoheader automake
-AUTOMAKE_ARGS=	--add-missing
+USES=		autoreconf gmake libtool
 GNU_CONFIGURE=	yes
 USE_OPENSSL=	yes
 CONFIGURE_ARGS=	--with-ssl=openssl

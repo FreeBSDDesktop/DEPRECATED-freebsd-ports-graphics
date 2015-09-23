@@ -3,14 +3,16 @@
 
 PORTNAME=	libfec
 PORTVERSION=	3.0.1
+PORTREVISION=	1
 CATEGORIES=	comms astro hamradio math
 MASTER_SITES=	http://www.ka9q.net/code/fec/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	db
+		LOCAL/db
 DISTNAME=	fec-${PORTVERSION}
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Several forward error correction (FEC) decoders
+
+BROKEN=		produces unusable library
 
 MAKEFILE=	makefile
 
@@ -39,7 +41,7 @@ do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib
 	@${MKDIR} ${STAGEDIR}${MAN3PREFIX}/man/man3
 	${INSTALL_DATA} ${WRKSRC}/fec.h ${STAGEDIR}${PREFIX}/include
-	${INSTALL_LIB} ${WRKSRC}/libfec.a ${STAGEDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${WRKSRC}/libfec.a ${STAGEDIR}${PREFIX}/lib
 	${INSTALL_LIB} ${WRKSRC}/libfec.so ${STAGEDIR}${PREFIX}/lib
 .for _man in dsp.3 simd-viterbi.3 rs.3
 	${INSTALL_MAN} ${WRKSRC}/${_man} ${STAGEDIR}${MAN3PREFIX}/man/man3

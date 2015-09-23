@@ -28,7 +28,7 @@
 #		it as RUN_DEPENDS.
 #
 # If build and run are omitted, Python will be added as BUILD_DEPENDS and
-# RUN_DEPENDS.
+# RUN_DEPENDS. PYTHON_NO_DEPENDS can be set to not add any dependencies.
 #
 # Variables, which can be set by a user:
 #
@@ -142,7 +142,7 @@
 # PYTHON_PORTSDIR	- The port directory of the chosen Python interpreter
 #
 # PYTHON_REL		- The release number of the chosen Python interpreter
-#			  without dots, e.g. 276, 341, ...
+#			  without dots, e.g. 2706, 3401, ...
 #
 # PYTHON_SUFFIX		- The major-minor release number of the chosen Python
 #			  interpreter without dots, e.g. 27, 34, ...
@@ -198,17 +198,6 @@
 # Deprecated variables, which exist for compatibility and will be removed
 # soon:
 #
-# USE_PYDISTUTILS	- Deprecated, use USE_PYTHON=distutils instead
-#
-# PYDISTUTILS_AUTOPLIST
-#			- Deprecated, use USE_PYTHON=autoplist instead
-#
-# PYTHON_PY3K_PLIST_HACK
-#			- Deprecated, use USE_PYTHON=py3kplist instead
-#
-# PYDISTUTILS_NOEGGINFO
-#			- Deprecated, use USE_PYTHON=noegginfo instead
-#
 # PYTHON_DEFAULT_VERSION
 # PYTHON2_DEFAULT_VERSION
 # PYTHON3_DEFAULT_VERSION
@@ -219,11 +208,6 @@
 #			- Deprecated, use PYTHON_PKGNAMEPREFIX instead
 #			  default: -py${PYTHON_SUFFIX}
 #
-# PYTHON_CONCURRENT_INSTALL
-#			- Deprecated, use USE_PYTHON=concurrent instead
-#
-# USE_PYTHON_PREFIX	- Deprecated, use USE_PYTHON=pythonprefix instead
-#
 # PYDISTUTILS_INSTALLNOSINGLE
 #			- Deprecated without replacement
 #
@@ -233,78 +217,10 @@
 _INCLUDE_USES_PYTHON_MK=	yes
 
 # What Python version and what Python interpreters are currently supported?
-_PYTHON_VERSIONS=		2.7 3.4 3.3 3.2	# preferred first
+_PYTHON_VERSIONS=		2.7 3.4 3.5 3.3 3.2	# preferred first
 _PYTHON_PORTBRANCH=		2.7		# ${_PYTHON_VERSIONS:[1]}
 _PYTHON_BASECMD=		${LOCALBASE}/bin/python
 _PYTHON_RELPORTDIR=		${PORTSDIR}/lang/python
-
-# COMPAT KNOBS, remove them, once the tree is cleaned
-.undef _PY_COMPAT_OLD
-# We will reuse USE_PYTHON with a different meaning, so make sure that, while
-# we are in the transition phase from USE_PYTHON -> USES=python, it is mapped
-# and reassigned correctly
-.if defined(USE_PYTHON_BUILD) || defined(USE_PYTHON_RUN)
-# old style
-_PY_COMPAT_OLD= yes
-.elif defined(USE_PYTHON)
-.if ${USE_PYTHON} == "yes"
-# old style
-_PY_COMPAT_OLD= yes
-.elif ${USE_PYTHON:C/[-0-9.+]*//} == ""
-# old style X.Y, X.Y+, X.Y-, -X.Y, X.Y-Z.A
-_PY_COMPAT_OLD=	yes
-.endif # ${USE_PYTHON} == "yes" ...
-.endif # defined(USE_PYTHON_BUILD) || defined(USE_PYTHON_RUN)
-
-.if defined(_PY_COMPAT_OLD)
-.if defined(USE_PYTHON)
-.if ${USE_PYTHON} != "yes"
-python_ARGS:=	${USE_PYTHON}
-.endif
-.else
-.if defined(USE_PYTHON_BUILD)
-.if ${USE_PYTHON_BUILD} != "yes"
-python_ARGS=	${USE_PYTHON_BUILD},build
-.else
-python_ARGS=	build
-.endif
-.endif # defined(USE_PYTHON_BUILD)
-.if defined(USE_PYTHON_RUN)
-.if ${USE_PYTHON_RUN} != "yes"
-python_ARGS+=	${USE_PYTHON_RUN},run
-.else
-python_ARGS+=	run
-.endif
-.endif # defined(USE_PYTHON_RUN)
-.endif # defined(USE_PYTHON)
-# Everything passed to python_ARGS, undef USE_PYTHON, since we will reuse
-# it with a different meaning below
-.undef USE_PYTHON
-.endif # defined(_PY_COMPAT_OLD)
-.undef _PY_COMPAT_OLD
-
-.if !defined(USE_PYTHON)
-USE_PYTHON=
-.if defined(USE_PYDISTUTILS)
-USE_PYTHON+=	distutils
-.endif
-.if defined(PYDISTUTILS_AUTOPLIST)
-USE_PYTHON+=	autoplist
-.endif
-.if defined(PYTHON_PY3K_PLIST_HACK)
-USE_PYTHON+=	py3kplist
-.endif
-.if defined(PYTHON_CONCURRENT_INSTALL)
-USE_PYTHON+=	concurrent
-.endif
-.if defined(USE_PYTHON_PREFIX)
-USE_PYTHON+=	pythonprefix
-.endif
-.if defined(PYDISTUTILS_NOEGGINFO)
-USE_PYTHON+=	noegginfo
-.endif
-.endif # !defined(USE_PYTHON)
-# COMPAT KNOBS END
 
 # Make each individual feature available as _PYTHON_FEATURE_<FEATURENAME>
 .for var in ${USE_PYTHON}
@@ -327,7 +243,8 @@ _PYTHON_ARGS:=		${_PYTHON_ARGS:Nrun}
 
 # The port does not specify a build or run dependency, assume both are
 # required.
-.if !defined(_PYTHON_BUILD_DEP) && !defined(_PYTHON_RUN_DEP)
+.if !defined(_PYTHON_BUILD_DEP) && !defined(_PYTHON_RUN_DEP) && \
+    !defined(PYTHON_NO_DEPENDS)
 _PYTHON_BUILD_DEP=	yes
 _PYTHON_RUN_DEP=	yes
 .endif
@@ -466,7 +383,11 @@ PYTHON_REL=		# empty
 PYTHON_ABIVER=		# empty
 PYTHON_PORTSDIR=	${_PYTHON_RELPORTDIR}${PYTHON_SUFFIX}
 PYTHON_PORTVERSION!=	${MAKE} -V PORTVERSION -C ${PYTHON_PORTSDIR}
-PYTHON_REL=		${PYTHON_PORTVERSION:S/.//g}
+# Create a 4 integer version string, prefixing 0 to the last token if
+# it's a single character. Only use the the first 3 tokens of
+# PORTVERSION to support pre-release versions (rc3, alpha4, etc) of
+# any Python port (lang/pythonXY)
+PYTHON_REL=	${PYTHON_PORTVERSION:C/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/:C/\.([0-9]+)$/.0\1/:C/\.0?([0-9][0-9])$/.\1/:S/.//g}
 
 # Might be overridden by calling ports
 PYTHON_CMD?=		${_PYTHON_BASECMD}${_PYTHON_VERSION}
@@ -583,32 +504,40 @@ add-plist-pymod:
 		${_PYTHONPKGLIST} | ${SORT} >> ${TMPPLIST}
 
 .else
-.if ${PYTHON_REL} >= 320 && defined(_PYTHON_FEATURE_PY3KPLIST)
+.if ${PYTHON_REL} >= 3200 && defined(_PYTHON_FEATURE_PY3KPLIST)
 # When Python version is 3.2+ we rewrite all the filenames
 # of TMPPLIST that end with .py[co], so that they conform
 # to PEP 3147 (see http://www.python.org/dev/peps/pep-3147/)
 PYMAGICTAG=		${PYTHON_CMD} -c 'import imp; print(imp.get_tag())'
+.if ${PYTHON_REL} < 3500
+PYOEXTENSION=	pyo
+.else
+PYOEXTENSION=	opt-1.pyc
+.endif
 add-plist-post:
 	@${AWK} '\
-		/\.py[co]$$/ && !($$0 ~ "/" pc "/") {id = match($$0, /\/[^\/]+\.py[co]$$/); if (id != 0) {d = substr($$0, 1, RSTART - 1); dirs[d] = 1}; sub(/\.py[co]$$/,  "." mt "&"); sub(/[^\/]+\.py[co]$$/, pc "/&"); print; next} \
+		/\.py[co]$$/ && !($$0 ~ "/" pc "/") {id = match($$0, /\/[^\/]+\.py[co]$$/); if (id != 0) {d = substr($$0, 1, RSTART - 1); dirs[d] = 1}; sub(/\.pyc$$/,  "." mt "&"); sub(/\.pyo$$/, "." mt "." pyo); sub(/[^\/]+\.py[co]$$/, pc "/&"); print; next} \
 		/^@dirrm / {d = substr($$0, 8); if (d in dirs) {print $$0 "/" pc}; print $$0; next} \
 		/^@dirrmtry / {d = substr($$0, 11); if (d in dirs) {print $$0 "/" pc}; print $$0; next} \
 		{print} \
 		' \
-		pc="__pycache__" mt="$$(${PYMAGICTAG})" \
+		pc="__pycache__" mt="$$(${PYMAGICTAG})" pyo="${PYOEXTENSION}" \
 		${TMPPLIST} > ${TMPPLIST}.pyc_tmp
 	@${MV} ${TMPPLIST}.pyc_tmp ${TMPPLIST}
-.endif # ${PYTHON_REL} >= 320 && defined(_PYTHON_FEATURE_PY3KPLIST)
+.endif # ${PYTHON_REL} >= 3200 && defined(_PYTHON_FEATURE_PY3KPLIST)
 .endif # defined(_PYTHON_FEATURE_AUTOPLIST) && defined(_PYTHON_FEATURE_DISTUTILS)
 
 # Fix for programs that build python from a GNU auto* environment
 CONFIGURE_ENV+=	PYTHON="${PYTHON_CMD}"
 
+# By default CMake picks up the highest available version of Python package.
+# Enforce the version required by the port or the default.
+CMAKE_ARGS+=	-DPython_ADDITIONAL_VERSIONS=${PYTHON_VER}
+
 # Python 3rd-party modules
 PYGAME=		${PYTHON_PKGNAMEPREFIX}game>0:${PORTSDIR}/devel/py-game
 PYNUMERIC=	${PYTHON_SITELIBDIR}/Numeric/Numeric.py:${PORTSDIR}/math/py-numeric
 PYNUMPY=	${PYTHON_SITELIBDIR}/numpy/core/numeric.py:${PORTSDIR}/math/py-numpy
-PYXML=		${PYTHON_SITELIBDIR}/_xmlplus/__init__.py:${PORTSDIR}/textproc/py-xml
 
 # dependencies
 .if defined(_PYTHON_BUILD_DEP)

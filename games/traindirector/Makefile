@@ -2,7 +2,7 @@
 
 PORTNAME=	traindirector
 PORTVERSION=	3.6
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	games
 MASTER_SITES=	http://www.backerstreet.com/traindir/
 DISTNAME=	tdir36src
@@ -22,7 +22,7 @@ WX_COMPS=	wx:lib
 WX_UNICODE=	yes
 
 DESKTOP_ENTRIES="Train Director" "${COMMENT}" "" "traindir3" \
-		"Game;Simulation;StrategyGame;" ${FALSE}
+		"Game;Simulation;StrategyGame;" false
 
 PLIST_FILES=	bin/traindir3
 

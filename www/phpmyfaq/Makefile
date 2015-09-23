@@ -2,17 +2,17 @@
 # $FreeBSD$
 
 PORTNAME=	phpmyfaq
-PORTVERSION=	2.8.11
+PORTVERSION=	2.8.23
 CATEGORIES=	www
 MASTER_SITES=	http://www.phpmyfaq.de/download/
+DISTNAME=	phpMyFAQ-${PORTVERSION}
 
 MAINTAINER=	flo@FreeBSD.org
 COMMENT=	Multilingual, completely database-driven FAQ-system
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-NEED_ROOT=	yes
-
+USES=		cpe
 USE_PHP=	filter json mysql pcre pdf session xml xmlrpc xmlwriter zlib
 FAQ_DIR=	attachments data images inc pdf xml
 NO_BUILD=	YES
@@ -24,7 +24,6 @@ do-install:
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${STAGEDIR}${WWWDIR}
 .for i in ${FAQ_DIR}
 	@${MKDIR} ${STAGEDIR}${WWWDIR}/${i}
-	@${CHOWN} ${WWWOWN}:${WWWGRP} ${STAGEDIR}${WWWDIR}/${i} ${STAGEDIR}${WWWDIR}/config
 .endfor
 
 .include <bsd.port.mk>

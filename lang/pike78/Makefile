@@ -13,8 +13,7 @@ DISTNAME=	Pike-v${PORTVERSION}
 MAINTAINER=	johans@FreeBSD.org
 COMMENT=	Dynamic programming language with a syntax similar to C++
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libtiff.so:${PORTSDIR}/graphics/tiff \
+LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
 		libgdbm.so:${PORTSDIR}/databases/gdbm \
 		libpcre.so:${PORTSDIR}/devel/pcre \
 		libgmp.so:${PORTSDIR}/math/gmp \
@@ -38,9 +37,9 @@ PGSQL_CONFIGURE_WITH=	pgsql
 CFLAGS+=	-ffast-math -fomit-frame-pointer
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	CPPFLAGS+=${PTHREAD_CFLAGS} M4="/usr/bin/m4 -g"
+CONFIGURE_ENV=	M4="/usr/bin/m4 -g"
 CONFIGURE_ARGS+=	--without-debug \
-		 --with-thread-library=${PTHREAD_LIBS} \
+		 --with-thread-library="-lpthread" \
 		 --with-double-precision \
 		 --with-long-double-precision \
 		 --disable-rpath \
@@ -79,7 +78,7 @@ CONFIGURE_ARGS+=	--without-debug \
 		 --without-sybase \
 		 --prefix=${PREFIX}
 
-USES=		bison gettext gmake perl5
+USES=		bison gettext gmake jpeg perl5
 
 PLIST_FILES=	bin/pike bin/pike78 bin/hilfe \
 		man/man1/pike.1.gz
@@ -94,8 +93,8 @@ post-patch:
 		${WRKSRC}/src/modules/Gmp/configure ${WRKSRC}/src/modules/_Image_XFace/configure
 	@${REINPLACE_CMD} -e '/memchr_memcmp.*needle/s/^/static /' \
 		${WRKSRC}/src/pike_search_engine2.c
-	@${REINPLACE_CMD} -e 's|%%PTHREAD_CFLAGS%%|${PTHREAD_CFLAGS}|' \
-		-e 's|%%PTHREAD_LIBS%%|${PTHREAD_LIBS}|' \
+	@${REINPLACE_CMD} -e 's|%%PTHREAD_CFLAGS%%||' \
+		-e 's|%%PTHREAD_LIBS%%|-lpthread|' \
 		-e 's|,-Bshareable|& -shared|' \
 		${WRKSRC}/src/configure
 	@${REINPLACE_CMD} -e '/install.*MANDIR/s|^|//|' \

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	ircd-hybrid
-PORTVERSION=	8.1.3
-PORTREVISION=	1
+PORTVERSION=	8.2.5
 CATEGORIES=	irc ipv6
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
@@ -13,7 +12,7 @@ COMMENT=	Fast irc daemon with a number of new features
 INSTALL_IGNORES=	ircu-* ircd-rat* charby*
 
 # :keepla because port uses lt_dlopen
-USES=		gmake libtool:keepla tar:tgz
+USES=		cpe gmake libtool:keepla tar:tgz
 GNU_CONFIGURE=	yes
 
 USERS=		ircd

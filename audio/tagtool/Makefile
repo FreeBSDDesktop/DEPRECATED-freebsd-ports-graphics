@@ -4,7 +4,7 @@
 
 PORTNAME=	tagtool
 PORTVERSION=	0.12.3
-PORTREVISION=	12
+PORTREVISION=	13
 CATEGORIES=	audio
 MASTER_SITES=	SF
 
@@ -22,11 +22,7 @@ USE_GNOME=	intlhack libglade2
 GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes
 
-CPPFLAGS+=	-I${LOCALBASE}/include ${PTHREAD_CFLAGS}
-LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS} -logg -lm
-
-post-patch:
-	@${FIND} ${WRKSRC} -name "Makefile.in" | ${XARGS} ${REINPLACE_CMD} -e \
-		's|-Wno-pointer-sign||g'
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lpthread -logg -lm
 
 .include <bsd.port.mk>

@@ -4,8 +4,7 @@
 PORTNAME=	sort
 PORTVERSION=	20120716
 CATEGORIES=	textproc
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	gabor
+MASTER_SITES=	LOCAL/gabor
 PKGNAMEPREFIX=	bsd-
 
 MAINTAINER=	ports@FreeBSD.org
@@ -19,6 +18,7 @@ MAKE_ENV+=	BINDIR="${PREFIX}/bin" \
 		MANDIR="${MANPREFIX}/man/man" \
 		CATDIR="${MANPREFIX}/man/man" \
 		NLSDIR="${PREFIX}/share/nls" \
+		NO_WERROR="defined" \
 		MK_GNU_SORT="no"
 USES=		uidfix
 

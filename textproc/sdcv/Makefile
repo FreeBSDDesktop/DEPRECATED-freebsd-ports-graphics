@@ -11,17 +11,22 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Text-based utility for work with dictionaries in StarDict's format
 
 LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gettext pkgconfig readline tar:bzip2
+GNU_CONFIGURE=	yes
+USES=		autoreconf gettext pkgconfig readline tar:bzip2
 USE_GNOME=	glib20
-USE_AUTOTOOLS=	libtoolize aclocal automake autoconf
-ACLOCAL_ARGS=	--automake-acdir=${ACLOCAL_DIR} -I m4
-AUTOMAKE_ARGS=	--add-missing --copy
 
 SUB_FILES=	pkg-message
 
 CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib
+LIBS+=		-L${LOCALBASE}/lib
+
+.include <bsd.port.pre.mk>
+
+.if ${OSVERSION} < 1000000
+BROKEN=		does not build on < 10.x: error expanding embedded variable
+.endif
 
 post-patch:
 .for i in doc/sdcv.1 src/sdcv.cpp
@@ -32,9 +37,8 @@ post-patch:
 		's|@mandir@/uk|@mandir@|' ${WRKSRC}/doc/uk/Makefile.am
 	@${REINPLACE_CMD} -e \
 		's|getopt1.c getopt.h||' ${WRKSRC}/src/Makefile.am
-
-pre-configure:
-	@${RM} -f ${WRKSRC}/m4/gettext.m4
 	@${RM} -f ${WRKSRC}/src/getopt.h
+	@${REINPLACE_CMD} '/AM_GNU_GETTEXT_VERSION/s/0\.14\.1/0.19.1/' \
+		${WRKSRC}/configure.ac
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

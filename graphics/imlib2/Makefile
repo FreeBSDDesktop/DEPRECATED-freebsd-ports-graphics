@@ -3,11 +3,10 @@
 
 PORTNAME=	imlib2
 PORTVERSION=	1.4.6
-PORTREVISION=	3
+PORTREVISION=	6
 PORTEPOCH=	2
 CATEGORIES=	graphics enlightenment
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE}
-MASTER_SITE_SUBDIR=	enlightenment/imlib2-src/${PORTVERSION}
+MASTER_SITES=	SF/enlightenment/imlib2-src/${PORTVERSION}
 
 MAINTAINER=	bf@FreeBSD.org
 COMMENT=	The next generation graphics library for Enlightenment
@@ -20,11 +19,10 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2
 
 GNU_CONFIGURE=	yes
-USE_EFL=	libtool_hack
 USE_LDCONFIG=	yes
-USES=		pathfix pkgconfig tar:bzip2
+USES=		libtool pathfix pkgconfig tar:bzip2
 
-CONFIGURE_ARGS+=	--enable-visibility-hiding
+CONFIGURE_ARGS+=	--enable-visibility-hiding --disable-static
 CONFIGURE_ENV+=	ac_cv_lib_dl_dlopen=no
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -56,7 +54,7 @@ PLIST_SUB=	X11=""
 .endif
 
 .if ${PORT_OPTIONS:MJPEG}
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+USES+=		jpeg
 PLIST_SUB+=	JPEG=""
 .else
 CONFIGURE_ARGS+=	--without-jpeg
@@ -64,7 +62,7 @@ PLIST_SUB+=	JPEG="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MPNG}
-LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
 PLIST_SUB+=	PNG=""
 .else
 CONFIGURE_ARGS+=	--without-png

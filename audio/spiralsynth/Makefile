@@ -14,8 +14,7 @@ COMMENT=	MIDI-capable synthesizer for X
 LIB_DEPENDS=	libfltk.so:${PORTSDIR}/x11-toolkits/fltk
 
 GNU_CONFIGURE=	yes
-MAKE_ENV=	PTHREAD_LIBS="${PTHREAD_LIBS}" \
-		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}"
+MAKE_ENV=	PTHREAD_LIBS="-lpthread"
 PLIST=		${WRKDIR}/pkg-plist
 
 WRKSRC=		${WRKDIR}/${DISTNAME}
@@ -23,8 +22,6 @@ WRKSRC=		${WRKDIR}/${DISTNAME}
 DOC_FILES=	CHANGES COPYING README
 
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
 
 post-patch:
 .for ii in \
@@ -40,13 +37,13 @@ post-patch:
 	SpiralSound/_SynthInfo.C \
 	Synth.h
 	${MV} ${WRKSRC}/${ii} ${WRKSRC}/${ii}.orig
-	${SED} -e 's|-O3|${PTHREAD_CFLAGS}|g ; \
+	${SED} -e 's|-O3||g ; \
 			s|CC	=|CC?	=|g ; \
 			s|CFLAGS =|CFLAGS +=|g ; \
 			s|CXX	=|CXX?	=|g ; \
 			s|CXXFLAGS=|CXXFLAGS+=|g ; \
 			s|LINK	=	g++|LINK	=	${CXX}|g ; \
-			s|-lm|${PTHREAD_LIBS} -lm|g ; \
+			s|-lm|-lpthread -lm|g ; \
 			s|/usr/X11R6|${LOCALBASE}|g ; \
 			s|iostream.h|iostream|g ;\
 			s|fstream.h|fstream|g ;\
@@ -71,12 +68,10 @@ pre-install:
 .else
 	${ECHO_CMD} bin/SpiralSynth > ${PLIST}
 .endif
-.if ${PORT_OPTIONS:MDOCS}
+pre-install-DOCS-on:
 .for ii in ${DOC_FILES}
 	${ECHO_CMD} share/doc/spiralsynth/${ii} >> ${PLIST}
 .endfor
-	${ECHO_CMD} @dirrm share/doc/spiralsynth >> ${PLIST}
-.endif
 
 do-install:
 .if defined(PLUGIN)
@@ -85,11 +80,10 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/SpiralSynth ${STAGEDIR}${PREFIX}/bin
 .endif
 
-.if ${PORT_OPTIONS:MDOCS}
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for ii in ${DOC_FILES}
 	${INSTALL_DATA} ${WRKSRC}/${ii} ${STAGEDIR}${DOCSDIR}
 .endfor
-.endif
 
 .include <bsd.port.mk>

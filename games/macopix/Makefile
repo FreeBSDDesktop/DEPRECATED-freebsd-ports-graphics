@@ -3,7 +3,7 @@
 
 PORTNAME=	macopix
 PORTVERSION=	1.7.4
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	games
 MASTER_SITES=	http://rosegray.sakura.ne.jp/macopix/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${RESTRICTED_FILES}
@@ -14,9 +14,11 @@ COMMENT=	Window sitter for X11
 LICENSE=	GPLv2 # or later
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 RESTRICTED=	'contains commercial character data'
 
@@ -32,7 +34,7 @@ RESTRICTED_FILES=	\
 		macopix-mascot-marimite-euc-ja-2.20.tar.gz \
 		macopix-mascot-HxB-euc-ja-0.30.tar.gz
 
-USES=		gettext gmake iconv libtool pkgconfig
+USES=		gettext gmake iconv jpeg libtool pkgconfig
 USE_XORG=	x11
 GNU_CONFIGURE=	yes
 
@@ -110,7 +112,7 @@ post-install:
 		&& ${INSTALL_DATA} *.mcpx *.menu ${STAGEDIR}${DATADIR} \
 		&& ${INSTALL_DATA} README.jp ${STAGEDIR}${DATADIR}/README.HxB.jp
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_MAN} NKR.README.ja README README.ja \
-		${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} NKR.README.ja README README.ja \
+		${STAGEDIR}${DOCSDIR}/
 
 .include <bsd.port.mk>

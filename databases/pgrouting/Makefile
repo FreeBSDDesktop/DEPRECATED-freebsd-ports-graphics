@@ -3,10 +3,9 @@
 
 PORTNAME=	pgrouting
 PORTVERSION=	2.0.0
-PORTREVISION=	3
+DISTVERSIONPREFIX=	v
+PORTREVISION=	4
 CATEGORIES=	databases geography
-MASTER_SITES=	https://github.com/pgRouting/${PORTNAME}/archive/
-DISTFILES=	v${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	coder@tuxfamily.org
 COMMENT=	Extension to PostGIS to provide geospatial routing functionality
@@ -18,13 +17,22 @@ LIB_DEPENDS=	libboost_system.so:${PORTSDIR}/devel/boost-libs\
 		libgmp.so:${PORTSDIR}/math/gmp
 RUN_DEPENDS=	${LOCALBASE}/share/postgresql/contrib/postgis-2.1/postgis.sql:${PORTSDIR}/databases/postgis21
 
-USES=		cmake pgsql pkgconfig
+USES=		compiler:features cmake pgsql pkgconfig
 USE_LDCONFIG=	yes
+USE_GITHUB=	yes
+GH_ACCOUNT=	pgRouting
 
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 .include <bsd.port.pre.mk>
+
+.if ${COMPILER_TYPE} == clang && ${COMPILER_VERSION} < 36
+BUILD_DEPENDS+=	clang36:${PORTSDIR}/lang/clang36
+CPP=		clang-cpp36
+CC=		clang36
+CXX=		clang++36
+.endif
 
 .if ${PGSQL_VER} >= 9.1
 PLIST_SUB+=	OLDPG="@comment " NEWPG=""

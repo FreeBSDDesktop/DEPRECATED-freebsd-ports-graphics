@@ -3,20 +3,22 @@
 
 PORTNAME=	tuxguitar
 PORTVERSION=	1.2
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	audio java
 MASTER_SITES=	SF/${PORTNAME}/TuxGuitar/TuxGuitar-${PORTVERSION}:src \
-		${MASTER_SITE_LOCAL}/gahr/:fluid \
+		LOCAL/gahr/:fluid \
 		http://people.freebsd.org/~gahr/distfiles/:fluid \
 		http://www.alsa-project.org/~james/sound-fonts/:fluid
-DISTFILES=	${PORTNAME}-src-${DISTVERSION}${EXTRACT_SUFX}:src \
+DISTNAME=	${PORTNAME}-src-${DISTVERSION}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:src \
 		8MBGMSFX.SF2:fluid
-EXTRACT_ONLY=	${PORTNAME}-src-${DISTVERSION}${EXTRACT_SUFX}
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Multitrack tablature editor and player
 
 LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/../LICENSE
 
 BUILD_DEPENDS=	${JAVALIBDIR}/swt-devel.jar:${PORTSDIR}/x11-toolkits/swt-devel \
 		${JAVALIBDIR}/itext.jar:${PORTSDIR}/devel/itext \
@@ -28,7 +30,8 @@ LIB_DEPENDS=	libfluidsynth.so:${PORTSDIR}/audio/fluidsynth \
 MAKE_ENV+=	PREFIX=${PREFIX} INSTALL_DOC_DIR=${DOCSDIR} \
 		INSTALL_SHARE_DIR=${DATADIR}
 
-USES=		desktop-file-utils gmake pkgconfig
+USES=		cpe desktop-file-utils gmake pkgconfig
+CPE_VENDOR=	herac
 USE_JAVA=	yes
 USE_ANT=	yes
 WITH_GECKO=	libxul
@@ -36,15 +39,14 @@ USE_LDCONFIG=	yes
 JAVA_VERSION=	1.6+
 NOCCACHE=	yes
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-src-${PORTVERSION}/TuxGuitar
+WRKSRC_SUBDIR=	TuxGuitar
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.pre.mk>
 PLUGINS=	ascii browser-ftp compat converter fluidsynth gervill gtp \
 		jsa lilypond midi musicxml oss pdf ptb tef tray tuner
 
-SUB_FILES=	tuxguitar
+SUB_FILES=	pkg-message tuxguitar
 SUB_LIST=	DATADIR=${DATADIR} \
 		PREFIX=${PREFIX} \
 		JAVALIBDIR=${JAVALIBDIR} \
@@ -112,16 +114,8 @@ do-install:
 	# MAN page
 	${INSTALL_MAN} ${WRKSRC}/../misc/tuxguitar.1 ${STAGEDIR}${PREFIX}/man/man1
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} \* ${STAGEDIR}${DOCSDIR}
-.endif
-	@${ECHO}
-	@${ECHO} "SoundFonts for the FluidSynth plugin are available at:"
-	@${ECHO} "${DATADIR}/8MBGMSFX.SF2"
-	@${ECHO} "Add this path in the FluidSynth plugin configuration to"
-	@${ECHO} "enable them."
-	@${ECHO}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -11,6 +11,7 @@
     SUBDIR += dico
     SUBDIR += eficas
     SUBDIR += eric4
+    SUBDIR += eric6
     SUBDIR += fortune-mod-zarathoustra
     SUBDIR += geonext
     SUBDIR += gimp-help
@@ -24,7 +25,6 @@
     SUBDIR += mythes
     SUBDIR += php_doc
     SUBDIR += trytond28_account_fr
-    SUBDIR += trytond_account_fr
     SUBDIR += tvdownloader
     SUBDIR += verbiste
 

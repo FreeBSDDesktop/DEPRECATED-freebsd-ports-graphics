@@ -3,7 +3,7 @@
 
 PORTNAME=	raul
 PORTVERSION=	0.8.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	http://download.drobilla.net/
 
@@ -15,19 +15,18 @@ LICENSE_COMB=	dual
 
 LIB_DEPENDS=	libboost_date_time.so:${PORTSDIR}/devel/boost-libs
 
-USES=		pkgconfig python:build tar:bzip2
+USES=		pkgconfig tar:bzip2 waf
 USE_GNOME=	glib20
 USE_LDCONFIG=	yes
 
 CFLAGS+=	-I${LOCALBASE}/include
 
-.include <bsd.port.pre.mk>
-
 .if defined(BATCH) || defined(PACKAGE_BUILDING)
-WAF_VERBOSE=	--verbose
+MAKE_ARGS=	--verbose
 .endif
 
-WAF_JOBS=	--jobs=${MAKE_JOBS_NUMBER}
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libraul.so
 
 post-patch:
 	@${REINPLACE_CMD} -e \
@@ -35,14 +34,4 @@ post-patch:
 		 s|-fshow-column'|-fshow-column ${CXXFLAGS}'|" \
 			${WRKSRC}/autowaf/autowaf.py
 
-do-configure:
-	@(cd ${WRKSRC} && ${PYTHON_CMD} waf ${WAF_VERBOSE} --prefix=${PREFIX} configure)
-
-do-build:
-	@(cd ${WRKSRC} && ${PYTHON_CMD} waf ${WAF_VERBOSE} ${WAF_JOBS} build)
-
-do-install:
-	@(cd ${WRKSRC} && ${PYTHON_CMD} waf ${WAF_VERBOSE} \
-		--destdir=${STAGEDIR} install)
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

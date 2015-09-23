@@ -3,7 +3,7 @@
 
 PORTNAME=	oracle_odbc_driver
 PORTVERSION=	0.5.6
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	databases
 MASTER_SITES=	http://home.fnal.gov/~dbox/oracle/odbc/
 DISTNAME=	${PORTNAME}.${PORTVERSION}
@@ -26,8 +26,5 @@ CONFIGURE_ENV=	ORACLE_HOME="${ORACLE_HOME}" \
 		AUTOHEADER=true
 LIBS+=		`${CAT} ${ORACLE_HOME}/lib/sysliblist`
 USE_LDCONFIG=	yes
-
-post-patch:
-	@${REINPLACE_CMD} -e 's/-lclntst8 -lcompat -lpthread -lm/-lclntst8 -lcompat ${PTHREAD_LIBS} -lm/' ${WRKSRC}/configure
 
 .include <bsd.port.mk>

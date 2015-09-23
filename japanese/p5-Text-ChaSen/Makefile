@@ -3,13 +3,12 @@
 
 PORTNAME=	Text-ChaSen
 PORTVERSION=	1.03
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	japanese textproc perl5
-MASTER_SITES=	SFJP
-MASTER_SITE_SUBDIR=	chasen-legacy/32224
+MASTER_SITES=	SFJP/chasen-legacy/32224
 DISTNAME=	chasen-${CHASEN_VERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	ChaSen library module for Perl5
 
 LIB_DEPENDS=	libchasen.so:${PORTSDIR}/japanese/chasen-base
@@ -31,9 +30,8 @@ OPTIONS_DEFINE=	DOCS
 PKGNAMEPREFIX:=	${PKGNAMEPREFIX}p5-
 
 post-install:
-.if ${PORT_OPTIONS:MDOCS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Text/ChaSen/ChaSen.so
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}/README.perl
-.endif
 
 .include <bsd.port.post.mk>

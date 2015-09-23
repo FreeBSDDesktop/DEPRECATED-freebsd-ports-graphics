@@ -19,7 +19,6 @@ LIB_DEPENDS=	libvorbis.so:${PORTSDIR}/audio/libvorbis \
 
 ONLY_FOR_ARCHS=	i386 amd64
 
-USE_AUTOTOOLS=	autoconf:env aclocal:env automake:env libtoolize:env
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -28,12 +27,13 @@ CONFIGURE_ARGS=	--enable-opengl --enable-libcdio
 INSTALL_TARGET=	install-strip
 USE_LDCONFIG=	yes
 
-USE_GNOME=	gtk30 glib20
+USE_GNOME=	gtk30 intltool glib20
 USE_XORG=	x11 xv xext xxf86vm xtst
 USE_SDL=	sdl
 USE_GL=	gl
 
-USES=		tar:bzip2 dos2unix iconv gmake pkgconfig libtool desktop-file-utils
+USES=		autoreconf desktop-file-utils dos2unix iconv gmake libtool \
+		pkgconfig tar:bzip2
 DOS2UNIX_REGEX=	.*\.(c|h|cpp|hpp|am)
 
 PORTDOCS=	ChangeLog README
@@ -59,9 +59,6 @@ post-patch:
 		${WRKSRC}/gui/LnxMain.c
 	@${REINPLACE_CMD} "s|%%DVD_DEVICE%%|${DEFAULT_DVD_DEVICE}|" \
 		${WRKSRC}/plugins/dfcdrom/cdr.h
-
-pre-configure:
-	@(cd ${WRKSRC} && ${AUTORECONF} -fi)
 
 post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}

@@ -13,6 +13,9 @@
 #			  free pascal compiler, if you need install additional fpc
 #			  units, they can be listed there (USE_FPC= gtk x11 opengl).
 #
+# USE_FPC_RUN		- If you set this to "yes", free pascal units will be 
+#			  registered also as run dependencies.
+#
 # WANT_FPC_BASE		- If you set this to "yes", this automatically will install
 #			  all base units of fpc (gdbint graph ibase libasync hash 
 #			  httpd mysql netdb odbc oracle pasjpeg paszlib pthreads 
@@ -64,9 +67,9 @@ UNITSDIR=		${LOCALBASE}/lib/fpc/${FPC_VER}/units/${BUILDNAME}
 
 _FPC_ALL_UNITS=	a52 aspell bfd bzip2 cairo chm dblib dbus dts fastcgi fcl-async fcl-base \
 		fcl-db fcl-extra fcl-fpcunit fcl-image fcl-js fcl-json fcl-net fcl-passrc \
-		fcl-process fcl-registry fcl-res fcl-web fcl-xml fftw fpgtk fpindexer \
-		fpmkunit fppkg fv gdbint gdbm gmp gnome1 graph gtk1 gtk2 hash \
-		hermes httpd22 httpd24 ibase iconvenc imagemagick imlib ldap libcurl libgd \
+		fcl-process fcl-registry fcl-res fcl-web fcl-xml fftw fpindexer \
+		fpmkunit fppkg fv gdbint gdbm gmp graph gtk2 hash \
+		hermes httpd22 httpd24 ibase iconvenc imagemagick ldap libcurl libgd \
 		libpng libvlc libxml2 lua mad matroska modplug mysql ncurses newt numlib \
 		odbc oggvorbis openal opengl openssl oracle pasjpeg paszlib pcap \
 		postgres proj4 pthreads pxlib regexpr rexx rsvg sdl sndfile sqlite \
@@ -145,19 +148,15 @@ fcl_xml_UNIT=	devel/fpc-fcl-xml
 fftw_UNIT=	math/fpc-fftw
 fpindexer_UNIT=	databases/fpc-fpindexer
 fpmkunit_UNIT=	devel/fpc-fpmkunit
-fpgtk_UNIT=	graphics/fpc-fpgtk
 fppkg_UNIT=	devel/fpc-fppkg
 fpvectorial_UNIT=	graphics/fpc-fpvectorial
 fv_UNIT=	devel/fpc-fv
 hermes_UNIT=	graphics/fpc-hermes
 gdbm_UNIT=	databases/fpc-gdbm
 gmp_UNIT=	math/fpc-gmp
-gnome1_UNIT=	x11-toolkits/fpc-gnome1
-gtk1_UNIT=	x11-toolkits/fpc-gtk1
 gtk2_UNIT=	x11-toolkits/fpc-gtk2
 iconvenc_UNIT=	converters/fpc-iconvenc
 imagemagick_UNIT=	graphics/fpc-imagemagick
-imlib_UNIT=	graphics/fpc-imlib
 ldap_UNIT=	net/fpc-ldap
 libcurl_UNIT=	ftp/fpc-libcurl
 libgd_UNIT=	graphics/fpc-libgd
@@ -201,10 +200,14 @@ zlib_UNIT=	devel/fpc-zlib
 .		if ${_FPC_ALL_UNITS:M${UNITS}}!=""
 .			if ${_FPC_CFG_UNITS:M${UNITS}}!=""
 BUILD_DEPENDS+= ${UNITSDIR}/${UNITS}/fpunits.cfg:${PORTSDIR}/${${UNITS:S/-/_/}_UNIT}
+.				if defined(USE_FPC_RUN)
 RUN_DEPENDS+=   ${UNITSDIR}/${UNITS}/fpunits.cfg:${PORTSDIR}/${${UNITS:S/-/_/}_UNIT}
+.				endif
 .			else
 BUILD_DEPENDS+= ${UNITSDIR}/${UNITS}/Package.fpc:${PORTSDIR}/${${UNITS:S/-/_/}_UNIT}
+.				if defined(USE_FPC_RUN)
 RUN_DEPENDS+=   ${UNITSDIR}/${UNITS}/Package.fpc:${PORTSDIR}/${${UNITS:S/-/_/}_UNIT}
+.				endif
 .			endif
 
 security-check: fpc-check-install

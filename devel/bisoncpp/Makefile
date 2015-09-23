@@ -1,13 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	bisoncpp
-PORTVERSION=	4.09.01
-PORTREVISION=	1
+PORTVERSION=	4.10.01
 CATEGORIES=	devel
 MASTER_SITES=	SF/${PORTNAME}/bisonc%2B%2B/${PORTVERSION}
 DISTNAME=	bisonc++_${PORTVERSION}.orig
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	LALR(1) parser generator that generates C++ classes
 
 LICENSE=	GPLv3
@@ -21,7 +20,7 @@ PORTDOCS=	*
 
 WRKSRC=		${WRKDIR}/bisonc++-${PORTVERSION}
 
-USE_GCC=	yes
+USE_GCC=	4.9+
 
 USES=		shebangfix
 

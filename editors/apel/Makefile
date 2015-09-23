@@ -3,7 +3,7 @@
 
 PORTNAME=	apel
 PORTVERSION=	${APEL_VER}
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	editors elisp
 MASTER_SITES=	http://git.chise.org/elisp/dist/apel/
 PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
@@ -42,13 +42,11 @@ PLIST_SUB+=	EMACS23="" NOEMACS23="@comment "
 PLIST_SUB+=	EMACS23="@comment " NOEMACS23=""
 .endif
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	@(cd ${WRKSRC} ; \
 	for i in ChangeLog README.* ; do \
 	    ${INSTALL_DATA} $${i} ${STAGEDIR}${DOCSDIR} ; \
 	done)
-.endif
 
 .include <bsd.port.post.mk>

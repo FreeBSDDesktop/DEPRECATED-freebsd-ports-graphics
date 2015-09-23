@@ -1,20 +1,20 @@
---- chrome/browser/ui/views/chrome_views_delegate.h.orig	2014-10-10 09:15:30 UTC
-+++ chrome/browser/ui/views/chrome_views_delegate.h
-@@ -36,7 +36,7 @@
- #if defined(OS_WIN)
-   virtual HICON GetDefaultWindowIcon() const OVERRIDE;
-   virtual bool IsWindowInMetro(gfx::NativeWindow window) const OVERRIDE;
+--- chrome/browser/ui/views/chrome_views_delegate.h.orig	2015-07-15 16:29:58.000000000 -0400
++++ chrome/browser/ui/views/chrome_views_delegate.h	2015-07-21 21:54:27.828544000 -0400
+@@ -31,7 +31,7 @@
+   HICON GetDefaultWindowIcon() const override;
+   HICON GetSmallWindowIcon() const override;
+   bool IsWindowInMetro(gfx::NativeWindow window) const override;
 -#elif defined(OS_LINUX) && !defined(OS_CHROMEOS)
 +#elif defined(OS_LINUX) && !defined(OS_CHROMEOS) || defined(OS_BSD)
-   virtual gfx::ImageSkia* GetDefaultWindowIcon() const OVERRIDE;
+   gfx::ImageSkia* GetDefaultWindowIcon() const override;
  #endif
  
-@@ -49,7 +49,7 @@
-   virtual void OnBeforeWidgetInit(
+@@ -44,7 +44,7 @@
+   void OnBeforeWidgetInit(
        views::Widget::InitParams* params,
-       views::internal::NativeWidgetDelegate* delegate) OVERRIDE;
+       views::internal::NativeWidgetDelegate* delegate) override;
 -#if defined(OS_LINUX) && !defined(OS_CHROMEOS)
 +#if defined(OS_LINUX) && !defined(OS_CHROMEOS) || defined(OS_BSD)
-   virtual bool WindowManagerProvidesTitleBar(bool maximized) OVERRIDE;
+   bool WindowManagerProvidesTitleBar(bool maximized) override;
  #endif
- #if defined(USE_AURA)
+   ui::ContextFactory* GetContextFactory() override;

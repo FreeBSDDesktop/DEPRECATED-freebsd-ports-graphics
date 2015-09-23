@@ -2,10 +2,9 @@
 
 PORTNAME=	cartotheque
 PORTVERSION=	0.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	deskutils gnustep
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=dinoex
+MASTER_SITES=	LOCAL/dinoex
 DISTNAME=	Cartotheque-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -13,13 +12,14 @@ COMMENT=	Managing notes on small cards
 
 LICENSE=	LGPL21
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^GNUSTEP_INSTALLATION_DIR|#GNUSTEP_INSTALLATION_DIR|' \
 		${WRKSRC}/GNUmakefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/Cartotheque.app/Cartotheque
 
 .include <bsd.port.mk>

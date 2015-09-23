@@ -3,7 +3,7 @@
 
 PORTNAME=	xfig
 PORTVERSION=	3.2.5c
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	SF/mcj/mcj-source/
 DISTNAME=	${PORTNAME}.${PORTVERSION}.full
@@ -11,8 +11,7 @@ DISTNAME=	${PORTNAME}.${PORTVERSION}.full
 MAINTAINER=	mjl@luckie.org.nz
 COMMENT=	Drawing program for X11
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libXaw3d.so:${PORTSDIR}/x11-toolkits/Xaw3d
 RUN_DEPENDS=	fig2dev:${PORTSDIR}/print/transfig
 
@@ -20,7 +19,7 @@ CONFLICTS=	xfig-[12].* xfig-3.1* xfig-3.2.[1234]*
 
 WRKSRC=		${WRKDIR}/${PORTNAME}.${PORTVERSION}
 
-USES=		imake
+USES=		imake jpeg
 USE_XORG=	ice sm x11 xaw xext xi xmu xpm xt
 USE_CSTD=	gnu89
 CFLAGS+=	-Wno-return-type
@@ -28,9 +27,9 @@ INSTALL_TARGET=	install install.libs
 
 MAKE_ENV+=	DOCSDIR=${DOCSDIR} CHMOD=${CHMOD} TAR=${TAR}
 MAKE_ARGS+=	INSTALLFLAGS="${COPY}" \
-		INSTPGMFLAGS="${STRIP} ${_BINOWNGRP} -m ${BINMODE}" \
-		INSTDATFLAGS="${_SHROWNGRP} -m ${SHAREMODE}" \
-		INSTMANFLAGS="${_MANOWNGRP} -m ${MANMODE}"
+		INSTPGMFLAGS="${STRIP} -m ${BINMODE}" \
+		INSTDATFLAGS="-m ${SHAREMODE}" \
+		INSTMANFLAGS="-m ${MANMODE}"
 
 OPTIONS_DEFINE=	GHOSTSCRIPT I18N DOCS
 OPTIONS_DEFAULT=	GHOSTSCRIPT I18N

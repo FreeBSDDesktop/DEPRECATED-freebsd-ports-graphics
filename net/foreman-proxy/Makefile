@@ -2,18 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	foreman-proxy
-PORTVERSION=	1.7.0
+PORTVERSION=	1.9.1
 CATEGORIES=	net
-MASTER_SITES=	GH
+MASTER_SITES=	http://downloads.theforeman.org/foreman-proxy/
 
-MAINTAINER=	mm@FreeBSD.org
+MAINTAINER=	mmoll@FreeBSD.org
 COMMENT=	Foreman Proxy Agent
 
 LICENSE=	GPLv3
 
 RUN_DEPENDS=	rubygem-bundler_ext>=0.4:${PORTSDIR}/sysutils/rubygem-bundler_ext \
 		rubygem-json>=1.8.1:${PORTSDIR}/devel/rubygem-json \
-		rubygem-rack>=1.4:${PORTSDIR}/www/rubygem-rack \
+		rubygem-rack16>=1.4:${PORTSDIR}/www/rubygem-rack16 \
 		rubygem-sinatra>=1.4.3:${PORTSDIR}/www/rubygem-sinatra \
 		${LOCALBASE}/bin/wget:${PORTSDIR}/ftp/wget
 
@@ -21,12 +21,8 @@ OPTIONS_DEFINE=	BMC PUPPET
 BMC_DESC=	Depend on rubyipmi for BMC support
 PUPPET_DESC=	Depend on Puppet
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	theforeman
-GH_PROJECT=	smart-proxy
-GH_COMMIT=	eaa557d
+USES=		tar:bzip2
 USE_RUBY=	yes
-USE_RAKE=	yes
 USE_RC_SUBR=	foreman-proxy
 NO_BUILD=	yes
 NO_ARCH=	yes
@@ -47,9 +43,9 @@ SUB_LIST=	RUBY="${RUBY}" \
 
 PLIST_SUB=	${SUB_LIST} MKDIR="${MKDIR}"
 
-BMC_RUN_DEPENDS=	rubygem-rubyipmi>=0.7:${PORTSDIR}/sysutils/rubygem-rubyipmi
+BMC_RUN_DEPENDS=	rubygem-rubyipmi>=0.10.0:${PORTSDIR}/sysutils/rubygem-rubyipmi
 PUPPET_RUN_DEPENDS=	puppet:${PORTSDIR}/sysutils/puppet \
-			rubygem-ruby-augeas>=0.5:${PORTSDIR}/textproc/rubygem-augeas
+			rubygem-ruby-augeas>=0.5:${PORTSDIR}/textproc/rubygem-ruby-augeas
 
 post-patch:
 	@${REINPLACE_CMD} \
@@ -71,7 +67,7 @@ do-install:
 	${LN} -s ${PREFIX}/etc/foreman-proxy ${STAGEDIR}${DATADIR}/config
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/smart-proxy \
 		${STAGEDIR}${PREFIX}/sbin/smart-proxy
-.for file in CHANGELOG Contributors Gemfile LICENSE README Rakefile \
+.for file in CHANGELOG Contributors Gemfile LICENSE README.md \
 	VERSION bundler.d config.ru lib modules public views
 	${CP} -r ${WRKSRC}/${file} ${STAGEDIR}${DATADIR}
 .endfor
@@ -80,6 +76,7 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/extra/${script} \
 		${STAGEDIR}${DATADIR}/extra/${script}
 .endfor
+	${CP} -r ${WRKSRC}/extra/migrations ${STAGEDIR}${DATADIR}/extra
 	${INSTALL_DATA} ${WRKSRC}/config/settings.yml.example \
 		${STAGEDIR}${PREFIX}/etc/foreman-proxy/settings.yml.sample
 .for cfg in bmc dhcp dns facts puppet puppetca realm templates tftp

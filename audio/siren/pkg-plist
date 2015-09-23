@@ -1,8 +1,9 @@
 bin/siren
 lib/siren/ip/flac.so
 lib/siren/ip/mad.so
+lib/siren/ip/opus.so
 lib/siren/ip/vorbis.so
 lib/siren/ip/wavpack.so
 %%OSS%%lib/siren/op/oss.so
-%%PULSE%%lib/siren/op/pulse.so
+%%PULSEAUDIO%%lib/siren/op/pulse.so
 man/man1/siren.1.gz

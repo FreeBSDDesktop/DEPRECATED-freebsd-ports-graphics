@@ -3,30 +3,33 @@
 
 PORTNAME=	awffull
 PORTVERSION=	3.10.2
-PORTREVISION=	11
+PORTREVISION=	14
 CATEGORIES?=	www
 MASTER_SITES=	http://www.stedee.id.au/files/
 
-MAINTAINER?=	chad@wickdev.com
+MAINTAINER?=	ports@FreeBSD.org
 COMMENT=	AWFFull is a webserver log analysis tool forked from Webalizer
 
 LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	${LOCALBASE}/lib/X11/fonts/bitstream-vera/Vera.ttf:${PORTSDIR}/x11-fonts/bitstream-vera
+BUILD_DEPENDS=	${LOCALBASE}/share/fonts/bitstream-vera/Vera.ttf:${PORTSDIR}/x11-fonts/bitstream-vera
 LIB_DEPENDS=	libgd.so:${PORTSDIR}/graphics/gd \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libpcre.so:${PORTSDIR}/devel/pcre
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 CONFLICTS?=	ja-awffull-[0-9]*
 
-FONTDEFAULT?=	${LOCALBASE}/lib/X11/fonts/bitstream-vera/VeraBd.ttf
-FONTLABEL?=	${LOCALBASE}/lib/X11/fonts/bitstream-vera/Vera.ttf
+FONTDEFAULT?=	${LOCALBASE}/share/fonts/bitstream-vera/VeraBd.ttf
+FONTLABEL?=	${LOCALBASE}/share/fonts/bitstream-vera/Vera.ttf
 
 OPTIONS_DEFINE=	GEOIP DOCS EXAMPLES NLS
 OPTIONS_SUB=	yes
 
-USES=		gettext iconv
+USES=		gettext iconv shebangfix
+SHEBANG_FILES=	contrib/awffull_history_regen.pl \
+		contrib/awffull_history_regen_german.pl
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-font-default=${FONTDEFAULT} \

@@ -4,7 +4,6 @@
 PORTNAME=	clsync
 DISTVERSION=	0.4~rc2
 PORTREVISION=	1
-DIST_SUBDIR=	${PORTNAME}-${PORTVERSION}-${GH_COMMIT}
 CATEGORIES=	sysutils
 
 MAINTAINER=	dyokunev@ut.mephi.ru
@@ -16,7 +15,7 @@ LIB_DEPENDS=	libinotify.so:${PORTSDIR}/devel/libinotify \
 		libexecinfo.so:${PORTSDIR}/devel/libexecinfo
 
 GNU_CONFIGURE=	yes
-USES=		autoreconf gmake libtool pkgconfig
+USES=		autoreconf compiler:features gmake libtool pkgconfig
 USE_GNOME=	glib20
 
 USE_RC_SUBR=	clsync
@@ -25,9 +24,7 @@ SUB_FILES=	pkg-message
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	xaionaro
-GH_PROJECT=	clsync
-GH_COMMIT=	85e5475
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	85e5475
 
 OPTIONS_DEFINE=	PARANOID VERYPARANOID SOCKET DEBUG LIBCLSYNC
 
@@ -38,7 +35,7 @@ LIBCLSYNC_DESC=	Build libclsync.so for control socket clients
 
 OPTIONS_DEFAULT=PARANOID
 
-.include <bsd.port.options.mk>
+.include <bsd.port.pre.mk>
 
 .if ${PORT_OPTIONS:MVERYPARANOID}
 CONFIGURE_ARGS+=	--enable-paranoid=2
@@ -62,10 +59,15 @@ CONFIGURE_ARGS+=	--enable-debug
 CONFIGURE_ARGS+=	--enable-libclsync
 .endif
 
-do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/clsync ${STAGEDIR}/${PREFIX}/sbin/clsync
-	${INSTALL_DATA} ${WRKSRC}/man/man1/clsync.1 ${STAGEDIR}/${PREFIX}/man/man1/clsync.1
-	${MKDIR} ${STAGEDIR}/${ETCDIR}
-	${INSTALL_DATA} ${WRKSRC}/freebsd/usr/local/etc/clsync/${PORTNAME}.conf ${STAGEDIR}/${ETCDIR}/${PORTNAME}.conf.sample
+.if ${COMPILER_TYPE} == clang
+post-patch:
+	@${REINPLACE_CMD} -e 's|-fstack-check||' ${WRKSRC}/configure.ac
+.endif
 
-.include <bsd.port.mk>
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/clsync ${STAGEDIR}${PREFIX}/sbin/clsync
+	${INSTALL_DATA} ${WRKSRC}/man/man1/clsync.1 ${STAGEDIR}${PREFIX}/man/man1/clsync.1
+	${MKDIR} ${STAGEDIR}${ETCDIR}
+	${INSTALL_DATA} ${WRKSRC}/freebsd/usr/local/etc/clsync/${PORTNAME}.conf ${STAGEDIR}${ETCDIR}/${PORTNAME}.conf.sample
+
+.include <bsd.port.post.mk>

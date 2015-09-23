@@ -20,7 +20,7 @@ LIB_DEPENDS=	libxapian.so:${PORTSDIR}/databases/xapian-core		\
 		libgtkmm-2.4.so:${PORTSDIR}/x11-toolkits/gtkmm24	\
 		libexttextcat-2.0.so:${PORTSDIR}/textproc/libexttextcat	\
 		libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib		\
-		libxml\+\+-2.6.so:${PORTSDIR}/textproc/libxml++26	\
+		libxml++-2.6.so:${PORTSDIR}/textproc/libxml++26	\
 		libboost_thread.so:${PORTSDIR}/devel/boost-libs		\
 		libexecinfo.so:${PORTSDIR}/devel/libexecinfo		\
 		libexif.so:${PORTSDIR}/graphics/libexif			\
@@ -46,7 +46,7 @@ CONFIGURE_ENV=	MKDIR_P="${MKDIR}"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
-USES=		gettext libtool pkgconfig python shebangfix
+USES=		gettext libarchive libtool pkgconfig python shebangfix
 USE_OPENSSL=	yes
 USE_SQLITE=	3
 USE_XORG=	pixman
@@ -94,6 +94,8 @@ pre-configure:
 
 post-install:
 	${TOUCH} ${STAGEDIR}${DATADIR}/stopwords/.empty_file
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${DOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
 

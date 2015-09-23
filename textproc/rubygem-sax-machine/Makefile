@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	sax-machine
-PORTVERSION=	1.0.0
+PORTVERSION=	1.3.2
 CATEGORIES=	textproc rubygems
 MASTER_SITES=	RG
 
@@ -11,7 +11,7 @@ COMMENT=	Declarative sax parsing library backed by Nokogiri
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	rubygem-nokogiri>=1.6.0:${PORTSDIR}/textproc/rubygem-nokogiri
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

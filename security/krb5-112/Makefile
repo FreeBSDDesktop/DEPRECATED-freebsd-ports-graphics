@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=		krb5
-PORTVERSION=		1.12.2
+PORTVERSION=		1.12.4
+PORTREVISION=		2
 CATEGORIES=		security
 MASTER_SITES=		http://web.mit.edu/kerberos/dist/${PORTNAME}/${PORTVERSION:C/^[0-9]*\.[0-9]*/&X/:C/X\.[0-9]*$//:C/X//}/
 PKGNAMESUFFIX=		-112
@@ -21,16 +22,21 @@ BUILD_DEPENDS=		gm4:${PORTSDIR}/devel/m4
 
 CONFLICTS=		heimdal-[0-9]* srp-[0-9]* krb5-[0-9]* krb5-maint-111-*
 
-LATEST_LINK=		${PORTNAME}-112
 KERBEROSV_URL=		http://web.mit.edu/kerberos/
 USE_PERL5=		build
 USE_LDCONFIG=		yes
 USE_CSTD=		gnu99
 GNU_CONFIGURE=		yes
-USES=			gettext gmake perl5 libtool:build
-CONFIGURE_ARGS?=	--enable-shared --without-system-verto
-CONFIGURE_ENV=		INSTALL="${INSTALL}" YACC="${YACC}"
-MAKE_ARGS=		INSTALL="${INSTALL}"
+USES=			cpe gettext gmake perl5 libtool:build \
+			gssapi:boostrap,mit
+CONFIGURE_ARGS?=	--enable-shared --without-system-verto \
+			--disable-rpath --localstatedir="${PREFIX}/var"
+CONFIGURE_ENV=		INSTALL="${INSTALL}" INSTALL_LIB="${INSTALL_LIB}" YACC="${YACC}"
+MAKE_ARGS=		INSTALL="${INSTALL}" INSTALL_LIB="${INSTALL_LIB}"
+
+CPE_VENDOR=		mit
+CPE_VERSION=		5-${PORTVERSION}
+CPE_PRODUCT=		kerberos
 
 OPTIONS_DEFINE=		KRB5_PDF KRB5_HTML DNS_FOR_REALM LDAP READLINE
 OPTIONS_DEFAULT=	KRB5_PDF KRB5_HTML
@@ -41,16 +47,27 @@ LDAP=			Enable LDAP support
 
 .if defined(KRB5_HOME)
 PREFIX=			${KRB5_HOME}
-CFLAGS+=		-Wl,-rpath=${KRB5_HOME}/lib
-LDFLAGS+=		-Wl,-rpath=${KRB5_HOME}/lib
 .endif
-LDFLAGS+=		-L${LOCALBASE}/lib
-CFLAGS+=		-I${LOCALBASE}/include
+CPPFLAGS+=		-I${LOCALBASE}/include -I${OPENSSLINC}
+LDFLAGS+=		-L${LOCALBASE}/lib -L${OPENSSLLIB}
 
 USE_OPENSSL=		yes
 USE_RC_SUBR=		kpropd
 
 .include <bsd.port.pre.mk>
+
+# Fix up -Wl,-rpath in LDFLAGS
+.if !empty(KRB5_HOME)
+_RPATH=	${KRB5_HOME}/lib:
+.else
+_RPATH=	${LOCALBASE}/lib:
+.endif
+.if !empty(LDFLAGS:M-Wl,-rpath,*)
+.for F in ${LDFLAGS:M-Wl,-rpath,*}
+LDFLAGS:=	-Wl,-rpath,${_RPATH}${F:S/-Wl,-rpath,//} \
+		${LDFLAGS:N-Wl,-rpath,*}
+.endfor
+.endif
 
 .if defined(KRB5_HOME) && ${KRB5_HOME} != ${LOCALBASE}
 BROKEN=			LIB_DEPENDS when using KRB5_HOME is broken
@@ -73,8 +90,6 @@ USES+=			readline:port
 CONFIGURE_ARGS+=	--with-readline
 .endif
 
-.include "${PORTSDIR}/Mk/bsd.openssl.mk"
-
 .if defined(PROGRAM_TRANSFORM_NAME) && ${PROGRAM_TRANSFORM_NAME} != ""
 CONFIGURE_ARGS+=	--program-transform-name="${PROGRAM_TRANSFORM_NAME}"
 .endif
@@ -83,8 +98,6 @@ WRKSRC=			${WRKDIR}/${PORTNAME}-${PORTVERSION}/src
 
 HTML_DOC_DIR=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/doc/html
 PDF_DOC_DIR=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/doc/pdf
-
-CONFIGURE_ARGS+=	CPPFLAGS="-I${OPENSSLINC} -L${OPENSSLLIB} -L${LOCALBASE}/include"
 
 post-extract:
 	@${TAR} -C ${WRKDIR} -xzf ${WRKDIR}/${PORTNAME}-${PORTVERSION}.tar.gz --no-same-owner --no-same-permissions
@@ -117,15 +130,15 @@ post-install:
 .endif
 .if ${PORT_OPTIONS:MKRB5_PDF}
 	for i in $${pdf_dirs}; do \
-		${ECHO_CMD} @dirrm share/doc/krb5/$${i} >> ${TMPPLIST}; \
+		${ECHO_CMD} @dir share/doc/krb5/$${i} >> ${TMPPLIST}; \
 	done | ${TAIL} -r >> ${TMPPLIST}
 .endif
 .if ${PORT_OPTIONS:MKRB5_HTML}
 	for i in $${html_dirs}; do \
-		${ECHO_CMD} @dirrm share/doc/krb5/$${i} >> ${TMPPLIST}; \
+		${ECHO_CMD} @dir share/doc/krb5/$${i} >> ${TMPPLIST}; \
 	done | ${TAIL} -r >> ${TMPPLIST}
 .endif
-	${ECHO_CMD} @dirrm share/doc/krb5 >> ${TMPPLIST}
+	${ECHO_CMD} @dir share/doc/krb5 >> ${TMPPLIST}
 	@${SED} "s%\${PREFIX}%${PREFIX}%" ${FILESDIR}/README.FreeBSD > ${STAGEDIR}${PREFIX}/share/doc/krb5/README.FreeBSD
 	@${CHMOD} 444 ${STAGEDIR}${PREFIX}/share/doc/krb5/README.FreeBSD
 	@${ECHO} "------------------------------------------------------"

@@ -3,7 +3,7 @@
 
 PORTNAME=	kdelibs
 PORTVERSION=	${KDE4_VERSION}
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	x11 kde
 MASTER_SITES=	KDE/${KDE4_BRANCH}/${PORTVERSION}/src
 DIST_SUBDIR=	KDE/${PORTVERSION}
@@ -17,8 +17,7 @@ LIB_DEPENDS=	libIlmImf.so:${PORTSDIR}/graphics/OpenEXR \
 		libavahi-core.so:${PORTSDIR}/net/avahi-app \
 		libenchant.so:${PORTSDIR}/textproc/enchant \
 		libgif.so:${PORTSDIR}/graphics/giflib \
-		libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libhal.so:${PORTSDIR}/sysutils/hal \
 		libqca.so:${PORTSDIR}/devel/qca \
 		libHUpnp.so:${PORTSDIR}/net/hupnp \
@@ -26,18 +25,18 @@ LIB_DEPENDS=	libIlmImf.so:${PORTSDIR}/graphics/OpenEXR \
 		libdbusmenu-qt.so:${PORTSDIR}/devel/libdbusmenu-qt \
 		libgrantlee_gui.so:${PORTSDIR}/devel/grantlee
 
-BUILD_DEPENDS=	${LOCALBASE}/share/xml/docbook/4.2:${PORTSDIR}/textproc/docbook-xml \
+BUILD_DEPENDS=	docbook-xml>0:${PORTSDIR}/textproc/docbook-xml \
 		${LOCALBASE}/share/xsl/docbook/html/docbook.xsl:${PORTSDIR}/textproc/docbook-xsl
 
 RUN_DEPENDS=	${LOCALBASE}/share/icons/hicolor/index.theme:${PORTSDIR}/misc/hicolor-icon-theme \
 		xauth:${PORTSDIR}/x11/xauth \
-		${LOCALBASE}/share/xml/docbook/4.2:${PORTSDIR}/textproc/docbook-xml \
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml \
 		${LOCALBASE}/share/xsl/docbook/html/docbook.xsl:${PORTSDIR}/textproc/docbook-xsl
 
 USE_GNOME=	libxml2 libxslt
 USE_KDE4=	kdeprefix oxygen \
 		attica automoc4 ontologies soprano strigi
-USES=		cmake:outsource fam gettext perl5 shared-mime-info shebangfix tar:xz
+USES=		cmake:outsource fam gettext jpeg perl5 shared-mime-info shebangfix tar:xz
 USE_OPENSSL=	yes
 USE_QT4=	corelib dbus declarative designer_build gui \
 		network opengl phonon qt3support \
@@ -64,13 +63,6 @@ SHEBANG_FILES=	kdecore/kconfig_compiler/checkkcfg.pl \
 		kio/useragent.pl \
 		kio/proxytype.pl \
 		kioslave/http/kcookiejar/kcookiescfg.pl
-
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 900004
-LIB_DEPENDS+=	libutempter.so:${PORTSDIR}/sysutils/libutempter
-EXTRA_PATCHES=	${FILESDIR}/extra-patch-ConfigureChecks.cmake
-.endif
 
 post-patch:
 	${REINPLACE_CMD} -e 's,/usr/local,${LOCALBASE},g' \
@@ -111,4 +103,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}/${PREFIX}/share/mime/all \
 		${STAGEDIR}/${PREFIX}/share/mime/uri
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

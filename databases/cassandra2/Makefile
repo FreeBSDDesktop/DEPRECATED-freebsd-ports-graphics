@@ -3,8 +3,7 @@
 PORTNAME=	cassandra
 PORTVERSION=	2.1.1
 CATEGORIES=	databases java
-MASTER_SITES=	APACHE
-MASTER_SITE_SUBDIR=	cassandra/${PORTVERSION}
+MASTER_SITES=	APACHE/cassandra/${PORTVERSION}
 PKGNAMESUFFIX=	2
 DISTNAME=	apache-cassandra-${PORTVERSION}
 EXTRACT_SUFX=	-bin.tar.gz
@@ -49,13 +48,12 @@ SUB_FILES=	repaircluster
 RUN_DEPENDS+=	${JAVALIBDIR}/snappy-java.jar:${PORTSDIR}/archivers/snappy-java
 
 MX4J_RUN_DEPENDS=	${JAVAJARDIR}/mx4j-tools.jar:${PORTSDIR}/java/mx4j
-CQL_USE=	python=yes
+CQL_USES=	python:2
 
 PORTDOCS=	javadoc *.txt
 
 .if ${PORT_OPTIONS:MCQL}
 SCRIPTS+=	cqlsh
-USES=		python:2
 .endif
 
 post-extract:

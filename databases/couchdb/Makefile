@@ -3,10 +3,10 @@
 
 PORTNAME=	couchdb
 PORTVERSION=	1.6.1
+PORTREVISION=	4
 PORTEPOCH=	2
 CATEGORIES=	databases
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	couchdb/source/${PORTVERSION}
+MASTER_SITES=	APACHE/couchdb/source/${PORTVERSION}
 DISTNAME=	apache-couchdb-${PORTVERSION}
 
 MAINTAINER=	olgeni@FreeBSD.org
@@ -27,7 +27,8 @@ GROUPS=		couchdb
 USE_RC_SUBR=	couchdb
 SUB_FILES=	pkg-message
 PLIST_SUB=	VERSION=${PORTVERSION}
-USES=		gmake libtool
+USES=		cpe gmake libtool
+CPE_VENDOR=	apache
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS=	--with-erlang=${LOCALBASE}/lib/erlang/usr/include \
@@ -42,8 +43,6 @@ CONFIGURE_ARGS=	--with-erlang=${LOCALBASE}/lib/erlang/usr/include \
 STRIP=	#empty
 
 INFO=		CouchDB
-
-OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.options.mk>
 
@@ -71,9 +70,9 @@ post-patch:
 		${WRKSRC}/configure
 	@${REINPLACE_CMD} 's|\(info_file_inst = CouchDB\)$$|\1.info|' \
 		${WRKSRC}/share/doc/build/Makefile.in
-.if !${PORT_OPTIONS:MDOCS}
+
+post-patch-DOCS-off:
 	@${REINPLACE_CMD} -e 's/install-data-am$$//' ${WRKSRC}/Makefile.in
-.endif
 
 post-configure:
 # Cater for parallel Spidermonkey v1.7 and v1.8.5 installs by ensuring that

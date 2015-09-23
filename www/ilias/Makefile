@@ -2,14 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	ilias
-PORTVERSION=	4.4.5
+PORTVERSION=	5.0.2
+DISTVERSIONPREFIX=	v
 CATEGORIES=	www
-MASTER_SITES=	SF/${PORTNAME}/01.%20ILIAS%204.4/ILIAS%20${PORTVERSION}
 
 MAINTAINER=	wen@FreeBSD.org
 COMMENT=	Powerful, dynamic, PHP and MySQL based e-learning platform
 
 LICENSE=	GPLv2
+
+USE_GITHUB=     yes
+GH_ACCOUNT=     ILIAS-eLearning
+GH_PROJECT=     ILIAS
 
 RUN_DEPENDS=	convert:${PORTSDIR}/graphics/ImageMagick \
 		zip:${PORTSDIR}/archivers/zip \
@@ -18,14 +22,14 @@ RUN_DEPENDS=	convert:${PORTSDIR}/graphics/ImageMagick \
 		${LOCALBASE}/share/pear/Auth/Auth.php:${PORTSDIR}/security/pear-Auth \
 		${LOCALBASE}/share/pear/MDB2.php:${PORTSDIR}/databases/pear-MDB2 \
 		${LOCALBASE}/share/pear/HTML/Template/IT.php:${PORTSDIR}/devel/pear-HTML_Template_IT
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
+USES=		cpe jpeg
 NO_BUILD=		yes
 PLIST=			${WRKDIR}/plist
 SUB_FILES=		pkg-message
 USE_PHP=		mysql session zlib gd pdf dom xsl pcre
-WRKSRC=			${WRKDIR}/ilias
+WRKSRC=			${WRKDIR}/ILIAS-${PORTVERSION}
 ILIASDIR=		www/ilias
 ILIASDATADIR=		www/iliasdata
 PLIST_SUB=	ILIASDATADIR=${ILIASDATADIR}
@@ -52,9 +56,9 @@ pre-install:
 	@${ECHO_CMD} "@owner ${WWWOWN}" >> ${PLIST}
 	@${ECHO_CMD} "@group ${WWWGRP}" >> ${PLIST}
 	@${ECHO_CMD} "@mode 755" >> ${PLIST}
-	@${FIND} -s -d ${WRKSRC} -type f | ${SED} "s?${WRKSRC}?${ILIASDIR}?g" >${PLIST}
-	@${FIND} -s -d ${WRKSRC} -type d  | ${SED} "s?${WRKSRC}?@dirrm ${ILIASDIR}?g" >> ${PLIST}
-	@${ECHO} @dirrm ${ILIASDATADIR} >> ${PLIST}
+	@${FIND} -s -d ${WRKSRC} -type f | ${SED} "s?${WRKSRC}?${ILIASDIR}?g" >> ${PLIST}
+	@${FIND} -s -d ${WRKSRC} -type d  | ${SED} "s?${WRKSRC}?@dir ${ILIASDIR}?g" >> ${PLIST}
+	@${ECHO} @dir ${ILIASDATADIR} >> ${PLIST}
 	@${ECHO_CMD} "@mode" >> ${PLIST}
 	@${ECHO_CMD} "@group" >> ${PLIST}
 	@${ECHO_CMD} "@owner" >> ${PLIST}

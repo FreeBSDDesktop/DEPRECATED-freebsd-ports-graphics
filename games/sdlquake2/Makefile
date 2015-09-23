@@ -3,16 +3,14 @@
 
 PORTNAME=	sdlquake2
 PORTVERSION=	0.1.4
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	games
 MASTER_SITES=	http://koti.mbnet.fi/~turol/sdlquake2/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Combination of R1Q2 and R1GL with SDL code from Quake2Forge
 
-LIB_DEPENDS=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo
-
-USES=		gmake tar:bzip2
+USES=		execinfo gmake tar:bzip2
 
 OPTIONS_DEFINE=	CLIENT DEDICATED GAME
 OPTIONS_DEFAULT=	CLIENT DEDICATED
@@ -28,12 +26,11 @@ PLIST_SUB=	LIBDIR=${LIBDIR:S/${PREFIX}\///}
 
 .include "${.CURDIR}/../quake2-data/Makefile.include"
 
-CLIENT_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-			libpng15.so:${PORTSDIR}/graphics/png
+CLIENT_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+CLIENT_USES=		jpeg
 CLIENT_USE=		GL=yes
 CLIENT_USE=		SDL=sdl
 CLIENT_MAKE_ENV=	BUILD_CLIENT=YES
-CLIENT_CFLAGS=		-I${LOCALBASE}/include/libpng15
 
 DEDICATED_MAKE_ENV=	BUILD_DEDICATED=YES
 

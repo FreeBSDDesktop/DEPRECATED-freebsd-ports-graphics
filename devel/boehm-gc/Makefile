@@ -3,7 +3,7 @@
 
 PORTNAME=	gc
 PORTVERSION=	7.4.2
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	devel
 MASTER_SITES=	http://www.hboehm.info/gc/gc_source/
 PKGNAMEPREFIX=	boehm-
@@ -22,7 +22,9 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 BUILD_DEPENDS=	${LOCALBASE}/lib/libatomic_ops.a:${PORTSDIR}/devel/libatomic_ops
 
 GNU_CONFIGURE=	yes
-USES=		libtool pathfix pkgconfig
+USES=		cpe libtool pathfix pkgconfig
+CPE_VENDOR=	boehm-demers-weiser
+CPE_PRODUCT=	garbage_collector
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
 CONFIGURE_ARGS=	--enable-cplusplus --disable-static

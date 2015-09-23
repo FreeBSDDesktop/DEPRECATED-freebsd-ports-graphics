@@ -5,8 +5,7 @@ PORTNAME=	shrub
 PORTVERSION=	1.2
 PORTREVISION=	1
 CATEGORIES=	games linux
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	alepulver
+MASTER_SITES=	LOCAL/alepulver
 PKGNAMEPREFIX=	linux-enemyterritory-
 DISTNAME=	1.2-test13-l
 
@@ -24,6 +23,7 @@ DATADIR=	${PREFIX}/lib/enemyterritory/${PORTNAME}
 PLIST_FILES=	bin/et-${PORTNAME} \
 		bin/etded-${PORTNAME} \
 		%%DATADIR%%/qagame.mp.i386.so
+PLIST_DIRS=	%%DATADIR%%
 
 do-build:
 .for f in et etded

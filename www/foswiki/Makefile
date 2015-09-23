@@ -1,22 +1,23 @@
 # $FreeBSD$
 
 PORTNAME=	foswiki
-PORTVERSION=	1.1.5
+PORTVERSION=	1.1.9
 CATEGORIES=	www
 MASTER_SITES=	SF
 DISTNAME=	Foswiki-${PORTVERSION}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	portmaster@bsdforge.com
 COMMENT=	Free and open source enterprise wiki
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	p5-Error>=0.15:${PORTSDIR}/lang/p5-Error \
 		p5-Algorithm-Diff>=1.1901:${PORTSDIR}/devel/p5-Algorithm-Diff \
 		p5-Text-Diff>=0.35:${PORTSDIR}/textproc/p5-Text-Diff \
 		p5-Sort-Maker>=0.06:${PORTSDIR}/devel/p5-Sort-Maker
 
-USES=		perl5 tar:tgz
+USES=		cpe perl5 tar:tgz
 NO_BUILD=	yes
 
 OPTIONS_DEFINE=	OPTINT OPTOTH APACHE
@@ -57,8 +58,8 @@ CONFDIR=	${PREFIX}/${CONFDIR_REL}
 PLIST_SUB+=	CONFDIR=${CONFDIR_REL}
 .else
 # Weirdness - need to include in this branch of the .if because
-# it was included in the other one.  The other branch needs
-# the include performed after the USE_APACHE variable is set so
+# it was included in the other one. The other branch needs the
+# include performed after the USE_APACHE variable is set so
 # APACHE_VERSION can be tested above.
 
 PLIST_SUB+=	NOAPACHE="@comment "

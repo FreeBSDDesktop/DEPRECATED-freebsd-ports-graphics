@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	cracklib
-PORTVERSION=	2.9.2
+PORTVERSION=	2.9.4
 CATEGORIES=	security
 .if defined(PYTHON_SLAVEPORT)
 CATEGORIES+=	python
 .endif
 MASTER_SITES=	SF \
-		LOCAL/${MAINTAINER:C/([^@]*)@.*/\1/}
+		LOCAL/cy
 
 MAINTAINER= 	cy@FreeBSD.org
 COMMENT?=	Password-checking library
@@ -18,7 +18,7 @@ LICENSE=	LGPL21
 DICTPATH=	${PREFIX}/libdata/${PORTNAME}
 DICTFILE=	${DICTPATH}/pw_dict
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-default-dict=${DICTPATH}
+CONFIGURE_ARGS=	--with-default-dict=${DICTFILE}
 INSTALL_TARGET=	install-strip
 USES=		gettext libtool
 USE_LDCONFIG=	yes

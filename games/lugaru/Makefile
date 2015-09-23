@@ -3,7 +3,7 @@
 
 PORTNAME=	lugaru
 PORTVERSION=	269
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	games
 MASTER_SITES=	GOOGLE_CODE
 DISTNAME=	${PORTNAME}-rev${DISTVERSION}-src
@@ -11,14 +11,14 @@ DISTNAME=	${PORTNAME}-rev${DISTVERSION}-src
 MAINTAINER=	nemysis@FreeBSD.org
 COMMENT=	3D arcade with unique fighting system and anthropomorphic characters
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING.txt
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libvorbis.so:${PORTSDIR}/audio/libvorbis \
 		libogg.so:${PORTSDIR}/audio/libogg
 
-USES=		cmake openal:soft pkgconfig tar:bzip2
+USES=		cmake jpeg openal:soft pkgconfig tar:bzip2
 USE_GL=		glu
 USE_SDL=	sdl
 USE_XORG=	sm

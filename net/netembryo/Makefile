@@ -3,20 +3,25 @@
 
 PORTNAME=	netembryo
 PORTVERSION=	0.1.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	net
-MASTER_SITES=		${MASTER_SITE_LOCAL} \
+MASTER_SITES=		LOCAL/rakuco \
 			http://pkgs.fedoraproject.org/repo/pkgs/netembryo/netembryo-0.1.1.tar.bz2/d5a3c96b37fe3e4fb1c49df1f7a4a16f/ \
 			http://lscube.org/files/downloads/netembryo/
-MASTER_SITE_SUBDIR=	rakuco
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Network abstraction library
 
 LICENSE=	LGPL21
 
-OPTIONS_DEFINE=	OPENSSL
-OPTIONS_DEFAULT=OPENSSL
+OPTIONS_DEFINE=		OPENSSL SCTP IPV6
+OPTIONS_DEFAULT=	OPENSSL SCTP
+OPTIONS_SUB=		yes
+SCTP_DESC=		Stream Control Transmission Protocol support
+
+OPTIONS_EXCLUDE_DragonFly=	SCTP
+IPV6_CONFIGURE_ENABLE=		ipv6
+SCTP_CONFIGURE_ENABLE=		sctp
 
 USES=		gmake libtool pathfix pkgconfig tar:bzip2
 USE_GNOME=	glib20

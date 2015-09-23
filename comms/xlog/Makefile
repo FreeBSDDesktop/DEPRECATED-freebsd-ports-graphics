@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	xlog
-PORTVERSION=	2.0.12
+PORTVERSION=	2.0.13
 CATEGORIES=	comms hamradio
 MASTER_SITES=	SAVANNAH
-MASTER_SITE_SUBDIR=	xlog
 
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Amateur Radio logging application
@@ -26,7 +25,7 @@ OPTIONS_SUB=	yes
 NLS_USES=	gettext
 NLS_CONFIGURE_OFF=	--disable-nls
 
-DESKTOP_ENTRIES="${PORTNAME}" "${COMMENT}" "${PORTNAME}.xpm" \
-	"${PORTNAME}" "Utility;" ${FALSE}
+DESKTOP_ENTRIES="${PORTNAME}" "${COMMENT}" "${PORTNAME}" \
+	"${PORTNAME}" "Utility;" false
 
 .include <bsd.port.mk>

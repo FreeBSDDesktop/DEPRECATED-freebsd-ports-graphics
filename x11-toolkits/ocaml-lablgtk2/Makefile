@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	lablgtk2
-PORTVERSION=	2.16.0
-PORTREVISION=	2
+PORTVERSION=	2.18.3
 CATEGORIES=	x11-toolkits
-MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/979/ \
+MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1479/ \
 		LOCAL/bf
 PKGNAMEPREFIX=	ocaml-
 DISTNAME=	lablgtk-${PORTVERSION}
@@ -20,6 +19,7 @@ USE_GNOME=	gtk20
 USE_OCAML=	yes
 USE_OCAML_FINDLIB=	yes
 USE_OCAMLFIND_PLIST=	yes
+USE_OCAML_CAMLP4=	yes
 USE_OCAML_LDCONFIG=	yes
 USE_OCAML_WASH= 	yes
 
@@ -135,7 +135,9 @@ post-patch:
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.if ${PORT_OPTIONS:MDOCS}
 	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+.endif
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	@cd ${WRKSRC}/examples && ${COPYTREE_SHARE} \
 	"*.ml *.png *.rgb *.xpm text ${EXAMPLES_SUBDIRS}" \

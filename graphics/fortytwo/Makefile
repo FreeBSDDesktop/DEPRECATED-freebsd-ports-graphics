@@ -2,7 +2,7 @@
 
 PORTNAME=	fortytwo
 PORTVERSION=	0.2.0
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	graphics gnustep
 MASTER_SITES=	SF/${PORTNAME}/FT%20%2842%29/${PORTVERSION}
 DISTFILES=	FT-${PORTVERSION}-src.tgz \
@@ -13,12 +13,11 @@ COMMENT=	Graph management system for GNUstep
 
 LICENSE=	LGPL21
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
-USE_GNUSTEP_LOCAL_LIBS+=	Encore:${ENCORE_PORT}
-USE_GNUSTEP_LOCAL_LIBS+=	BDB:${FORTYTWO_BDB_PORT}
+USES=		gnustep
+USE_GNUSTEP=	back build
+
+LIB_DEPENDS=	libEncore.so:${PORTSDIR}/devel/fortytwo-encore \
+		libBDB.so:${PORTSDIR}/databases/fortytwo-bdb
 DEFAULT_LIBVERSION=	0.1
 USE_GNUSTEP_LDCONFIG=	${GNUSTEP_LOCAL_LIBRARIES}
 USE_BDB=	43+
@@ -26,9 +25,10 @@ USE_BDB=	43+
 WRKSRC=		${WRKDIR}/FT-${PORTVERSION}
 DOCSDIR=	${GNUSTEP_PREFIX}/Local/Library/Documentation/FT
 
-ENCORE_PORT?=	devel/fortytwo-encore
-FORTYTWO_BDB_PORT?=	databases/fortytwo-bdb
 ADDITIONAL_OBJCFLAGS+=	-I${BDB_INCLUDE_DIR}
 ADDITIONAL_LDFLAGS+=	-L${BDB_LIB_DIR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Library/Frameworks/FT.framework/Versions/0/libFT.so
 
 .include <bsd.port.mk>

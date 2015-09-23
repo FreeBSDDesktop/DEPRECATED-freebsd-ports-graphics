@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME?=	bird
-PORTVERSION=	1.4.5
+PORTVERSION=	1.5.0
 PORTREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	ftp://bird.network.cz/pub/bird/ \
@@ -16,7 +16,6 @@ LICENSE=	GPLv2
 USES=		bison gmake readline
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--localstatedir=/var
-USE_CSTD=	gnu89
 
 OPTIONS_DEFINE?=	FIREWALL AGG
 FIREWALL_DESC=	Enable firewall protocol

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Net-Stomp
-PORTVERSION=	0.49
-PORTREVISION=	1
+PORTVERSION=	0.56
 CATEGORIES=	net-im perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -16,6 +15,8 @@ LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	p5-Class-Accessor>=0:${PORTSDIR}/devel/p5-Class-Accessor
 RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Deep>=0:${PORTSDIR}/devel/p5-Test-Deep \
+		p5-Test-Fatal>=0:${PORTSDIR}/devel/p5-Test-Fatal
 
 USES=		perl5
 USE_PERL5=	configure

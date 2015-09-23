@@ -3,22 +3,20 @@
 
 PORTNAME=	jishyo
 PORTVERSION=	0.1
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	japanese gnustep
-MASTER_SITES=	http://www.eskimo.com/~pburns/Dictionaries/files/ \
-		${MASTER_SITE_GNUSTEP_CH}
+MASTER_SITES=	http://www.eskimo.com/~pburns/Dictionaries/files/
 DISTNAME=	Jishyo-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	English to Japanese dictionary for GNUstep
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
 
-WRKSRC=	${WRKDIR}/${DISTNAME}
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/Jishyo.app/Jishyo
 
 .include <bsd.port.mk>

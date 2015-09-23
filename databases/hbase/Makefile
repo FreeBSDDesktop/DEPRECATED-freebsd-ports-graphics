@@ -2,14 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	hbase
-PORTVERSION=	0.98.4
-PORTREVISION=	1
+PORTVERSION=	0.98.9
 CATEGORIES=	databases java
-MASTER_SITES=	${MASTER_SITE_APACHE} \
+MASTER_SITES=	APACHE/${PORTNAME}/${PORTNAME}-${PORTVERSION} \
 		LOCAL/demon/:maven \
 		http://people.freebsd.org/~demon/:maven
-MASTER_SITE_SUBDIR=${PORTNAME}/${PORTNAME}-${PORTVERSION}
-DISTFILES=	${PORTNAME}-${PORTVERSION}-src${EXTRACT_SUFX} FreeBSD-hbase-${PORTVERSION}-maven-repository.tar.gz:maven
+DISTFILES=	${DISTNAME}-src${EXTRACT_SUFX} FreeBSD-hbase-${PORTVERSION}-maven-repository.tar.gz:maven
 DIST_SUBDIR=	hadoop
 
 MAINTAINER=	demon@FreeBSD.org
@@ -23,6 +21,8 @@ BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 		yarn:${PORTSDIR}/devel/hadoop2
 
+USES=		cpe
+CPE_VENDOR=	apache
 USE_JAVA=	yes
 JAVA_VERSION=	1.7+
 
@@ -49,7 +49,8 @@ SUB_LIST=	HBASE_USER="${HBASE_USER}" \
 PLIST_SUB=	HBASE_USER=${HBASE_USER} \
 		HBASE_GROUP=${HBASE_GROUP} \
 		HBASE_LOGDIR=${HBASE_LOGDIR} \
-		HBASE_RUNDIR=${HBASE_RUNDIR}
+		HBASE_RUNDIR=${HBASE_RUNDIR} \
+		PORTVERSION="${PORTVERSION}"
 
 post-patch:
 	${REINPLACE_CMD} -e "s#%%ETCDIR%%#${ETCDIR}#" ${WRKSRC}/conf/hbase-env.sh ${WRKSRC}/bin/hbase

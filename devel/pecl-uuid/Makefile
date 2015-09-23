@@ -1,24 +1,22 @@
-# Created by: Jui-Nan Lin <jnlin@csie.nctu.edu.tw>
+# Created by: Gasol Wu <gasol.wu@gmail.com>
 # $FreeBSD$
 
 PORTNAME=	uuid
-PORTVERSION=	1.0.2
-CATEGORIES=	devel
+PORTVERSION=	1.0.4
+CATEGORIES=	devel pear
 MASTER_SITES=	http://pecl.php.net/get/
 PKGNAMEPREFIX=	pecl-
-EXTRACT_SUFX=	.tgz
 DIST_SUBDIR=	PECL
 
-MAINTAINER=	jnlin@csie.nctu.edu.tw
-COMMENT=	UUID extension
+MAINTAINER=	gasol.wu@gmail.com
+COMMENT=	UUID extension in PHP
+
+LICENSE=	LGPL3
 
 LIB_DEPENDS=	libuuid.so:${PORTSDIR}/misc/e2fsprogs-libuuid
 
-CONFIGURE_ARGS=	--with-uuid=${LOCALBASE} CFLAGS=-I${LOCALBASE}/include LDFLAGS=-L${LOCALBASE}/lib
-PHP_MODNAME=	${PORTNAME}
+USES=		tar:tgz
 USE_PHP=	yes
 USE_PHPEXT=	yes
-DEFAULT_PHP_VER=53
-IGNORE_WITH_PHP=5
 
 .include <bsd.port.mk>

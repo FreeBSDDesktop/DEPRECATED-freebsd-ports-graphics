@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mma
-PORTVERSION=	14.07
+PORTVERSION=	15.01
 PORTREVISION=	0
 CATEGORIES=	audio
 MASTER_SITES=	http://www.mellowood.ca/${PORTNAME}/
@@ -31,14 +31,9 @@ USES=		python shebangfix
 WRKDOC=	${WRKDIR}/${PORTNAME}-pdf-${DISTVERSION:S,a,,}
 WRKSRC=	${WRKDIR}/${PORTNAME}-bin-${DISTVERSION}
 
-python_CMD=	${PYTHON_CMD}
 python_OLD_CMD=	/usr/bin/env python
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-DISTFILES+=	${PORTNAME}-pdf-${DISTVERSION:S,a,,}.tar.gz
-.endif
+DOCS_DISTFILES=	${PORTNAME}-pdf-${DISTVERSION:S,a,,}.tar.gz
 
 post-patch:
 	@(cd ${WRKSRC} && \
@@ -50,14 +45,10 @@ do-build:
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}
-	@${INSTALL_SCRIPT} ${WRKSRC}/mma.py ${STAGEDIR}${MMABIN}
-.for d in lib includes MMA
-	@cd ${WRKSRC} && ${COPYTREE_SHARE} ${d} ${STAGEDIR}${DATADIR} "-not -name *\.bak"
-.endfor
-.if ${PORT_OPTIONS:MEXAMPLES}
+	${INSTALL_SCRIPT} ${WRKSRC}/mma.py ${STAGEDIR}${MMABIN}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} "lib includes MMA" ${STAGEDIR}${DATADIR} "-not -name *\.bak"
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	(cd ${WRKSRC}/egs && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
-.endif
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}/pdf
 	(cd ${WRKDOC} && \
 	${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/pdf/ "! -name README")

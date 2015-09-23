@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	biopython
-PORTVERSION=	1.60
-PORTREVISION=	4
+PORTVERSION=	1.65
+PORTREVISION=	0
 CATEGORIES=	biology python
 MASTER_SITES=	http://www.biopython.org/DIST/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,8 +17,10 @@ RUN_DEPENDS=	${PYNUMPY}
 USES=		python:2
 USE_PYTHON=	distutils autoplist
 
-.if !defined(WITHOUT_REPORTLAB)
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}reportlab1>0:${PORTSDIR}/print/py-reportlab1
-.endif
+OPTIONS_DEFINE=	REPORTLAB
+OPTIONS_DEFAULT=	REPORTLAB
+
+REPORTLAB_DESC=	PDF support in Bio.Graphics module
+REPORTLAB_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}reportlab1>0:${PORTSDIR}/print/py-reportlab1
 
 .include <bsd.port.mk>

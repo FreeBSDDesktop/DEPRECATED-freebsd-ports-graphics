@@ -9,13 +9,12 @@ CATEGORIES=	games
 MAINTAINER=	nemysis@FreeBSD.org
 COMMENT=	Game where the object is to connect every terminal to the main server
 
-LICENSE=	GPLv3
+LICENSE=	GPLv3 # or later
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	blynn
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	cb6b089
+GH_TAGNAME=	cb6b089
 
 USES=		gmake iconv
 USE_SDL=	sdl ttf

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	colorize
-PORTVERSION=	0.7.5
+PORTVERSION=	0.7.7
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,6 +11,7 @@ COMMENT=	Ruby String class extension
 
 LICENSE=	GPLv2
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

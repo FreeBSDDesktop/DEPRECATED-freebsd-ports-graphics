@@ -5,17 +5,14 @@ PORTNAME=	Thread-Suspend
 PORTVERSION=	1.22
 PORTREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN}
-MASTER_SITE_SUBDIR=	Thread
+MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Suspend and resume operations for threads
 
 USES=		perl5
 USE_PERL5=	configure
-
-.include <bsd.port.pre.mk>
 
 pre-everything::
 	@${ECHO_MSG} "----------------------------------------------------------"
@@ -23,4 +20,4 @@ pre-everything::
 	@${ECHO_MSG} "is not threaded please install lang/${PERL_PORT} with threads"
 	@${ECHO_MSG} "----------------------------------------------------------"
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

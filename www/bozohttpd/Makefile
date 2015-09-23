@@ -5,7 +5,7 @@ PORTNAME=	bozohttpd
 PORTVERSION=	20130711
 CATEGORIES=	www ipv6
 MASTER_SITES=	http://www.eterna.com.au/bozohttpd/ \
-		${MASTER_SITE_NETBSD}
+		NETBSD
 
 MAINTAINER=	jmohacsi@bsd.hu
 COMMENT=	The bozotic HTTP server
@@ -18,7 +18,8 @@ USE_RC_SUBR=	bozohttpd
 OPTIONS_DEFINE=		HTPASSWD SSL CGI
 OPTIONS_DEFAULT=	SSL CGI
 
-USES=		uidfix tar:bzip2
+USES=		cpe uidfix tar:bzip2
+CPE_VENDOR=	eterna
 
 HTPASSWD_DESC=		Enable htpassword support
 SSL_DESC=		Enable SSL support

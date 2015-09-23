@@ -9,9 +9,14 @@ MASTER_SITES=	RG
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Rails Plugin Tool
 
+LICENSE=	MIT
+
+NO_ARCH=	yes
+
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
+
 PLIST_FILES=	bin/rapt
 
 .include <bsd.port.mk>

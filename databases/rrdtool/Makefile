@@ -3,7 +3,7 @@
 
 PORTNAME=	rrdtool
 PORTVERSION=	1.4.8
-PORTREVISION=	5
+PORTREVISION=	9
 CATEGORIES=	databases graphics
 MASTER_SITES=	http://oss.oetiker.ch/rrdtool/pub/
 
@@ -17,7 +17,8 @@ CONFLICTS=	rrdtool10-* rrdtool12-*
 USE_RC_SUBR=	rrdcached
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
-USES=		gmake libtool pathfix pkgconfig
+USES=		gmake libtool pathfix pkgconfig shebangfix
+SHEBANG_FILES=	examples/rrdcached/rrdcached-size.pl
 USE_GNOME=	glib20 libxml2
 INSTALL_TARGET=	install-strip
 
@@ -78,7 +79,7 @@ EXTRA_PATCHES+=		${FILESDIR}/thirdparty-json.diff
 
 .if ${PORT_OPTIONS:MGRAPH}
 LIB_DEPENDS+=	libfreetype.so:${PORTSDIR}/print/freetype2 \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 USE_GNOME+=	cairo pango
 PLIST_SUB+=	WITH_GRAPH=""
 .else
@@ -93,8 +94,8 @@ USE_GNOME+=	intltool
 CONFIGURE_ARGS+=--disable-nls
 .endif
 
-.if exists(${LOCALBASE}/lib/X11/fonts/dejavu) || ${PORT_OPTIONS:MDEJAVU}
-RUN_DEPENDS+=	${LOCALBASE}/lib/X11/fonts/dejavu:${PORTSDIR}/x11-fonts/dejavu
+.if exists(${LOCALBASE}/share/fonts/dejavu) || ${PORT_OPTIONS:MDEJAVU}
+RUN_DEPENDS+=	dejavu>0:${PORTSDIR}/x11-fonts/dejavu
 .endif
 
 CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/freetype2

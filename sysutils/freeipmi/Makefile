@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	freeipmi
-PORTVERSION=	1.4.7
+PORTVERSION=	1.4.9
 CATEGORIES=	sysutils
-MASTER_SITES=	GNU/${PORTNAME}/ \
+MASTER_SITES=	GNU/${PORTNAME} \
 		http://ftp.gluster.com/pub/${PORTNAME}/${PORTVERSION}/
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -19,14 +19,12 @@ OPTIONS_DEFINE=	DEBUG DOCS IOPERM
 IOPERM_DESC=	Use i386_set_ioperm
 
 CONFIGURE_ARGS=	--disable-init-scripts \
-		--localstatedir=/var \
 		--sysconfdir=${ETCDIR} \
 		--with-ipmi-monitoring-sdr-cache-dir=${CACHE_DIR}/ipmimonitoringsdrcache \
 		--with-ipmiseld-cache-dir=${CACHE_DIR}/ipmiseld \
 		--with-pkgconfig-dir=${PREFIX}/libdata/pkgconfig
-CONFIGURE_ENV=	PTHREAD_LIBS=-pthread ac_cv_path_CPP=${CPP}
+CONFIGURE_ENV=	PTHREAD_LIBS=-lpthread ac_cv_path_CPP=${CPP}
 CPPFLAGS+=	-I${LOCALBASE}/include
-MAKE_ENV=	INSTALL_STRIP_FLAG=${STRIP}
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib
 ONLY_FOR_ARCHS=	i386 amd64
@@ -46,7 +44,8 @@ SHEBANG_FILES=	contrib/ganglia/ganglia_ipmi_sensors.pl \
 		contrib/pet/petalert.pl
 
 DEBUG_CONFIGURE_ARGS=	--enable-debug --enable-trace
-DEBUG_MAKE_ENV=		INSTALL_STRIP_FLAG=""
+DEBUG_INSTALL_TARGET=	install
+DEBUG_INSTALL_TARGET_OFF=	install-strip
 IOPERM_CPPFLAGS=	-DUSE_IOPERM
 
 post-patch:

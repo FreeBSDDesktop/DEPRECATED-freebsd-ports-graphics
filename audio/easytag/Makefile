@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	easytag
-PORTVERSION=	2.2.4
-PORTREVISION=	1
+PORTVERSION=	2.4.0
 CATEGORIES=	audio
 MASTER_SITES=	GNOME
 
@@ -22,8 +21,9 @@ LIB_DEPENDS=	libid3.so:${PORTSDIR}/audio/id3lib \
 		libFLAC.so:${PORTSDIR}/audio/flac \
 		libtag.so:${PORTSDIR}/audio/taglib
 
-USES=		desktop-file-utils gmake pkgconfig tar:xz
-USE_GNOME=	glib20 intltool intlhack libxslt
+USES=		desktop-file-utils gettext-tools gmake pkgconfig tar:xz
+USE_GNOME=	gtk30 intlhack libxslt
+GLIB_SCHEMAS=	org.gnome.EasyTAG.gschema.xml org.gnome.EasyTAG.enums.xml
 INSTALLS_ICONS=	yes
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include -DHAVE_GTK
@@ -36,36 +36,23 @@ CONFIGURE_ARGS=	--disable-appdata-validate \
 PORTDOCS=	HACKING THANKS TODO
 
 OPTIONS_DEFINE=	WAVPACK NLS OPUS SPEEX DOCS
-OPTIONS_SINGLE=	GTK
-OPTIONS_SINGLE_GTK=	GTK2 GTK3
-OPTIONS_DEFAULT=	GTK2 NLS
+OPTIONS_DEFAULT=	NLS
 OPTIONS_SUB=	yes
 
 WAVPACK_LIB_DEPENDS=	libwavpack.so:${PORTSDIR}/audio/wavpack
 WAVPACK_CONFIGURE_ENABLE=	wavpack
-NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls
 OPUS_LIB_DEPENDS=	libopusfile.so:${PORTSDIR}/audio/opusfile
 OPUS_CONFIGURE_ENABLE=	opus
 SPEEX_LIB_DEPENDS=	libspeex.so:${PORTSDIR}/audio/speex
 SPEEX_CONFIGURE_ENABLE=	speex
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MGTK2}
-USE_GNOME+=	gtk20
-CONFIGURE_ARGS+=--with-gtk2
-.endif
-
-.if ${PORT_OPTIONS:MGTK3}
-USE_GNOME+=	gtk30
-CONFIGURE_ARGS+=--without-gtk2
-.endif
+NLS_USES=		gettext-runtime
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for i in ${PORTDOCS}
-	@${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
 .endfor
 
 pre-configure:

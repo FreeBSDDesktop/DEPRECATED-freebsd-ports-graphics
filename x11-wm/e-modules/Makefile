@@ -3,17 +3,17 @@
 
 PORTNAME=	e17-modules
 PORTVERSION=	20130510
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	x11-wm enlightenment
 MASTER_SITES=	# Empty
 DISTFILES=	# Empty
 
-MAINTAINER=	gblach@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Meta-port for Enlightenment modules
 
 NO_BUILD=	yes
 
-MODULES=	alarm cpu deskshow diskio everything-places \
+MODULES=	alarm cpu deskshow everything-places \
 		everything-websearch forecasts mem mpdule net penguins \
 		places rmb tclock wlan
 

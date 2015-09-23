@@ -3,15 +3,17 @@
 #   $MCom: ports/trunk/security/libsecret/Makefile 20031 2014-11-02 21:47:55Z kwm $
 
 PORTNAME=	libsecret
-PORTVERSION=	0.18
-PORTREVISION=	1
+PORTVERSION=	0.18.3
 CATEGORIES=	security gnome
 MASTER_SITES=	GNOME
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Library to access the secret service API
 
-BUILD_DEPENDS=	docbook-xsl>=0:${PORTSDIR}/textproc/docbook-xsl
+LICENSE=	LGPL21
+
+BUILD_DEPENDS=	docbook-xsl>=0:${PORTSDIR}/textproc/docbook-xsl \
+		vala:${PORTSDIR}/lang/vala
 LIB_DEPENDS=	libgcrypt.so:${PORTSDIR}/security/libgcrypt
 
 USES=		gettext gmake libtool pathfix pkgconfig tar:xz

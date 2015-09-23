@@ -13,9 +13,11 @@
 #				installed package to miss files.
 # MAILDROP_TRUSTED_USERS=<user> Specify users allowed to use the -d option
 # MAILDROP_LOG_COLUMNS	lenght of 'File:' line in log - 8; default: 72
+# MAILDROP_MBOX_DIR=<dir>	Specify DEFAULT mailbox location
 
 PORTNAME=	maildrop
-PORTVERSION=	2.8.1
+PORTVERSION=	2.8.3
+PORTREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	SF/courier/${PORTNAME}/${PORTVERSION}
 
@@ -38,7 +40,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 CONFLICTS=	courier-0.65* libunicode-[0-9]*
 
 LIB_DEPENDS+=	libpcre.so:${PORTSDIR}/devel/pcre \
-		libunicode.so:${PORTSDIR}/devel/courier-unicode
+		libcourier-unicode.so:${PORTSDIR}/devel/courier-unicode
 
 MAILDROP_LOG_COLUMNS?=	72	# lenght of 'File:' line in log
 
@@ -48,7 +50,7 @@ FIXDOCPATH=	libs/liblock/lockmail.1 libs/maildir/deliverquota.8.in \
 		libs/maildir/maildirquota.7 libs/maildrop/mailbot.1 \
 		libs/maildrop/maildrop.1.in libs/maildrop/maildropex.7 \
 		libs/maildrop/maildropfilter.7.in libs/maildrop/maildropgdbm.7 \
-		libs/maildrop/makedat.1 libs/maildrop/reformail.1 \
+		libs/maildrop/reformail.1 \
 		libs/rfc2045/makemime.1 libs/rfc2045/reformime.1 \
 		libs/rfc2045/rfc2045.3 libs/rfc822/rfc822.3
 
@@ -90,6 +92,10 @@ CONFIGURE_ARGS+=	--enable-maildrop-gid="${MAILDROP_SGID}"
 PLIST_SUB+=		MMODE='2755' MGID='${MAILDROP_SGID}' MUID='root'
 .else
 PLIST_SUB+=		MMODE='' MUID='root' MGID='mail'
+.endif
+
+.if defined(MAILDROP_MBOX_DIR)
+CONFIGURE_ARGS+=	--with-default-maildrop='${MAILDROP_MBOX_DIR}'
 .endif
 
 .if ${PORT_OPTIONS:MFAM}

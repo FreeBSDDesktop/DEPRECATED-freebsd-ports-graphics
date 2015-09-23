@@ -3,6 +3,7 @@
 
 PORTNAME=	infobot
 PORTVERSION=	0.45.3
+PORTREVISION=	2
 CATEGORIES=	irc
 MASTER_SITES=	http://www.infobot.org/src/ \
 		http://www.infobot.org/src/prior/
@@ -10,9 +11,11 @@ MASTER_SITES=	http://www.infobot.org/src/ \
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Bot written in Perl with a rabid AI
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	${PORTNAME} scripts/*
 USE_PERL5=	run
 NO_BUILD=	yes
+NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS
 

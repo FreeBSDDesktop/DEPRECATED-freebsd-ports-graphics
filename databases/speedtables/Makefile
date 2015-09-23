@@ -2,36 +2,33 @@
 # $FreeBSD$
 
 PORTNAME=	speedtables
-PORTVERSION=	1.8.3
+PORTVERSION=	1.9.0
+DISTVERSIONPREFIX=	v
 CATEGORIES=	databases
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	gahr@FreeBSD.org
 COMMENT=	High-performance memory-resident database
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-LIB_DEPENDS=	libtclx8.4.so:${PORTSDIR}/lang/tclX
+LIB_DEPENDS=	libtclx8.4.so:${PORTSDIR}/lang/tclX \
+		libboost_graph.so:${PORTSDIR}/devel/boost-libs
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	flightaware
+
+USES=		autoreconf tcl
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+=--exec-prefix=${PREFIX} \
+		--with-boost=${PREFIX} \
+		--with-tcl=${TCL_LIBDIR}
+
+PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS PGSQL
 PGSQL_CONFIGURE_ON=	--with-pgsql=${LOCALBASE}
 PGSQL_LIB_DEPENDS=	libpgtcl2.0.0.so:${PORTSDIR}/databases/postgresql94-pgtcl
-
-PORTDOCS=	*
-
-USES=		tcl
-
-USE_AUTOTOOLS=	autoconf
-USE_GITHUB=	yes
-GH_ACCOUNT=	flightaware
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	09c623c
-
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS+=--exec-prefix=${PREFIX} \
-		--with-tcl=${TCL_LIBDIR}
-
-pre-configure:
-	@cd ${WRKSRC} && ${AUTORECONF}
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

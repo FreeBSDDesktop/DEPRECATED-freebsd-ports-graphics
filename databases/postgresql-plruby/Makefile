@@ -12,8 +12,7 @@ COMMENT=	PL/Ruby procedural language for the PostgreSQL database system
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	CraigCottingham
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	f8d9ced
+GH_TAGNAME=	f8d9ced
 
 USES+=		uidfix tar:bzip2 pgsql
 WANT_PGSQL=	server
@@ -58,10 +57,12 @@ post-install:
 	cd ${WRKSRC}/ && ${COPYTREE_SHARE} docs/doc ${STAGEDIR}${RUBY_MODDOCDIR}/ README.markdown && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${RUBY_MODDOCDIR}/
 	${FIND} -ds ${STAGEDIR}${RUBY_MODDOCDIR} -type f -print | ${SED} -E -e \
 		's,^${STAGEDIR}${PREFIX}/?,,' >> ${TMPPLIST}
-	${FIND} -ds ${STAGEDIR}${RUBY_MODDOCDIR} -type d -print | ${SED} -E -e \
-		's,^${STAGEDIR}${PREFIX}/?,@dirrm ,' >> ${TMPPLIST}
-	${ECHO_CMD} "@unexec rmdir %D/share/doc/ruby19/ 2>/dev/null || true" \
-		>> ${TMPPLIST}
 .endif
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${RUBY_VER} >= 2.2
+BROKEN=		Does not build
+.endif
+
+.include <bsd.port.post.mk>

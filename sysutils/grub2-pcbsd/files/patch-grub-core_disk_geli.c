@@ -1,6 +1,6 @@
---- grub-core/disk/geli.c.orig	2014-05-15 14:00:10.000000000 -0400
-+++ grub-core/disk/geli.c	2014-09-26 10:18:53.325111693 -0400
-@@ -430,6 +430,9 @@
+--- grub-core/disk/geli.c.orig	2015-01-30 16:34:55 UTC
++++ grub-core/disk/geli.c
+@@ -445,6 +445,9 @@ recover_key (grub_disk_t source, grub_cr
    if (!grub_password_get (passphrase, MAX_PASSPHRASE))
      return grub_error (GRUB_ERR_BAD_ARGUMENT, "Passphrase not supplied");
  

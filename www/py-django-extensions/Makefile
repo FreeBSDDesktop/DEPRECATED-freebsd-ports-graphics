@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-extensions
-PORTVERSION=	1.3.8
+PORTVERSION=	1.5.5
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,11 +12,11 @@ COMMENT=	Global custom management extensions for the Django Framework
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django>0:${PORTSDIR}/www/py-django \
-		${PYTHON_PKGNAMEPREFIX}six>0:${PORTSDIR}/devel/py-six
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django>=0:${PORTSDIR}/www/py-django \
+		${PYTHON_PKGNAMEPREFIX}six>=0:${PORTSDIR}/devel/py-six
 
-USE_PYTHON=	2
-USE_PYDISTUTILS=yes
-PYDISTUTILS_AUTOPLIST=	yes
+NO_ARCH=	yes
+USES=		python:2
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

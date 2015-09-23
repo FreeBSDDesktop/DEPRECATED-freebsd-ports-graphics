@@ -10,6 +10,7 @@
 %%PORTDOCS%%%%DOCSDIR%%/_sources/future.txt
 %%PORTDOCS%%%%DOCSDIR%%/_sources/index.txt
 %%PORTDOCS%%%%DOCSDIR%%/_sources/manipulating.txt
+%%PORTDOCS%%%%DOCSDIR%%/_sources/pseudo_classes.txt
 %%PORTDOCS%%%%DOCSDIR%%/_sources/scrap.txt
 %%PORTDOCS%%%%DOCSDIR%%/_sources/testing.txt
 %%PORTDOCS%%%%DOCSDIR%%/_sources/tips.txt
@@ -23,12 +24,14 @@
 %%PORTDOCS%%%%DOCSDIR%%/_static/down-pressed.png
 %%PORTDOCS%%%%DOCSDIR%%/_static/down.png
 %%PORTDOCS%%%%DOCSDIR%%/_static/file.png
+%%PORTDOCS%%%%DOCSDIR%%/_static/jquery-1.11.1.js
 %%PORTDOCS%%%%DOCSDIR%%/_static/jquery.js
 %%PORTDOCS%%%%DOCSDIR%%/_static/minus.png
 %%PORTDOCS%%%%DOCSDIR%%/_static/nature.css
 %%PORTDOCS%%%%DOCSDIR%%/_static/plus.png
 %%PORTDOCS%%%%DOCSDIR%%/_static/pygments.css
 %%PORTDOCS%%%%DOCSDIR%%/_static/searchtools.js
+%%PORTDOCS%%%%DOCSDIR%%/_static/underscore-1.3.1.js
 %%PORTDOCS%%%%DOCSDIR%%/_static/underscore.js
 %%PORTDOCS%%%%DOCSDIR%%/_static/up-pressed.png
 %%PORTDOCS%%%%DOCSDIR%%/_static/up.png
@@ -43,6 +46,7 @@
 %%PORTDOCS%%%%DOCSDIR%%/index.html
 %%PORTDOCS%%%%DOCSDIR%%/manipulating.html
 %%PORTDOCS%%%%DOCSDIR%%/objects.inv
+%%PORTDOCS%%%%DOCSDIR%%/pseudo_classes.html
 %%PORTDOCS%%%%DOCSDIR%%/py-modindex.html
 %%PORTDOCS%%%%DOCSDIR%%/scrap.html
 %%PORTDOCS%%%%DOCSDIR%%/search.html
@@ -50,9 +54,3 @@
 %%PORTDOCS%%%%DOCSDIR%%/testing.html
 %%PORTDOCS%%%%DOCSDIR%%/tips.html
 %%PORTDOCS%%%%DOCSDIR%%/traversing.html
-%%PORTDOCS%%@dirrmtry %%DOCSDIR%%/_static
-%%PORTDOCS%%@dirrmtry %%DOCSDIR%%/_sources
-%%PORTDOCS%%@dirrmtry %%DOCSDIR%%/_modules/pyquery
-%%PORTDOCS%%@dirrmtry %%DOCSDIR%%/_modules
-%%PORTDOCS%%@dirrmtry %%DOCSDIR%%
-@dirrmtry %%PYTHON_LIBDIR%%

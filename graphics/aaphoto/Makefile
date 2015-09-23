@@ -3,7 +3,8 @@
 
 PORTNAME=	aaphoto
 PORTVERSION=	0.43.1
-PORTREVISION=	2
+DISTVERSIONPREFIX=	v
+PORTREVISION=	3
 CATEGORIES=	graphics
 
 MAINTAINER=	mail@log69.com
@@ -12,16 +13,13 @@ COMMENT=	Auto Adjust Photo, automatic color correction of photos
 LICENSE=	GPLv3
 
 LIB_DEPENDS=	libjasper.so:${PORTSDIR}/graphics/jasper \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	log69
-GH_COMMIT=	e566f9b
-GH_TAGNAME=	v${PORTVERSION}
 
 GNU_CONFIGURE=	yes
-USES=		compiler:openmp
+USES=		compiler:openmp jpeg
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -30,8 +28,7 @@ PLIST_FILES=	bin/aaphoto
 
 .include <bsd.port.pre.mk>
 
-.if (${ARCH} == "amd64" || ${ARCH} == "i386") && ${OSVERSION} >= 700000 && \
-	${COMPILER_TYPE} == gcc
+.if (${ARCH} == "amd64" || ${ARCH} == "i386") && ${COMPILER_TYPE} == gcc
 CFLAGS+=	-fopenmp -D__OPENMP__
 .endif
 

@@ -2,18 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	mutagen
-PORTVERSION=	1.26
+PORTVERSION=	1.31
 CATEGORIES=	audio python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	johnson.peter@gmail.com
+MAINTAINER=	python@FreeBSD.org
 COMMENT=	Python-based audio metadata tag reader and writer
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist distutils
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

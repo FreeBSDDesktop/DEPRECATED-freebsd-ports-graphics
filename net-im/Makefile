@@ -13,6 +13,7 @@
     SUBDIR += climm
     SUBDIR += coccinella
     SUBDIR += convey
+    SUBDIR += corebird
     SUBDIR += echat
     SUBDIR += ejabberd
     SUBDIR += ekiga
@@ -28,6 +29,7 @@
     SUBDIR += gale
     SUBDIR += gloox
     SUBDIR += hotot
+    SUBDIR += hs-haskell-xmpp
     SUBDIR += icb
     SUBDIR += icmpchat
     SUBDIR += icqlib
@@ -53,11 +55,14 @@
     SUBDIR += ktp-kded-integration-module
     SUBDIR += ktp-send-file
     SUBDIR += ktp-text-ui
+    SUBDIR += libaccounts-glib
+    SUBDIR += libaccounts-qt5
     SUBDIR += libjreen
     SUBDIR += libnice
     SUBDIR += libnice-gst010
     SUBDIR += libnice-gst1
     SUBDIR += libpurple
+    SUBDIR += libstrophe
     SUBDIR += libtelepathy
     SUBDIR += libyahoo2
     SUBDIR += licq
@@ -96,7 +101,6 @@
     SUBDIR += pebrot
     SUBDIR += pecl-stomp
     SUBDIR += pidgin
-    SUBDIR += pidgin-audacious-remote
     SUBDIR += pidgin-birthday-reminder
     SUBDIR += pidgin-bs
     SUBDIR += pidgin-fetion
@@ -115,7 +119,9 @@
     SUBDIR += plasma-applet-ktp
     SUBDIR += poezio
     SUBDIR += pork
+    SUBDIR += profanity
     SUBDIR += prosody
+    SUBDIR += proxy65
     SUBDIR += psi
     SUBDIR += psimedia
     SUBDIR += pwytter
@@ -126,6 +132,7 @@
     SUBDIR += py-punjab
     SUBDIR += py-pyxmpp
     SUBDIR += py-skype4py
+    SUBDIR += py-slackclient
     SUBDIR += py-sleekxmpp
     SUBDIR += py-twistedWords
     SUBDIR += py-xmpppy
@@ -142,12 +149,14 @@
     SUBDIR += rubygem-lita
     SUBDIR += rubygem-termtter
     SUBDIR += rubygem-tinder
+    SUBDIR += sayaka
     SUBDIR += sendxmpp
     SUBDIR += sigram
     SUBDIR += skype
     SUBDIR += skype-devel
     SUBDIR += skype4
     SUBDIR += telegram
+    SUBDIR += telegram-purple
     SUBDIR += telepathy-butterfly
     SUBDIR += telepathy-farsight
     SUBDIR += telepathy-farstream
@@ -165,7 +174,6 @@
     SUBDIR += telepathy-sofiasip
     SUBDIR += tkabber
     SUBDIR += tkabber-plugins
-    SUBDIR += tkabbur
     SUBDIR += tox
     SUBDIR += toxic
     SUBDIR += ttytter
@@ -174,8 +182,8 @@
     SUBDIR += twitmail
     SUBDIR += uTox
     SUBDIR += vacuum-im
-    SUBDIR += venom
     SUBDIR += vqcc-gtk
+    SUBDIR += xmpp-client
     SUBDIR += yoono
     SUBDIR += zephyr
 

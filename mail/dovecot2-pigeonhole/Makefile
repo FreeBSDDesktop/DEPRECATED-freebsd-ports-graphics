@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	dovecot-pigeonhole
-PORTVERSION=	0.4.6
+PORTVERSION=	0.4.8
 CATEGORIES=	mail
 MASTER_SITES=	http://pigeonhole.dovecot.org/releases/${DOVECOTVERSION}/
 DISTNAME=	${PORTNAME:C/-/-${DOVECOTVERSION}-/}-${PORTVERSION}
@@ -26,8 +26,10 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
 USES=		libtool
 USE_LDCONFIG=	${PREFIX}/lib/dovecot
+USE_OPENSSL=	yes
 
-PORTDOCS=	doc/extensions/* doc/plugins/* doc/rfc/*
+OPTIONS_DEFINE=	DOCS
+PORTDOCS=	sieve/extensions/* sieve/plugins/* sieve/locations/*
 
 post-patch:
 	@${REINPLACE_CMD} -E '\

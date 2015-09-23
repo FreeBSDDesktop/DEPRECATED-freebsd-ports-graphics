@@ -18,7 +18,6 @@ share/java/zi/Africa/Tunis
 share/java/zi/Africa/Windhoek
 share/java/zi/America/Adak
 share/java/zi/America/Anchorage
-share/java/zi/America/Antigua
 share/java/zi/America/Araguaina
 share/java/zi/America/Argentina/Buenos_Aires
 share/java/zi/America/Argentina/Catamarca
@@ -105,7 +104,6 @@ share/java/zi/America/Miquelon
 share/java/zi/America/Moncton
 share/java/zi/America/Monterrey
 share/java/zi/America/Montevideo
-share/java/zi/America/Montreal
 share/java/zi/America/Nassau
 share/java/zi/America/New_York
 share/java/zi/America/Nipigon
@@ -158,7 +156,6 @@ share/java/zi/Antarctica/Rothera
 share/java/zi/Antarctica/Syowa
 share/java/zi/Antarctica/Troll
 share/java/zi/Antarctica/Vostok
-share/java/zi/Asia/Aden
 share/java/zi/Asia/Almaty
 share/java/zi/Asia/Amman
 share/java/zi/Asia/Anadyr
@@ -166,7 +163,6 @@ share/java/zi/Asia/Aqtau
 share/java/zi/Asia/Aqtobe
 share/java/zi/Asia/Ashgabat
 share/java/zi/Asia/Baghdad
-share/java/zi/Asia/Bahrain
 share/java/zi/Asia/Baku
 share/java/zi/Asia/Bangkok
 share/java/zi/Asia/Beirut
@@ -198,12 +194,10 @@ share/java/zi/Asia/Kolkata
 share/java/zi/Asia/Krasnoyarsk
 share/java/zi/Asia/Kuala_Lumpur
 share/java/zi/Asia/Kuching
-share/java/zi/Asia/Kuwait
 share/java/zi/Asia/Macau
 share/java/zi/Asia/Magadan
 share/java/zi/Asia/Makassar
 share/java/zi/Asia/Manila
-share/java/zi/Asia/Muscat
 share/java/zi/Asia/Nicosia
 share/java/zi/Asia/Novokuznetsk
 share/java/zi/Asia/Novosibirsk
@@ -366,7 +360,6 @@ share/java/zi/Pacific/Kosrae
 share/java/zi/Pacific/Kwajalein
 share/java/zi/Pacific/Majuro
 share/java/zi/Pacific/Marquesas
-share/java/zi/Pacific/Midway
 share/java/zi/Pacific/Nauru
 share/java/zi/Pacific/Niue
 share/java/zi/Pacific/Norfolk
@@ -377,7 +370,6 @@ share/java/zi/Pacific/Pitcairn
 share/java/zi/Pacific/Pohnpei
 share/java/zi/Pacific/Port_Moresby
 share/java/zi/Pacific/Rarotonga
-share/java/zi/Pacific/Saipan
 share/java/zi/Pacific/Tahiti
 share/java/zi/Pacific/Tarawa
 share/java/zi/Pacific/Tongatapu

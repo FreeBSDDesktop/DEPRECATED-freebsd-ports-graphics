@@ -2,10 +2,9 @@
 
 PORTNAME=	libwraster
 PORTVERSION=	0.95.6
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	x11-wm windowmaker
-MASTER_SITES=	http://windowmaker.org/pub/%SUBDIR%/
-MASTER_SITE_SUBDIR=	source/release
+MASTER_SITES=	http://windowmaker.org/pub/source/release/
 DISTNAME=	WindowMaker-${PORTVERSION}
 
 MAINTAINER=	hrs@FreeBSD.org
@@ -14,11 +13,11 @@ COMMENT=	Window Maker raster graphics library
 LICENSE=	LGPL21
 
 LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libjbig.so:${PORTSDIR}/graphics/jbigkit \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
 		libwebp.so:${PORTSDIR}/graphics/webp \
-		libMagickWand-6.Q16.so:${PORTSDIR}/graphics/ImageMagick
+		libMagickWand-6.so:${PORTSDIR}/graphics/ImageMagick
 
 USES=		libtool pathfix pkgconfig
 USE_LDCONFIG=	yes

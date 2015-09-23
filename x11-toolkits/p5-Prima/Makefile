@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Prima
-PORTVERSION=	1.40
-PORTREVISION=	2
+PORTVERSION=	1.44
 CATEGORIES=	x11-toolkits graphics perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -14,15 +13,15 @@ COMMENT=	Extensible Perl toolkit for multi-platform GUI development
 LICENSE=	BSD2CLAUSE
 
 LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 OPTIONS_DEFINE=	GTK2 ICONV XFT
 OPTIONS_DEFAULT=ICONV XFT
 
-CONFIGURE_ARGS=	X11BASE=${LOCALBASE}
-USES=		perl5
+CONFIGURE_ARGS=	EXTRA_CCFLAGS="${CFLAGS}" EXTRA_LDFLAGS="${LDFLAGS}" \
+		X11BASE=${LOCALBASE}
+USES=		jpeg perl5
 USE_PERL5=	configure
 USE_XORG=	x11 xext xpm xrender
 MAKE_JOBS_UNSAFE=	yes

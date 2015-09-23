@@ -4,6 +4,7 @@
 
 PORTNAME=	dia
 PORTVERSION=	0.97.3
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	graphics gnome
 MASTER_SITES=	GNOME
@@ -14,7 +15,7 @@ COMMENT=	Diagram creation program, similar to Visio
 
 OPTIONS_DEFINE=	DOCS
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 USES=		desktop-file-utils gettext gmake libtool pathfix \
 		pkgconfig tar:xz
@@ -49,10 +50,9 @@ post-patch:
 		${WRKSRC}/tests/test-boundingbox.c
 	@${FIND} ${WRKSRC} -name Makefile.in | \
 		${XARGS} ${REINPLACE_CMD} -e \
-		's,\(^GTK_LIBS.*\),\1 ${PTHREAD_LIBS}, ; \
-		 s,\(^GTK_CFLAGS = \),\1 ${PTHREAD_CFLAGS} ,'
+		's,\(^GTK_LIBS.*\),\1 -lpthread,'
 	@${REINPLACE_CMD} -e 's|http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl|${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl| ; \
-		s|echo aout|echo elf|g ; s|/usr/include/libEMF|${LOCALBASE}/include/libEMF|g ; \
+		s|/usr/include/libEMF|${LOCALBASE}/include/libEMF|g ; \
 		s|-lstdc++||g'  ${WRKSRC}/configure
 
 .include <bsd.port.mk>

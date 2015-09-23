@@ -14,10 +14,9 @@ OPTIONS_DEFINE=	CALLGRAPH
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	jokkedk
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	dc35393
 
 SNAPSHOT=	20140207
-GH_COMMIT=	dc35393
 
 USE_PHP=	yes
 
@@ -26,7 +25,7 @@ NO_BUILD=	yes
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MCALLGRAPH}
-USE_PYTHON=	yes
+USES+=		python
 RUN_DEPENDS+=	dot:${PORTSDIR}/graphics/graphviz
 .endif
 

@@ -2,24 +2,25 @@
 # $FreeBSD$
 
 PORTNAME=	webmin
-PORTVERSION=	1.720
+PORTVERSION=	1.760
 CATEGORIES=	sysutils
 MASTER_SITES=	http://download.webmin.com/updates/:up \
 		SF/webadmin/${PORTNAME}/${PORTVERSION}:sf
-
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}:sf ${WEBMIN_MODULES:S/gz$/gz:up/}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Web-based interface for system administration for Unix
 
+LICENSE=	BSD3CLAUSE
+
 RUN_DEPENDS=	p5-Net-SSLeay>=0:${PORTSDIR}/security/p5-Net-SSLeay \
 		p5-IO-Tty>=0:${PORTSDIR}/devel/p5-IO-Tty \
 		p5-Authen-PAM>=0:${PORTSDIR}/security/p5-Authen-PAM
 
-USES=		perl5 python
+USES=		cpe perl5 python
 USE_RC_SUBR=	webmin
-SUB_LIST=	PERL5=${PERL}
+SUB_LIST=	PERL=${PERL}
 SUB_FILES=	pkg-message
 
 WEBMIN_MODULES=
@@ -32,7 +33,6 @@ post-extract:
 			${TAR} --unlink -xzf ${DISTDIR}/$${webmin_module} -C ${WRKSRC}; \
 		done; \
 	fi
-	@${FIND} ${WRKSRC} -name .xvpics | ${XARGS} ${RM} -r
 
 post-patch:
 	@${REINPLACE_CMD} -e "s@%%PREFIX%%@${PREFIX}@g" ${WRKSRC}/setup.sh
@@ -41,21 +41,13 @@ post-patch:
 		-exec ${REINPLACE_CMD} -e "s@/usr/local@${PREFIX}@g" {} \; \
 		-exec ${REINPLACE_CMD} -e "s@%%PREFIX%%@${PREFIX}@g" {} \;
 
-	@${FIND} ${WRKSRC} -name "*.cgi" -exec \
-		${REINPLACE_CMD} -e "s@#!/usr/local/bin/perl@#!${PERL}@" {} \;
-	@${FIND} ${WRKSRC} -name "*.cgi" -exec \
-		${REINPLACE_CMD} -e "s@#!/usr/bin/perl@#!${PERL}@" {} \;
-	@${FIND} ${WRKSRC} -name "*.pl" -exec \
-		${REINPLACE_CMD} -e "s@#!/usr/local/bin/perl@#!${PERL}@" {} \;
-	@${FIND} ${WRKSRC} -name "*.pl" -exec \
-		${REINPLACE_CMD} -e "s@#!/usr/bin/perl@#!${PERL}@" {} \;
+	@${FIND} ${WRKSRC} \( -name "*.cgi" -or -name "*.pl" -or -name "*.sh" \) -exec \
+		${REINPLACE_CMD} -e "s@%%PERL%%@${PERL}@g; s@#!/usr/bin/perl@#!${PERL}@; s@#!/usr/local/bin/perl@#!${PERL}@" {} \;
 
-	@${FIND} ${WRKSRC} -name "*.orig" -delete
-	@${FIND} ${WRKSRC} -name "*.bak" -delete
-	@${FIND} ${WRKSRC} -name "*.pyc" -delete
+	@${FIND} ${WRKSRC} \( -name "*.orig" -or -name "*.bak" -or -name "*.pyc" \) -delete
 
 .for module in ldap-server ldap-client ldap-useradmin logrotate status time webalizer
-	@${RM} ${WRKSRC}/${module}/config-\*-linux 
+	@${RM} ${WRKSRC}/${module}/config-\*-linux
 .endfor
 
 	@${PRINTF} "g/^FreeBSD/m0\nwq\n" | ex ${WRKSRC}/os_list.txt

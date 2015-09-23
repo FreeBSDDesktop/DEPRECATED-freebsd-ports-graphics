@@ -3,7 +3,7 @@
 
 PORTNAME=	qudos
 PORTVERSION=	0.40.1
-PORTREVISION=	17
+PORTREVISION=	18
 CATEGORIES=	games
 MASTER_SITES=	http://www.bfeared.com/library/quake/archive/quakedev/qudos/quake2/engines/QuDos/
 DISTNAME=	QuDos-${PORTVERSION}-src
@@ -63,9 +63,9 @@ PLIST_SUB+=	${mod}="@comment "
 .endfor
 
 .if ${PORT_OPTIONS:MGLX} || ${PORT_OPTIONS:MSDLGL}
+USES+=		jpeg
 USE_GL=		glu
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png
 .endif
 
 .if ${PORT_OPTIONS:MSDL} || ${PORT_OPTIONS:MSDLGL}

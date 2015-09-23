@@ -1,9 +1,9 @@
 # Created by: Adam Weinberger <adamw@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/editors/gedit-plugins/Makefile 20070 2014-11-12 11:53:48Z gusi $
 
 PORTNAME=	gedit-plugins
-PORTVERSION=	3.14.1
+PORTVERSION=	3.16.0
+PORTREVISION=	2
 CATEGORIES=	editors gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -13,12 +13,15 @@ COMMENT=	Plugins for GEdit 3
 
 BUILD_DEPENDS=	gedit>=0:${PORTSDIR}/editors/gedit \
 		itstool:${PORTSDIR}/textproc/itstool
-LIB_DEPENDS=	libpeas-1.0.so:${PORTSDIR}/devel/libpeas
+LIB_DEPENDS=	libpeas-1.0.so:${PORTSDIR}/devel/libpeas \
+		libgit2-glib-1.0.so:${PORTSDIR}/devel/libgit2-glib
 RUN_DEPENDS=	gedit>=0:${PORTSDIR}/editors/gedit
+
+PORTSCOUT=	limitw:1,even
 
 USES=		gettext gmake libtool pathfix pkgconfig \
 		python:3 tar:xz
-USE_GNOME=	gnomeprefix gtk30 gtksourceview3 intlhack
+USE_GNOME=	gtk30 gtksourceview3 intlhack
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
@@ -28,27 +31,19 @@ INSTALL_TARGET=	install-strip
 GLIB_SCHEMAS=	org.gnome.gedit.plugins.drawspaces.gschema.xml \
 		org.gnome.gedit.plugins.wordcompletion.gschema.xml
 
-OPTIONS_DEFINE=	PYTHON
-OPTIONS_DEFAULT=PYTHON
-PYTHON_DESC=	Build plugins that depend on python
+PLIST_SUB+=	PYVER=${PYTHON_VER:S/.//}
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MPYTHON}
 USES+=		python
 BUILD_DEPENDS+=	py3?-dbus>=0:${PORTSDIR}/devel/py3-dbus
-RUN_DEPENDS+=	py3?-dbus>=0:${PORTSDIR}/devel/py3-dbus
-# the charmap plugin doesn't work, missing py-gucharmap stuff
+LIB_DEPENDS+=	libgucharmap_2_90.so:${PORTSDIR}/deskutils/gucharmap
+RUN_DEPENDS+=	py3?-dbus>=0:${PORTSDIR}/devel/py3-dbus \
+		${PYTHON_PKGNAMEPREFIX}libpeas>=0:${PORTSDIR}/devel/py3-libpeas
+USE_GNOME+=	vte3
 CONFIGURE_ARGS+=--enable-python
-PLIST_SUB+=	PYTHON=""
-.else
-CONFIGURE_ARGS+=--disable-python
-PLIST_SUB+=	PYTHON="@comment "
-.endif
+GLIB_SCHEMAS+=	org.gnome.gedit.plugins.terminal.gschema.xml
 
 post-patch:
 	@${REINPLACE_CMD} -e 's| \\t\\r\\n\\f|[:space:]|g' \
 	    	${WRKSRC}/configure
 
 .include <bsd.port.mk>
-

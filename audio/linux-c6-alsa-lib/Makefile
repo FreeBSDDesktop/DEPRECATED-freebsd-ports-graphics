@@ -12,7 +12,7 @@ COMMENT=	Advanced Linux Sound Architecture libraries (Linux CentOS ${LINUX_DIST_
 
 LICENSE=	GPLv3
 
-RUN_DEPENDS=	${LOCALBASE}/etc/asound.conf:${PORTSDIR}/audio/alsa-lib
+RUN_DEPENDS=	alsa-lib>0:${PORTSDIR}/audio/alsa-lib
 
 CONFLICTS=	linux-alsa-lib-[0-9]* linux-f8-alsa-lib-[0-9]* linux-f10-alsa-lib-[0-9]*
 
@@ -34,5 +34,8 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/usr/lib/alsa-lib/smixer/smixer-ac97.la
 	${RM} ${STAGEDIR}${PREFIX}/usr/lib/alsa-lib/smixer/smixer-hda.la
 	${RM} ${STAGEDIR}${PREFIX}/usr/lib/alsa-lib/smixer/smixer-sbase.la
+	${RM} ${STAGEDIR}${PREFIX}/usr/lib64/alsa-lib/smixer/smixer-ac97.la
+	${RM} ${STAGEDIR}${PREFIX}/usr/lib64/alsa-lib/smixer/smixer-hda.la
+	${RM} ${STAGEDIR}${PREFIX}/usr/lib64/alsa-lib/smixer/smixer-sbase.la
 
 .include <bsd.port.mk>

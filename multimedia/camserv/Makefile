@@ -3,7 +3,7 @@
 
 PORTNAME=	camserv
 PORTVERSION=	0.5.1
-PORTREVISION=	18
+PORTREVISION=	19
 PORTEPOCH=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	SF/cserv/${PORTNAME}/${PORTVERSION}
@@ -12,12 +12,11 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Free program to do streaming video via the web
 
 LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libltdl.so:${PORTSDIR}/devel/libltdl \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg
+LIB_DEPENDS=	libltdl.so:${PORTSDIR}/devel/libltdl
 
-USES=		libtool
-USE_AUTOTOOLS=	autoconf
+USES=		autoreconf jpeg libtool
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
@@ -28,7 +27,7 @@ OPTIONS_DEFINE=	IMLIB2 PIXBUF V4L DOCS
 OPTIONS_DEFAULT=IMLIB2
 OPTIONS_SUB=	yes
 
-IMLIB2_USE=	EFL=imlib2
+IMLIB2_LIB_DEPENDS=	libImlib2.so:${PORTSDIR}/graphics/imlib2
 IMLIB2_CONFIGURE_OFF=	ac_cv_path_IMLIB2_CONFIG=no
 
 PIXBUF_USE=	GNOME=gdkpixbuf
@@ -38,9 +37,7 @@ V4L_BUILD_DEPENDS=	v4l_compat>0:${PORTSDIR}/multimedia/v4l_compat
 V4L_CONFIGURE_OFF=	ac_cv_header_linux_videodev_h=no
 
 post-patch:
-	@${REINPLACE_CMD} -e \
-		'/^camserv_DEP/s|=.*|=|' ${WRKSRC}/camserv/Makefile.in
-.for i in common/Makefile.in relay/Makefile.in
+.for i in common/Makefile.am relay/Makefile.am
 	@${REINPLACE_CMD} -e \
 		'/^CFLAGS/s|-g||' ${WRKSRC}/${i}
 .endfor

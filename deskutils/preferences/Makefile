@@ -2,7 +2,7 @@
 
 PORTNAME=	preferences
 PORTVERSION=	1.2.0
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	deskutils gnustep
 MASTER_SITES=	SF/prefsapp/prefsapp/${PORTVERSION}
 DISTNAME=	Preferences-${PORTVERSION}
@@ -13,12 +13,9 @@ COMMENT=	GNUstep workspace manager
 LICENSE_COMB=	multi
 LICENSE=	GPLv2 LGPL21
 
-USES=		tar:bzip2
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
-USE_GNUSTEP_LDCONFIG=	${GNUSTEP_SYSTEM_LIBRARIES}
+USES=		tar:bzip2 gnustep
+USE_GNUSTEP=	back build
+USE_LDCONFIG=	${GNUSTEP_SYSTEM_LIBRARIES}
 
 DEAFULT_LIBVERSION=	1.1.1
 MAKE_ENV+=	GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
@@ -30,5 +27,11 @@ post-patch:
 	${REINPLACE_CMD} 's, -Werror,,' ${MODIFY:S,^,${WRKSRC}/,}
 	${REINPLACE_CMD} -e 's|^GNUSTEP_INSTALLATION_DIR|#GNUSTEP_INSTALLATION_DIR|' \
 		${WRKSRC}/GNUmakefile.preamble
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Applications/Preferences.app/Preferences
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Applications/Preferences.app/Resources/PrefsApp.prefs/PrefsApp
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Library/Frameworks/PrefsModule.framework/Versions/0/libPrefsModule.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Library/Preferences/Keyboard.prefs/Keyboard
 
 .include <bsd.port.mk>

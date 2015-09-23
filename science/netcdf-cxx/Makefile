@@ -3,6 +3,7 @@
 
 PORTNAME=	netcdf-cxx
 PORTVERSION=	4.2.1
+DISTVERSIONPREFIX=	v
 PORTREVISION=	2
 CATEGORIES=	science
 
@@ -19,11 +20,9 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 USE_LDCONFIG=	yes
 USES=		libtool pathfix
 
-USE_GITHUB=	yes
 GH_ACCOUNT=	Unidata
-GH_COMMIT=	b477274
 GH_PROJECT=	${PORTNAME}4
-GH_TAGNAME=	v${PORTVERSION}
+USE_GITHUB=	yes
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnetcdf_c++4.so.1

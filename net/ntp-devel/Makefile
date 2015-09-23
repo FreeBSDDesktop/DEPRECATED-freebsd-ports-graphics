@@ -2,24 +2,26 @@
 # $FreeBSD$
 
 PORTNAME=	ntp
-PORTVERSION=	4.2.7p486
+PORTVERSION=	4.3.71
 CATEGORIES=	net ipv6
 MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-dev/ \
 		http://archive.ntp.org/ntp4/ntp-dev/
 PKGNAMESUFFIX=	-devel
-DISTNAME=	${PORTNAME}-dev-${PORTVERSION}-RC
+DISTNAME=	${PORTNAME}-dev-${PORTVERSION:S/P/p/:S/r/-RC/:S/b/-beta/}
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	The Network Time Protocol Distribution
 
-FORBIDDEN=	http://www.kb.cert.org/vuls/id/852879
+CONFLICTS=	ntp-[0-9].* ntp-rc-*
 
 GNU_CONFIGURE=	yes
 OPTIONS_SUB=	yes
-USES=		pathfix shebangfix libtool
+USES=		cpe pathfix shebangfix libedit libtool pkgconfig
 LIB_DEPENDS=	libevent.so:${PORTSDIR}/devel/libevent2
 
-NTP_SHEBANG_FILES=	sbin/ntp-wait sbin/ntptrace
+SHEBANG_FILES=	scripts/ntptrace/ntptrace.in \
+		scripts/ntp-wait/ntp-wait.in
+perl_OLD_CMD=	@PATH_PERL@
 
 .include "Makefile.inc"
 
@@ -48,12 +50,6 @@ CONFIGURE_ARGS+=	--enable-${D}
 .endif
 .endfor
 
-.if ${PORT_OPTIONS:MMX4200}
-BROKEN=		Fails to compile when MX4200 is enabled.
-.endif
- 
-DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}4
-
 # XXX Temporary hack. Remember to remove this next commit.
 post-extract:
 	@/usr/bin/touch ${WRKSRC}/scripts/build/checkHtmlFileDates
@@ -66,7 +62,5 @@ post-install:
 	@${FIND} ${WRKSRC}/html -type f | ${XARGS} ${CHMOD} ${SHAREMODE}
 	@cd ${WRKSRC}/html && ${FIND} . -print | \
 		${CPIO} -pdu -R ${SHAREOWN}:${SHAREGRP} --quiet ${STAGEDIR}${DOCSDIR}
-	@cd ${STAGEDIR}${PREFIX}; \
-		${ECHO_CMD} ${NTP_SHEBANG_FILES} | ${XARGS} ${SED} -i '' ${_SHEBANG_REINPLACE_ARGS}
 
 .include <bsd.port.post.mk>

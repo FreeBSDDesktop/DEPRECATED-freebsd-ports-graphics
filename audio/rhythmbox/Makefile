@@ -3,7 +3,8 @@
 #   $MCom: ports/trunk/audio/rhythmbox/Makefile 20039 2014-11-03 13:42:48Z kwm $
 
 PORTNAME=	rhythmbox
-PORTVERSION=	3.1
+PORTVERSION=	3.2
+PORTREVISION=	3
 CATEGORIES=	audio gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -23,16 +24,18 @@ LIB_DEPENDS=	libmusicbrainz5.so:${PORTSDIR}/audio/libmusicbrainz5 \
 		libjson-glib-1.0.so:${PORTSDIR}/devel/json-glib \
 		libsoup-gnome-2.4.so:${PORTSDIR}/devel/libsoup-gnome \
 		libsecret-1.so:${PORTSDIR}/security/libsecret \
-		libbrasero-media3.so:${PORTSDIR}/sysutils/brasero
+		libtdb.so:${PORTSDIR}/databases/tdb
 
 USES=		desktop-file-utils gettext gmake libtool pathfix \
 		pkgconfig tar:xz
-USE_GNOME=	intlhack gnomeprefix gtk30 introspection:build
+USE_GNOME=	intlhack gnomeprefix gtk30 introspection:build \
+		py3gobject3
 USE_XORG=	ice xproto
 GNU_CONFIGURE=	yes
 USE_GSTREAMER1=	flac lame jpeg cdparanoia vorbis
 CONFIGURE_ARGS=	--enable-vala \
 		--disable-gudev \
+		--without-webkit \
 		--enable-visualizer=no \
 		--disable-browser-plugin \
 		--with-libsecret=yes
@@ -47,8 +50,11 @@ PLIST_SUB+=	PYTVER=${PYTHON_VER:S/.//}
 GLIB_SCHEMAS=	org.gnome.rhythmbox.gschema.xml
 
 OPTIONS_SUB=	yes
-OPTIONS_DEFINE=	DAAP GRILO IPOD NOTIFY PYTHON LIRC MTP WEBKIT
-OPTIONS_DEFAULT=NOTIFY PYTHON WEBKIT
+OPTIONS_DEFINE=	BRASERO DAAP GRILO IPOD NOTIFY PYTHON LIRC MTP
+OPTIONS_DEFAULT=BRASERO NOTIFY PYTHON
+BRASERO_DESC=	Brasero disc burning support
+BRASERO_CONFIGURE_ENABLE=brasero
+BRASERO_LIB_DEPENDS=	libbrasero-media3.so:${PORTSDIR}/sysutils/brasero
 DAAP_DESC=	DAAP support
 DAAP_CONFIGURE_ENABLE=	daap
 DAAP_LIB_DEPENDS=	libdmapsharing-3.0.so:${PORTSDIR}/net/libdmapsharing
@@ -69,12 +75,20 @@ MTP_LIB_DEPENDS=	libmtp.so:${PORTSDIR}/multimedia/libmtp \
 PYTHON_CONFIGURE_ENABLE=	python
 PYTHON_USES=		python:3
 PYTHON_USE=		PYTVER=${PYTHON_VER:S/.//}
-WEBKIT_DESC=	HTML view support
-WEBKIT_CONFIGURE_WITH=	webkit
-WEBKIT_LIB_DEPENDS=	libwebkitgtk-3.0.so:${PORTSDIR}/www/webkit-gtk3
+PYTHON_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}libpeas>=0:${PORTSDIR}/devel/py3-libpeas
+# context plugin
+# webkit is for the context plugin, which is broken because
+# it needs textproc/py3-mako
+#WEBKIT_DESC=	HTML view support
+#WEBKIT_CONFIGURE_WITH=	webkit
+#WEBKIT_LIB_DEPENDS=	libwebkitgtk-3.0.so:${PORTSDIR}/www/webkit-gtk3
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|{MOZILLA_PLUGINDIR|{MOZILLA_PLUGINDIR}|g' \
 		${WRKSRC}/configure
+
+# rbzeitgeist plugin needs py3-zeitgeist
+post-install:
+	@${RM} -rf ${STAGEDIR}${PREFIX}/lib/rhythmbox/plugins/rbzeitgeist
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	widelands
 DISTVERSION=	build18
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	games
 MASTER_SITES=	https://launchpadlibrarian.net/167260749/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -30,6 +30,8 @@ USE_SDL=	sdl mixer image net ttf gfx
 
 PLIST_FILES=	bin/widelands
 PORTDATA=	*
+PLIST_DIRS=	%%DATADIR%%/maps/Desert\ Tournament.wmf/scripting \
+		%%DATADIR%%/maps/Swamp\ Monks.wmf/scripting
 
 DESKTOP_ENTRIES="Widelands" \
 		"" \
@@ -37,12 +39,6 @@ DESKTOP_ENTRIES="Widelands" \
 		"widelands" \
 		"Game;StrategyGame;" \
 		""
-
-.include <bsd.port.options.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 900000
-IGNORE=		doesn't build on 8.x
-.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \

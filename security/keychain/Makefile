@@ -2,24 +2,30 @@
 # $FreeBSD$
 
 PORTNAME=	keychain
-PORTVERSION=	2.7.1
+PORTVERSION=	2.8.1
 CATEGORIES=	security
 MASTER_SITES=	http://www.funtoo.org/archive/keychain/ \
-		GENTOO/distfiles
+		GENTOO
 
 MAINTAINER=	garga@FreeBSD.org
 COMMENT=	User-friendly front-end to ssh-agent(1)
 
 LICENSE=	GPLv2
 
-USES=		gmake perl5 tar:bzip2
-USE_PERL5=	build
+RUN_DEPENDS=	${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash
+
+USES=		tar:bzip2 shebangfix
 OPTIONS_DEFINE=	DOCS
+
+NO_BUILD=	yes
+
+bash_OLD_CMD=	/bin/sh
+SHEBANG_FILES=	${WRKSRC}/${PORTNAME}
 
 PLIST_FILES=	bin/${PORTNAME} \
 		man/man1/keychain.1.gz
 
-PORTDOCS=	ChangeLog README.rst
+PORTDOCS=	ChangeLog README.md
 
 .if !exists(${LOCALBASE}/bin/ssh-agent) && !exists(/usr/bin/ssh-agent)
 RUN_DEPENDS+=	ssh-agent:${PORTSDIR}/security/openssh-portable

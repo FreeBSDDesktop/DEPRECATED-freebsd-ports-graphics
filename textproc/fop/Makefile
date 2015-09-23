@@ -2,13 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	fop
-PORTVERSION=	1.1
+PORTVERSION=	2.0
+PORTREVISION=	1
 CATEGORIES=	textproc java
-MASTER_SITES=	${MASTER_SITE_APACHE:S/$/:fop/} \
-		SF/offo/offo-hyphenation/2.0:hyph
-MASTER_SITE_SUBDIR=	xmlgraphics/fop/source/:fop
+MASTER_SITES=	APACHE/xmlgraphics/fop/source/:fop \
+		SF/offo/offo-hyphenation/2.1:hyph
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
-DISTFILES=	${DISTNAME}.tar.gz:fop offo-hyphenation_v2.0.zip:hyph
+DISTFILES=	${DISTNAME}.tar.gz:fop offo-hyphenation.zip:hyph
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
 
 MAINTAINER=	geoff@sea-incorporated.com
@@ -30,7 +30,7 @@ USE_ANT=	yes
 MAKE_ENV+=	"ANT_OPTS=-Xmx512m"
 
 post-extract:
-	@cd ${WRKDIR} && ${UNZIP_CMD} ${DISTDIR}/offo-hyphenation_v2.0.zip
+	@cd ${WRKDIR} && ${UNZIP_CMD} ${DISTDIR}/offo-hyphenation.zip
 	@${CP} ${WRKDIR}/offo-hyphenation/hyph/*.xml ${WRKSRC}/hyph
 
 do-install:

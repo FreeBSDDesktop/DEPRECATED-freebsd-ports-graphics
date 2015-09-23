@@ -2,31 +2,30 @@
 # $FreeBSD$
 
 PORTNAME=	phpsysinfo
-PORTVERSION=	3.0.10
-PORTREVISION=	2
+PORTVERSION=	3.2.2
+DISTVERSIONPREFIX=	v
 CATEGORIES=	www
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}/
 
 MAINTAINER=	walt@relnor.com
 COMMENT=	PHP script for displaying system information
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
+USE_GITHUB=	yes
+
+USES=		shebangfix
+SHEBANG_FILES=	tools/check.sh
+NO_BUILD=	yes
 USE_PHP=	dom pcre xml simplexml mbstring
 WANT_PHP_WEB=	yes
 
-LATEST_LINK=	phpsysinfo-dev
-
-NO_BUILD=	yes
-WRKSRC=		${WRKDIR}/${PORTNAME}
-
 SUB_FILES=	pkg-message
+PLIST_SUB=	NOBINMODE="${NOBINMODE}" WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
 do-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}
-	cd ${WRKSRC}; ${FIND} . \
-		| ${CPIO} -pdm -R ${WWWOWN}:${WWWGRP} ${STAGEDIR}${WWWDIR}
-	${CHMOD} -R ${BINMODE} ${STAGEDIR}${WWWDIR}
-	${FIND} ${STAGEDIR}${WWWDIR} ! -type d | ${XARGS} ${CHMOD} ${NOBINMODE}
+	cd ${WRKSRC}; ${FIND} . \! -name .travis.yml \
+		| ${CPIO} -pdm ${STAGEDIR}${WWWDIR}
 
 .include <bsd.port.mk>

@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	ocurl
-PORTVERSION=	0.5.3
-PORTREVISION=	3
+PORTVERSION=	0.7.5
 CATEGORIES=	ftp
-MASTER_SITES=	SF
+MASTER_SITES=	https://forge.ocamlcore.org/frs/download.php/1537/ \
+		http://ygrek.org.ua/p/release/ocurl/
 PKGNAMEPREFIX=	ocaml-
 
 MAINTAINER=	johans@FreeBSD.org
@@ -13,19 +13,37 @@ COMMENT=	Interface for OCaml to the curl lib
 
 BUILD_DEPENDS=	ocamlc:${PORTSDIR}/lang/ocaml \
 		ocamlfind:${PORTSDIR}/devel/ocaml-findlib
-RUN_DEPENDS=	ocamlc:${PORTSDIR}/lang/ocaml \
-		ocamlfind:${PORTSDIR}/devel/ocaml-findlib
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 
-WRKSRC=		${WRKDIR}/${PORTNAME}
-USES=		gmake tar:tgz
+USES=		gmake
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+="--with-findlib"
 MAKE_JOBS_UNSAFE=	yes
 
 USE_OCAML=		yes
+USE_OCAML_CAMLP4=	yes
 USE_OCAML_FINDLIB=	yes
 USE_OCAML_LDCONFIG=	yes
 OCAML_PKGDIRS=		curl
+
+OPTIONS_DEFINE=	LWT
+OPTIONS_DEFAULT=LWT
+OPTIONS_SUB=	yes
+LWT_DESC=	Include threading support (ocaml-lwt)
+LWT_RUN_DEPENDS=${LOCALBASE}/${OCAML_SITELIBDIR}/lwt/lwt.a:${PORTSDIR}/devel/ocaml-lwt
+LWT_BUILD_DEPENDS=${LWT_RUN_DEPENDS}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${OCAML_SITELIBDIR}/curl/dllcurl-helper.so
+
+.include <bsd.port.options.mk>
+
+.if ! ${PORT_OPTIONS:MLWT}
+# Override auto-detection
+post-configure:
+	${REINPLACE_CMD} 's/(lwt,no)/(no,no)/' ${WRKSRC}/Makefile \
+		${WRKSRC}/examples/Makefile
+.endif
 
 .include <bsd.port.mk>

@@ -3,16 +3,16 @@
 
 PORTNAME=	penguin-command
 PORTVERSION=	1.6.11
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	games
 MASTER_SITES=	SF
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Clone of the classic game Missile Command
 
-LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
+USES=		jpeg
 USE_SDL=	mixer image sdl
 GNU_CONFIGURE=	yes
 

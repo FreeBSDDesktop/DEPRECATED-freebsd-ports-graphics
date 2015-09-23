@@ -2,15 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	mutt
-PORTVERSION=	1.5.23
-PORTREVISION?=	7
+PORTVERSION=	1.5.24
+PORTREVISION?=	0
 CATEGORIES+=	mail ipv6
 MASTER_SITES=	ftp://ftp.mutt.org/mutt/ \
-		ftp://ftp.mutt.org/mutt/devel/ \
 		ftp://ftp.fu-berlin.de/pub/unix/mail/mutt/ \
-		ftp://ftp.fu-berlin.de/pub/unix/mail/mutt/devel/ \
+		https://bitbucket.org/mutt/mutt/downloads/ \
 		ftp://ftp.demon.co.uk/pub/mirrors/mutt/ \
-		ftp://ftp.demon.co.uk/pub/mirrors/mutt/devel/ \
 		http://www.mutt.org.ua/download/mutt-${VVV_PATCH_VERSION}/:vvv \
 		http://www2.mutt.org.ua/download/mutt-${VVV_PATCH_VERSION}/:vvv \
 		http://www3.mutt.org.ua/download/mutt-${VVV_PATCH_VERSION}/:vvv \
@@ -45,7 +43,7 @@ CONFIGURE_ARGS=	--disable-fcntl --with-ssl=${OPENSSLBASE} \
 		--enable-external-dotlock --enable-pop --enable-imap \
 		--disable-warnings
 
-USES+=		shebangfix
+USES+=		cpe shebangfix
 SHEBANG_FILES=	doc/gen-map-doc smime_keys.pl contrib/smime_keys_test.pl
 
 .if defined(MUTT_CONFIGURE_ARGS)
@@ -66,7 +64,7 @@ OPTIONS_DEFINE=	COMPRESSED_FOLDERS SASL DEBUG DOCS EXAMPLES FLOCK \
 		GPGME GREETING_PATCH GSSAPI HTML ICONV IDN IFDEF_PATCH \
 		IMAP_HEADER_CACHE LOCALES_FIX MAILBOX_MANPAGES \
 		MAILDIR_HEADER_CACHE MAILDIR_MTIME_PATCH \
-		NLS NNTP PARENT_CHILD_MATCH_PATCH \
+		MIXMASTER NLS NNTP PARENT_CHILD_MATCH_PATCH \
 		QUOTE_PATCH REVERSE_REPLY_PATCH SIDEBAR_PATCH \
 		SIGNATURE_MENU SMART_DATE SMIME_OUTLOOK_COMPAT SMTP \
 		TOKYOCABINET TRASH_PATCH XML
@@ -91,6 +89,7 @@ MAILBOX_MANPAGES_DESC=	Install mbox.5/mmdf.5 manpages
 MAILDIR_HEADER_CACHE_DESC=	Maildir header cache
 MAILDIR_MTIME_PATCH_DESC=	Maildir mtime patch
 MBOX_HOOK_PATCH_DESC=	Enhanced mbox-hook
+MIXMASTER_DESC=	Mixmaster support
 NCURSES_DESC=	Ncurses support
 NLS_DESC=	Native language support
 PARENT_CHILD_MATCH_PATCH_DESC=	Parent/child match
@@ -188,6 +187,12 @@ LIB_DEPENDS+=	libsasl2.so:${PORTSDIR}/security/cyrus-sasl2
 CONFIGURE_ARGS+=	--with-sasl=${LOCALBASE}
 .endif
 
+.if ${PORT_OPTIONS:MMIXMASTER}
+# BUILD_DEPENDS+=	mixmaster:${PORTSDIR}/mail/mixmaster
+RUN_DEPENDS+=	mixmaster:${PORTSDIR}/mail/mixmaster
+CONFIGURE_ARGS+=	--with-mixmaster=${LOCALBASE}
+.endif
+
 .if ${PORT_OPTIONS:MSMIME_OUTLOOK_COMPAT}
 post-patch::
 	@${PATCH} ${PATCH_ARGS} < ${PATCHDIR}/extra-patch-smime-outlook
@@ -240,7 +245,7 @@ CONFIGURE_ARGS+=	--enable-locales-fix
 .endif
 
 .if ${PORT_OPTIONS:MICONV}
-USES+=			iconv
+USES+=			iconv:translit
 CONFIGURE_ARGS+=	${ICONV_CONFIGURE_ARG}
 .else
 CONFIGURE_ARGS+=	--disable-iconv

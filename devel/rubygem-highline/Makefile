@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	highline
-PORTVERSION=	1.6.21
+PORTVERSION=	1.7.5
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -9,6 +9,8 @@ MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	High-level IO library for command-line interfaces
 
 LICENSE=	GPLv2
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

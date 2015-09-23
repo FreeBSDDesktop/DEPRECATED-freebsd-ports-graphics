@@ -3,7 +3,7 @@
 
 PORTNAME=	cssselect
 PORTVERSION=	0.9.1
-#PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -14,11 +14,9 @@ COMMENT=	Cssselect parses CSS3 Selectors and translates them to XPath 1.0
 LICENSE=	BSD3CLAUSE
 
 OPTIONS_DEFINE=	DOCS
-OPTIONSFILE=	${PORT_DBDIR}/py-${PORTNAME}/options
 
-USE_PYTHON=	yes
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python
+USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.options.mk>
 

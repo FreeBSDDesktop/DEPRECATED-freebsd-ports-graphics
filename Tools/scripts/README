@@ -12,8 +12,6 @@ bad-pkgdescrs.sh - locate identical pkg descriptions
 bump_revision.pl - Small script to bump the PORTREVISION variable of ports
                    which are depending on a port with a changed shared lib
                    version.
-check-latest-link - search for duplicate LATEST_LINK values and send nag
-                    mails to the responsible maintainers
 checkcats.py - verify that master categories in all ports are correct and
                report any problems. Beware that the full check takes quite
 			   some time.
@@ -31,6 +29,7 @@ distclean - compare md5 sums of distfiles in ports/distfiles with currently
 explicit_lib_depends.sh - shows the current explicit dependency list of libs
                           for a given installed port
 getpatch - downloads patch attachments from a Bug Tracking Systems
+getpatch.sh - downloads patch attachments from a Bug Tracking Systems (plain shell script)
 getpr   - downloads a problem report from GNATS and attempts to extract
           the patch, shar, uuencoded file from it.
           this probably needs to be checked for potential security problems.

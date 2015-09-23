@@ -2,7 +2,7 @@
 
 PORTNAME=	SVN-Web
 PORTVERSION=	0.63
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -35,19 +35,16 @@ BUILD_DEPENDS:=	${RUN_DEPENDS} \
 		p5-Test-HTML-Tidy>=0:${PORTSDIR}/devel/p5-Test-HTML-Tidy \
 		p5-Test-WWW-Mechanize>=0:${PORTSDIR}/devel/p5-Test-WWW-Mechanize
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	bin/svnweb-install
 USE_PERL5=	configure
 CONFIGURE_ARGS=	--skip_questions
+
+BROKEN_powerpc=	Does not configure on powerpc
 
 post-install:
 	@${MKDIR} -p ${STAGEDIR}${WWWDIR}
 	${CP} -R ${WRKSRC}/SVN-Web.psgi ${WRKSRC}/template ${WRKSRC}/css ${STAGEDIR}${WWWDIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/svnweb-install ${STAGEDIR}${PREFIX}/bin
 
-.include <bsd.port.pre.mk>
-
-.if ${ARCH} == "powerpc"
-BROKEN=		Does not configure on powerpc
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

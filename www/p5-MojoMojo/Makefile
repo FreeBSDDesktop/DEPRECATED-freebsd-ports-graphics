@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	MojoMojo
-PORTVERSION=	1.10
-PORTREVISION=	1
+PORTVERSION=	1.11
 CATEGORIES=	www perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:MRAMBERG
@@ -16,7 +15,7 @@ LICENSE=	ART10 GPLv1
 LICENSE_COMB=	dual
 
 # Please keep order as in Makefile.PL
-RUN_DEPENDS=	\
+BUILD_DEPENDS=	\
 	p5-Plack>=0.9974:${PORTSDIR}/www/p5-Plack \
 	p5-Algorithm-Diff>=1.1901:${PORTSDIR}/devel/p5-Algorithm-Diff \
 	p5-Algorithm-Merge>=0:${PORTSDIR}/devel/p5-Algorithm-Merge \
@@ -26,7 +25,6 @@ RUN_DEPENDS=	\
 	p5-Catalyst-Action-RenderView>=0.07:${PORTSDIR}/www/p5-Catalyst-Action-RenderView \
 	p5-Catalyst-Authentication-Store-DBIx-Class>=0.101:${PORTSDIR}/www/p5-Catalyst-Authentication-Store-DBIx-Class \
 	p5-Catalyst-Controller-HTML-FormFu>=0.03007:${PORTSDIR}/www/p5-Catalyst-Controller-HTML-FormFu \
-	p5-Catalyst-Engine-PSGI>=0:${PORTSDIR}/www/p5-Catalyst-Engine-PSGI \
 	p5-Catalyst-Model-DBIC-Schema>=0.01:${PORTSDIR}/www/p5-Catalyst-Model-DBIC-Schema \
 	p5-Catalyst-Plugin-Authentication>=0.10005:${PORTSDIR}/www/p5-Catalyst-Plugin-Authentication \
 	p5-Catalyst-Plugin-Cache>=0.08:${PORTSDIR}/www/p5-Catalyst-Plugin-Cache \
@@ -82,10 +80,12 @@ RUN_DEPENDS=	\
 	p5-WWW-Mechanize>=1.54:${PORTSDIR}/www/p5-WWW-Mechanize \
 	p5-WWW-Mechanize-TreeBuilder>=1.10000:${PORTSDIR}/www/p5-WWW-Mechanize-TreeBuilder \
 	p5-YAML>=0.36:${PORTSDIR}/textproc/p5-YAML \
-	p5-Term-Prompt>=0:${PORTSDIR}/devel/p5-Term-Prompt
-BUILD_DEPENDS:=	${RUN_DEPENDS}
+	p5-Term-Prompt>=0:${PORTSDIR}/devel/p5-Term-Prompt \
+	p5-Text-Emoticon-MSN>=0:${PORTSDIR}/textproc/p5-Text-Emoticon-MSN
+RUN_DEPENDS:=	${BUILD_DEPENDS}
 TEST_DEPENDS=	p5-Test-WWW-Mechanize-Catalyst>=0:${PORTSDIR}/devel/p5-Test-WWW-Mechanize-Catalyst
 
+NO_ARCH=	yes
 USES=		perl5
 USE_PERL5=	configure
 

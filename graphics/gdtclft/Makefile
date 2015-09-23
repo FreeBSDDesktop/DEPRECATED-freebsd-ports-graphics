@@ -5,13 +5,11 @@ PORTNAME=	Gdtclft
 PORTVERSION=	2.2.5
 PORTREVISION=	14
 CATEGORIES=	graphics tcl
-MASTER_SITES=	
+MASTER_SITES=	http://BSDforge.com/projects/source/graphics/gdtclft/
 DISTNAME=	${PORTNAME}${PORTVERSION}
 
-MAINTAINER=	mi@aldan.algebra.com
+MAINTAINER=	portmaster@bsdforge.com
 COMMENT=	TCL interface to the Thomas Boutell's Gd library
-
-BROKEN=		Missing MASTER_SITES
 
 LIB_DEPENDS=	libgd.so:${PORTSDIR}/graphics/gd
 

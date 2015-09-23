@@ -6,7 +6,7 @@ PORTVERSION=	0.8.5
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	kvedulv@kvedulv.de
+MAINTAINER=	mmoll@FreeBSD.org
 COMMENT=	Ruby Wrapper for the Tumblr v2 API
 
 LICENSE=	APACHE20
@@ -17,6 +17,8 @@ RUN_DEPENDS=	rubygem-faraday>=0.9.0:${PORTSDIR}/www/rubygem-faraday \
 		rubygem-mime-types>0:${PORTSDIR}/misc/rubygem-mime-types \
 		rubygem-oauth>0:${PORTSDIR}/net/rubygem-oauth \
 		rubygem-simple_oauth>0:${PORTSDIR}/net/rubygem-simple_oauth
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

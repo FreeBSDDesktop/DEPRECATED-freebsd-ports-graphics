@@ -29,10 +29,12 @@ Xorg_Pre_Include=		bsd.xorg.mk
 
 .if defined(XORG_CAT)
 # Default variables, common to all new modular xorg ports.
-.if !defined(USE_TGZ) && !defined(USE_XZ)
-USE_BZIP2=    	yes
+.if !defined(USES) || ! ${USES:Mtar*}
+USES+=		tar:bzip2
 .endif
 GNU_CONFIGURE= 	yes
+# for some reason this makes mkfontscale and others fail in the install target
+#INSTALL_TARGET=	install-strip
 DIST_SUBDIR=	xorg/${XORG_CAT}
 
 MASTER_SITES?=	${MASTER_SITE_XORG}
@@ -69,55 +71,20 @@ USES+=		libtool
 . endif
 
 . if ${XORG_CAT} == "font"
-FONTDIR?=	${PORTNAME:C/.*-//g:S/type/Type/:S/ttf/TTF/:S/speedo/Speedo/}
-CONFIGURE_ARGS+=	--with-fontrootdir=${PREFIX}/lib/X11/fonts
-CONFIGURE_ENV+=	FONTROOTDIR=${PREFIX}/lib/X11/fonts
-NEED_MKFONTFOO=	yes
-
-.  if ${PORTNAME:M*type1*}x != x
-INSTALLS_TTF?=	yes
-.  elif ${PORTNAME:M*ttf*}x != x
-INSTALLS_TTF?=	yes
-.  elif ${PORTNAME:M*encodings*}x != x
-# This is terrific, we want mkfontscale at build time, but don't use it like for the other ports.
-NEED_MKFONTFOO=	no
-BUILD_DEPENDS+=	${LOCALBASE}/bin/mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
-INSTALLS_TTF?=	no
-.  else
-INSTALLS_TTF?=	no
-.  endif
-
-.  if ${PORTNAME:M*font-util*}x != x
-USES+=	pathfix
-NEED_MKFONTFOO=	no
-.  elif ${INSTALLS_TTF} == "yes"
-BUILD_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/fontconfig.pc:${PORTSDIR}/x11-fonts/fontconfig
-RUN_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/fontconfig.pc:${PORTSDIR}/x11-fonts/fontconfig
-.  else
-BUILD_DEPENDS+=	${LOCALBASE}/bin/bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf
-.  endif
-
-.  if ${NEED_MKFONTFOO} == "yes"
-BUILD_DEPENDS+=	${LOCALBASE}/bin/mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
-				${LOCALBASE}/bin/mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
-RUN_DEPENDS+=	${LOCALBASE}/bin/mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
-				${LOCALBASE}/bin/mkfontscale:${PORTSDIR}/x11-fonts/mkfontscale
-.  endif
-
-post-install:
-.  for _fontdir in ${FONTDIR}
-.    if ${INSTALLS_TTF} == yes && ${NEED_MKFONTFOO} == yes
-		@${ECHO_CMD} "@fcfontsdir lib/X11/fonts/${_fontdir}" >> ${TMPPLIST}
-.    elif ${INSTALLS_TTF} == yes && ${NEED_MKFONTFOO} == no
-		@${ECHO_CMD} "@fc lib/X11/fonts/${_fontdir}" >> ${TMPPLIST}
-.    elif ${NEED_MKFONTFOO} == yes
-		@${ECHO_CMD} "@fontsdir lib/X11/fonts/${_fontdir}" >> ${TMPPLIST}
+FONTNAME?=	${PORTNAME:C/.*-//g:S/type/Type/:S/ttf/TTF/:S/speedo/Speedo/}
+CONFIGURE_ARGS+=	--with-fontrootdir=${PREFIX}/share/fonts
+CONFIGURE_ENV+=	FONTROOTDIR=${PREFIX}/share/fonts
+.    if !defined(NOFONT)
+USES+=	fonts
+BUILD_DEPENDS+=	mkfontdir:${PORTSDIR}/x11-fonts/mkfontdir \
+				bdftopcf:${PORTSDIR}/x11-fonts/bdftopcf
+PLIST_FILES+=	"@comment ${FONTSDIR}/fonts.dir" \
+				"@comment ${FONTSDIR}/fonts.scale"
 .    endif
-.  endfor
-.endif
+.  endif
 
 . if ${XORG_CAT} == "lib"
-USES+=		pathfix libtool:keepla
+USES+=		pathfix libtool
 USE_LDCONFIG=	yes
 CONFIGURE_ARGS+=--enable-malloc0returnsnull
 . endif
@@ -130,7 +97,8 @@ USES+=	pathfix
 DISTFILES?=	xorg-server-${PORTVERSION}.tar.bz2
 WRKSRC=		${WRKDIR}/xorg-server-${PORTVERSION}
 USES+=	pathfix
-CONFIGURE_ARGS+=	--with-xkb-path=${LOCALBASE}/share/X11/xkb
+CONFIGURE_ARGS+=	--with-xkb-path=${LOCALBASE}/share/X11/xkb \
+					--with-fontrootdir=${LOCALBASE}/share/fonts
 
 LIB_PC_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 USE_XORG+=	pciaccess xextproto videoproto fontsproto dri2proto fontutil:build
@@ -336,16 +304,5 @@ BUILD_DEPENDS+=			${${_module}_BUILD_DEPENDS}
 
 RUN_DEPENDS+=			${LIB_PC_DEPENDS}
 BUILD_DEPENDS+=			${LIB_PC_DEPENDS}
-
-.if !target(check-latest)
-check-latest:
-	@AVAIL_VER=`fetch -qo - http://xorg.freedesktop.org/releases/individual/${XORG_CAT}/ | sed -ne 's/.*${PORTNAME}-\(.*\).tar.bz2\".*/\1/p'` && \
-		${ECHO_CMD} "Available versions for ${PORTNAME} are: $${AVAIL_VER}." && \
-		for ver in $${AVAIL_VER}; do \
-			if [ `pkg_version -t $$ver ${PORTVERSION}` = ">" ]; then \
-				${ECHO_CMD} "${PORTNAME} $$ver is newer than current version."; \
-			fi; \
-		done
-.endif
 
 .endif

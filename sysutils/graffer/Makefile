@@ -3,6 +3,7 @@
 
 PORTNAME=	graffer
 PORTVERSION=	1.1
+PORTREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://chaosophia.net/downloads/graffer/ \
 		http://ns1.chaosophia.net/downloads/graffer/
@@ -10,9 +11,10 @@ MASTER_SITES=	http://chaosophia.net/downloads/graffer/ \
 MAINTAINER=	koue@chaosophia.net
 COMMENT=	Utility to render graphical statistics
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libfreetype.so:${PORTSDIR}/print/freetype2
+
+USES=		jpeg
 
 PLIST_FILES=	bin/graffer \
 		etc/graffer/graffer.conf.example \

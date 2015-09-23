@@ -3,17 +3,23 @@
 
 PORTNAME=	critcl
 PORTVERSION=	3.1.12
+PORTREVISION=	3
 CATEGORIES=	devel
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Compiled Runtime in Tcl
 
-OPTIONS_DEFINE=	DOCS
+LICENSE=	TclTk
+LICENSE_NAME=	Tcl/Tk License
+LICENSE_FILE=	${WRKSRC}/license.terms
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+RUN_DEPENDS=	${LOCALBASE}/lib/Trf/pkgIndex.tcl:${PORTSDIR}/devel/tcl-trf	\
+		${LOCALBASE}/lib/tcllib/cmdline/pkgIndex.tcl:${PORTSDIR}/devel/tcllib
 
 USES+=		tcl
 USE_GITHUB=	yes
 GH_ACCOUNT=	andreas-kupries
-GH_COMMIT=	39e4a10
 
 PLIST_SUB+=	VER=${PORTVERSION}
 PORTDOCS=	*
@@ -22,23 +28,16 @@ NO_BUILD=	yes
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MDOCS}
-BUILD_DEPENDS+=	dtplite:${PORTSDIR}/devel/tcllib
-.endif
-
 post-patch:
 	${REINPLACE_CMD} -e 's|dtplite|${LOCALBASE}/bin/dtplite|g' ${WRKSRC}/build.tcl
 	${REINPLACE_CMD} -e 's|%%CC%%|${CC}|g' ${WRKSRC}/lib/critcl/Config
 
 do-install:
-.if ${PORT_OPTIONS:MDOCS}
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	(cd ${WRKSRC} && ${TCLSH} build.tcl doc)
-	(cd ${WRKSRC}/embedded/www && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
-.endif
 	(cd ${WRKSRC} && ${TCLSH} build.tcl install ${STAGEDIR}${PREFIX}/lib)
+	${INSTALL_MAN} ${WRKSRC}/embedded/man/files/critcl_*.n	\
+		${STAGEDIR}${MANPREFIX}/man/mann/
 
-regression-test: build
+test check regression-test: build
 	(cd ${WRKSRC} && ${TCLSH} test/all.tcl)
 
 .include <bsd.port.mk>

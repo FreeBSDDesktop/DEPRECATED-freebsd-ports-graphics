@@ -4,7 +4,7 @@
 PORTNAME=	apache-ant
 PORTVERSION=	1.9.4
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE:S,%SUBDIR%/,ant/binaries/:bin,} \
+MASTER_SITES=	APACHE/ant/binaries/:bin \
 		LOCAL/hq:man
 DISTFILES=	${ANT_DISTFILE}:bin \
 		${MANPAGE_DISTFILE}:man
@@ -14,8 +14,6 @@ MAINTAINER=	java@FreeBSD.org
 COMMENT=	Java- and XML-based build tool, conceptually similar to make
 
 LICENSE=	APACHE20
-
-RUN_DEPENDS=	classpath:${PORTSDIR}/java/javavmwrapper
 
 OPTIONS_DEFINE=	DOCS
 
@@ -34,7 +32,7 @@ READMES=	LICENSE README WHATSNEW
 
 .if ${PORT_OPTIONS:MDOCS}
 DISTFILES+=	${PORTNAME}-${PORTVERSION}-manual.tar.bz2:doc
-MASTER_SITES+=	${MASTER_SITE_APACHE:S,%SUBDIR%/,ant/manual/:doc,}
+MASTER_SITES+=	APACHE/ant/manual/:doc
 PORTDOCS=	*
 .endif
 

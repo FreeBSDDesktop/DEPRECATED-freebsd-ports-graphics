@@ -1,10 +1,9 @@
 # Created by: Ade Lovett <ade@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/devel/gnome-vfs/Makefile,v 1.191 2010/09/29 12:30:29 kwm Exp $
 
 PORTNAME=	gnome-vfs
 PORTVERSION=	2.24.4
-PORTREVISION?=	3
+PORTREVISION?=	4
 CATEGORIES=	devel gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome2
@@ -16,11 +15,10 @@ USES=		tar:bzip2
 
 .if !defined(REFERENCE_PORT)
 
-RUN_DEPENDS=	${LOCALBASE}/share/mime/magic:${PORTSDIR}/misc/shared-mime-info
+RUN_DEPENDS=	update-mime-database:${PORTSDIR}/misc/shared-mime-info
 
 USES+=		gettext gmake libtool:keepla pathfix pkgconfig
-USE_GNOME=	gnomeprefix intlhack gnomemimedata gconf2 \
-		referencehack
+USE_GNOME=	gconf2 gnomemimedata intlhack referencehack
 INSTALL_TARGET=	install-strip
 USE_OPENSSL=	yes
 USE_LDCONFIG=	yes
@@ -98,9 +96,6 @@ pre-configure:
 	@${ECHO_CMD} "${PKGNAME}: KERBEROS is required."
 	@${FALSE}
 .endif
-
-post-install:
-	@${SETENV} PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
 
 .include <bsd.port.mk>
 

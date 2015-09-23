@@ -15,6 +15,6 @@ INSTALL_DIRS=	${BUILD_DIRS}
 CLIENT_ONLY=	yes
 COMPONENT=	-client
 USE_LDCONFIG=	yes
-USES=		pkgconfig readline
+USES=		pkgconfig
 
 .include "${MASTERDIR}/Makefile"

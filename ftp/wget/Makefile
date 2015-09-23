@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	wget
-DISTVERSION=	1.16
+DISTVERSION=	1.16.3
 CATEGORIES=	ftp www ipv6
 MASTER_SITES=	GNU
 
@@ -12,8 +12,9 @@ COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
 LICENSE=	GPLv3 # or later
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		charsetfix gmake makeinfo perl5 tar:xz
+USES=		charsetfix cpe gmake makeinfo perl5 tar:xz
 USE_PERL5=	build
+CPE_VENDOR=	gnu
 GNU_CONFIGURE=	yes
 OPTIONS_SUB=	yes
 
@@ -45,10 +46,11 @@ PCRE_CONFIGURE_ENV_OFF=	ac_cv_header_pcre_h=no
 
 .if ${PORT_OPTIONS:MOPENSSL}
 USE_OPENSSL=	yes
-CONFIGURE_ARGS+=--with-ssl=openssl
+CONFIGURE_ARGS+=--with-ssl=openssl --with-libssl-prefix=${OPENSSLBASE}
 CPPFLAGS+=	-I${OPENSSLINC}
 LDFLAGS+=	-L${OPENSSLLIB}
 .elif ${PORT_OPTIONS:MGNUTLS}
+USES+=		pkgconfig
 LIB_DEPENDS+=	libgnutls.so:${PORTSDIR}/security/gnutls
 CONFIGURE_ARGS+=--with-ssl=gnutls
 CPPFLAGS+=	-I${LOCALBASE}/include

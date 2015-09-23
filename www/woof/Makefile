@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	woof
-PORTVERSION=	2012.05.31
+DISTVERSION=	2012-05-31
 CATEGORIES=	www
 MASTER_SITES=	http://www.home.unix-ag.org/simon/
-DISTNAME=	${PORTNAME}-${PORTVERSION:S/./-/g}
 EXTRACT_SUFX=	.py
 EXTRACT_ONLY=	# empty
 
@@ -14,7 +13,7 @@ COMMENT=	Web Offer One File, an ad-hoc single file webserver
 
 LICENSE=	GPLv2
 
-USE_PYTHON=	yes
+USES=		python
 NO_BUILD=	yes
 PLIST_FILES=	bin/woof
 

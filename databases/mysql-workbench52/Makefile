@@ -3,7 +3,7 @@
 
 PORTNAME=	mysql-workbench-gpl
 PORTVERSION=	5.2.47
-PORTREVISION=	6
+PORTREVISION=	7
 DISTVERSIONSUFFIX=	-src
 CATEGORIES=	databases
 MASTER_SITES=	MYSQL/MySQLGUITools
@@ -14,6 +14,8 @@ COMMENT=	Visual database design tool
 
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
+
+BROKEN=		does not build
 
 LIB_DEPENDS=	libzip.so:${PORTSDIR}/archivers/libzip \
 		libboost_system.so:${PORTSDIR}/devel/boost-libs \
@@ -33,9 +35,9 @@ RUN_DEPENDS=	xdg-open:${PORTSDIR}/devel/xdg-utils \
 OPTIONS_DEFINE=	PYTHON_UTILS UNIXODBC
 PYTHON_UTILS_DESC=	Python scripts useful for administering MySQL
 
-USES=		compiler:gcc-c++11-lib desktop-file-utils gettext gmake iconv \
-		libtool lua:51 pathfix pkgconfig python:2 shared-mime-info \
-		shebangfix
+USES=		autoreconf compiler:gcc-c++11-lib desktop-file-utils gettext \
+		gmake iconv libtool lua:51 pathfix pkgconfig python:2 \
+		shared-mime-info shebangfix
 SHEBANG_FILES=	ext/ctemplate/ctemplate-src/src/htmlparser/*.py \
 		ext/mysql-utilities/*.py \
 		ext/mysql-utilities/scripts/*.py \
@@ -48,11 +50,9 @@ SHEBANG_FILES=	ext/ctemplate/ctemplate-src/src/htmlparser/*.py \
 		plugins/wb.query.analysis/*.py \
 		po/*.py
 USE_GL=		gl
-USE_GNOME=	gnomehier gtk20 libxml2
+USE_GNOME=	gtk20 libxml2
 USE_MYSQL=	client
 USE_SQLITE=	3
-USE_AUTOTOOLS=	libtoolize aclocal automake autoheader autoconf
-AUTOMAKE_ARGS=	--add-missing --copy --force-missing --foreign
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV=	LUA_CFLAGS="$$(pkg-config --cflags lua-${LUA_VER})" \
 		LUA_LIBS="$$(pkg-config --libs lua-${LUA_VER})" \

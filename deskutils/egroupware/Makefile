@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	eGroupware
-PORTVERSION=	1.8.007.20140512
+PORTVERSION=	1.8.007.20150218
 CATEGORIES=	deskutils
 MASTER_SITES=	SF/${PORTNAME:tl}/${PORTNAME}-1.8/${PORTNAME}-${PORTVERSION}
 DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.bz2 \
@@ -20,7 +20,7 @@ BUILD_DEPENDS=	${PEARDIR}/Auth/SASL.php:${PORTSDIR}/security/pear-Auth_SASL \
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 PEARDIR=	${LOCALBASE}/share/pear
-USES=		tar:bzip2
+USES=		cpe tar:bzip2
 USE_PHP=	session ctype zlib bz2 mcrypt xmlreader
 NO_BUILD=	yes
 PLIST=		${WRKDIR}/plist

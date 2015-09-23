@@ -3,7 +3,7 @@
 
 PORTNAME=	mjpegtools
 PORTVERSION=	2.1.0
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	multimedia
 MASTER_SITES=	SF/${PORTNAME:S/tools//}/${PORTNAME}/${PORTVERSION}
 
@@ -13,11 +13,10 @@ COMMENT=	Set of tools to record/playback/edit videos in MPEG format
 LICENSE=	GPLv2 # (or later)
 
 BUILD_DEPENDS=	v4l_compat>0:${PORTSDIR}/multimedia/v4l_compat
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 
 CONFLICTS=	mplex-[0-9]*
 
-USES=		gmake libtool pathfix pkgconfig
+USES=		gmake jpeg libtool pathfix pkgconfig
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
@@ -36,7 +35,7 @@ DV_LIB_DEPENDS=		libdv.so:${PORTSDIR}/multimedia/libdv
 DV_CONFIGURE_WITH=	libdv
 GTK2_USE=		GNOME=gtk20
 GTK2_CONFIGURE_WITH=	gtk
-PNG_LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+PNG_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 PNG_CONFIGURE_WITH=	libpng
 QUICKTIME_LIB_DEPENDS=	libquicktime.so:${PORTSDIR}/multimedia/libquicktime
 QUICKTIME_CONFIGURE_WITH=	libquicktime
@@ -45,12 +44,8 @@ SDL_CONFIGURE_OFF=	--without-libsdl --without-sdlgfx
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH} == "i386"
+.if ${ARCH} == i386 || ${ARCH} == powerpc
 USES+=		compiler:c++11-lang
-.endif
-
-.if ${ARCH} == "powerpc" && ${OSVERSION} > 900000
-BROKEN=		Does not build on powerpc-9
 .endif
 
 post-patch:

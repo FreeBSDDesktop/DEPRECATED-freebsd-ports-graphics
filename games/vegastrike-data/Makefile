@@ -3,6 +3,7 @@
 
 PORTNAME=	vegastrike
 PORTVERSION=	0.5.1.r1
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/0.5.1/
 PKGNAMESUFFIX=	-data
@@ -11,29 +12,22 @@ DISTNAME=	${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Vega Strike data files
 
-USES=	tar:bzip2
+USES=		shebangfix tar:bzip2
+SHEBANG_FILES=	modules/webpageize.py cgi-accountserver/vsconfig.py \
+		cgi-accountserver/register_submit.py cgi-accountserver/register.py \
+		programs/planet/process_includes.py
 NO_BUILD=	yes
+NO_ARCH=	yes
 
-MANUAL_PACKAGE_BUILD=huge
+MANUAL_PACKAGE_BUILD=	huge (364M)
 
-do-extract:
-	${MKDIR} ${WRKDIR}
-	# Will extract directly into ${STAGEDIR}${DATADIR:H}
+PORTDATA=	* .vegastrike
+PLIST_DIRS=	%%DATADIR%%/movies
+
+post-extract:
+	@${FIND} ${WRKSRC} -name Makefile.am -delete
 
 do-install:
-	${RM} -rf ${STAGEDIR}${DATADIR}
-	${MKDIR} ${STAGEDIR}${DATADIR:H}
-	${TAR} -C ${STAGEDIR}${DATADIR:H} -xvf ${_DISTDIR}/${DISTFILES} \
-	    --exclude Makefile.am --no-same-owner 2>&1 | \
-		${AWK} ' \
-		    BEGIN { dirn = 0 ; print "@cwd ${DATADIR}" } \
-		    { sub("^x [^/]*/", "") } \
-		    /\/$$/ { sub("/$$", ""); dirs[dirn++] = $$0 ; next } \
-		    !/^$$/ { print $$0 } \
-		    END {while (dirn--) print "@dirrm " dirs[dirn]; \
-			print "@cwd"; print "@dirrm ${DATADIR_REL}" } \
-		' >> ${TMPPLIST}
-	${MV} ${STAGEDIR}${DATADIR:H}/vegastrike-data-${PORTVERSION} \
-		${STAGEDIR}${DATADIR}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}
 
 .include <bsd.port.mk>

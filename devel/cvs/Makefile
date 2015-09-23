@@ -2,19 +2,35 @@
 
 PORTNAME=	cvs
 PORTVERSION=	1.20120905
-PORTREVISION=	1
+PORTREVISION?=	4
 CATEGORIES=	devel
 MASTER_SITES=	LOCAL/eadler
 
-MAINTAINER=	ports@FreeBSD.org
-COMMENT=	Version control system
+MAINTAINER?=	ports@FreeBSD.org
+COMMENT?=	Version control system
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or any later version
 
-OPTIONS_DEFINE=	KERBEROS EXAMPLES
+CONFLICTS_INSTALL?=	cvs+ipv6-[12]* cvs-devel-[12]*
+
+OPTIONS_DEFINE=	IPV6 KERBEROS EXAMPLES
 OPTIONS_DEFAULT=KERBEROS
+.if !make(makesum)
+OPTIONS_EXCLUDE?=IPV6
+.endif
 
-USES=		makeinfo tar:xz uidfix
+IPV6_CATEGORIES=	ipv6
+IPV6_PATCH_SITES=	ftp://ftp.kame.net/pub/kame/misc/
+IPV6_PATCHFILES=	${DISTNAME}-v6-20140105.diff.gz:-p1
+KERBEROS_MAKE_ARGS=	KERBEROS_SUPPORT=yes
+
+USES=		makeinfo shebangfix tar:xz uidfix
+SHEBANG_FILES=	contrib/clmerge contrib/cln_hist \
+		contrib/commit_prep contrib/cvs_acls \
+		contrib/easy-import contrib/log \
+		contrib/log_accum contrib/mfpipe \
+		contrib/rcslock
+PATCH_WRKSRC=	${WRKDIR}/call/cvs
 WRKSRC=		${WRKDIR}/call/cvs-build
 INFO=		cvs cvsclient
 
@@ -22,21 +38,7 @@ INFO=		cvs cvsclient
 DESTDIRNAME=	NADA
 MAKE_ARGS=	DESTDIR=${STAGEDIR}${PREFIX}
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MKERBEROS}
-MAKE_ARGS+=	KERBEROS_SUPPORT=yes
-.else
-MAKE_ARGS+=	KERBEROS_SUPPORT=no
-.endif
-
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 900000
-BROKEN=	does not link
-.endif
-
 pre-install:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/contrib
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

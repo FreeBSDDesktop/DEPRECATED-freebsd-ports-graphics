@@ -3,24 +3,25 @@
 
 PORTNAME=	qemu
 PORTVERSION=	0.11.1
-PORTREVISION=	17
+PORTREVISION=	20
 CATEGORIES=	emulators
-MASTER_SITES=	${MASTER_SITE_SAVANNAH} \
+MASTER_SITES=	SAVANNAH \
 		http://bellard.org/qemu/
-MASTER_SITE_SUBDIR=	qemu
 DIST_SUBDIR=	qemu
 
 MAINTAINER=	nox@FreeBSD.org
 COMMENT=	QEMU CPU Emulator
 
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
 HAS_CONFIGURE=	yes
-USE_GCC=	any
-USES=		gmake perl5
+USES=		compiler:features cpe gmake perl5
 USE_PERL5=	build
 PATCH_STRIP=	-p1
 MAKE_ENV+=	BSD_MAKE="${MAKE}"
 ONLY_FOR_ARCHS=	amd64 i386
-CONFLICTS=	qemu-devel-[0-9]*
+CONFLICTS=	qemu-devel-[0-9]* qemu-sbruno-[0-9]*
 
 OPTIONS_DEFINE=	KQEMU RTL8139_TIMER SAMBA SDL GNUTLS CURL PCAP GNS3 \
 		CDROM_DMA ADD_AUDIO ALL_TARGETS DOCS
@@ -38,6 +39,14 @@ ALL_TARGETS_DESC=	Also build non-x86 targets
 OPTIONS_DEFAULT=	SDL GNUTLS CURL PCAP GNS3 CDROM_DMA
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == "i386" && ${COMPILER_TYPE} == "clang"
+# gcc49 breaks target-i386 on i386, and gcc48 breaks ALL_TARGETS on i386:
+#	https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=196855
+USE_GCC=	4.7
+.else
+USE_GCC=	any
+.endif
 
 .if empty(PORT_OPTIONS:MALL_TARGETS)
 CONFIGURE_ARGS+=	--target-list=i386-softmmu,x86_64-softmmu
@@ -142,17 +151,15 @@ post-patch:
 		-e "1s|^(#! )/usr/bin/perl|\1${PERL}|" \
 		${WRKSRC}/texi2pod.pl
 
-.if ${OSVERSION} >= 800091
 # XXX need to disable usb host code on head while it's not ported to the
 # new usb stack yet
 post-configure:
 	@${REINPLACE_CMD} -E \
 		-e "s|^(HOST_USB=)bsd|\1stub|" \
 		${WRKSRC}/config-host.mak
-.endif
 
 post-install:
-	@${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifup.sample ${STAGEDIR}${PREFIX}/etc
-	@${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifdown.sample ${STAGEDIR}${PREFIX}/etc
+	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifup.sample ${STAGEDIR}${PREFIX}/etc
+	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifdown.sample ${STAGEDIR}${PREFIX}/etc
 
 .include <bsd.port.post.mk>

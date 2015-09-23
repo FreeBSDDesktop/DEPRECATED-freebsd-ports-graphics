@@ -17,14 +17,8 @@ BLURAY_CONFIGURE_OFF=	--disable-bluray
 CACA_LIB_DEPENDS=	libcaca.so:${PORTSDIR}/graphics/libcaca
 CACA_CONFIGURE_OFF=	--disable-caca
 
-CDIO_LIB_DEPENDS=	libcdio.so:${PORTSDIR}/sysutils/libcdio
+CDIO_LIB_DEPENDS=	libcdio_paranoia.so:${PORTSDIR}/sysutils/libcdio-paranoia
 CDIO_CONFIGURE_OFF=	--disable-libcdio
-
-CDPARANOIA_LIB_DEPENDS=	libcdda_paranoia.so:${PORTSDIR}/audio/cdparanoia
-CDPARANOIA_CONFIGURE_OFF=	--disable-cdparanoia
-
-DIRAC_LIB_DEPENDS=	libdirac_encoder.so:${PORTSDIR}/multimedia/dirac
-DIRAC_CONFIGURE_OFF=	--disable-libdirac-lavc
 
 DV_LIB_DEPENDS=		libdv.so:${PORTSDIR}/multimedia/libdv
 DV_CONFIGURE_OFF=	--disable-libdv
@@ -43,6 +37,9 @@ FRIBIDI_CONFIGURE_OFF=	--disable-fribidi
 
 GIF_LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib
 GIF_CONFIGURE_OFF=	--disable-gif
+
+GNUTLS_LIB_DEPENDS=	libgnutls.so:${PORTSDIR}/security/gnutls
+GNUTLS_CONFIGURE_OFF=	--disable-gnutls
 
 GSM_LIB_DEPENDS=	libgsm.so:${PORTSDIR}/audio/gsm
 GSM_CONFIGURE_OFF=	--disable-libgsm
@@ -84,6 +81,8 @@ REAL_CONFIGURE_OFF=	--disable-real
 RTC_BUILD_DEPENDS=	${LOCALBASE}/modules/rtc.ko:${PORTSDIR}/emulators/rtc
 RTC_RUN_DEPENDS=	${LOCALBASE}/modules/rtc.ko:${PORTSDIR}/emulators/rtc
 RTC_CONFIGURE_ENABLE=	rtc
+
+RTCPU_CONFIGURE_ON=	--enable-runtime-cpudetection
 
 SCHROEDINGER_LIB_DEPENDS=	libschroedinger-1.0.so:${PORTSDIR}/multimedia/schroedinger
 SCHROEDINGER_CONFIGURE_OFF=	--disable-libschroedinger-lavc

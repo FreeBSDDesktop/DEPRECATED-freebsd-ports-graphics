@@ -2,24 +2,27 @@
 # $FreeBSD$
 
 PORTNAME=	powerman
-PORTVERSION=	2.3.16
+PORTVERSION=	2.3.20
 PORTREVISION=	2
 CATEGORIES=	sysutils parallel
-MASTER_SITES=	GOOGLE_CODE
+MASTER_SITES=	https://github.com/chaos/powerman/releases/download/${PORTVERSION}/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tool for doing remote power control
 
 LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 
-USES=		libtool perl5
+USES=		libtool perl5 shebangfix
+SHEBANG_FILES=	heartbeat/powerman
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--with-httppower --localstatedir=${DESTDIR}/var \
+CONFIGURE_ARGS=	--with-httppower --localstatedir=/var \
 		--with-pkgconfig-dir=${PREFIX}/libdata/pkgconfig
 USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
 
 USE_RC_SUBR=	powerman
 

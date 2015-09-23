@@ -3,7 +3,7 @@
 
 PORTNAME=	edge
 PORTVERSION=	1.35
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/EDGE%20Source%20Code/${PORTVERSION} \
 		SF/${PORTNAME}/EDGE%20Binaries/${PORTVERSION}:wad
@@ -18,10 +18,9 @@ LICENSE=	GPLv2 GPLv3
 LICENSE_COMB=	dual
 
 LIB_DEPENDS=	libvorbis.so:${PORTSDIR}/audio/libvorbis \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
-USES=		gmake tar:bzip2
+USES=		gmake jpeg tar:bzip2
 USE_GL=		glew
 USE_SDL=	sdl
 MAKEFILE=	Makefile.linux
@@ -30,6 +29,7 @@ CFLAGS+=	-ffast-math
 WRKSRC=		${WRKDIR}/Edge-${PORTVERSION}-source
 
 PLIST_FILES=	bin/edge %%DMDIR%%/edge.wad
+PLIST_DIRSTRY=	%%DMDIR%%
 PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS

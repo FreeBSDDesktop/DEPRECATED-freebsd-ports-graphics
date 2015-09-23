@@ -2,17 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	slack-notifier
-PORTVERSION=	0.6.0
+PORTVERSION=	1.3.0
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	ruby@FreeBSD.org
-COMMENT=	Ruby bindings to the libgit2 linkable C Git library
+COMMENT=	Ruby wrapper for posting to slack webhooks
 
 LICENSE=	MIT
 
+NO_ARCH=	yes
+
 USE_RUBY=	yes
-USE_RAKE=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
 

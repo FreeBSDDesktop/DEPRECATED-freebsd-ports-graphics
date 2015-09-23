@@ -9,7 +9,7 @@ MASTER_SITES=	http://phplens.com/lens/dl/
 PKGNAMEPREFIX=	php-
 DISTNAME=	${PORTNAME}-${PORTVERSION:S/.//}
 
-MAINTAINER=	joehorn@gmail.com
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	ADOdb Extension
 
 WRKSRC=		${WRKDIR}/adodb-${PORTVERSION:S/.//}
@@ -18,6 +18,8 @@ USES=		dos2unix zip
 USE_PHP=	yes
 USE_PHPEXT=	yes
 PHP_MODNAME=	adodb
+PHP_DEFAULT=	55
+IGNORE_WITH_PHP=56
 
 SUB_FILES=	pkg-message
 

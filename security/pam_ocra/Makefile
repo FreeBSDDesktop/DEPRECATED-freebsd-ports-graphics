@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pam_ocra
-PORTVERSION=	1.1
+PORTVERSION=	1.2
 CATEGORIES=	security
 
 MAINTAINER=	sg2342@googlemail.com
@@ -15,8 +15,6 @@ USES=		uidfix
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	sg2342
-GH_PROJECT=	pam_ocra
-GH_COMMIT=	d8b4ad3
 
 PLIST_FILES=	lib/pam_ocra.so \
 		lib/pam_ocra.so.0 \

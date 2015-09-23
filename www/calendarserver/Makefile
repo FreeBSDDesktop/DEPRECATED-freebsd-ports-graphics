@@ -2,7 +2,7 @@
 
 PORTNAME=	calendarserver
 PORTVERSION=	5.1
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	www python
 MASTER_SITES=	LOCAL/wg
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -31,8 +31,9 @@ RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
 OPTIONS_DEFINE=	EXAMPLES DOCS
 EXAMPLES_DESC=	Install configuration examples
 DOCS_DESC=	Install additional documentation
+OPTIONS_DEFAULT=	EXAMPLES DOCS
+.include <bsd.port.options.mk>
 
-NEED_ROOT=	yes
 USES=		shebangfix pgsql:9.0+ python \
 		twisted:run,conch,mail,names,runner,web,words
 USE_PYTHON=	autoplist distutils
@@ -41,7 +42,6 @@ SUB_FILES=	pkg-message
 SUB_LIST+=	USER=${USERS}
 
 python_OLD_CMD=	/usr/bin/env python
-python_CMD=	${PYTHON_CMD}
 
 SHEBANG_FILES=	bin/calendarserver_* \
 		bin/icalendar_split \

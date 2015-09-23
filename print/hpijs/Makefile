@@ -2,20 +2,18 @@
 
 PORTNAME=	hpijs
 PORTVERSION=	2.1.4
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	print
 MASTER_SITES=	SF/hpinkjet/${PORTNAME}/${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Drivers and support resources for HP Inkjet Printers
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
-
 CONFLICTS=	hplip-[0-9]*
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=		--disable-dependency-tracking
-USE_GHOSTSCRIPT_RUN=	yes
+USES=		ghostscript:run jpeg
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
@@ -39,7 +37,8 @@ PLIST_SUB+=		FOOMATIC="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MCUPS}
-LIB_DEPENDS+=		libcups.so:${PORTSDIR}/print/cups-base
+BUILD_DEPENDS+=		cups-base>0:${PORTSDIR}/print/cups-base
+RUN_DEPENDS+=		cups-base>0:${PORTSDIR}/print/cups-base
 CONFIGURE_ARGS+=	--enable-cups-install
 PLIST_SUB+=		CUPS=""
 .else

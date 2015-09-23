@@ -3,7 +3,7 @@
 
 PORTNAME=	zynaddsubfx
 PORTVERSION=	2.4.3
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	audio
 MASTER_SITES=	SF
 DISTNAME=	ZynAddSubFX-${PORTVERSION}
@@ -54,11 +54,9 @@ LASH_CMAKE_OFF=			-DLashEnabe:BOOL=OFF
 JACK_LIB_DEPENDS=		libjack.so:${PORTSDIR}/audio/jack
 JACK_CMAKE_OFF=			-DJackEnable:BOOL=OFF
 
-PORTAUDIO_BUILD_DEPENDS=	portaudio2>=0:${PORTSDIR}/audio/portaudio2
-PORTAUDIO_RUN_DEPENDS=		portaudio2>=0:${PORTSDIR}/audio/portaudio2
-PORTAUDIO_CFLAGS=		-I${LOCALBASE}/include/portaudio2
+PORTAUDIO_LIB_DEPENDS=		libportaudio.so:${PORTSDIR}/audio/portaudio
 PORTAUDIO_CMAKE_OFF=		-DPaEnabe:BOOL=OFF
-PORTAUDIO_LDFLAGS=		${LOCALBASE}/lib/portaudio2/libportaudio.so
+PORTAUDIO_LDFLAGS=		-lportaudio
 
 PORTDOCS=	*
 

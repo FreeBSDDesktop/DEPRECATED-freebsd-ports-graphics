@@ -3,6 +3,7 @@
 
 PORTNAME=	xteddy
 PORTVERSION=	2.2
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://webstaff.itn.liu.se/~stegu/xteddy/ \
 		http://www.skysmurf.nl/comp/FreeBSD/distfiles/
@@ -12,8 +13,9 @@ COMMENT=	Cuddlesome teddy for the X desktop
 
 LICENSE=	GPLv2
 
+LIB_DEPENDS=	libImlib2.so:${PORTSDIR}/graphics/imlib2
+
 USES=		pkgconfig
-USE_EFL=	imlib2
 GNU_CONFIGURE=	yes
 
 CPPFLAGS+=	-I${LOCALBASE}/include
@@ -29,6 +31,7 @@ PLIST_FILES=	bin/xteddy bin/xteddy_test bin/xtoys \
 		%%DATADIR%%/xpenguin.png %%DATADIR%%/xpuppy.png \
 		%%DATADIR%%/xruessel.png %%DATADIR%%/xteddy.png \
 		%%DATADIR%%/xtrouble.png %%DATADIR%%/xtuxxy.png
+PLIST_DIRS=	%%DATADIR%%
 
 post-patch:
 .for f in configure xteddy.c

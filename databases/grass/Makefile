@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	grass
-PORTVERSION=	6.4.4
-PORTREVISION=	3
+PORTVERSION=	6.4.5
+PORTREVISION=	2
 PORTEPOCH=	2
 CATEGORIES=	databases geography
 MASTER_SITES=	http://grass.osgeo.org/%SUBDIR%/ \
@@ -22,20 +22,20 @@ MASTER_SITE_SUBDIR=	grass64/source
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open source Geographical Information System (GIS)
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # (or later)
+LICENSE_FILE=	${WRKSRC}/GPL.TXT
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/swig:${PORTSDIR}/devel/swig13
 LIB_DEPENDS=	libgdal.so:${PORTSDIR}/graphics/gdal \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libproj.so:${PORTSDIR}/graphics/proj \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
 		libfftw3.so:${PORTSDIR}/math/fftw3 \
 		libfreetype.so:${PORTSDIR}/print/freetype2
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
-USES=		fortran gettext gmake iconv perl5 pkgconfig python:2 readline \
-		shebangfix tk
+USES=		fortran gettext gmake iconv jpeg perl5 pkgconfig python:2 \
+		readline shebangfix tk
 SHEBANG_FILES=	scripts/i.spectral/i.spectral \
 		scripts/r.tileset/r.tileset
 PATCH_TCL_SCRIPTS=lib/init/init.sh
@@ -44,6 +44,7 @@ USE_XORG=	sm ice x11 xext xi xmu xt
 USE_GL=		glu
 USE_GNOME=	cairo
 USE_WX=		2.8
+WX_UNICODE=	yes
 WX_COMPS=	wx:build python:run
 USE_GCC=	yes
 GNU_CONFIGURE=	yes
@@ -75,14 +76,16 @@ PLIST_SUB=	GRASS_INST_DIR="${GRASS_INST_DIR}" \
 
 BROKEN_sparc64=		Does not configure on sparc64
 
-OPTIONS_DEFINE=		ATLAS FFMPEG MOTIF MYSQL ODBC PGSQL SQLITE
+OPTIONS_DEFINE=		ATLAS FFMPEG MOTIF
+OPTIONS_MULTI=		DB
+OPTIONS_MULTI_DB=	MYSQL ODBC PGSQL SQLITE
 OPTIONS_DEFAULT=	PGSQL
 OPTIONS_SUB=		yes
 
 ATLAS_DESC=		Use ATLAS for BLAS and LAPACK
-ALTAS_LIB_DEPENDS=	libalapack.so:${PORTSDIR}/math/atlas
-ATLAS_LIB_DEPENDS_OFF=	libblas.so:${PORTSDIR}/math/blas \
-			liblapack.so:${PORTSDIR}/math/lapack
+ATLAS_USES=		blaslapack:atlas
+ATLAS_USES_OFF=		blaslapack
+DB_DESC=		Database support
 FFMPEG_LIB_DEPENDS=	libavcodec.so:${PORTSDIR}/multimedia/ffmpeg
 FFMPEG_CONFIGURE_ON=	--with-ffmpeg \
 			--with-ffmpeg-includes="${LOCALBASE}/include/libavcodec \
@@ -106,24 +109,15 @@ SQLITE_CONFIGURE_ON=	--with-sqlite
 
 .include <bsd.port.options.mk>
 
-.if ${PORT_OPTIONS:MATLAS}
-BLASLIB=	f77blas
-LAPACKLIB=	alapack
-.else
-BLASLIB=	blas
-LAPACKLIB=	lapack
-.endif
-
 .if !defined (GRASS_INST_DIR)
 GRASS_INST_DIR=	${PORTNAME}-${PORTVERSION}
 .endif
 
 post-patch:
 	@${REINPLACE_CMD} -e \
-		's|-lblas|-l${BLASLIB}| ; \
-		 s|echo blas|echo ${BLASLIB}| ; \
-		 s|-llapack|-l${LAPACKLIB}| ; \
-		 s|echo lapack|echo ${LAPACKLIB}|' ${WRKSRC}/configure
+		's|-lblas|${BLASLIB}|g ; \
+		 s|-llapack|${LAPACKLIB}|g ; \
+		 s|g2c|f2c|g' ${WRKSRC}/configure
 	@${REINPLACE_CMD} -e \
 		's|make -C|$$(MAKE) -C| ; \
 		 /^BINDIR/s|=.*|=	$${DESTDIR}$${UNIX_BIN}| ; \
@@ -155,5 +149,8 @@ post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GRASS_INST_DIR}/etc/nviz2.2/nviz
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GRASS_INST_DIR}/lib/libgrass_*.so
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GRASS_INST_DIR}/tools/g.echo
+
+post-install-MOTIF-on:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/${GRASS_INST_DIR}/bin/xganim
 
 .include <bsd.port.mk>

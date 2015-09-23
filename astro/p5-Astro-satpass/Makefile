@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	Astro-satpass
-PORTVERSION=	0.067
+PORTVERSION=	0.070
 CATEGORIES=	astro perl5
 MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	CPAN:WYANT
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
@@ -26,7 +25,10 @@ SOAPLITE_DESC=		Add support for SOAP::Lite (deprecated)
 SPACETRACK_DESC=	Add support for Astro::SpaceTrack
 USGS_DESC=		Add support for Geo::WebService::Elevation::USGS
 
+PORTSCOUT=	limit:^[0-9\.]*$$
+
 CONFIGURE_ARGS=	-y
+NO_ARCH=	yes
 USES=		perl5
 USE_PERL5=	configure
 

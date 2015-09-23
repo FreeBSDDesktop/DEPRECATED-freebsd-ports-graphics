@@ -3,7 +3,7 @@
 
 PORTNAME=	devil
 PORTVERSION=	1.7.8
-PORTREVISION=	19
+PORTREVISION=	20
 PORTEPOCH=	1
 CATEGORIES=	graphics
 MASTER_SITES=	SF/openil/DevIL/${PORTVERSION}
@@ -46,7 +46,7 @@ SQUISH_DESC=	Enable DXT compression via libsquish
 NVTT_DESC=	Enable NVidia texture tools support
 SIMD_DESC=	Enable SIMD autodetection (AltiVec, SSE3,...)
 
-JPEG_LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
+JPEG_USES=		jpeg
 JPEG_CONFIGURE_ENABLE=	jpeg
 JASPER_LIB_DEPENDS=	libjasper.so:${PORTSDIR}/graphics/jasper
 JASPER_CONFIGURE_ENABLE=jp2

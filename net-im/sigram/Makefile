@@ -3,24 +3,26 @@
 
 PORTNAME=	sigram
 PORTVERSION=	0.11182014
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	net-im
 
-MAINTAINER=	kmoore@freebsd.org
+MAINTAINER=	kmoore@FreeBSD.org
 COMMENT=	Qt5 based telegram client
 
 LICENSE=	GPLv3
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	sialan-labs
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	ce3fb15
+GH_TAGNAME=	ce3fb15
 
+USE_OPENSSL=	yes
 USE_QT5=	core gui network opengl xml widgets buildtools_build graphicaleffects \
 		multimedia printsupport qml quick quickcontrols widgets \
 		sql sql-sqlite3
 USES=		compiler:c++11-lib openal:soft qmake
 QMAKE_ARGS+=	target.path=${LOCALBASE}/bin
+
+BROKEN=		No longer connects to Telegram network, appears abandonded
 
 .include <bsd.port.pre.mk>
 

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	pkg
-DISTVERSION=	1.4.0
+DISTVERSION=	1.5.6
 _PKG_VERSION=	${DISTVERSION}
 CATEGORIES=	ports-mgmt
 MASTER_SITES=	\
@@ -9,16 +9,11 @@ MASTER_SITES=	\
 		LOCAL/portmgr \
 		http://mirror.shatow.net/freebsd/${PORTNAME}/ \
 
-MAINTAINER=	portmgr@FreeBSD.org
+MAINTAINER=	pkg@FreeBSD.org
 COMMENT=	Package manager
 
 LICENSE=	BSD2CLAUSE
 
-USES=		tar:xz uidfix
-
-# Disable CCACHE support because of the chicken/egg problem pkg should always
-# With no dependency at all
-NO_CCACHE=	yes
 USE_LDCONFIG=	yes
 USES=		libtool tar:xz
 GNU_CONFIGURE=	yes
@@ -42,7 +37,6 @@ MAKE_ARGS+=	DEBUG_FLAGS="${DEBUG_FLAGS}"
 
 .if defined(WITH_PKG)
 .if ${WITH_PKG} == devel
-NO_LATEST_LINK=	yes
 IGNORE=	WITH_PKG is defined to 'devel', this version is the stable one
 .endif
 .if exists(${LOCALBASE}/sbin/pkg_info) || exists(/usr/sbin/pkg_info)

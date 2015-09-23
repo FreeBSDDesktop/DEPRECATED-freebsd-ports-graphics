@@ -5,13 +5,12 @@ PORTNAME=	qmake
 PORTVERSION=	3.3.8
 PORTREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_QT}
-MASTER_SITE_SUBDIR=	archive/qt/${PORTVERSION:R:R}
+MASTER_SITES=	QT/archive/qt/${PORTVERSION:R:R}
 DISTNAME=	qt-x11-free-${PORTVERSION}
 DIST_SUBDIR=	KDE
 
 MAINTAINER=	mi@aldan.algebra.com
-COMMENT=	The build utility of the Qt project
+COMMENT=	The build utility of the Qt 3 project
 
 REINPLACE_ARGS=	-i ""
 WRKSRC=		${WRKDIR}/${DISTNAME}/qmake

@@ -5,14 +5,14 @@ PORTNAME=		yasm
 PORTVERSION=		1.2.0.29
 DISTVERSIONSUFFIX=	.g87c0
 CATEGORIES=		devel lang
-MASTER_SITES=		http://www.tortall.net/projects/yasm/snapshots/%SUBDIR%/
-MASTER_SITE_SUBDIR=	v${DISTVERSION}${DISTVERSIONSUFFIX}
+MASTER_SITES=		http://www.tortall.net/projects/yasm/snapshots/v${DISTVERSION}${DISTVERSIONSUFFIX}/
 PKGNAMESUFFIX=		-devel
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Complete rewrite of the NASM assembler (Development Snapshot)
 
-LICENSE=	BSD
+LICENSE=	ART10 BSD2CLAUSE BSD3CLAUSE
+LICENSE_COMB=	multi
 
 OPTIONS_DEFINE=	DEBUG NLS
 

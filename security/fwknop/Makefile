@@ -3,7 +3,7 @@
 
 PORTNAME=	fwknop
 PORTVERSION=	2.5.1
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	security
 MASTER_SITES=	http://www.cipherdyne.org/fwknop/download/
 
@@ -16,7 +16,8 @@ OPTIONS_DEFINE=		GPGME
 OPTIONS_DEFAULT=	GPGME
 GPGME_DESC=	Build support for gpgme
 INFO=		libfko
-USES=		libtool
+USES=		cpe libtool
+CPE_VENDOR=	cipherdyne
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	fwknopd
 USE_LDCONFIG=	yes

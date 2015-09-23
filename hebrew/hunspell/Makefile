@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	hunspell
-PORTVERSION=	1.2
+PORTVERSION=	1.3
 CATEGORIES=	hebrew textproc
 MASTER_SITES=	http://hspell.ivrix.org.il/ \
 		LOCAL/sunpoet/${PORTNAME}
@@ -16,6 +16,7 @@ LICENSE=	AGPLv3
 ALL_TARGET=	hunspell
 CONFIGURE_ARGS=	--enable-fatverb
 GNU_CONFIGURE=	yes
+NO_ARCH=	yes
 USE_PERL5=	build
 USES=		gmake iconv:build perl5 shebangfix
 SHEBANG_FILES=	${WRKSRC}/pmerge

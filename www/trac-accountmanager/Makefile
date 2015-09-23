@@ -5,9 +5,8 @@ PORTVERSION=	0.5.${REV}
 PORTEPOCH=	1
 PORTREVISION=	1
 CATEGORIES=	www devel python
-MASTER_SITES=	${MASTER_SITE_LOCAL} \
+MASTER_SITES=	LOCAL/kuriyama \
 		http://trac-hacks.org/changeset/${REV}/accountmanagerplugin/trunk?old_path=/&format=zip&filename=
-MASTER_SITE_SUBDIR=	kuriyama
 PKGNAMEPREFIX=	trac-
 DIST_SUBDIR=	trac
 
@@ -18,10 +17,8 @@ RUN_DEPENDS=	tracd:${PORTSDIR}/www/trac
 
 FETCH_BEFORE_ARGS=	-o ${DISTFILES}
 REV=			12583
-USES=			zip
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=			python:2 zip
+USE_PYTHON=		distutils autoplist
 WRKSRC=			${WRKDIR}/accountmanagerplugin/trunk
 
 # --- trac.ini

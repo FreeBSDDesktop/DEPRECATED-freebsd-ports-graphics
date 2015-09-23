@@ -1,9 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	cmake
-PORTVERSION=	3.0.2
+PORTVERSION=	3.3.1
 CATEGORIES=	devel
-MASTER_SITES=	http://www.cmake.org/files/v3.0/
+MASTER_SITES=	http://www.cmake.org/files/v3.3/
 PKGNAMESUFFIX=	-gui
 
 MAINTAINER=	kde@FreeBSD.org
@@ -16,7 +16,7 @@ LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 		libexpat.so:${PORTSDIR}/textproc/expat2
 
 USE_QT5=	core gui widgets buildtools_build qmake_build
-USES=		cmake:run desktop-file-utils shared-mime-info
+USES=		cmake:run desktop-file-utils libarchive shared-mime-info
 CMAKE_ARGS=	-DBUILD_QtDialog:bool=on \
 		-DBUILD_CursesDialog:BOOL=OFF \
 		-DSPHINX_MAN:BOOL=ON \

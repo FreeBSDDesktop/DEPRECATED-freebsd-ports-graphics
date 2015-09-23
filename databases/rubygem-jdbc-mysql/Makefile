@@ -2,14 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	jdbc-mysql
-PORTVERSION=	5.1.25
+PORTVERSION=	5.1.36
 CATEGORIES=	databases rubygems java
 MASTER_SITES=	RG
 
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	MySQL JDBC driver for JRuby
 
+LICENSE=	GPLv2
+
 RUN_DEPENDS=	jruby:${PORTSDIR}/lang/jruby
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

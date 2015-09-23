@@ -3,18 +3,16 @@
 
 PORTNAME=	libmovtar
 PORTVERSION=	0.1.3
-PORTREVISION=	12
+PORTREVISION=	13
 CATEGORIES=	multimedia
 MASTER_SITES=	SF/mjpeg/OldFiles
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Supports reading/writing of MJPEG video in YUV 4:2:2 JPEG
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg
-
 USE_SDL=	sdl
 USE_GNOME=	glib12
-USES=		gmake
+USES=		gmake jpeg
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-m4data-prefix=${PREFIX}/share
 

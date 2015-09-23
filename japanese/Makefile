@@ -42,7 +42,6 @@
     SUBDIR += ebd-fpw
     SUBDIR += eblook
     SUBDIR += ebnetd
-    SUBDIR += ebview
     SUBDIR += ebview-gtk2
     SUBDIR += edict
     SUBDIR += edict-fpw
@@ -59,6 +58,7 @@
     SUBDIR += eterm
     SUBDIR += fcitx-anthy
     SUBDIR += fcitx-mozc
+    SUBDIR += fcitx-skk
     SUBDIR += flower-fpw
     SUBDIR += foldoc-fpw
     SUBDIR += font-ipa
@@ -68,6 +68,7 @@
     SUBDIR += font-jisx0213
     SUBDIR += font-kochi
     SUBDIR += font-koruri
+    SUBDIR += font-marumoji
     SUBDIR += font-migmix
     SUBDIR += font-migu
     SUBDIR += font-mona-ipa
@@ -150,7 +151,6 @@
     SUBDIR += mailman
     SUBDIR += man
     SUBDIR += man-doc
-    SUBDIR += marumoji-fonts
     SUBDIR += mecab
     SUBDIR += mecab-ipadic
     SUBDIR += mg
@@ -163,7 +163,6 @@
     SUBDIR += ming
     SUBDIR += monafonts
     SUBDIR += monafonts-ttf
-    SUBDIR += mozc-additions
     SUBDIR += mozc-el
     SUBDIR += mozc-server
     SUBDIR += mozc-tool
@@ -176,7 +175,6 @@
     SUBDIR += navi2ch
     SUBDIR += ne
     SUBDIR += nethack34
-    SUBDIR += netype
     SUBDIR += newosaka
     SUBDIR += ng
     SUBDIR += ng-canna
@@ -186,17 +184,19 @@
     SUBDIR += nkf
     SUBDIR += ochusha
     SUBDIR += onew
-    SUBDIR += p5-Acme-Lou
     SUBDIR += p5-Date-Japanese-Era
     SUBDIR += p5-Date-Japanese-Holiday
     SUBDIR += p5-DateTime-Calendar-Japanese-Era
     SUBDIR += p5-DateTime-Format-Japanese
+    SUBDIR += p5-Encode-EUCJPASCII
     SUBDIR += p5-Encode-EUCJPMS
+    SUBDIR += p5-Encode-ISO2022
     SUBDIR += p5-Encode-JP-Emoji
     SUBDIR += p5-Encode-JP-Mobile
     SUBDIR += p5-HTML-MobileJp
     SUBDIR += p5-Jcode
     SUBDIR += p5-Lingua-JA-Kana
+    SUBDIR += p5-Lingua-JA-Moji
     SUBDIR += p5-Lingua-JA-Numbers
     SUBDIR += p5-Lingua-JA-Regular-Unicode
     SUBDIR += p5-Lingua-JA-Summarize-Extract
@@ -234,6 +234,7 @@
     SUBDIR += rubygem-jpmobile-ipaddresses
     SUBDIR += rubygem-jpmobile-terminfo
     SUBDIR += rubygem-jpmobile4
+    SUBDIR += rubygem-mail-iso-2022-jp
     SUBDIR += rubygem-myrurema
     SUBDIR += ryaku-fpw
     SUBDIR += scim-anthy
@@ -273,6 +274,7 @@
     SUBDIR += today
     SUBDIR += tomoe
     SUBDIR += uim-anthy
+    SUBDIR += uim-mozc
     SUBDIR += uim-tomoe-gtk
     SUBDIR += vera-fpw
     SUBDIR += vftool
@@ -288,8 +290,6 @@
     SUBDIR += wwasw-fpw
     SUBDIR += xdtp
     SUBDIR += xgate
-    SUBDIR += xjtext
-    SUBDIR += xlockmore
     SUBDIR += xpdf
     SUBDIR += xshodou
     SUBDIR += xtr

@@ -6,11 +6,10 @@ PORTVERSION=	3.42
 PORTREVISION=	1
 CATEGORIES=	converters perl5
 MASTER_SITES=	http://www.adelton.com/perl/Cstools/ \
-		CPAN
-MASTER_SITE_SUBDIR=	Cz
+		CPAN/Cz
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Tools for dealing with Czech encodings in Perl
 
 USES=		perl5

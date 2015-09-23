@@ -13,31 +13,50 @@ MASTER_SITES=	http://download.java.net/openjdk/jdk${JDK_MAJOR_VERSION}u${JDK_MIN
 		http://icedtea.classpath.org/download/drops/:jaxws \
 		https://java.net/downloads/jax-ws/JDK7/:jaf \
 		http://icedtea.classpath.org/download/drops/:jaf \
-		${MASTER_SITE_APACHE:S,%SUBDIR%/,ant/binaries/:ant,}
+		APACHE/ant/binaries/:ant
+PATCH_SITES=	LOCAL/glewis/openjdk7
 DISTFILES=	${JDK_SRC_DISTFILE}${EXTRACT_SUFX} \
 		${ANT_DISTFILE}${EXTRACT_SUFX}:ant
 EXTRACT_ONLY=	${JDK_SRC_DISTFILE}${EXTRACT_SUFX} \
 		${ANT_DISTFILE}${EXTRACT_SUFX}
+PATCHFILES=	patch-7u45-b30.xz \
+		patch-7u51-b30.xz \
+		patch-7u55-b31.xz \
+		patch-7u60-b30.xz \
+		patch-7u65-b31.xz \
+		patch-7u71-b14.xz \
+		patch-7u76-b31.xz \
+		patch-7u80-b32.xz
 
-MAINTAINER=	glewis@FreeBSD.org
-COMMENT=	Java Development Kit 7
+MAINTAINER?=	glewis@FreeBSD.org
+COMMENT?=	Java Development Kit 7
 
 LICENSE=	GPLv2
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USES=		dos2unix iconv gmake zip
+USES=		compiler dos2unix iconv gmake zip
 USE_XORG+=	x11 xext xi xrender xt xtst
 MAKE_ARGS=	CC=${CC:Q} CXX=${CXX:Q} HOST_CC=${CC:Q}
 
-OPTIONS_DEFINE=		DEBUG POLICY TZUPDATE
+OPTIONS_DEFINE=		POLICY TZUPDATE
 OPTIONS_DEFAULT=	POLICY TZUPDATE
 DEBUG_DESC=		Enable extra debugging info
 POLICY_DESC=		Install the Unlimited Strength Policy Files
 TZUPDATE_DESC=		Update the time zone data
 
-PORT_MINOR_VERSION=	71
-PORT_BUILD_NUMBER=	14
+JAVAVMS_COMMENT=	OpenJDK${JDK_MAJOR_VERSION}
+
+.if !defined(BUILD_JRE)
+OPTIONS_DEFINE+=	DEBUG
+INSTALLDIR=	${PREFIX}/${PORTNAME}${JDK_MAJOR_VERSION}
+.else
+JAVAVMS_COMMENT+=	JRE
+INSTALLDIR=	${PREFIX}/${PORTNAME}${JDK_MAJOR_VERSION}-jre
+.endif
+
+PORT_MINOR_VERSION=	80
+PORT_BUILD_NUMBER=	15
 JDK_MAJOR_VERSION=	7
 JDK_MINOR_VERSION=	40
 JDK_BUILD_NUMBER=	43
@@ -48,8 +67,6 @@ JDK_SRC_DISTFILE=	${PORTNAME}-${JDK_MAJOR_VERSION}u${JDK_MINOR_VERSION}-fcs-src-
 ANT_VERSION=		1.9.4
 ANT_DISTFILE=		apache-ant-${ANT_VERSION}-bin
 
-LATEST_LINK=		openjdk7
-
 LIB_DEPENDS+=	libasound.so:${PORTSDIR}/audio/alsa-lib \
 		libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig \
 		libfreetype.so:${PORTSDIR}/print/freetype2
@@ -57,12 +74,11 @@ BUILD_DEPENDS+=	zip:${PORTSDIR}/archivers/zip \
 		${UNZIP_CMD}:${PORTSDIR}/archivers/unzip \
 		${LOCALBASE}/include/cups/cups.h:${PORTSDIR}/print/cups-client
 RUN_DEPENDS+=	javavm:${PORTSDIR}/java/javavmwrapper \
-		${LOCALBASE}/lib/X11/fonts/dejavu:${PORTSDIR}/x11-fonts/dejavu
+		dejavu>0:${PORTSDIR}/x11-fonts/dejavu
 
 DOS2UNIX_FILES=	jdk/src/share/classes/com/sun/org/apache/xml/internal/security/resource/xmlsecurity_en.properties
 
 OPENJDK_OSARCH=	bsd-${ARCH:S/i386/i586/}
-INSTALLDIR=	${PREFIX}/${PORTNAME}${JDK_MAJOR_VERSION}
 
 NOPRECIOUSMAKEVARS=	yes
 
@@ -93,7 +109,7 @@ MAKE_ENV+=	LANG="C" \
 		SKIP_DEBUG_BUILD="true" \
 		ZIP_DEBUGINFO_FILES=0 \
 		ENABLE_FULL_DEBUG_SYMBOLS=0 \
-		PTHREAD_LIBS="${PTHREAD_LIBS}" \
+		PTHREAD_LIBS="-lpthread" \
 		MILESTONE="fcs" \
 		JDK_MICRO_VERSION="0_${PORT_MINOR_VERSION}" \
 		BUILD_NUMBER="b${PORT_BUILD_NUMBER}"
@@ -106,7 +122,7 @@ BOOTSTRAP_JDKS=	${LOCALBASE}/openjdk7 \
 
 DEBUG_MAKE_ENV=	ALT_OBJCOPY=${NONEXISTENT}
 POLICY_MAKE_ENV=	UNLIMITED_CRYPTO=1
-TZUPDATE_RUN_DEPENDS=	${LOCALBASE}/share/java/zi:${PORTSDIR}/java/java-zoneinfo
+TZUPDATE_RUN_DEPENDS=	java-zoneinfo>0:${PORTSDIR}/java/java-zoneinfo
 
 .include <bsd.port.options.mk>
 
@@ -124,6 +140,11 @@ BUILD_DEPENDS+=		${BOOTSTRAPJDKDIR}/bin/javac:${PORTSDIR}/java/bootstrap-openjdk
 .endif
 
 .include <bsd.port.pre.mk>
+
+# GCC is broken with PCH: https://lists.freebsd.org/pipermail/svn-src-all/2015-March/101722.html
+.if ${COMPILER_TYPE} == gcc
+MAKE_ENV+=	USE_PRECOMPILED_HEADER=0
+.endif
 
 .if empty(ICONV_LIB)
 MAKE_ENV+=	EXTRA_CFLAGS=-DLIBICONV_PLUG
@@ -144,22 +165,39 @@ post-patch:
 .if ${PORT_OPTIONS:MTZUPDATE}
 pre-install:
 	@# Update time zones
+.if !defined(BUILD_JRE)
 	@${RM} -rf ${WRKSRC}/build/${OPENJDK_OSARCH}/j2sdk-image/jre/lib/zi
 	@${LN} -s -f ${LOCALBASE}/share/java/zi \
-		${WRKSRC}/build/${OPENJDK_OSARCH}/j2sdk-image/jre/lib
+	    ${WRKSRC}/build/${OPENJDK_OSARCH}/j2sdk-image/jre/lib
+.else
+	@${RM} -rf ${WRKSRC}/build/${OPENJDK_OSARCH}/j2re-image/lib/zi
+	@${LN} -s -f ${LOCALBASE}/share/java/zi \
+	    ${WRKSRC}/build/${OPENJDK_OSARCH}/j2re-image/lib
+.endif
 .endif
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${INSTALLDIR}
-	@cd ${WRKSRC}/build/${OPENJDK_OSARCH}/j2sdk-image && \
-		${PAX} -rw . ${STAGEDIR}${INSTALLDIR}
-	@${INSTALL_DATA} ${WRKSRC}/build/${OPENJDK_OSARCH}/btjars/compilefontconfig.jar ${WRKSRC}/build/${OPENJDK_OSARCH}/btjars/javazic.jar ${STAGEDIR}${INSTALLDIR}/jre/lib/
-	@${INSTALL_DATA} ${FILESDIR}/cacerts ${STAGEDIR}${INSTALLDIR}/jre/lib/security/cacerts
+.if !defined(BUILD_JRE)
+	cd ${WRKSRC}/build/${OPENJDK_OSARCH}/j2sdk-image && \
+	    ${PAX} -rw . ${STAGEDIR}${INSTALLDIR}
+	${INSTALL_DATA} \
+	    ${WRKSRC}/build/${OPENJDK_OSARCH}/btjars/compilefontconfig.jar \
+	    ${WRKSRC}/build/${OPENJDK_OSARCH}/btjars/javazic.jar \
+	    ${STAGEDIR}${INSTALLDIR}/jre/lib/
+	${INSTALL_DATA} ${FILESDIR}/cacerts \
+	    ${STAGEDIR}${INSTALLDIR}/jre/lib/security/cacerts
+.else
+	cd ${WRKSRC}/build/${OPENJDK_OSARCH}/j2re-image && \
+	    ${PAX} -rw . ${STAGEDIR}${INSTALLDIR}
+	${INSTALL_DATA} ${FILESDIR}/cacerts \
+	    ${STAGEDIR}${INSTALLDIR}/lib/security/cacerts
+.endif
 	@${ECHO} "@unexec ${LOCALBASE}/bin/unregistervm ${INSTALLDIR}/bin/java" >> ${TMPPLIST}
 	@${FIND} -s ${STAGEDIR}${INSTALLDIR} -not -type d | ${SORT} | \
 		${SED} -e 's#^${STAGEDIR}${PREFIX}/##' >> ${TMPPLIST}
 	@${FIND} ${STAGEDIR}${INSTALLDIR} -type d -empty | ${SORT} -r | \
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,@dir ,' >> ${TMPPLIST}
-	@${ECHO} "@exec ${LOCALBASE}/bin/registervm '${INSTALLDIR}/bin/java # OpenJDK${JDK_MAJOR_VERSION}'" >> ${TMPPLIST}
+	@${ECHO} "@exec ${LOCALBASE}/bin/registervm '${INSTALLDIR}/bin/java # ${JAVAVMS_COMMENT}'" >> ${TMPPLIST}
 
 .include <bsd.port.post.mk>

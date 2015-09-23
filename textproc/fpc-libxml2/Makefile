@@ -1,11 +1,11 @@
 # Created by: Christoper Key <cjk32@cam.ac.uk>
 # $FreeBSD$
 
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	textproc lang
 PKGNAMESUFFIX=	-libxml2
 
-MAINTAINER=	acm@FreeBSD.org
+MAINTAINER=	freebsd-fpc@FreeBSD.org
 COMMENT=	Interface to xml2 library
 
 USE_FPC=	yes

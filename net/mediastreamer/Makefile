@@ -2,33 +2,37 @@
 # $FreeBSD$
 
 PORTNAME=	mediastreamer
-PORTVERSION=	2.10.0
-PORTREVISION=	8
+PORTVERSION=	2.11.2
+PORTREVISION=	3
 CATEGORIES=	net
 MASTER_SITES=	SAVANNAH/linphone/mediastreamer
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	tijl@FreeBSD.org
 COMMENT=	Real-time audio and video streaming and processing
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libortp.so:${PORTSDIR}/net/ortp
+LIB_DEPENDS=	libortp.so:${PORTSDIR}/net/ortp \
+		libsrtp.so:${PORTSDIR}/net/libsrtp \
+		libbzrtp.so:${PORTSDIR}/security/libbzrtp \
+		libmbedtls.so.9:${PORTSDIR}/security/polarssl13
 
 CONFLICTS_INSTALL=	linphone-base-[0-9]*
 
 GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--disable-alsa --disable-pulseaudio \
+CONFIGURE_ARGS=	--disable-alsa --disable-matroska --disable-pulseaudio \
 		--disable-silent-rules --disable-strict \
-		--with-gsm=${LOCALBASE} xxd_found=yes
-CPPFLAGS+=	-I${LOCALBASE}/include
+		--with-gsm=${LOCALBASE} --with-srtp=${LOCALBASE} \
+		--with-polarssl=${LOCALBASE} xxd_found=yes
+CPPFLAGS+=	-I${LOCALBASE}/include -DHAVE_ARC4RANDOM
 LIBS+=		-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
-USES=		gmake libtool pathfix pkgconfig
+USES=		gettext-tools gmake libtool pathfix pkgconfig
 USE_GNOME=	intlhack
 USE_LDCONFIG=	yes
 
-OPTIONS_DEFINE=		IPV6 NLS UPNP VIDEO
+OPTIONS_DEFINE=		NLS UPNP VIDEO
 OPTIONS_GROUP=		AUDIOOPT VIDEOOPT
 OPTIONS_GROUP_AUDIOOPT=	GSM OPUS SPANDSP SPEEX
 OPTIONS_GROUP_VIDEOOPT=	FFMPEG GLX THEORA V4L VPX XVIDEO
@@ -48,10 +52,8 @@ GLX_USE=		GL=glew
 GSM_CONFIGURE_ENABLE=	gsm
 GSM_LIB_DEPENDS=	libgsm.so:${PORTSDIR}/audio/gsm
 
-IPV6_CONFIGURE_ENABLE=	ipv6
-
 NLS_CONFIGURE_ENABLE=	nls
-NLS_USES=		gettext
+NLS_USES=		gettext-runtime
 
 OPUS_CONFIGURE_ENABLE=	opus
 OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
@@ -69,6 +71,8 @@ UPNP_CONFIGURE_ENABLE=	upnp
 UPNP_LIB_DEPENDS=	libupnp.so:${PORTSDIR}/devel/upnp
 
 V4L_CONFIGURE_ENABLE=	libv4l1 libv4l2
+V4L_CONFIGURE_OFF=	ac_cv_header_linux_videodev_h=no \
+			ac_cv_header_linux_videodev2_h=no
 V4L_BUILD_DEPENDS=	v4l_compat>=1.0.20120501:${PORTSDIR}/multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:${PORTSDIR}/multimedia/libv4l
 

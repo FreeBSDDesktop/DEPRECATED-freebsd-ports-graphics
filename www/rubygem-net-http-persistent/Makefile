@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	net-http-persistent
-PORTVERSION=	2.9
+PORTVERSION=	2.9.4
 CATEGORIES=	www net rubygems
 MASTER_SITES=	RG
 
@@ -11,6 +11,7 @@ COMMENT=	Manages persistent connections using Net::HTTP
 
 LICENSE=	MIT
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

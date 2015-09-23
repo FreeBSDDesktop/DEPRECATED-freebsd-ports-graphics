@@ -6,32 +6,27 @@ PORTVERSION=	0.7.0.b20130912
 PORTREVISION=	3
 PORTEPOCH=	1
 CATEGORIES=	net
-MASTER_SITES=	GH
 PKGNAMESUFFIX=	-devel
-DIST_SUBDIR?=	${PORTNAME}
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	Open source Remote Desktop Protocol (RDP) server
 
 LICENSE=	GPLv2
 
-USES=		autoreconf:build libtool pkgconfig
+USES=		autoreconf:build jpeg libtool pkgconfig
 USE_XORG=	x11 xfixes
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	xrdp
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_PROJECT=	xrdp
-GH_COMMIT=	64e2291
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	64e2291
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 CONFLICTS=	xrdp-[0-9]*
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 # xrdp v0.7 is not compatible with current net/freerdp (1.0.2)
 #BUILD_DEPENDS+=	freerdp>=1.0.2:${PORTSDIR}/net/freerdp
 #CONFIGURE_ARGS+=	--enable-freerdp1

@@ -1,2 +1,4 @@
-SHA256 (android-platform_system_core-7223571.tar.gz) = 94b3295a3d3cfa03d089b1f388cd29c9b2d09964a608c4b7b8de1dcb45004fdd
-SIZE (android-platform_system_core-7223571.tar.gz) = 1202991
+SHA256 (android-platform_system_core-android-5.1.1_r4_GH0.tar.gz) = 076421a742ef98158d5ea290b8aed007f2115521f1e39832d8be3560e990ea13
+SIZE (android-platform_system_core-android-5.1.1_r4_GH0.tar.gz) = 1210714
+SHA256 (bash_completion.d/adb?id=2b8cfec) = 0d7989596a3e4937834d582eb0ddc88b8186505570772304fe51870d473916a7
+SIZE (bash_completion.d/adb?id=2b8cfec) = 5198

@@ -4,20 +4,21 @@
 PORTNAME=	sexplib
 PORTVERSION=	111.03.00
 CATEGORIES=	devel
-MASTER_SITES=	https://ocaml.janestreet.com/ocaml-core/%SUBDIR%/
-MASTER_SITE_SUBDIR=	${PORTVERSION}/individual
+MASTER_SITES=	https://ocaml.janestreet.com/ocaml-core/${PORTVERSION}/individual/
 PKGNAMEPREFIX=	ocaml-
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OCaml library for working with S-expressions
 
-LICENSE=	BSD
+LICENSE=	APACHE20 BSD3CLAUSE
+LICENSE_COMB=	multi
 
 BUILD_DEPENDS=	ocaml-type-conv>0:${PORTSDIR}/devel/ocaml-typeconv
 RUN_DEPENDS=	ocaml-type-conv>0:${PORTSDIR}/devel/ocaml-typeconv
 
 USE_OCAML=	yes
 USE_OCAML_FINDLIB=yes
+USE_OCAML_CAMLP4=yes
 USE_OCAMLFIND_PLIST=yes
 OCAML_PKGDIRS=	${PORTNAME} ${PORTNAME}_num ${PORTNAME}_unix
 

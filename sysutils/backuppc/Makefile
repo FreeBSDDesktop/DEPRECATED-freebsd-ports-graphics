@@ -2,11 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	backuppc
-PORTVERSION=	3.3.0
-PORTREVISION=	7
+PORTVERSION=	3.3.1
 CATEGORIES=	sysutils
 MASTER_SITES=	SF
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}
 DISTNAME=	BackupPC-${PORTVERSION}
 
 MAINTAINER=	moiseev@mezonplus.ru
@@ -21,7 +19,8 @@ CONFLICTS=	backuppc-devel-[0-9]*
 
 USE_RC_SUBR=	backuppc
 
-USES=		perl5
+USES=		cpe perl5
+CPE_VENDOR=	craig_barratt
 NO_BUILD=	yes
 
 USERS=		backuppc
@@ -107,6 +106,7 @@ do-install:
 	cd ${WRKSRC} && ${PERL} configure.pl	\
 		--batch				\
 		--backuppc-user ${USERS}	\
+		--bin-path perl=${PERL}		\
 		--config-dir ${ETCDIR}		\
 		--cgi-dir ${CGIDIR}		\
 		--data-dir /var/db/BackupPC	\

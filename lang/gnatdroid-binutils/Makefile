@@ -2,11 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=		binutils
-PORTVERSION=		2.24
-PORTREVISION=		3
+PORTVERSION=		2.25
 CATEGORIES=		lang
-MASTER_SITES=		${MASTER_SITE_SOURCEWARE}
-MASTER_SITE_SUBDIR=	binutils/releases
+MASTER_SITES=		SOURCEWARE/binutils/releases
 PKGNAMEPREFIX=		gnatdroid-
 
 MAINTAINER=	marino@FreeBSD.org
@@ -28,17 +26,14 @@ NO_LICENSES_INSTALL= yes
 
 WRKSRC=			${WRKDIR}/binutils-${PORTVERSION}
 PREFIX=			${LOCALBASE}/android
-BRANCH1=		ARMv5
 BRANCH2=		ARMv7
-BR1_PREFIX=		${PREFIX}/${BRANCH1}
 BR2_PREFIX=		${PREFIX}/${BRANCH2}
 ARMTARGET=		arm-aux-linux-androideabi
 PLIST_SUB+=		TARGET="${ARMTARGET}"
-PLIST_SUB+=		BRANCH1="${BRANCH1}"
 PLIST_SUB+=		BRANCH2="${BRANCH2}"
 
 CONFIGURE_ARGS+=	--target=${ARMTARGET}
-CONFIGURE_ARGS+=	--prefix=${BR1_PREFIX}
+CONFIGURE_ARGS+=	--prefix=${BR2_PREFIX}
 CONFIGURE_ARGS+=	--with-sysroot=${PREFIX}
 CONFIGURE_ARGS+=	--with-gmp=${LOCALBASE}
 CONFIGURE_ARGS+=	--with-mpfr=${LOCALBASE}
@@ -47,9 +42,6 @@ CONFIGURE_ARGS+=	--disable-nls
 
 post-install:
 #	Move the unwanted documentation out of the stage directory
-	${MV} ${STAGEDIR}${BR1_PREFIX}/share ${WRKDIR}
-	${MKDIR} ${STAGEDIR}${BR2_PREFIX}
-	(cd ${STAGEDIR}${BR1_PREFIX} && ${COPYTREE_BIN} \* \
-		${STAGEDIR}${BR2_PREFIX})
+	${MV} ${STAGEDIR}${BR2_PREFIX}/share ${WRKDIR}
 
 .include <bsd.port.mk>

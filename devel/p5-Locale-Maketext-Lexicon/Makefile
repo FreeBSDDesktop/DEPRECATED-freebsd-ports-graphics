@@ -2,11 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	Locale-Maketext-Lexicon
-PORTVERSION=	0.99
-PORTREVISION=	1
+PORTVERSION=	1.00
 CATEGORIES=	devel perl5
-MASTER_SITES=	CPAN
-MASTER_SITE_SUBDIR=	Locale/DRTECH
+MASTER_SITES=	CPAN/Locale/DRTECH
 PKGNAMEPREFIX=	p5-
 
 MAINTAINER=	perl@FreeBSD.org
@@ -20,8 +18,6 @@ USES=		perl5
 USE_PERL5=	configure
 
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
 
 PORTDOCS=	AUTHORS Changes README
 

@@ -1,15 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=		${SAMBA_BASENAME}36
-PORTVERSION=		3.6.24
-PORTREVISION?=		2
+PORTVERSION=		3.6.25
+PORTREVISION?=		1
 CATEGORIES?=		net
-MASTER_SITES=		${MASTER_SITE_SAMBA}
-MASTER_SITE_SUBDIR=	samba samba/stable samba/pre
+MASTER_SITES=		SAMBA/samba SAMBA/samba/stable SAMBA/samba/pre
 DISTNAME=		${SAMBA_BASENAME}-${PORTVERSION:S|.p|pre|:S|.r|rc|:S|.t|tp|:S|.a|alpha|}
 
 MAINTAINER?=		timur@FreeBSD.org
-COMMENT?=		A free SMB and CIFS client and server for UNIX
+COMMENT?=		Free SMB and CIFS client and server for Unix
 
 LICENSE=		GPLv3
 LICENSE_FILE=		${WRKDIR}/${DISTNAME}/COPYING
@@ -23,7 +22,6 @@ SAMBA_BASENAME=		samba
 CPE_VENDOR=		samba
 CPE_PRODUCT=		samba
 
-LATEST_LINK=		${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 EXAMPLESDIR=		${PREFIX}/share/examples/${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 PATCH_WRKSRC=		${WRKDIR}/${DISTNAME}
 WRKSRC=			${WRKDIR}/${DISTNAME}/source3
@@ -32,7 +30,21 @@ AUTOHEADER_ARGS=	${IPATHS}
 AUTOCONF_ARGS=		${IPATHS}
 
 GNU_CONFIGURE=		yes
-USES=			gmake pkgconfig iconv execinfo cpe
+USES=			cpe execinfo gmake iconv pkgconfig shebangfix
+SHEBANG_FILES=		../examples/LDAP/convertSambaAccount \
+			../examples/LDAP/get_next_oid \
+			../examples/LDAP/ol-schema-migrate.pl \
+			../examples/ad-bench/ad-bench.sh \
+			../examples/misc/adssearch.pl \
+			../examples/misc/check_multiple_LDAP_entries.pl \
+			../examples/misc/cldap.pl \
+			../examples/printing/smbprint \
+			../examples/scripts/idmap/idmap_nis.sh \
+			../examples/scripts/printing/cups/smbaddprinter.pl \
+			../examples/scripts/printing/cups/smbdelprinter.pl \
+			../examples/scripts/shares/perl/modify_samba_config.pl \
+			../examples/scripts/users_and_groups/adduserstogroups.pl \
+			../examples/scripts/users_and_groups/createdomobj.pl
 USE_AUTOTOOLS=		autoconf autoheader
 USE_LDCONFIG=		${SAMBA_LIBDIR}
 # pkg-config is used to find talloc
@@ -75,8 +87,7 @@ CONFIGURE_ARGS+=	--exec-prefix="${PREFIX}" \
 CPPFLAGS+=		-I${LOCALBASE}/include
 LDFLAGS+=		-L${LOCALBASE}/lib
 
-CONFIGURE_ENV+=		PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
-			PTHREAD_LDFLAGS="${PTHREAD_LIBS}"
+CONFIGURE_ENV+=		PTHREAD_LDFLAGS="-lpthread"
 # XXX: Temporary hack for RELENG6
 CONFIGURE_ENV+=		ac_cv_header_sys_mount_h=yes
 # XXX: readdir test fails on ZFS, bringing unusable replacement code
@@ -99,21 +110,35 @@ CONFIGURE_ARGS+=	${ICONV_CONFIGURE_BASE} \
 
 .if !defined(SAMBA_SUBPORT)
 OPTIONS_DEFINE=		ACL_SUPPORT ADS AIO_SUPPORT AVAHI CUPS DNSUPDATE \
-			DOCS EXAMPLES EXP_MODULES FAM_SUPPORT IPV6 LDAP \
+			DOCS EXAMPLES EXP_MODULES FAM IPV6 LDAP \
 			MAX_DEBUG PAM_SMBPASS POPT PTHREADPOOL QUOTAS \
 			SMBTORTURE SWAT SYSLOG UTMP WINBIND
+OPTIONS_RADIO=		GSSAPI
+OPTIONS_RADIO_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
 
 OPTIONS_DEFAULT=	ACL_SUPPORT AIO_SUPPORT CUPS LDAP POPT PTHREADPOOL \
-			WINBIND
+			WINBIND GSSAPI_NONE
 
 ACL_SUPPORT_DESC=	ACL support
+
 ADS_DESC=		Active Directory support
+ADS_CONFIGURE_ON=	--with-ads --with-krb5="${GSSAPIBASEDIR}"
+ADS_CONFIGURE_OFF=	--without-ads --without-krb5
+
 AIO_SUPPORT_DESC=	Asyncronous IO support
 DNSUPDATE_DESC=		Dynamic DNS update(require ADS)
 EXP_MODULES_DESC=	Experimental modules
-FAM_SUPPORT_DESC=	File Alteration Monitor
+
+GSSAPI_BASE_DESC=	Use Heimdal in base
+GSSAPI_BASE_USES=	gssapi
+GSSAPI_HEIMDAL_DESC=	Use Heimdal from ports
+GSSAPI_HEIMDAL_USES=	gssapi:heimdal,flags
+GSSAPI_MIT_DESC=	Use MIT Kerberos V5
+GSSAPI_MIT_USES=	gssapi:mit,flags
+GSSAPI_NONE_DESC=	No Kerberos support
+
 MAX_DEBUG_DESC=		Maximum debugging
-PAM_SMBPASS_DESC=	PAM authentication vs passdb backends
+PAM_SMBPASS_DESC=	PAM authentication via passdb backends
 POPT_DESC=		System-wide POPT library
 PTHREADPOOL_DESC=	Pthread pool
 QUOTAS_DESC=		Disk quota support
@@ -237,7 +262,7 @@ WANT_EXP_MODULES+=	vfs_cacheprime vfs_catia vfs_commit vfs_dirsort \
 .	endif
 .endif
 
-.if ${PORT_OPTIONS:MFAM_SUPPORT}
+.if ${PORT_OPTIONS:MFAM}
 USES+=			fam
 WANT_EXP_MODULES+=	vfs_notify_fam
 CONFIGURE_ARGS+=	--enable-fam
@@ -247,18 +272,13 @@ CONFIGURE_ARGS+=	--disable-fam
 
 .if ${PORT_OPTIONS:MACL_SUPPORT}
 CONFIGURE_ARGS+=	--with-acl-support
-.	if ${OSVERSION} > 800000
 WANT_EXP_MODULES+=	vfs_zfsacl
 LIB_DEPENDS+=		libsunacl.so:${PORTSDIR}/sysutils/libsunacl
-.	endif
 .else
 CONFIGURE_ARGS+=	--without-acl-support
 .endif
 
 .if ${PORT_OPTIONS:MAIO_SUPPORT}
-.if ${OSVERSION} < 700055
-IGNORE=			an AIO support requires 7.0-RELEASE or later. Disable AIO support
-.endif
 CONFIGURE_ARGS+=	--with-aio-support
 .else
 CONFIGURE_ARGS+=	--without-aio-support
@@ -317,26 +337,11 @@ PLIST_SUB+=		SMBTORTURE="@comment "
 ###
 
 .if ${PORT_OPTIONS:MADS}
-SAMBA_WANT_LDAP=	yes
-SAMBA_WANT_KRB5=	yes
-CONFIGURE_ARGS+=	--with-ads
-.else
-CONFIGURE_ARGS+=	--without-ads
-.endif
+.	if ${PORT_OPTIONS:MGSSAPI_NONE}
 # Kerberos5 is necessary for ADS
-.if defined(SAMBA_WANT_KRB5)
-.if defined(KRB5_HOME) && exists(${KRB5_HOME}/lib/libgssapi_krb5.so)
-CONFIGURE_ARGS+=	--with-krb5="${KRB5_HOME}"
-.elif defined(HEIMDAL_HOME) && exists(${HEIMDAL_HOME}/lib/libgssapi.so)
-CONFIGURE_ARGS+=	--with-krb5="${HEIMDAL_HOME}"
-.elif exists(/usr/lib/libkrb5.so) && exists(/usr/bin/krb5-config)
-CONFIGURE_ARGS+=	--with-krb5="/usr"
-.else
-LIB_DEPENDS+=		libkrb5.so:${PORTSDIR}/security/heimdal
-CONFIGURE_ARGS+=	--with-krb5="${LOCALBASE}"
-.endif
-.else
-CONFIGURE_ARGS+=	--without-krb5
+IGNORE=	ADS support requires GSSAPI_BASE, GSSAPI_HEIMDAL, or GSSAPI_MIT
+.	endif
+SAMBA_WANT_LDAP=	yes
 .endif
 
 .if defined(SAMBA_WANT_LDAP)
@@ -392,7 +397,7 @@ SAMBA_MAN8+=	pam_winbind.8 winbindd.8
 SAMBA_MAN8+=	swat.8
 .endif
 
-.if ${PORT_OPTIONS:MFAM_SUPPORT}
+.if ${PORT_OPTIONS:MFAM}
 SAMBA_MAN8+=	vfs_notify_fam.8
 .endif
 

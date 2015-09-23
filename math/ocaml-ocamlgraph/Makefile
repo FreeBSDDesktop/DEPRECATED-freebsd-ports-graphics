@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	ocamlgraph
-PORTVERSION=	1.8.5
+PORTVERSION=	1.8.6
 PORTREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	http://ocamlgraph.lri.fr/download/ \
@@ -30,9 +30,10 @@ GNU_CONFIGURE=	yes
 PLIST_SUB+=	OCAMLGRAPHDIR="${OCAML_LIBDIR}/${PORTNAME}"
 
 ALL_TARGET=	all
-INSTALL_TARGET=	install install-findlib
+INSTALL_TARGET=	install
 
 MAKE_JOBS_UNSAFE=	yes
+PORTSCOUT=	skipv:1.81
 
 .include <bsd.port.options.mk>
 

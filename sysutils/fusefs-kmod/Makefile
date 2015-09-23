@@ -2,13 +2,15 @@
 
 PORTNAME=	fusefs-kmod
 PORTVERSION=	0.263233
+PORTREVISION=	1
 PORTEPOCH=	1
-CATEGORIES=	sysutils kld
+CATEGORIES=	sysutils
+MASTER_SITES=	https://googledrive.com/host/0B0OQnKtejJEMQlpoTy11SG1nN2s/
 
 MAINTAINER=	dpejesh@yahoo.com
 COMMENT=	FUSE kernel module
 
-MASTER_SITES=	https://googledrive.com/host/0B0OQnKtejJEMQlpoTy11SG1nN2s/
+BUILD_DEPENDS=	fusefs-libs>2.4.1:${PORTSDIR}/sysutils/fusefs-libs
 
 ONLY_FOR_ARCHS=	amd64 i386
 
@@ -16,8 +18,6 @@ WRKSRC=		${WRKDIR}
 
 USE_RC_SUBR=	fusefs
 USES=		kmod uidfix
-
-BUILD_DEPENDS=	fusefs-libs>2.4.1:${PORTSDIR}/sysutils/fusefs-libs
 
 MAKE_ENV=	BINDIR="${PREFIX}/sbin" \
 		MANDIR="${MANPREFIX}/man/man"
@@ -27,11 +27,12 @@ SUB_FILES=	pkg-message
 
 .include <bsd.port.pre.mk>
 
-.if ${OSVERSION} >= 800000 && ${OSVERSION} < 900000
+.if ${OSVERSION} < 900000
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-8-fuse_vfsops.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-8-fuse_vnops.c
 .endif
 .if ${OSVERSION} >= 900000 && ${OSVERSION} < 1000000
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-9-fuse_main.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-9-fuse_vfsops.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-9-fuse_vnops.c
 .endif
@@ -47,9 +48,6 @@ do-install:
 	${INSTALL_KLD} ${WRKSRC}/modules/fuse/fuse.ko ${STAGEDIR}${KMODDIR}
 	${INSTALL_MAN} ${WRKSRC}/mount_fusefs/mount_fusefs.8 ${STAGEDIR}${PREFIX}/man/man8
 	${INSTALL_PROGRAM} ${WRKSRC}/mount_fusefs/mount_fusefs ${STAGEDIR}${PREFIX}/sbin
-
-post-install:
-	${CAT} ${PKGMESSAGE}
 
 SVN_REV=	263233
 SVN_MIRROR?=	http://svn.freebsd.org/base

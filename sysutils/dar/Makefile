@@ -2,19 +2,17 @@
 # $FreeBSD$
 
 PORTNAME=	dar
-PORTVERSION=	2.4.14
-PORTREVISION=	1
+PORTVERSION=	2.4.17
 CATEGORIES=	sysutils archivers
 MASTER_SITES=	SF
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Command-line backup tool, aimed for disks
 
 LICENSE=	GPLv2 # (or later)
 
 USES=		libtool shebangfix
 SHEBANG_FILES=	doc/samples/dar_backup doc/samples/*.bash doc/samples/*.sh
-USE_GCC=	any
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--datadir=${DATADIR} --disable-build-html \
 		--disable-upx \
@@ -37,12 +35,6 @@ LZO_LIB_DEPENDS=	liblzo2.so:${PORTSDIR}/archivers/lzo2
 LZO_CONFIGURE_OFF=	--disable-liblzo2-linking
 NLS_USES=		gettext
 NLS_CONFIGURE_ENABLE=	nls
-
-.include <bsd.port.options.mk>
-
-.if ${OSVERSION} < 1000052
-LIB_DEPENDS+=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo
-.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e \

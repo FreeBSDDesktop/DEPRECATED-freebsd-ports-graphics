@@ -5,8 +5,7 @@ PORTNAME=	canna
 PORTVERSION=	3.7p3
 PORTREVISION=	10
 CATEGORIES=	japanese
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP}
-MASTER_SITE_SUBDIR=	canna/9565/
+MASTER_SITES=	SFJP/canna/9565
 PKGNAMESUFFIX=	-server
 DISTNAME=	Canna${PORTVERSION:S/.//g}
 
@@ -23,6 +22,7 @@ USE_RC_SUBR=	canna
 INSTALL_TARGET=	instserver instclient
 PORTDOCS=	canna.bib canna.sty Imakefile README.jp Makefile \
 		intern lisp man
+MAKE_JOBS_UNSAFE=	yes
 
 post-install:
 	@cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} \

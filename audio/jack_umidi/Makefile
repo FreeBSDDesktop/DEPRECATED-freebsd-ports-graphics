@@ -23,26 +23,16 @@ OPTIONS_DEFINE=        DEBUG DEVD_SCRIPT
 
 DEVD_SCRIPT_DESC=	Install devd script to auto-launch jack_umidi
 
-.include <bsd.port.options.mk>
+DEVD_SCRIPT_PLIST_FILES=	etc/devd/jack_umidi.conf
 
-.if ${PORT_OPTIONS:MDEVD_SCRIPT}
-PLIST_FILES+=	etc/devd/jack_umidi.conf
-.endif
+MAKE_ARGS+=	HAVE_MAN="YES"
+MAKE_ARGS+=	PTHREAD_LIBS="-lpthread"
 
-MAKE_ARGS+=" HAVE_MAN=YES"
-MAKE_ARGS+=" PTHREAD_LIBS=${PTHREAD_LIBS}"
+DEBUG_MAKE_ARGS=	HAVE_DEBUG="YES"
 
-.if ${PORT_OPTIONS:MDEBUG}
-MAKE_ARGS+=" HAVE_DEBUG=YES"
-.endif
-
-.include <bsd.port.pre.mk>
-
-post-install:
-.if ${PORT_OPTIONS:MDEVD_SCRIPT}
+post-install-DEVD_SCRIPT-on::
 	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/devd
 	${INSTALL_DATA} ${WRKDIR}/jack_umidi.conf \
 		 ${STAGEDIR}${PREFIX}/etc/devd
-.endif
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	squirrelmail
-PORTVERSION=	20141107
+PORTVERSION=	20150324
+PORTREVISION=	2
 CATEGORIES=	mail www
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	adamw/squirrelmail
+MASTER_SITES=	LOCAL/adamw/squirrelmail
 DISTNAME=	${PORTNAME}-${PORTVERSION}_0200-SVN.stable
 DIST_SUBDIR=	${PORTNAME}
 
@@ -21,7 +21,9 @@ LICENSE=	GPLv2
 USE_PHP=	session mhash gettext mbstring pcre openssl xml
 WANT_PHP_WEB=	yes
 
-USES=		gettext tar:bzip2 cpe
+USES=		cpe gettext perl5 tar:bzip2
+USE_PERL5=	run
+NO_ARCH=	yes
 
 WRKSRC=		${WRKDIR}/${PORTNAME}.stable/${PORTNAME}
 

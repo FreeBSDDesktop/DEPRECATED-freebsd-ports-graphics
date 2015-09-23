@@ -5,9 +5,8 @@ PORTNAME=	swt
 DISTVERSION=	3.5.2
 PORTREVISION=	3
 CATEGORIES=	x11-toolkits devel java
-#MASTER_SITES=	${MASTER_SITE_ECLIPSE}
-MASTER_SITES=	http://archive.eclipse.org/eclipse/downloads/drops/${MASTER_SITE_SUBDIR}/
-MASTER_SITE_SUBDIR=	R-${DISTVERSION}-201002111343
+#MASTER_SITES=	ECLIPSE/R-${DISTVERSION}-201002111343
+MASTER_SITES=	http://archive.eclipse.org/eclipse/downloads/drops/R-${DISTVERSION}-201002111343/
 DISTNAME=	swt-${DISTVERSION}-${DIST_EXT}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -82,6 +81,10 @@ DIST_EXT=	gtk-linux-x86
 post-extract:
 	@(cd ${WRKSRC} && ${UNZIP_CMD} -qo "*.zip")
 	@${RM} -f ${WRKSRC}/*.o ${WRKSRC}/*.so ${WRKSRC}/*.jar
+
+post-patch:
+	${SED} -e 's|freebsd|dragonfly|g' ${WRKSRC}/make_freebsd.mak \
+		> ${WRKSRC}/make_dragonfly.mak
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${JAVAJARDIR}

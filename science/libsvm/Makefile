@@ -6,9 +6,8 @@ PORTVERSION=	3.18
 CATEGORIES=	science math
 MASTER_SITES=	http://www.csie.ntu.edu.tw/~cjlin/libsvm/ \
 		http://www.csie.ntu.edu.tw/~cjlin/libsvm/oldfiles/
-DISTNAME=	${PORTNAME}-${PORTVERSION:C/0$//}
 
-MAINTAINER=	rafan@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Library for Support Vector Machines
 
 LICENSE=	BSD3CLAUSE

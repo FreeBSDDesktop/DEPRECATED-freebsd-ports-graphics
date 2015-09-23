@@ -2,7 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	inspircd
-PORTVERSION=	2.0.17
+PORTVERSION=	2.0.18
+DISTVERSIONPREFIX=	v
+PORTREVISION=	2
 CATEGORIES=	irc
 
 MAINTAINER=	feld@FreeBSD.org
@@ -14,9 +16,6 @@ CONFLICTS=	inspircd-1.*
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	inspircd
-GH_PROJECT=	${GH_ACCOUNT}
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	2cc3d7e
 
 USE_RC_SUBR=	${PORTNAME}
 MAKEFILE=	BSDmakefile
@@ -107,8 +106,7 @@ PLIST_SUB+=	SQLITE="@comment "
 
 .if ${PORT_OPTIONS:MGNUTLS}
 USES+=	pkgconfig
-LIB_DEPENDS+=	libgnutls.so:${PORTSDIR}/security/gnutls \
-		libgcrypt.so:${PORTSDIR}/security/libgcrypt
+LIB_DEPENDS+=	libgnutls.so:${PORTSDIR}/security/gnutls
 CONFIGURE_ARGS+=	--enable-gnutls
 EXTRAS:=${EXTRAS},m_ssl_gnutls.cpp
 PLIST_SUB+=	GNUTLS=""

@@ -1,10 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	gnutls
-PORTVERSION=	3.2.19
-PORTREVISION=	1
+PORTVERSION=	3.3.17.1
 CATEGORIES=	security net
-MASTER_SITES=	GNUPG/gnutls/v3.2
+MASTER_SITES=	GNUPG/gnutls/v${PORTVERSION:R:R}
 
 MAINTAINER=	bdrewery@FreeBSD.org
 COMMENT=	GNU Transport Layer Security library
@@ -16,8 +15,10 @@ LICENSE_FILE_LGPL21=	${WRKSRC}/COPYING.LESSER
 
 LIB_DEPENDS=	libnettle.so:${PORTSDIR}/security/nettle \
 		libtasn1.so:${PORTSDIR}/security/libtasn1
+BUILD_DEPENDS+=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss
+RUN_DEPENDS+=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_root_nss
 
-USES=		gmake iconv libtool makeinfo pathfix pkgconfig tar:xz
+USES=		cpe gmake iconv libtool makeinfo pathfix pkgconfig tar:xz
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-guile \
@@ -26,6 +27,8 @@ CONFIGURE_ARGS=	--disable-guile \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 MAKE_ENV=	MAKEINFOFLAGS=--no-split
+
+CPE_VENDOR=	gnu
 
 OPTIONS_DEFINE=		CRYWRAP EXAMPLES LIBDANE NLS P11KIT TPM ZLIB
 OPTIONS_DEFAULT=	CRYWRAP P11KIT TPM ZLIB

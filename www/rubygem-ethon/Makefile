@@ -2,17 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	ethon
-PORTVERSION=	0.7.1
+PORTVERSION=	0.7.4
 CATEGORIES=	www rubygems
 MASTER_SITES=	RG
 
 MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Very lightweight libcurl wrapper
 
-RUN_DEPENDS=	rubygem-ffi>=1.3.0:${PORTSDIR}/devel/rubygem-ffi \
-		rubygem-mime-types>=1.18:${PORTSDIR}/misc/rubygem-mime-types
-LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
+LICENSE=	MIT
 
+LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
+RUN_DEPENDS=	rubygem-ffi>=1.3.0:${PORTSDIR}/devel/rubygem-ffi
+
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

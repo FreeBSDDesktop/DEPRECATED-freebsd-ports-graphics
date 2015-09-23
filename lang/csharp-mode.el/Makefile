@@ -3,7 +3,7 @@
 
 PORTNAME=	csharp-mode.el
 PORTVERSION=	0.8.5
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	lang elisp
 MASTER_SITES=	GOOGLE_CODE
 DISTNAME=	${PORTNAME:S|.el$||}-${PORTVERSION}.el
@@ -31,8 +31,5 @@ post-patch:
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/csharp-mode.* \
 		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

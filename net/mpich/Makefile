@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	mpich
-PORTVERSION=	3.1.3
+PORTVERSION=	3.1.4
+PORTREVISION=	1
 CATEGORIES=	net parallel
 MASTER_SITES=	http://www.mpich.org/static/downloads/${DISTVERSION}/
 
@@ -17,6 +18,7 @@ LIB_DEPENDS=	libhwloc.so:${PORTSDIR}/devel/hwloc
 
 CONFLICTS=	lam-7.* mpd-[0-9]* mpiexec-0.* mpich2-[0-9]*
 GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
 USES=		libtool pkgconfig
 USE_LDCONFIG=	yes
 
@@ -25,19 +27,32 @@ OPTIONS_GROUP=		PM
 OPTIONS_GROUP_PM=	GFORKER HYDRA
 OPTIONS_RADIO=		DEFAULTPM
 OPTIONS_RADIO_DEFAULTPM=DGFORKER DHYDRA
-OPTIONS_DEFAULT=	HYDRA DHYDRA
+OPTIONS_DEFAULT=	FORTRAN GFORKER HYDRA DHYDRA
 OPTIONS_SUB=		yes
 
-FORTRAN_CONFIGURE_ENABLE=	fortran
 FORTRAN_USES=			fortran
+FORTRAN_CONFIGURE_ENABLE=	fortran
+FORTRAN_CONFIGURE_ON=		\
+	MPICH_LDFLAGS="-Wl,-rpath=${LOCALBASE}/lib/gcc${_GCC_VER} \
+		       -L${LOCALBASE}/lib/gcc${_GCC_VER} -B${LOCALBASE}/bin"
 
+PM_DESC=	Process managers
 GFORKER_DESC=	Simple local process manager
 HYDRA_DESC=	Parallel process manager
+DEFAULTPM_DESC=	Default process manager
 DGFORKER_DESC=	Make gforker the default process manager
 DHYDRA_DESC=	Make hydra the default process manager
 
-CONFIGURE_ARGS=	--with-hwloc-prefix=${LOCALBASE} ac_cv_path_BASH_SHELL="" \
-		pkgconfigdir="${PREFIX}/libdata/pkgconfig"
+CONFIGURE_ARGS=	--enable-fast="" --with-hwloc-prefix=${LOCALBASE} \
+		ac_cv_path_BASH_SHELL="" \
+		pkgconfigdir="${PREFIX}/libdata/pkgconfig" \
+		MPICHLIB_CFLAGS="${CFLAGS}" CFLAGS="" \
+		MPICHLIB_CPPFLAGS="${CPPFLAGS}" CPPFLAGS="" \
+		MPICHLIB_CXXFLAGS="${CXXFLAGS}" CXXFLAGS="" \
+		MPICHLIB_FFLAGS="${FFLAGS}" FFLAGS="" \
+		MPICHLIB_FCFLAGS="${FCFLAGS}" FCFLAGS="" \
+		MPICHLIB_LDFLAGS="${LDFLAGS}" LDFLAGS="" \
+		MPICHLIB_LIBS="${LIBS}" LIBS=""
 
 .include <bsd.port.options.mk>
 
@@ -65,5 +80,8 @@ PLIST_SUB+=	EXECGFORKER=""
 PLIST_SUB+=	EXECGFORKER="@comment "
 .endif
 .endif
+
+post-patch:
+	@${RM} -r ${WRKSRC}/www
 
 .include <bsd.port.mk>

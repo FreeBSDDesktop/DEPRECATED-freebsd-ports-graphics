@@ -1,9 +1,8 @@
-# Created by: MAtthew Seaman
+# Created by: Matthew Seaman
 # $FreeBSD$
 
 PORTNAME=	barman
-DISTVERSION=	1.3.3
-PORTREVISION=	1
+DISTVERSION=	1.4.1
 CATEGORIES=	databases
 MASTER_SITES=	SF/${PKGNAMEPREFIX}${PORTNAME}/${DISTVERSION}
 PKGNAMEPREFIX=	pg

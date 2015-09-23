@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	org-ruby
-PORTVERSION=	0.9.9
+PORTVERSION=	0.9.12
 CATEGORIES=	textproc rubygems
 MASTER_SITES=	RG
 
@@ -13,8 +13,9 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	rubygem-rubypants>=0.2.0:${PORTSDIR}/textproc/rubygem-rubypants
 
+NO_ARCH=	yes
+
 USE_RUBY=	yes
-USE_RAKE=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes
 

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	grub2-bhyve
-DISTVERSION=	0.30
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.40
 CATEGORIES=	sysutils
 
 MAINTAINER=	kmoore@FreeBSD.org
@@ -17,8 +18,6 @@ ONLY_FOR_ARCHS=	amd64
 SSP_UNSAFE=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	grehan-freebsd
-GH_COMMIT=	5af229e
-GH_TAGNAME=	v0.30
 USES=		bison gmake
 USE_GCC=	yes
 PLIST_FILES=	sbin/grub-bhyve

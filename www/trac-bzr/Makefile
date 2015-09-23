@@ -17,16 +17,11 @@ LICENSE=	GPLv2
 RUN_DEPENDS=	tracd:${PORTSDIR}/www/trac \
 		bzr:${PORTSDIR}/devel/bzr
 
-USES=	tar:bzip2
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python:2 tar:bzip2
+USE_PYTHON=	distutils autoplist
 
 post-patch:
 	${REINPLACE_CMD} -e 's|tag_date = 1||' ${WRKSRC}/setup.cfg
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include "${.CURDIR}/../../www/trac/plugin.mk"
 .include <bsd.port.mk>

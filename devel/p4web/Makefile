@@ -5,8 +5,7 @@ PORTNAME=	p4web
 PORTVERSION=	2012.1.732581
 PORTREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	ftp://ftp.perforce.com/perforce/${P4VERSION}/bin.${PLATFORM}/ \
-		http://filehost.perforce.com/perforce/r${P4VERSION}/bin.${PLATFORM}/
+MASTER_SITES=	http://swarm.workshop.perforce.com/download/guest/perforce_software/p4web/bin/${P4VERSION}/bin.${PLATFORM}/
 DISTNAME=	p4web
 EXTRACT_SUFX=
 EXTRACT_ONLY=	# none
@@ -40,19 +39,9 @@ LIB_DEPENDS+=	libstdc++.so.6:${PORTSDIR}/misc/compat9x
 
 # Figure out what to install
 .if ${ARCH} == amd64
-. if ${OSVERSION} >= 700043
 PLATFORM=	freebsd70x86_64
-. else
-IGNORE=		unsupported OS release, sorry
-. endif
-
 .elif ${ARCH} == i386
-. if ${OSVERSION} >= 700043
 PLATFORM=	freebsd70x86
-. else
-IGNORE=		unsupported OS release, sorry
-. endif
-
 .else
 IGNORE=		unsupported OS release, sorry
 .endif

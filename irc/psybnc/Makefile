@@ -3,14 +3,17 @@
 
 PORTNAME=	psybnc
 DISTVERSION=	2.3.2-9
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	irc ipv6
-MASTER_SITES=	http://www.psybnc.at/download/beta/ CENKES
+MASTER_SITES=	http://www.psybnc.at/download/beta/
 DISTNAME=	psyBNC-${DISTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Powerful IRC bouncer
 
+LICENSE=	GPLv1 # or later (though COPYING is GPLv2)
+
+USE_OPENSSL=	yes
 WRKSRC=		${WRKDIR}/psybnc
 PSYBASE?=	${PREFIX}/psybnc
 MAKE_ARGS=	PSYBASE=${PSYBASE}

@@ -2,87 +2,77 @@
 # $FreeBSD$
 
 PORTNAME=	redeclipse
-PORTVERSION=	1.4
-PORTREVISION=	2
+PORTVERSION=	1.5.0
+DISTVERSIONPREFIX=	v
 CATEGORIES=	games
-MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}_${PORTVERSION:C/^([0-9]+\.[0-9]+)\..*/\1/}
-DISTNAME=	${PORTNAME}_${PORTVERSION}_nix
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	Single-player and multi-player first-person ego-shooter
 
-LICENSE_COMB=	multi
 LICENSE=	MIT ZLIB
+LICENSE_COMB=	multi
 
-MANUAL_PACKAGE_BUILD=	huge
+RUN_DEPENDS=	redeclipse-data>=1.5.0:${PORTSDIR}/games/redeclipse-data
 
-USES=		tar:bzip2 gmake
-GNU_CONFIGURE=	yes
-CONFIGURE_WRKSRC=	${WRKSRC}/src/enet
-CONFIGURE_ARGS=	--enable-shared=no --enable-static=yes
-USE_AUTOTOOLS=	aclocal automake autoconf:env
-AUTOMAKE_ARGS=	-ia
+BROKEN_sparc64=	does not build on sparc64
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	red-eclipse
+GH_PROJECT=	base
+
+USES=		gmake
 BUILD_WRKSRC=	${WRKSRC}/src
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
-ALL_TARGET=	libenet
+SUB_FILES=	${PLIST_FILES:Mbin/*:T}
 
-SUB_FILES=	${PORTNAME} ${PORTNAME}_server
-
-PORTDATA=	*
 PORTDOCS=	*
+PORTDATA=	*
 
-OPTIONS_DEFINE=	OPTIMIZED_CFLAGS DOCS
-OPTIONS_MULTI=	COMPONENTS
+OPTIONS_DEFINE=		OPTIMIZED_CFLAGS DOCS
+OPTIONS_MULTI=		COMPONENTS
 OPTIONS_MULTI_COMPONENTS=CLIENT DEDICATED
-OPTIONS_DEFAULT=CLIENT DEDICATED OPTIMIZED_CFLAGS
+OPTIONS_DEFAULT=	CLIENT DEDICATED OPTIMIZED_CFLAGS
 
-CLIENT_DESC=	Build client
-DEDICATED_DESC=	Build dedicated server
+CLIENT_DESC=		Build client
+CLIENT_USE=		GL=gl SDL=image,mixer,sdl XORG=x11
+CLIENT_ALL_TARGET=	client
+CLIENT_PLIST_FILES=	bin/${PORTNAME} libexec/${PORTNAME} \
+			share/pixmaps/${PORTNAME}.ico
+CLIENT_DESKTOP_ENTRIES=	"Red Eclipse" \
+			"" \
+			"${PREFIX}/share/pixmaps/${PORTNAME}.ico" \
+			"${PORTNAME}" \
+			"Game;Shooter;" \
+			""
 
-.include <bsd.port.options.mk>
+DEDICATED_DESC=		Build dedicated server
+DEDICATED_ALL_TARGET=	server
+DEDICATED_PLIST_FILES=	bin/${PORTNAME}_server libexec/${PORTNAME}_server
 
-.if ${ARCH} == "sparc64"
-BROKEN=		does not build on sparc64
+OPTIMIZED_CFLAGS_CFLAGS=	-O3 -fomit-frame-pointer -ffast-math
+OPTIMIZED_CFLAGS_CXXFLAGS=	-O3 -fomit-frame-pointer -ffast-math
+
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000000 && ${OSVERSION} < 1100000
+USE_GCC=	yes	# clang < 3.6.1 dies, see https://llvm.org/bugs/show_bug.cgi?id=23010
 .endif
 
-.if ${PORT_OPTIONS:MCLIENT}
-USE_GL=		yes
-USE_SDL=	image mixer sdl
-PLIST_FILES+=	bin/${PORTNAME} libexec/${PORTNAME} share/pixmaps/${PORTNAME}.ico
-BINARIES+=	${PORTNAME}
-ALL_TARGET+=	client
-
-DESKTOP_ENTRIES="Red Eclipse" \
-		"${COMMENT}" \
-		"${PREFIX}/share/pixmaps/${PORTNAME}.ico" \
-		"${PORTNAME}" \
-		"Game;Shooter;" \
-		""
-.endif
-
-.if ${PORT_OPTIONS:MDEDICATED}
-PLIST_FILES+=	bin/${PORTNAME}_server libexec/${PORTNAME}_server
-BINARIES+=	${PORTNAME}_server
-ALL_TARGET+=	server
-.endif
-
-.if ${PORT_OPTIONS:MOPTIMIZED_CFLAGS}
-CFLAGS+=	-O3 -fomit-frame-pointer
-CXXFLAGS+=	-O3 -fomit-frame-pointer
-.endif
+post-patch:
+	@${REINPLACE_CMD} -e 's|CLIENT_PCH=.*|CLIENT_PCH=|' ${WRKSRC}/src/Makefile
 
 do-install:
-.for f in ${BINARIES}
-	${INSTALL_SCRIPT} ${WRKDIR}/${f} ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/${f} ${STAGEDIR}${PREFIX}/libexec
-.endfor
-	${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/
-	${MKDIR} ${STAGEDIR}${DATADIR}
-	cd ${WRKSRC} && ${COPYTREE_SHARE} "game data" ${STAGEDIR}${DATADIR}/
-.if ${PORT_OPTIONS:MCLIENT}
-	${INSTALL_DATA} ${WRKSRC}/src/${PORTNAME}.ico ${STAGEDIR}${PREFIX}/share/pixmaps/
-.endif
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} config ${STAGEDIR}${DATADIR})
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
 
-.include <bsd.port.mk>
+do-install-CLIENT-on:
+	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/${PORTNAME}_bsd ${STAGEDIR}${PREFIX}/libexec/${PORTNAME}
+	${INSTALL_DATA} ${WRKSRC}/src/${PORTNAME}.ico \
+		${STAGEDIR}${PREFIX}/share/pixmaps
+
+do-install-DEDICATED-on:
+	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME}_server ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/${PORTNAME}_server_bsd ${STAGEDIR}${PREFIX}/libexec/${PORTNAME}_server
+
+.include <bsd.port.post.mk>

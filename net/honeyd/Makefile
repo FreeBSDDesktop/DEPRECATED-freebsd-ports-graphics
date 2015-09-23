@@ -3,7 +3,7 @@
 
 PORTNAME=	honeyd
 PORTVERSION=	1.5c
-PORTREVISION=	6
+PORTREVISION=	8
 CATEGORIES=	net
 MASTER_SITES=	http://www.honeyd.org/uploads/ \
 		http://www.citi.umich.edu/u/provos/honeyd/
@@ -12,12 +12,14 @@ MAINTAINER=	skreuzer@FreeBSD.org
 COMMENT=	Simulate virtual network hosts (honeypots)
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libevent.so:${PORTSDIR}/devel/libevent2 \
 		libdnet.so:${PORTSDIR}/net/libdnet \
 		libpcre.so:${PORTSDIR}/devel/pcre
 
-USES=		libtool
+USES=		libedit libtool shebangfix
+SHEBANG_FILES=	scripts/*.pl scripts/snmp/*.pl
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-libdnet=${LOCALBASE} \
@@ -43,7 +45,7 @@ pre-everything::
 .endif
 
 post-configure:
-	@${REINPLACE_CMD} -e 's|LIBS = |LIBS = ${PTHREAD_LIBS}|' \
+	@${REINPLACE_CMD} -e 's|LIBS = |LIBS = -lpthread|' \
 		${WRKSRC}/Makefile
 
 # Have to make this directory, the Makefile is stupid and tries to

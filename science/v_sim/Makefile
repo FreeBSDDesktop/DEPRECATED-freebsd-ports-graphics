@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	v_sim
-PORTVERSION=	3.7.1
-PORTREVISION=	3
+PORTVERSION=	3.7.2
 CATEGORIES=	science
 MASTER_SITES=	http://www-drfmc.cea.fr/sp2m/L_Sim/V_Sim/download/
 
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
 USES=		fortran gmake libtool pkgconfig tar:bzip2
-USE_GNOME=	gtk20 cairo
+USE_GNOME=	gtk20 intltool cairo
 USE_GL=		yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-gtk-doc --with-html-dir=${PREFIX}/share/doc --disable-python-module

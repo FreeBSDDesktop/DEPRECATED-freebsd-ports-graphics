@@ -3,6 +3,7 @@
 
 PORTNAME=	miniupnpd
 PORTVERSION=	1.9
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	net
 MASTER_SITES=	http://miniupnp.tuxfamily.org/files/ \
@@ -14,12 +15,17 @@ COMMENT=	UPnP IGD implementation which uses pf/ipf
 SUB_FILES=	miniupnpd.conf.sample
 SUB_LIST=	UUID=${UUID}
 
+USES=		cpe
+CPE_VENDOR=	miniupnp_project
 UUID!=		uuidgen
 PLIST_FILES=	etc/miniupnpd.conf.sample sbin/miniupnpd \
 		man/man8/miniupnpd.8.gz
 MAKE_JOBS_UNSAFE=yes
-
+USE_OPENSSL=	yes
 USE_RC_SUBR=	miniupnpd
+
+CFLAGS+=	-I${OPENSSLINC}
+LDFLAGS+=	-L${OPENSSLLIB}
 
 OPTIONS_DEFINE=	PF_ENABLE_FILTER_RULES CHECK_PORTINUSE IPV6 UPNP_IGDV2 UPNP_STRICT LEASEFILE
 PF_ENABLE_FILTER_RULES_DESC=	Enable pf generation of filter rules

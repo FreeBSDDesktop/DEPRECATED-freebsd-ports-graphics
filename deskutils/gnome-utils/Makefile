@@ -1,17 +1,15 @@
 # Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/deskutils/gnome-utils/Makefile 20017 2014-10-24 08:53:51Z gusi $
 
 PORTNAME=	gnome-utils
-PORTVERSION=	3.14.0
+PORTVERSION=	3.16.0
 PORTEPOCH=	1
 CATEGORIES=	deskutils gnome
-MASTER_SITES=	# empty
-DISTFILES=	# empty
-EXTRACT_ONLY=	# empty
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	GNOME 3 support utilities
+
+USES=		metaport
 
 RUN_DEPENDS=	baobab>=3.0:${PORTSDIR}/deskutils/baobab \
 		gnome-screenshot>=3.0:${PORTSDIR}/deskutils/gnome-screenshot \
@@ -27,17 +25,9 @@ RUN_DEPENDS=	baobab>=3.0:${PORTSDIR}/deskutils/baobab \
 		gnome-maps>=3.0:${PORTSDIR}/deskutils/gnome-maps \
 		gnome-weather>=3.0:${PORTSDIR}/deskutils/gnome-weather
 
-NO_BUILD=	yes
-NO_INSTALL=	yes
-NO_MTREE=	yes
-
-OPTIONS_DEFINE=	DOCS 
+OPTIONS_DEFINE=	DOCS
 DOCS_DESC=	Build Gnome Documents (pulls in tracker)
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-RUN_DEPENDS+=	gnome-documents>=0:${PORTSDIR}/deskutils/gnome-documents
-.endif
+DOCS_RUN_DEPENDS+=	gnome-documents>=0:${PORTSDIR}/deskutils/gnome-documents
 
 .include <bsd.port.mk>

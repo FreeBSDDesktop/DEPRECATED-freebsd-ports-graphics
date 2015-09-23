@@ -3,12 +3,12 @@
 
 PORTNAME=	Goo
 PORTVERSION=	0.09
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	deskutils sysutils perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Stick Things together with The Goo
 
 LICENSE=	ART10 GPLv1
@@ -27,7 +27,9 @@ BUILD_DEPENDS=	p5-Config-Auto>=0:${PORTSDIR}/devel/p5-Config-Auto \
 		p5-Text-FormatTable>=0:${PORTSDIR}/textproc/p5-Text-FormatTable
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	lib/Goo/Thing/*/*.pl
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

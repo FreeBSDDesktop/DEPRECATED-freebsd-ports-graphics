@@ -1,0 +1,7 @@
+include/libfm/fm-extra.h
+include/libfm/fm-version.h
+include/libfm/fm-xml-file.h
+lib/libfm-extra.so
+lib/libfm-extra.so.%%ABI_VERSION%%
+lib/libfm-extra.so.%%ABI_VERSION%%.%%MICRO_VERSION%%
+libdata/pkgconfig/libfm-extra.pc

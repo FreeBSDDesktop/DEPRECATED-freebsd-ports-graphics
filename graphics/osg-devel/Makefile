@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	osg
-PORTVERSION=	3.3.2
-PORTREVISION=	3
+PORTVERSION=	3.3.9
 CATEGORIES=	graphics
 MASTER_SITES=	http://trac.openscenegraph.org/downloads/developer_releases/ \
 		http://mirror.amdmi3.ru/distfiles/
-DISTNAME=	OpenSceneGraph-${PORTVERSION}
 PKGNAMESUFFIX=	-devel
+DISTNAME=	OpenSceneGraph-${PORTVERSION}
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT=	C++ OpenGL scene graph library for real-time rendering
@@ -18,29 +17,29 @@ LICENSE_NAME=	OpenSceneGraph Public License
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
 		libtiff.so:${PORTSDIR}/graphics/tiff
 
 CONFLICTS=	osg-[0-9]*
 
-USES=		alias cmake:outsource pkgconfig zip
+USES=		alias cmake:outsource jpeg pkgconfig zip
 USE_GL=		gl glu
 USE_XORG=	x11
 USE_LDCONFIG=	yes
 
 PLIST_SUB=	OSG_VERSION=${PORTVERSION} \
-		OSG_SHLIBVER=112 \
+		OSG_SHLIBVER=123 \
 		OPENTHREADS_VERSION=3.3.0 \
 		OPENTHREADS_SHLIBVER=20
 
 PORTSCOUT=	limitw:1,odd
 
-OPTIONS_DEFINE=	CURL FREETYPE GDAL GIF INVENTOR JASPER XINE GTA \
-		VNC OPENEXR FFMPEG SVG PDF SDL NVTT QT4 XRANDR \
-		LUA V8 PYTHON
+OPTIONS_DEFINE=	CURL FFMPEG FREETYPE GDAL GIF GSTREAMER GTA INVENTOR \
+		JASPER LIBLAS LUA NVTT OPENEXR PDF QT4 SDL \
+		SVG VNC XINE XRANDR
 OPTIONS_DEFAULT=FREETYPE GIF FFMPEG XRANDR
 
+LIBLAS_DESC=	liblas support
 GDAL_DESC=	GDAL support
 INVENTOR_DESC=	SGI OpenInventor support
 GTA_DESC=	GTA file format support
@@ -48,15 +47,15 @@ VNC_DESC=	LibVNCServer support
 SDL_DESC=	Use SDL (joystick support in present3d)
 NVTT_DESC=	Use NVidia texture tools
 LUA_DESC=	Lua script engine support
-V8_DESC=	V8 script engine support
-PYTHON_DESC=	Python script engine support
 
 OPTIONS_SUB=	yes
 
 CURL_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
+LIBLAS_LIB_DEPENDS=	liblas.so:${PORTSDIR}/devel/liblas
 FREETYPE_LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2
 GDAL_LIB_DEPENDS=	libgdal.so:${PORTSDIR}/graphics/gdal
 GIF_LIB_DEPENDS=	libgif.so:${PORTSDIR}/graphics/giflib
+GSTREAMER_USE=		GNOME=glib20 GSTREAMER1=yes
 INVENTOR_LIB_DEPENDS=	libInventor.so:${PORTSDIR}/graphics/inventor
 JASPER_LIB_DEPENDS=	libjasper.so:${PORTSDIR}/graphics/jasper
 XINE_LIB_DEPENDS=	libxine.so:${PORTSDIR}/multimedia/libxine
@@ -74,13 +73,11 @@ QT4_USE=		QT4=corelib,gui,opengl,qmake_build,moc_build,uic_build,rcc_build
 QT4_CMAKE_ON=		-DOSG_USE_QT=ON
 QT4_CMAKE_OFF=		-DOSG_USE_QT=OFF
 LUA_USES=		lua:52
-V8_LIB_DEPENDS=		libv8.so:${PORTSDIR}/lang/v8
-PYTHON_USE=		PYTHON=2
 
 .include <bsd.port.options.mk>
 
 # GUI toolkits are only needed for building examples, which are not even installed
-FORCE_IGNORE=	FLTK GLUT FOX Qt3 Qt5Widgets wxWidgets OpenAL GtkGl # only for examples
+FORCE_IGNORE=	FLTK GLUT FOX Qt3 Qt5Widgets wxWidgets OpenAL GtkGl SDL2 # only for examples
 FORCE_IGNORE+=	COLLADA Performer OurDCMTK XUL FBX           # not in ports
 FORCE_IGNORE+=	OpenVRML                                     # ports version too old
 FORCE_IGNORE+=	ITK                                          # ports version doesn't build on 10.x
@@ -171,18 +168,6 @@ FORCE_REQUIRE+=	Lua51
 FORCE_IGNORE+=	Lua51
 .endif
 
-.if ${PORT_OPTIONS:MV8}
-FORCE_REQUIRE+=	V8
-.else
-FORCE_IGNORE+=	V8
-.endif
-
-.if ${PORT_OPTIONS:MPYTHON}
-FORCE_REQUIRE+=	PythonLibs
-.else
-FORCE_IGNORE+=	PythonLibs
-.endif
-
 # options that affect PKG_CHECK_MODULES
 .if ${PORT_OPTIONS:MSVG}
 FORCE_REQUIRE+=	RSVG
@@ -208,8 +193,8 @@ USE_XORG+=	xrandr
 post-patch:
 	@${FIND} ${WRKSRC}/CMakeModules -type f -print0 | ${XARGS} -0 \
 		${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
-	@${REINPLACE_CMD} -e '/FIND_LIBRARY.*DL_LIBRARY/ d' \
-		${WRKSRC}/CMakeLists.txt
+	@${REINPLACE_CMD} -e '/FIND_LIBRARY.*DL_LIBRARY/ d; \
+		s|-pedantic||' ${WRKSRC}/CMakeLists.txt
 .for p in ${FORCE_REQUIRE}
 	@${REINPLACE_CMD} -e '/FIND_PACKAGE.*${p}/ s|)$$| REQUIRED&|' \
 		${WRKSRC}/CMakeLists.txt

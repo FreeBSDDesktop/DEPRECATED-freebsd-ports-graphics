@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	tortoisehg
-PORTVERSION=	3.2.1
+PORTVERSION=	3.5
 CATEGORIES=	devel
 MASTER_SITES=	https://bitbucket.org/tortoisehg/targz/downloads/
 #MASTER_SITES=	http://cdn.bitbucket.org/tortoisehg/targz/downloads/
@@ -10,6 +10,7 @@ MAINTAINER=	6yearold@gmail.com
 COMMENT=	THg script from TortoiseHG
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING.txt
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}qt4-core>=4.10.2:${PORTSDIR}/devel/py-qt4-core \
 		${PYTHON_PKGNAMEPREFIX}qt4-qscintilla2>=2.7.2:${PORTSDIR}/devel/py-qt4-qscintilla2 \

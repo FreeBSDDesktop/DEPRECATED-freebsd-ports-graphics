@@ -1,9 +1,8 @@
 # Created by: Gustau Perez <gustau.perez@gmail.com>
 # $FreeBSD$
-#   $MCom: ports/trunk/deskutils/california/Makefile 20027 2014-10-28 13:45:13Z gusi $
 
 PORTNAME=	california
-PORTVERSION=	0.2.0
+PORTVERSION=	0.4.0
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -11,12 +10,16 @@ DIST_SUBDIR=	gnome3
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Calendar client for GNOME 3
 
-BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool
+IGNORE=		Not compatible with evolution-data-server 3.16.0
+
+BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool \
+		xdg-open:${PORTSDIR}/devel/xdg-utils
 LIB_DEPENDS=	libwebkitgtk-3.0.so:${PORTSDIR}/www/webkit-gtk3 \
 		libsoup-2.4.so:${PORTSDIR}/devel/libsoup \
 		libgee-0.8.so:${PORTSDIR}/devel/libgee \
 		libgdata.so:${PORTSDIR}/devel/libgdata \
 		libgoa-1.0.so:${PORTSDIR}/net/gnome-online-accounts
+RUN_DEPENDS=	xdg-open:${PORTSDIR}/devel/xdg-utils
 
 USES=		desktop-file-utils gettext gmake libtool pathfix \
 		pkgconfig tar:xz

@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	dnscrypt-proxy
-PORTVERSION=	1.4.0
-PORTREVISION=	6
+PORTVERSION=	1.6.0
+PORTREVISION=	1
 CATEGORIES=	dns
 MASTER_SITES=	http://download.dnscrypt.org/dnscrypt-proxy/ \
 		http://www.dns-lab.com/downloads/dnscrypt-proxy/
@@ -12,24 +12,36 @@ MAINTAINER=	freebsd@dns-lab.com
 COMMENT=	Boost privacy and security of DNS
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libexecinfo.so:${PORTSDIR}/devel/libexecinfo \
-		libsodium.so:${PORTSDIR}/security/libsodium
+LIB_DEPENDS=	libsodium.so:${PORTSDIR}/security/libsodium
 
 GNU_CONFIGURE=	yes
-USES=		gmake
+USES=		execinfo gmake
 
-SUB_FILES=	pkg-message
+OPTIONS_DEFINE=	DOCS
+OPTIONS_SINGLE=	RCWHICH
+OPTIONS_SINGLE_RCWHICH=	RCSINGLE RCMULTI
+RCWHICH_DESC=	rc script to use:
+RCSINGLE_DESC=	use default rc script for single daemon
+RCMULTI_DESC=	use experimental rc script for multiple instances
+OPTIONS_DEFAULT=RCSINGLE
 
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MRCMULTI}
+USE_RC_SUBR=	${PORTNAME}_multi
+SUB_FILES=	pkg-message_multi
+.else
 USE_RC_SUBR=	${PORTNAME}
+SUB_FILES=	pkg-message
+.endif
 
 USERS=		_dnscrypt-proxy
 
-PORTDOCS=	AUTHORS COPYING ChangeLog INSTALL NEWS README \
+PORTDOCS=	AUTHORS ChangeLog INSTALL NEWS README \
 		README-PLUGINS.markdown README-WINDOWS.markdown \
 		README.markdown TECHNOTES THANKS
-
-OPTIONS_DEFINE=	DOCS
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

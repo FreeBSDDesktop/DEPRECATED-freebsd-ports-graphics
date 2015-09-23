@@ -3,6 +3,7 @@
 
 PORTNAME=	v8
 PORTVERSION=	3.18.5
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	LOCAL/vanilla
 
@@ -26,20 +27,19 @@ USES=		alias compiler cpe execinfo gmake python:2 shebangfix tar:xz
 CPE_VENDOR=	google
 
 SHEBANG_FILES=	build/gyp/gyp
-python_OLD_CMD=	${SETENV} python
-python_CMD=	${PYTHON_CMD}
+python_OLD_CMD=	/usr/bin/env python
 
 .include <bsd.port.pre.mk>
 
 .if ${COMPILER_TYPE} == clang
-CFLAGS+=	-Wno-unused-private-field
+CXXFLAGS+=	-Wno-nested-anon-types -Wno-unused-function -Wno-unused-private-field
 MAKE_ENV+=	LINK=clang++
-.if ${COMPILER_VERSION} >= 33
-CFLAGS+=	-Wno-nested-anon-types -Wno-unused-function
 .if ${COMPILER_VERSION} >= 34
-CFLAGS+=	-Wno-unused-const-variable
+CXXFLAGS+=	-Wno-unused-const-variable
 .if ${COMPILER_VERSION} >= 35
-CFLAGS+=	-Wno-tautological-undefined-compare
+CXXFLAGS+=	-Wno-tautological-undefined-compare
+.if ${COMPILER_VERSION} >= 36
+CXXFLAGS+=	-Wno-unused-local-typedef
 .endif
 .endif
 .endif

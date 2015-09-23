@@ -142,7 +142,6 @@ lib/ipsec/plugins/libstrongswan-xcbc.la
 lib/ipsec/plugins/libstrongswan-xcbc.so
 libexec/ipsec/_copyright
 libexec/ipsec/_updown
-libexec/ipsec/_updown_espmark
 libexec/ipsec/charon
 libexec/ipsec/starter
 libexec/ipsec/stroke
@@ -200,8 +199,6 @@ man/man5/ipsec.conf.5.gz
 man/man5/ipsec.secrets.5.gz
 man/man8/ipsec.8.gz
 man/man8/charon-cmd.8.gz
-man/man8/_updown.8.gz
-man/man8/_updown_espmark.8.gz
 %%EAPRADIUS%%lib/ipsec/libradius.a
 %%EAPRADIUS%%lib/ipsec/libradius.la
 %%EAPRADIUS%%lib/ipsec/libradius.so
@@ -225,8 +222,8 @@ man/man8/_updown_espmark.8.gz
 %%EAPAKA3GPP2%%@sample %%ETCDIR%%.d/charon/eap-aka-3gpp2.conf.sample
 %%EAPAKA3GPP2%%%%DATADIR%%/templates/config/plugins/eap-aka.conf
 %%EAPAKA3GPP2%%@sample %%ETCDIR%%.d/charon/eap-aka.conf.sample
-%%DYNAKA%%%%DATADIR%%/templates/config/plugins/gmp.conf
-%%DYNAKA%%@sample %%ETCDIR%%.d/charon/gmp.conf.sample
+%%EAPAKA3GPP2%%%%DATADIR%%/templates/config/plugins/gmp.conf
+%%EAPAKA3GPP2%%@sample %%ETCDIR%%.d/charon/gmp.conf.sample
 %%EAPDYNAMIC%%lib/ipsec/plugins/libstrongswan-eap-dynamic.a
 %%EAPDYNAMIC%%lib/ipsec/plugins/libstrongswan-eap-dynamic.la
 %%EAPDYNAMIC%%lib/ipsec/plugins/libstrongswan-eap-dynamic.so
@@ -252,6 +249,11 @@ man/man8/_updown_espmark.8.gz
 %%CURL%%lib/ipsec/plugins/libstrongswan-curl.so
 %%CURL%%%%DATADIR%%/templates/config/plugins/curl.conf
 %%CURL%%@sample %%ETCDIR%%.d/charon/curl.conf.sample
+%%GCM%%%%DATADIR%%/templates/config/plugins/gcm.conf
+%%GCM%%lib/ipsec/plugins/libstrongswan-gcm.a
+%%GCM%%lib/ipsec/plugins/libstrongswan-gcm.la
+%%GCM%%lib/ipsec/plugins/libstrongswan-gcm.so
+%%GCM%%%%ETCDIR%%.d/charon/gcm.conf.sample
 %%IKEv1%%lib/ipsec/plugins/libstrongswan-xauth-generic.a
 %%IKEv1%%lib/ipsec/plugins/libstrongswan-xauth-generic.la
 %%IKEv1%%lib/ipsec/plugins/libstrongswan-xauth-generic.so
@@ -330,11 +332,21 @@ man/man8/_updown_espmark.8.gz
 %%SCEP%%man/man8/scepclient.8.gz
 %%SCEP%%%%DATADIR%%/templates/config/strongswan.d/scepclient.conf
 %%SCEP%%@sample %%ETCDIR%%.d/scepclient.conf.sample
+%%SMP%%%%DATADIR%%/templates/config/plugins/smp.conf
+%%SMP%%lib/ipsec/plugins/libstrongswan-smp.a
+%%SMP%%lib/ipsec/plugins/libstrongswan-smp.la
+%%SMP%%lib/ipsec/plugins/libstrongswan-smp.so
+%%SMP%%@sample %%ETCDIR%%.d/charon/smp.conf.sample
 %%UNBOUND%%lib/ipsec/plugins/libstrongswan-unbound.a
 %%UNBOUND%%lib/ipsec/plugins/libstrongswan-unbound.la
 %%UNBOUND%%lib/ipsec/plugins/libstrongswan-unbound.so
 %%UNBOUND%%%%DATADIR%%/templates/config/plugins/unbound.conf
 %%UNBOUND%%@sample %%ETCDIR%%.d/charon/unbound.conf.sample
+%%UNITY%%%%DATADIR%%/templates/config/plugins/unity.conf
+%%UNITY%%lib/ipsec/plugins/libstrongswan-unity.a
+%%UNITY%%lib/ipsec/plugins/libstrongswan-unity.la
+%%UNITY%%lib/ipsec/plugins/libstrongswan-unity.so
+%%UNITY%%@sample %%ETCDIR%%.d/charon/unity.conf.sample
 %%XAUTH%%lib/ipsec/plugins/libstrongswan-xauth-eap.a
 %%XAUTH%%lib/ipsec/plugins/libstrongswan-xauth-eap.la
 %%XAUTH%%lib/ipsec/plugins/libstrongswan-xauth-eap.so

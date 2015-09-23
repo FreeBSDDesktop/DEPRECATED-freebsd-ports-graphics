@@ -3,7 +3,7 @@
 
 PORTNAME=	spice
 PORTVERSION=	3f5.2
-PORTREVISION=	11
+PORTREVISION=	12
 CATEGORIES=	cad
 MASTER_SITES=	http://embedded.eecs.berkeley.edu/pubs/downloads/spice/:srcs \
 		http://www-device.eecs.berkeley.edu/~bsim/Files/BSIM3/ftpv330/src/:bsim3 \
@@ -83,42 +83,39 @@ LICENSE:=	${LICENSE:O:u}
 
 post-extract:
 	@${DO_NADA}
-.if ${PORT_OPTIONS:MDEV_BSIM3}
+post-extract-DEV_BSIM3-on:
 	@${MKDIR} ${WRKSRC}/src/lib/dev/bsim3
 	${TAR} -xf ${DISTDIR}/${DIST_SUBDIR}/BSIM3v330.tar.Z \
 	    -C ${WRKSRC}/src/lib/dev/bsim3
-.endif
-.if ${PORT_OPTIONS:MDEV_BSIM4}
+post-extract-DEV_BSIM4-on:
 	@${MKDIR} ${WRKSRC}/src/lib/dev/bsim4
 	${UNZIP_CMD} -qo ${DISTDIR}/${DIST_SUBDIR}/BSIM480_Code.zip \
 	    -d ${WRKSRC}/src/lib/dev/bsim4
-.endif
-.if ${PORT_OPTIONS:MDEV_HISIM2}
+post-extract-DEV_HISIM2-on:
 	${UNZIP_CMD} -qo ${DISTDIR}/${DIST_SUBDIR}/HiSIM_2.8.0_Release_20140605.zip \
 	    -d ${WRKDIR}
 	${MV} ${WRKDIR}/HiSIM_2.8.0_Release_20140605/HiSIM_2.8.0_C-Code/hisim2 \
 	    ${WRKSRC}/src/lib/dev
-.endif
 
 ${CONFIGFILE}::
 	@${SETENV} ${CONFIGURE_ENV} ${MAKE} -f ${MAKEFILE} configure
-.for V in CC MAKE CC_OPT DEVICES
+.for V in CC MAKE CC_OPT
 	@${ECHO_CMD} "${V}=${$V}" >> ${WRKSRC}/conf/FreeBSD
+.endfor
+.for V in DEVICES
+	@${ECHO_CMD} "${V}+=${$V}" >> ${WRKSRC}/conf/FreeBSD
 .endfor
 
 do-configure: ${CONFIGFILE}
 	@${DO_NADA}
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${CAT} ${DISTDIR}/${DIST_SUBDIR}/*.ps | ${GZIP_CMD} > \
 	    ${STAGEDIR}${DOCSDIR}/${PORTDOCS}
-.endif
-.if ${PORT_OPTIONS:MEXAMPLES}
+post-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	cd ${WRKSRC}/examples && \
 	    ${INSTALL_DATA} ${PORTEXAMPLES} ${STAGEDIR}${EXAMPLESDIR}
-.endif
 
 .include <bsd.port.mk>

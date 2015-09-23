@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pngquant
-PORTVERSION=	2.0.0
+PORTVERSION=	2.5.0
 DISTVERSIONSUFFIX=	-src
 CATEGORIES=	graphics
 MASTER_SITES=	http://pngquant.org/
@@ -13,7 +13,8 @@ COMMENT=	Converts 32-bit RGBA PNGs into 8-bit RGBA-palette PNGs
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 

@@ -6,7 +6,7 @@ PORTVERSION=	1.2.0
 PORTREVISION=	5
 CATEGORIES=	sysutils
 MASTER_SITES=	http://vobcopy.org/download/ \
-		CRITICAL
+		LOCAL/ehaupt
 
 MAINTAINER=	jpaetzel@FreeBSD.org
 COMMENT=	Decrypts and copies DVD .vob files
@@ -23,8 +23,6 @@ PLIST_FILES=	bin/vobcopy man/man1/vobcopy.1.gz
 PORTDOCS=	COPYING Changelog README TODO \
 		alternative_programs.txt
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
 
 post-extract:
 	@${CHMOD} a+x ${WRKSRC}/${CONFIGURE_SCRIPT}
@@ -56,14 +54,12 @@ post-configure:
 		${WRKSRC}/Makefile
 
 do-install:
-	@${INSTALL_PROGRAM} ${WRKSRC}/vobcopy ${STAGEDIR}${PREFIX}/bin/vobcopy
-	@${INSTALL_MAN} ${WRKSRC}/vobcopy.1${MAN1_SUFX} \
+	${INSTALL_PROGRAM} ${WRKSRC}/vobcopy ${STAGEDIR}${PREFIX}/bin/vobcopy
+	${INSTALL_MAN} ${WRKSRC}/vobcopy.1${MAN1_SUFX} \
 		${STAGEDIR}${MANPREFIX}/man/man1/vobcopy.1
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
-	@${INSTALL} -d ${STAGEDIR}${DOCSDIR}
-	@cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
-.endif
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	ofc
 PORTVERSION=	0.8.1
-PORTREVISION=	14
+PORTREVISION=	15
 CATEGORIES=	lang
 MASTER_SITES=	GOOGLE_CODE
 
@@ -11,17 +11,16 @@ MAINTAINER=	vanilla@FreeBSD.org
 COMMENT=	The Objective-C Foundation Classes library
 
 LIB_DEPENDS=	libexpat.so:${PORTSDIR}/textproc/expat2 \
-		libpng15.so:${PORTSDIR}/graphics/png \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libfreetype.so:${PORTSDIR}/print/freetype2
 
 PROJECTHOST=	${PORTNAME}
 USE_SDL=	sdl
-USES=		libtool objc pathfix
+USES=		jpeg libtool objc pathfix
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-CPPFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/libpng15 ${PTHREAD_CFLAGS}
-LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-lpthread -L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	GDBM GMP

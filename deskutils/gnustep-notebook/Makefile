@@ -2,7 +2,7 @@
 
 PORTNAME=	notebook
 PORTVERSION=	0.3
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	deskutils gnustep
 MASTER_SITES=	http://notebook.cowgar.com/NoteBook/releases/ \
 		http://io.debian.net/~tar/debian/notebook/
@@ -14,9 +14,10 @@ COMMENT=	Place to store notes in an organized manner
 
 LICENSE=	GPLv2
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/NoteBook.app/NoteBook
 
 .include <bsd.port.mk>

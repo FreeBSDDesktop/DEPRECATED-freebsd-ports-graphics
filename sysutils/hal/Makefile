@@ -4,7 +4,7 @@
 
 PORTNAME=	hal
 DISTVERSION=	0.5.14
-PORTREVISION=	28
+PORTREVISION=	30
 CATEGORIES=	sysutils
 MASTER_SITES=	http://hal.freedesktop.org/releases/
 
@@ -74,12 +74,6 @@ FIXED_MOUNTPOINTS_EXTRA_PATCHES=	${FILESDIR}/extra-patch-tools_hal-storage-mount
 RUN_DEPENDS+=	dmidecode:${PORTSDIR}/sysutils/dmidecode
 .endif
 
-.if ${OSVERSION} >= 800063
-PLIST_SUB+=	USB2=""
-.else
-PLIST_SUB+=	USB2="@comment "
-.endif
-
 post-patch:
 	@${REINPLACE_CMD} -e 's/==/=/g' ${WRKSRC}/tools/hal-luks*
 	@${REINPLACE_CMD} -e '/^scriptdir = /s|[(]libexecdir[)]/scripts|(libexecdir)/hal/scripts|' \
@@ -101,13 +95,13 @@ post-install:
 	    	${STAGEDIR}${PREFIX}/share/hal/fdi/policy/10osvendor
 	${INSTALL_SCRIPT} ${FILESDIR}/mount-fuse \
 	    	${STAGEDIR}${PREFIX}/share/hal/mount-fuse
-.if ${PORT_OPTIONS:MDOCS}
+	@${MKDIR} ${STAGEDIR}/var/lib/hal
+
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/hald/freebsd/README \
 		${STAGEDIR}${DOCSDIR}/README.freebsd
 	${INSTALL_DATA} ${WRKDIR}/README.fuse \
 	    	${STAGEDIR}${DOCSDIR}/README.fuse
-.endif
-	@${MKDIR} ${STAGEDIR}/var/lib/hal
 
 .include <bsd.port.post.mk>

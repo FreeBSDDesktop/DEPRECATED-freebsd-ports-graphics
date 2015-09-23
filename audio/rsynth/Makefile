@@ -5,7 +5,8 @@ PORTNAME=	rsynth
 PORTVERSION=	2.0
 PORTREVISION=	4
 CATEGORIES=	audio accessibility
-MASTER_SITES=	ftp://svr-ftp.eng.cam.ac.uk/pub/comp.speech/synthesis/
+MASTER_SITES=	ftp://svr-ftp.eng.cam.ac.uk/pub/comp.speech/synthesis/ \
+		ftp://ftp.enst.fr/pub/unix/multimedia/
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Speech synthesizer
@@ -22,5 +23,8 @@ pre-configure:
 post-configure:
 	@${REINPLACE_CMD} -E 's,(BIN|LIB)_DIR\),DESTDIR\)$$\(&,g' \
 		${WRKSRC}/Makefile
+
+post-install:
+	@${RMDIR} ${STAGEDIR}${PREFIX}/lib/dict
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	thegrind
 PORTVERSION=	0.1.2
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	games
 MASTER_SITES=	SF/radius-engine/ld21/
 
@@ -14,7 +14,7 @@ LICENSE=	GPLv2
 
 BUILD_DEPENDS=	${LOCALBASE}/lib/libradius-engine.a:${PORTSDIR}/graphics/radius-engine
 LIB_DEPENDS=	liblua-5.1.so:${PORTSDIR}/lang/lua51 \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libphysfs.so.1:${PORTSDIR}/devel/physfs
 RUN_DEPENDS=	zip:${PORTSDIR}/archivers/zip
 
@@ -28,6 +28,7 @@ PLIST_FILES=	bin/${PORTNAME} \
 		share/applications/${PORTNAME}.desktop \
 		share/pixmaps/${PORTNAME}.png \
 		%%DATADIR%%/${PORTNAME}.zip
+PLIST_DIRS=	%%DATADIR%%
 
 PORTDOCS=	ChangeLog
 OPTIONS_DEFINE=	DOCS

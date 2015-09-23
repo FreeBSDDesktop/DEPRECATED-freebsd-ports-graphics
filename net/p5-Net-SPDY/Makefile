@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	Net-SPDY
-PORTVERSION=	0.1
+DISTVERSION=	0.1_5
 PORTREVISION=	1
 CATEGORIES=	net perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:LKUNDRAK
 PKGNAMEPREFIX=	p5-
-DISTNAME=	${PORTNAME}-${PORTVERSION}_5
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	SPDY protocol client and server implementation
@@ -22,6 +21,7 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 TEST_DEPENDS=	p5-Test-Deep>=0:${PORTSDIR}/devel/p5-Test-Deep \
 		p5-Test-Pod>=0:${PORTSDIR}/devel/p5-Test-Pod
 
+NO_ARCH=	yes
 USE_PERL5=	modbuild
 USES=		perl5
 

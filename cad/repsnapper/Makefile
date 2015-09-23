@@ -3,7 +3,7 @@
 
 PORTNAME=	repsnapper
 PORTVERSION=	2.3.2a3
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	cad
 MASTER_SITES=	https://codeload.github.com/timschmidt/repsnapper/tar.gz/
 DISTNAME=	${PORTVERSION}
@@ -19,9 +19,8 @@ LICENSE_COMB=	multi
 LIB_DEPENDS=	libgtkglextmm-x11-1.2.so:${PORTSDIR}/x11-toolkits/gtkglextmm \
 		libzip.so:${PORTSDIR}/archivers/libzip \
 
-USES=		gmake libtool perl5 pkgconfig
-USE_AUTOTOOLS=	libtoolize:env autoconf:env automake:env
-USE_GNOME=	gtkmm24 libxml++26
+USES=		autoreconf gmake libtool perl5 pkgconfig
+USE_GNOME=	gtkmm24 intltool libxml++26
 USE_GL=		gl
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
@@ -35,9 +34,6 @@ NLS_USES=	gettext
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 INSTALL_TARGET=	install-strip
-
-pre-configure:
-	cd ${WRKSRC} && ${SETENV} NOCONFIGURE=yes ./autogen.sh
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/xdg/repsnapper/repsnapper.conf \

@@ -3,19 +3,19 @@
 
 PORTNAME=	foxitreader
 PORTVERSION=	1.1.0
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	print
-MASTER_SITES=	http://cdn04.foxitsoftware.com/pub/foxit/%SUBDIR%/:reader,manual
-MASTER_SITE_SUBDIR=	reader/desktop/linux/1.x/${PORTVERSION:R}/enu/:reader \
-			manual/enu/:manual
+MASTER_SITES=	http://cdn04.foxitsoftware.com/pub/foxit/reader/desktop/linux/1.x/${PORTVERSION:R}/enu/:reader
+			
 DISTFILES=	FoxitReader-${PORTVERSION}.tar.bz2:reader
 EXTRACT_ONLY=	FoxitReader-${PORTVERSION}.tar.bz2
 
 MAINTAINER=	nivit@FreeBSD.org
 COMMENT=	Free PDF document viewer for desktop Linux
 
-LICENSE_NAME=	EULA
-LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell
+LICENSE=	EULA
+LICENSE_NAME=	End-User License Agreement
+LICENSE_PERMS=	auto-accept
 LICENSE_TEXT=	http://www.foxitsoftware.com/pdf/desklinux/eula.htm
 
 NO_BUILD=	yes
@@ -25,13 +25,14 @@ OPTIONS_SUB=	yes
 
 USES=	gettext tar:bzip2
 USE_LINUX=	yes
-USE_LINUX_APPS=	avahi-libs cups-libs gtk2
+USE_LINUX_APPS=	avahi-libs cups-libs dbuslibs gtk2 nss
 
 WRKSRC=	${WRKDIR}/${PORTVERSION:R}-release
 
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MDOCS}
+MASTER_SITES+=	http://cdn04.foxitsoftware.com/pub/foxit/manual/enu/:manual
 DISTFILES+=	FoxitReader${PORTVERSION:R}ForLinux_Manual.pdf:manual
 .endif
 
@@ -45,7 +46,9 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/po/${locale}/FoxitReader.mo ${STAGEDIR}${PREFIX}/share/locale/${locale}/LC_MESSAGES/
 .endfor
 .endif
+.if ${PORT_OPTIONS:MDOCS}
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${DISTDIR}/FoxitReader${PORTVERSION:R}ForLinux_Manual.pdf ${STAGEDIR}${DOCSDIR}
+.endif
 
 .include <bsd.port.mk>

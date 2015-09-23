@@ -3,7 +3,7 @@
 
 PORTNAME=	ocaml-gsl
 PORTVERSION=	1.15.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	http://bitbucket.org/mmottl/gsl-ocaml/downloads/
 DISTNAME=	gsl-ocaml-${PORTVERSION}
@@ -21,6 +21,7 @@ RUN_DEPENDS=	ocamlfind:${PORTSDIR}/devel/ocaml-findlib
 USES=			gmake
 USE_OCAML=		YES
 USE_OCAML_FINDLIB=	YES
+USE_OCAML_CAMLP4=	YES
 USE_OCAML_LDCONFIG=	YES
 OCAML_PKGDIRS=		gsl
 HAS_CONFIGURE=		YES

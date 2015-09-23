@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Proc-ProcessTable
-PORTVERSION=	0.51
+PORTVERSION=	0.53
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 MASTER_SITE_SUBDIR=	CPAN:JWB
@@ -16,6 +16,8 @@ LICENSE_COMB=	dual
 
 OPTIONS_DEFINE=	DOCS
 
+PORTSCOUT=	limit:^[0-9\.]*$$
+
 USES=		perl5 shebangfix
 USE_PERL5=	configure
 
@@ -24,6 +26,7 @@ PORTDOCS=	README README.freebsd-kvm README.freebsd-procfs
 SHEBANG_FILES=	example.pl
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Proc/ProcessTable/ProcessTable.so
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
 

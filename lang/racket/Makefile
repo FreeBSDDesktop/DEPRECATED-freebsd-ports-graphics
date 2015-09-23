@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	racket
-PORTVERSION=	6.1
-PORTREVISION=	1
+PORTVERSION=	6.2
 CATEGORIES=	lang scheme
 MASTER_SITES=	http://mirror.racket-lang.org/installers/${PORTVERSION}/ \
 		http://www.cs.utah.edu/plt/installers/${PORTVERSION}/ \
@@ -19,8 +18,7 @@ COMMENT=	Interactive, integrated, graphical Scheme programming environment
 
 LIB_DEPENDS=	libffi.so:${PORTSDIR}/devel/libffi	\
 		libcairo.so:${PORTSDIR}/graphics/cairo	\
-		libjpeg.so:${PORTSDIR}/graphics/jpeg	\
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
 MAKE_JOBS_UNSAFE=yes
 
@@ -37,7 +35,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
 WRKSRC=		${WRKDIR}/racket-${PORTVERSION}/src
-USES=		iconv libtool tar:tgz
+USES=		iconv jpeg libtool tar:tgz
 USE_LDCONFIG=	yes
 USE_GNOME=	pango
 USE_SQLITE=	3

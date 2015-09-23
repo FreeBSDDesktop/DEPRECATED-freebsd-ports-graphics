@@ -1,19 +1,17 @@
 # Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
 # $FreeBSD$
-#   $MCom: ports/trunk/games/gnome-games/Makefile 20023 2014-10-25 14:22:37Z gusi $
 
 PORTNAME=	gnome-games
-PORTVERSION=	3.14.0
-PORTREVISION=	1
+PORTVERSION=	3.16.0
 CATEGORIES=	games gnome
-MASTER_SITES=	# empty
-DISTFILES=	# empty
-EXTRACT_ONLY=	# empty
 
 MAINTAINER=	gnome@FreeBSD.org
 COMMENT=	Gnome games meta port
 
+USES=		metaport
+
 RUN_DEPENDS=	five-or-more:${PORTSDIR}/games/five-or-more \
+		atomix:${PORTSDIR}/games/atomix \
 		four-in-a-row:${PORTSDIR}/games/four-in-a-row \
 		gnome-chess:${PORTSDIR}/games/gnome-chess \
 		gnome-klotski:${PORTSDIR}/games/gnome-klotski \
@@ -22,17 +20,14 @@ RUN_DEPENDS=	five-or-more:${PORTSDIR}/games/five-or-more \
 		gnome-nibbles:${PORTSDIR}/games/gnome-nibbles \
 		gnome-robots:${PORTSDIR}/games/gnome-robots \
 		gnome-sudoku:${PORTSDIR}/games/gnome-sudoku \
+		gnome-taquin:${PORTSDIR}/games/gnome-taquin \
 		gnome-tetravex:${PORTSDIR}/games/gnome-tetravex \
 		hitori:${PORTSDIR}/games/hitori \
 		iagno:${PORTSDIR}/games/iagno \
 		lightsoff:${PORTSDIR}/games/lightsoff \
 		quadrapassel:${PORTSDIR}/games/quadrapassel \
-		sol:${PORTSDIR}/games/aisleriot \
+		aisleriot>=0:${PORTSDIR}/games/aisleriot \
 		swell-foop:${PORTSDIR}/games/swell-foop \
 		tali:${PORTSDIR}/games/tali
-
-NO_BUILD=	yes
-NO_INSTALL=	yes
-NO_MTREE=	yes
 
 .include <bsd.port.mk>

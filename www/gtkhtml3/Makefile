@@ -6,8 +6,7 @@ PORTNAME=	gtkhtml3
 PORTVERSION=	3.32.1
 PORTREVISION=	4
 CATEGORIES=	www gnome
-MASTER_SITES=	GNOME
-MASTER_SITE_SUBDIR=	sources/${PORTNAME:S/3$//}/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
+MASTER_SITES=	GNOME/sources/${PORTNAME:S/3$//}/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
 DISTNAME=	${PORTNAME:S/3$//}-${PORTVERSION}
 DIST_SUBDIR=	gnome2
 
@@ -20,6 +19,8 @@ LIB_DEPENDS=	libsoup-2.4.so:${PORTSDIR}/devel/libsoup \
 		libenchant.so:${PORTSDIR}/textproc/enchant
 RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-codes \
 		${LOCALBASE}/libdata/pkgconfig/gnome-icon-theme.pc:${PORTSDIR}/misc/gnome-icon-theme
+
+PORTSCOUT=	ignore:1
 
 USES=		gettext libtool pathfix pkgconfig gmake tar:bzip2
 USE_XORG=	xinerama xi xrandr xcursor xcomposite xdamage

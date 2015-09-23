@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	elementary
-PORTVERSION=	1.12.2
+PORTVERSION=	1.15.1
 CATEGORIES=	x11-toolkits enlightenment
 MASTER_SITES=	http://download.enlightenment.org/rel/libs/${PORTNAME}/
 
-MAINTAINER=	gblach@FreeBSD.org
+MAINTAINER=	enlightenment@FreeBSD.org
 COMMENT=	Simple widget toolkit using EFL
 
 LICENSE=	LGPL21

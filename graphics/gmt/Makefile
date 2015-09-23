@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	gmt
-PORTVERSION=	4.5.12
-PORTREVISION=	3
+PORTVERSION=	4.5.13
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.soest.hawaii.edu/%SUBDIR%/ \
 		ftp://ftp.geologi.uio.no/pub/%SUBDIR%/ \
@@ -86,6 +86,7 @@ GSHHG_DISTNAME=	gshhg-gmt-2.3.0
 .include <bsd.port.options.mk>
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	@${MKDIR} ${STAGEDIR}${DATADIR}/coast
 	(cd ${WRKDIR}/${GSHHG_DISTNAME} && ${INSTALL_DATA} README.TXT *.nc \
 		${STAGEDIR}${DATADIR}/coast)

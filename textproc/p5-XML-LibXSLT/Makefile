@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	XML-LibXSLT
-PORTVERSION=	1.92
-PORTREVISION=	2
+PORTVERSION=	1.94
+PORTREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -20,5 +20,8 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 USES=		perl5 pkgconfig
 USE_GNOME=	libxml2 libxslt
 USE_PERL5=	configure
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/XML/LibXSLT/LibXSLT.so
 
 .include <bsd.port.mk>

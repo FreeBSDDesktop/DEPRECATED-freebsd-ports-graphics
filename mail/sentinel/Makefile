@@ -12,8 +12,6 @@ COMMENT=	Sendmail milter API implementation
 
 LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
 
-NEED_ROOT=	yes
-
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
 
@@ -28,24 +26,19 @@ CFLAGS+=	-DDO_NOT_DECODE_SUBJECT
 .endif
 
 do-build:
-	cd ${WRKSRC} && \
-		${CC} ${CFLAGS} ${PTHREAD_CFLAGS} \
-		-o ${PORTNAME} ${PORTNAME}.c ${LDFLAGS} \
-		-lmilter -lpcre -lpcreposix ${PTHREAD_LIBS}
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${CC} ${CFLAGS} -o ${PORTNAME} sentinel.c ${LDFLAGS} \
+		-lmilter -lpcre -lpcreposix -lpthread)
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/sentinel ${STAGEDIR}${PREFIX}/sbin/
 	@${MKDIR} ${STAGEDIR}/var/spool/sentinel
-	${CHOWN} smmsp:smmsp ${STAGEDIR}/var/spool/sentinel
 	${INSTALL_DATA} ${FILESDIR}/000.sentinel.sh ${STAGEDIR}${PREFIX}/etc/rc.d/sentinel.sh-dist
 	${INSTALL_DATA} ${WRKSRC}/sentinel.cf.SAMPLE ${STAGEDIR}${PREFIX}/etc/sentinel.cf.dist
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.FreeBSD ${STAGEDIR}${DOCSDIR}
-.endif
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.post.mk>

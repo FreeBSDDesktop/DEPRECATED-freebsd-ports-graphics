@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	rage
-PORTVERSION=	0.1.0
+PORTVERSION=	0.1.4
 CATEGORIES=	multimedia enlightenment
 MASTER_SITES=	http://download.enlightenment.org/rel/apps/${PORTNAME}/
 
-MAINTAINER=	gblach@FreeBSD.org
+MAINTAINER=	enlightenment@FreeBSD.org
 COMMENT=	EFL video and audio player with some extra bells and whistles
 
 LICENSE=	BSD2CLAUSE
@@ -16,6 +16,6 @@ LIB_DEPENDS=	libefl.so:${PORTSDIR}/devel/efl \
 
 DIST_SUBDIR=	enlightenment
 GNU_CONFIGURE=	yes
-USES=		desktop-file-utils pkgconfig tar:bzip2
+USES=		desktop-file-utils pkgconfig tar:xz
 
 .include <bsd.port.mk>

@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	rt
-DISTVERSION=	4.2.9
-PORTREVISION=	3
+DISTVERSION=	4.2.12
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://download.bestpractical.com/pub/rt/release/
 PKGNAMESUFFIX=	42
@@ -38,7 +38,7 @@ OPTIONS_SINGLE_DB=	MYSQL ORACLE PGSQL SQLITE
 OPTIONS_RADIO=		WEB
 OPTIONS_RADIO_WEB=	AP_MODFASTCGI AP_MODPERL LIGHTTPD SPAWN_FCGI
 
-OPTIONS_DEFAULT=	AP_MODPERL GD GPG MYSQL
+OPTIONS_DEFAULT=	AP_MODFASTCGI GD GPG MYSQL
 
 USERS?=		www
 GROUPS?=	rt www
@@ -63,7 +63,6 @@ RT_ETC_DIR?=	etc/${PORTNAME}${PKGNAMESUFFIX}
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${PKGNAMESUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${PKGNAMESUFFIX}
 RT_ETC_PATH=	${PREFIX}/${RT_ETC_DIR}
-
 
 AP_MODPERL_DESC=		Deploy with apache and mod_perl
 AP_MODPERL_RUN_DEPENDS=		${MODPERL2_DEPS}
@@ -189,7 +188,7 @@ pre-fetch:
 post-patch:
 	@${RM} -f ${WRKSRC}/lib/RT.pm.in.orig
 	@${REINPLACE_CMD} -e 's!%%PREFIX%%!${PREFIX}!g' ${WRKSRC}/config.layout
-	@${REINPLACE_CMD} -e 's!%%SITE_PERL%%!${SITE_PERL}!g' ${WRKSRC}/config.layout
+	@${REINPLACE_CMD} -e 's!%%SITE_PERL%%!${PREFIX}/${SITE_PERL_REL}!g' ${WRKSRC}/config.layout
 	@${REINPLACE_CMD} -e 's!/path/to/your/etc!${RT_ETC_PATH}!g' ${WRKSRC}/etc/RT_SiteConfig.pm
 	@${REINPLACE_CMD} -e 's!/bin:/usr/bin!/bin:/usr/bin:${LOCALBASE}/bin!' ${WRKSRC}/lib/RT/Interface/CLI.pm && \
 	    ${RM} ${WRKSRC}/lib/RT/Interface/CLI.pm.bak
@@ -203,4 +202,10 @@ post-install:
 	(cd ${WRKSRC}/etc && \
 	    ${COPYTREE_SHARE} upgrade ${STAGEDIR}${DOCSDIR} "! -name *\.in")
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} >= 502200
+CORE_DEPS+=     p5-CGI>4.0:${PORTSDIR}/www/p5-CGI
+.endif
+
+.include <bsd.port.post.mk>

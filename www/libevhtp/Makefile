@@ -2,7 +2,7 @@
 
 PORTNAME=	libevhtp
 PORTVERSION=	1.2.9
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	www
 
 MAINTAINER=	yan_jingfeng@yahoo.com
@@ -15,9 +15,7 @@ LIB_DEPENDS=	libevent.so:${PORTSDIR}/devel/libevent2
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	ellzey
-GH_PROJECT=	libevhtp
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	3886506
+GH_TAGNAME=	3886506
 
 USES=		cmake:outsource
 USE_LDCONFIG=	YES
@@ -51,8 +49,11 @@ OPTIONS_DEFAULT=	EVHTP_BUILD_SHARED
 PLIST_FILES=	include/evhtp.h\
 		include/evhtp-config.h \
 		include/evthr.h \
-		include/htparse.h \
-		include/onigposix.h
+		include/htparse.h
+
+.if !exists(${LOCALBASE}/include/onigposix.h)
+PLIST_FILES+=	include/onigposix.h
+.endif
 
 .if ${PORT_OPTIONS:MEVHTP_BUILD_SHARED}
 PLIST_FILES+=	lib/libevhtp.so

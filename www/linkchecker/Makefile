@@ -3,6 +3,7 @@
 
 PORTNAME=	linkchecker
 PORTVERSION=	9.3
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 DISTNAME=	LinkChecker-${PORTVERSION}
@@ -11,15 +12,16 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Check HTML documents for broken links
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dnspython>0:${PORTSDIR}/dns/py-dnspython \
 		${PYTHON_PKGNAMEPREFIX}requests>=2:${PORTSDIR}/www/py-requests
 
 WRKSRC=		${WRKDIR}/${DISTNAME}
 
-USE_PYTHON=		2
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		cpe python:2
+CPE_VENDOR=	bastian_kleineidam
+USE_PYTHON=	distutils autoplist
 INSTALLS_ICONS=	yes
 
 OPTIONS_DEFINE=		CLAMAV EXAMPLES GEOIP GTK2 LOGIN NLS QT4 \
@@ -32,7 +34,7 @@ CLAMAV_RUN_DEPENDS=	clamscan:${PORTSDIR}/security/clamav
 GEOIP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}GeoIP>0:${PORTSDIR}/net/py-GeoIP
 GTK2_USE=		gnome=pygtk2
 LOGIN_DESC=		Login form submission
-LOGIN_RUN_DEPENDS=	twill:${PORTSDIR}/www/twill
+LOGIN_RUN_DEPENDS=	twill>=0:${PORTSDIR}/www/twill
 NLS_USES=		gettext
 QT4_EXTRA_PATCHES_OFF=	${PATCHDIR}/extra-patch-noqt-setup.py
 QT4_RUN_DEPENDS=\
@@ -62,6 +64,7 @@ post-build:
 .endif
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/linkcheck/*/*.so
 .for i in 16 32 48 64 128
 	@${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/${i}x${i}/apps
 	(cd ${WRKSRC}/doc/html && ${INSTALL_DATA} logo${i}x${i}.png \

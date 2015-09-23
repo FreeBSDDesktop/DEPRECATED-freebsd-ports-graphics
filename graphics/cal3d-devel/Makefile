@@ -5,8 +5,7 @@ PORTNAME=	cal3d
 PORTVERSION=	20060720
 PORTREVISION=	4
 CATEGORIES=	graphics devel
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	acm/${PORTNAME}
+MASTER_SITES=	LOCAL/acm/${PORTNAME}
 PKGNAMESUFFIX=	-devel
 DIST_SUBDIR=	${PORTNAME}
 
@@ -15,11 +14,10 @@ COMMENT=	Skeletal based 3D character animation library written in C++ (devel)
 
 CONFLICTS=	cal3d-[0-9]*
 
-USES=		libtool pathfix pkgconfig tar:bzip2
+GNU_CONFIGURE=	yes
+USES=		autoreconf libtool pathfix pkgconfig tar:bzip2
 PATHFIX_MAKEFILEIN=	Makefile.am
 USE_LDCONFIG=	yes
-USE_AUTOTOOLS=	libtoolize aclocal autoconf autoheader automake
-AUTOMAKE_ARGS=	--add-missing
 INSTALL_TARGET=	install-strip
 
 post-patch:

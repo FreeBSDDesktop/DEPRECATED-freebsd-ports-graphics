@@ -23,26 +23,19 @@ USE_GNOME=	gtk20
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-lm
 
-DESKTOP_ENTRIES="pdnMesh" "${COMMENT}" "" "${PORTNAME}" "" "true"
+DESKTOP_ENTRIES="pdnMesh" "${COMMENT}" "" "${PORTNAME}" "" true
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MATLAS}
-LIB_DEPENDS+=	libatlas.so:${PORTSDIR}/math/atlas
-CONFIGURE_ARGS+=--with-blas=cblas --with-lapack=alapack
-.else
-LIB_DEPENDS+=	libblas.so:${PORTSDIR}/math/blas
-LIB_DEPENDS+=	liblapack.so:${PORTSDIR}/math/lapack
-CONFIGURE_ARGS+=--with-blas=blas --with-lapack=lapack
-.endif
+ATLAS_USES=		blaslapack:atlas
+ATLAS_CONFIGURE_ON=--with-blas=cblas --with-lapack=alapack
+ATLAS_USES_OFF=		blaslapack
+ATLAS_CONFIGURE_OFF=--with-blas=blas --with-lapack=lapack
 
 post-patch:
 	@${REINPLACE_CMD}-e \
 		'/^SUBDIRS/s|doc|| ; \
 		 s|^pkgdata_DATA|#pkgdata_DATA|' ${WRKSRC}/Makefile.in
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} \
 		&& ${INSTALL_DATA} ChangeLog ${STAGEDIR}${DOCSDIR} \
@@ -51,11 +44,9 @@ post-install:
 	(cd ${WRKSRC}/doc/tutorial \
 		&& ${INSTALL_DATA} README ${STAGEDIR}${DOCSDIR}/tutorial \
 		&& ${INSTALL_DATA} tutorial.* ${STAGEDIR}${DOCSDIR}/tutorial)
-.endif
-.if ${PORT_OPTIONS:MEXAMPLES}
+post-install-EXAMPLES-on:
 	(cd ${WRKSRC}/doc/examples && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
 	${RM} ${STAGEDIR}${EXAMPLESDIR}/Makefile*
-.endif
 
 .include <bsd.port.mk>

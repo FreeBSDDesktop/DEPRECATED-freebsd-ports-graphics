@@ -6,10 +6,8 @@ COMMANDS_Include_MAINTAINER=	portmgr@FreeBSD.org
 
 _CCACHEMKINCLUDED=	yes
 
-# Try to set a default CCACHE_DIR to workaround HOME=/dev/null and
-# HOME=${WRKDIR}/* staging fixes
-.if defined(WITH_CCACHE_BUILD) && !defined(CCACHE_DIR) && \
-    (!defined(HOME) || ${HOME} == /dev/null || ${HOME:S/^${WRKDIR}//} != ${HOME})
+# HOME is always set to ${WRKDIR} now. Try to use /root/.ccache as default.
+.if defined(WITH_CCACHE_BUILD) && !defined(CCACHE_DIR)
 .  if defined(USER) && ${USER} == root
 CCACHE_DIR=	/root/.ccache
 .  else
@@ -22,8 +20,8 @@ WARNING+=	WITH_CCACHE_BUILD support disabled, please set CCACHE_DIR.
 # don't use if ccache already set in CC
 .if !defined(NO_CCACHE) && defined(WITH_CCACHE_BUILD) && !${CC:M*ccache*} && \
   !defined(NO_BUILD) && !defined(NOCCACHE)
-# Avoid depends loops between pkg and ccache
-.	if !${.CURDIR:M*/devel/ccache} && !${.CURDIR:M*/ports-mgmt/pkg}
+# Avoid depends loops between ccache and pkg
+.	if ${PKGORIGIN} != devel/ccache && ${PKGORIGIN} != ${PKG_ORIGIN}
 BUILD_DEPENDS+=		${LOCALBASE}/bin/ccache:${PORTSDIR}/devel/ccache
 .	endif
 

@@ -3,7 +3,7 @@
 
 PORTNAME=	akamaru
 PORTVERSION=	0.1
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	deskutils gnome
 MASTER_SITES=	http://people.freedesktop.org/~krh/
 DISTNAME=	${PORTNAME}
@@ -13,12 +13,19 @@ COMMENT=	Simple, but fun, physics engine prototype
 
 RUN_DEPENDS=	xcompmgr:${PORTSDIR}/x11-wm/xcompmgr
 
+BROKEN=		Unfetchable
 USES=		gmake pkgconfig
 USE_GNOME=	gconf2 gtk20
 GCONF_SCHEMAS=	kiba.schemas
 SUB_FILES=	pkg-message
 
 post-patch:
+	@${REINPLACE_CMD} \
+		-e '/^CFLAGS =/s|-g| ${CFLAGS} |' \
+		-e '/^CPPFLAGS =/s|$$| ${CPPFLAGS}|' \
+		-e '/^LDFLAGS =/s|-g| ${LDFLAGS} |' \
+		-e '/^LDLIBS =/s|$$| ${LIBS} -lm|' \
+		${WRKSRC}/Makefile
 	@${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
 	    	${WRKSRC}/populate-dock.sh
 

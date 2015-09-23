@@ -1,10 +1,8 @@
 # Created by: olgeni@FreeBSD.org
 # $FreeBSD$
-#   $MCom: ports/trunk/misc/shared-mime-info/Makefile 18394 2013-04-26 21:29:28Z kwm $
 
 PORTNAME=	shared-mime-info
-PORTVERSION=	1.1
-PORTREVISION=	1
+PORTVERSION=	1.4
 CATEGORIES=	misc gnome
 MASTER_SITES=	http://people.freedesktop.org/~hadess/
 
@@ -30,8 +28,5 @@ MIMESUBDIRS=	application audio image inode message model multipart \
 post-patch:
 	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/update-mime-database.c
-
-post-install:
-	@${SETENV} "PKG_PREFIX=${PREFIX}" ${SH} ${PKGINSTALL} ${PKGNAME} POST-INSTALL
 
 .include <bsd.port.mk>

@@ -18,6 +18,8 @@ LICENSE=	GPLv2
 
 LIB_DEPENDS=	liborc-0.4.so:${PORTSDIR}/devel/orc
 
+PORTSCOUT=	limit:0\.10\..*
+
 LIBAV_VERSION=	0.7.7
 WRKSRC=		${WRKDIR}/gst-ffmpeg-${PORTVERSION}
 USES=		compiler:features gmake libtool pkgconfig
@@ -59,6 +61,14 @@ FFMPEG_CFLAGS_OFF+=-msse
 .endif
 
 .include <bsd.port.pre.mk>
+
+.if ${ARCH} == armv6
+CONFIGURE_ENV+=	ASFLAGS=-no-integrated-as
+CFLAGS=	-no-integrated-as
+BUILD_DEPENDS+=	${LOCALBASE}/bin/as:${PORTSDIR}/devel/binutils
+CONFIGURE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
+MAKE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
+.endif
 
 .if ! ${PORT_OPTIONS:MFFMPEG}
 .if ${OSVERSION} < 900033 || ${ARCH} == ia64

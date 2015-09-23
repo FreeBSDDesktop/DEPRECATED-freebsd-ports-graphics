@@ -6,7 +6,6 @@ CATEGORIES=	www geography
 PKGNAMEPREFIX=	lighttpd-
 DISTNAME=	lighttpd-${PORTVERSION}
 
-MAINTAINER=	mm@FreeBSD.org
 COMMENT=	GeoIP module for lighttpd
 
 LIB_DEPENDS=	libGeoIP.so:${PORTSDIR}/net/GeoIP
@@ -14,13 +13,11 @@ BUILD_DEPENDS=	${LOCALBASE}/sbin/lighttpd:${PORTSDIR}/www/lighttpd
 RUN_DEPENDS=	${LOCALBASE}/sbin/lighttpd:${PORTSDIR}/www/lighttpd
 
 MASTERDIR=	${.CURDIR}/../lighttpd
-DESCR=		${FILESDIR}/pkg-descr.${PORTNAME}
-PLIST=		${FILESDIR}/pkg-plist.${PORTNAME}
-LATEST_LINK=	lighttpd-${PORTNAME}
+DESCR=		${.CURDIR}/pkg-descr
+PLIST=		${.CURDIR}/pkg-plist
 
-PATCH_SITES+=	${MASTER_SITE_LOCAL}
+PATCH_SITES+=	LOCAL/mm
 PATCHFILES+=	lighttpd-1.4.26_mod_geoip.patch.gz
-PATCH_SITE_SUBDIR+=	mm
 
 BUILD_WRKSRC=	${WRKSRC}/src
 ALL_TARGET=	${PORTNAME}.la

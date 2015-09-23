@@ -21,10 +21,9 @@ EXAMPLESDIR=	${PREFIX}/share/examples/${PKGNAMEPREFIX}${PORTNAME}
 OPTIONS_DEFINE=	EXAMPLES
 
 PORTEXAMPLES=	*
-PYDISTUTILS_AUTOPLIST=	yes
 
-USE_PYTHON=	yes
-USE_PYDISTUTILS=	yes
+USES=		python
+USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.options.mk>
 
@@ -46,7 +45,7 @@ post-install:
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_REL} >= 300    # devel/py-cheetah doesn't yet build with Python 3
+.if ${PYTHON_REL} >= 3000    # devel/py-cheetah doesn't yet build with Python 3
 .undef EXAMPLES_RUN_DEPENDS
 .endif
 
@@ -55,7 +54,7 @@ post-install:
 # Instead of defining a cherrypy_build_py.get_outputs() method in setup.py
 # we simply remove unwanted modules (see cherrypy_build_py() in setup.py)
 post-extract:
-.if ${PYTHON_REL} >= 300
+.if ${PYTHON_REL} >= 3000
 	@(cd ${WRKSRC}/cherrypy && ${RM} _cpcompat_subprocess.py && \
 	cd wsgiserver && ${RM} ssl_pyopenssl.py wsgiserver2.py)
 .else

@@ -3,20 +3,24 @@
 
 PORTNAME=	terminal.app
 PORTVERSION=	0.9.8
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	x11 gnustep
-MASTER_SITES=	${MASTER_SITE_SAVANNAH}
-MASTER_SITE_SUBDIR=	gap
+MASTER_SITES=	SAVANNAH/gap
 DISTNAME=	Terminal-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Terminal Emulator for GNUstep
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+LICENSE=	GPLv2 # only
+LICENSE_FILE=	${WRKSRC}/COPYING
 
+USES=		gnustep iconv
+USE_GNUSTEP=	back build
+
+MAKE_ARGS+=	Terminal_TOOL_LIBS='${ICONV_LIB} -lutil'
 MAKE_ENV+=	GNUSTEP_INSTALLATION_DOMAIN=SYSTEM
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Applications/Terminal.app/Terminal
 
 .include <bsd.port.mk>

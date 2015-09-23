@@ -8,16 +8,12 @@ CATEGORIES=	devel
 MAINTAINER=	lev@FreeBSD.org
 COMMENT=	TI Tiva C ARM microcontroller tools
 
-LICENSE=		GPLv2 TIBSD
+LICENSE=		GPLv2 BSD3CLAUSE
 LICENSE_COMB=		multi
-LICENSE_NAME_TIBSD=	Texas Instruments Software License Agreement
-LICENSE_FILE_TIBSD=	${WRKSRC}/lmicdiusb/license.txt
-LICENSE_PERMS_TIBSD=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	utzig
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	1cfd813
+GH_TAGNAME=	1cfd813
 
 USES=		gmake
 

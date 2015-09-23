@@ -4,8 +4,9 @@
 PORTNAME=	craft
 PORTVERSION=	1.0
 PORTREVISION=	1
+DISTVERSIONPREFIX=	v
+DISTVERSIONSUFFIX=	fbsd
 CATEGORIES=	games
-MASTER_SITES=	GH
 
 MAINTAINER=	danilo@FreeBSD.org
 COMMENT=	Simple Minecraft clone written in C using modern OpenGL
@@ -15,8 +16,6 @@ LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 USE_GITHUB=	yes
 GH_ACCOUNT=	daniloegea
 GH_PROJECT=	Craft
-GH_TAGNAME=	v1.0fbsd
-GH_COMMIT=	fdf801f
 
 OPTIONS_DEFINE=		SERVER
 SERVER_DESC=		Install the craft server

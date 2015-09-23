@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	dnsmasq
-DISTVERSION=	2.72
+DISTVERSION=	2.75
 PORTEPOCH=	1
 CATEGORIES=	dns ipv6
 MASTER_SITES=	http://www.thekelleys.org.uk/dnsmasq/ \
@@ -33,9 +33,10 @@ NLS_DESC=	IDN+NLS: Int'l Domain Names & National Language support
 IDN_DESC=	IDN: Int'l Domain Names WITHOUT full NLS
 LUA_DESC=	Support lease-change scripts written in Lua
 DNSSEC_DESC=	Enable DNSSEC caching and validation
-USES=		shebangfix tar:xz
+USES=		cpe shebangfix tar:xz
 SHEBANG_FILES=	contrib/dynamic-dnsmasq/dynamic-dnsmasq.pl \
 		contrib/dnslist/dnslist.pl
+CPE_VENDOR=	thekelleys
 
 .include <bsd.port.options.mk>
 
@@ -44,7 +45,7 @@ CFLAGS+=	-DNO_IPV6
 .endif
 
 .if ${PORT_OPTIONS:MNLS}
-USES+=		pkgconfig gettext iconv gmake
+USES+=		gettext gmake iconv pkgconfig
 LIB_DEPENDS+=	libidn.so:${PORTSDIR}/dns/libidn
 PLIST_SUB+=	NLS=""
 ALL_TARGET=	all-i18n
@@ -106,8 +107,8 @@ pre-configure: pretty-print-config
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/dnsmasq ${STAGEDIR}${PREFIX}/sbin
-	${INSTALL_DATA} ${WRKSRC}/dnsmasq.conf.example ${STAGEDIR}${PREFIX}/etc
-	${REINPLACE_CMD} -i '' 's}%%PREFIX%%}${PREFIX}}' ${STAGEDIR}${PREFIX}/etc/dnsmasq.conf.example
+	${INSTALL_DATA} ${WRKSRC}/dnsmasq.conf.example ${STAGEDIR}${PREFIX}/etc/dnsmasq.conf.sample
+	${REINPLACE_CMD} -i '' 's}%%PREFIX%%}${PREFIX}}' ${STAGEDIR}${PREFIX}/etc/dnsmasq.conf.sample
 	${INSTALL_MAN} ${WRKSRC}/man/${PORTNAME}.8 ${STAGEDIR}${PREFIX}/man/man8
 	${MKDIR} ${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} ${WRKSRC}/trust-anchors.conf ${STAGEDIR}${DATADIR}/

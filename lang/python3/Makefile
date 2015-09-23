@@ -2,7 +2,7 @@
 
 PORTNAME=	python3
 PORTVERSION=	${PYTHON_MAJOR_VER}
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	lang python ipv6
 MASTER_SITES=
 DISTFILES=
@@ -14,7 +14,6 @@ COMMENT=	The "meta-port" for version 3 of the Python interpreter
 USES=			python:run
 PYTHON_VERSION=		${PYTHON3_DEFAULT_VERSION}
 NO_BUILD=		yes
-PYTHON_NO_DEPENDS=	yes
 
 PLIST_FILES=	bin/2to3-${PYTHON_MAJOR_VER} \
 		bin/idle${PYTHON_MAJOR_VER} \

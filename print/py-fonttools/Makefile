@@ -2,32 +2,34 @@
 # $FreeBSD$
 
 PORTNAME=	fonttools
-PORTVERSION=	2.4
-PORTREVISION=	3
+PORTVERSION=	2.5
+PORTREVISION=	1
 CATEGORIES=	print python
-MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open source library for manipulating fonts, written in Python
 
-BUILD_DEPENDS=	${PYNUMPY} ${PYXML}
-RUN_DEPENDS=	${PYNUMPY} ${PYXML}
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-OPTIONS_DEFINE=	DOCS
+USE_GITHUB=	yes
+GH_ACCOUNT=	behdad
 
 USES=		python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist distutils
+NO_ARCH=	yes
 
 DOCSDIR=	${PREFIX}/share/doc/py-fonttools
 PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|share/man/man1|man/man1|g' ${WRKSRC}/setup.py
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	${INSTALL_DATA} ${WRKSRC}/Doc/ChangeLog ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/Doc/*.html ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/Doc/*.txt ${STAGEDIR}${DOCSDIR}
 

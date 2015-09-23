@@ -9,8 +9,10 @@ MASTER_SITES=	SF
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Services for ircu P10 protocol networks
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
 
+USES=		cpe
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--without-getopt
 
@@ -26,8 +28,6 @@ BAHAMUT_DESC=	Enable Bahamut protocol (P10 is default)
 DEBUG_CONFIGURE_ON=	--enable-debug
 BAHAMUT_CONFIGURE_ON=	--with-protocol=bahamut
 
-.include <bsd.port.options.mk>
-
 post-patch:
 	@${REINPLACE_CMD} -e 's|srvx\.conf|${PREFIX}/etc/srx.conf|' \
 		${WRKSRC}/src/main.c
@@ -35,9 +35,9 @@ post-patch:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/srvx ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKSRC}/*.conf.example ${STAGEDIR}${PREFIX}/etc
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/src/*.help ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

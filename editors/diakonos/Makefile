@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	diakonos
-PORTVERSION=	0.9.1
+PORTVERSION=	0.9.4
 CATEGORIES=	editors ruby
-MASTER_SITES=	http://diakonos.pist0s.ca/archives/ \
-		http://distfiles.bsdjunk.com
+MASTER_SITES=	http://diakonos.pist0s.ca/archives/
+
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Linux editor for the masses
 

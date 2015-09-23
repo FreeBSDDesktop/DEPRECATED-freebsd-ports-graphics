@@ -14,7 +14,9 @@ LICENSE=	APACHE20
 
 LIB_DEPENDS=	libfst.so:${PORTSDIR}/math/openfst
 
-USES=		python
+BROKEN_FreeBSD_9=	does not build
+
+USES=		compiler:c++11-lib python
 USE_PYTHON=	distutils autoplist
 CPPFLAGS+=	-I${LOCALBASE}/include
 

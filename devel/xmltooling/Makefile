@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	xmltooling
-PORTVERSION=	1.5.3
-PORTREVISION=	2
+PORTVERSION=	1.5.5
 CATEGORIES=	devel security
-MASTER_SITES=	http://shibboleth.net/downloads/c++-opensaml/2.5.3/
+MASTER_SITES=	http://shibboleth.net/downloads/c++-opensaml/2.5.5/
 
 MAINTAINER=	girgen@FreeBSD.org
 COMMENT=	Low level XML support for SAML
@@ -19,7 +18,7 @@ BUILD_DEPENDS=	boost-libs>=0:${PORTSDIR}/devel/boost-libs
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-log4shib=${LOCALBASE} --with-openssl=${OPENSSLBASE} --with-curl=${LOCALBASE} --disable-doxygen-doc
-USES=		gmake pkgconfig
+USES=		gmake libtool pkgconfig
 USE_LDCONFIG=	yes
 USE_OPENSSL=	yes
 
@@ -27,16 +26,11 @@ PORTDOCS=	*
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
 post-patch:
 	@${REINPLACE_CMD} -e 's,^pkgdocdir.*=.*,pkgdocdir = ${DOCSDIR},' \
 		${WRKSRC}/doc/Makefile.in
-	@${REINPLACE_CMD} -e 's|echo aout|echo elf|g' \
-	${WRKSRC}/configure
 
-.if empty(PORT_OPTIONS:MDOCS)
+post-patch-DOCS-off:
 	@${REINPLACE_CMD} -e '/^SUBDIRS/s,doc ,,' ${WRKSRC}/Makefile.in
-.endif
 
 .include <bsd.port.mk>

@@ -2,10 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	parrot
-PORTVERSION=	${PARROT_VERSION}
+PORTVERSION=	7.6.0
 PORTREVISION=	1
 CATEGORIES=	lang
-MASTER_SITES=	ftp://ftp.parrot.org/pub/parrot/releases/stable/${PORTVERSION}/
+MASTER_SITES=	ftp://ftp.parrot.org/pub/parrot/releases/supported/${PORTVERSION}/ \
+		LOCAL/sunpoet
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Parrot - virtual machine for dynamic languages
@@ -13,17 +14,16 @@ COMMENT=	Parrot - virtual machine for dynamic languages
 LICENSE=	ART20
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex \
-		${LOCALBASE}/bin/gm4:${PORTSDIR}/devel/m4 \
-		${LOCALBASE}/bin/pcre-config:${PORTSDIR}/devel/pcre
+		gm4:${PORTSDIR}/devel/m4 \
+		pcre-config:${PORTSDIR}/devel/pcre
 LIB_DEPENDS=	libgmp.so:${PORTSDIR}/math/gmp \
 		libicudata.so:${PORTSDIR}/devel/icu
-
-CONFLICTS=	rakudo-[0-9]*
 
 OPTIONS_DEFINE=	DOCS
 
 ALL_TARGET=	installable
-CONFIGURE_ARGS=	--cc=${CC} --ccflags="${CFLAGS}" --cxx=${CXX} --link=${CXX} \
+CONFIGURE_ARGS=	--cc=${CC} --cxx=${CXX} --link=${CXX} \
+		--ccflags="${CFLAGS} -I${LOCALBASE}/include" \
 		--ld=${CC} --ldflags="${LDFLAGS} -L${LIBDIR} -L${LOCALBASE}/lib" \
 		--gc=gms --inline --optimize --parrot_is_shared --verbose \
 		--prefix=${PREFIX} \
@@ -34,29 +34,24 @@ CONFIGURE_SCRIPT=	Configure.pl
 INSTALL_TARGET=	install-dev
 MAKE_JOBS_UNSAFE=	yes
 USE_LDCONFIG=	yes
-USES=		bison gmake perl5 tar:bzip2
+USES=		bison gmake perl5 shebangfix tar:bzip2
+SHEBANG_FILES=	tools/dev/create_language.pl \
+		tools/dev/gen_makefile.pl \
+		tools/dev/pprof2cg.pl \
+		tools/dev/reconfigure.pl
+perl_OLD_CMD=	perl
 
-PARROT_SHARE_DIR=	share/doc/${PORTNAME}/${PORTVERSION}
-PARROT_DOCS=		${PARROT_SHARE_DIR}
-PLIST_SUB+=	PARROT_VER="${PORTVERSION}" \
-		PARROT_DOCS="${PARROT_DOCS}"
+DOCSDIR=	share/doc/${PORTNAME}/${PORTVERSION}
+PLIST_SUB=	PARROT_VER="${PORTVERSION}"
 
-.include "${.CURDIR}/Makefile.common"
-.include <bsd.port.pre.mk>
-
-.if ${ARCH} == ia64
-BROKEN=		Does not compile on ia64
-.endif
-
-post-patch:
-.if ${PORT_OPTIONS:MDOCS}
-	@${REINPLACE_CMD} -e '/^installable: / s| docs | |' ${WRKSRC}/config/gen/makefiles/root.in
-.endif
+BROKEN_ia64=	Does not compile on ia64
 
 do-configure:
-	cd ${WRKSRC} && ${PERL} ${CONFIGURE_SCRIPT} ${CONFIGURE_ARGS}
+	(cd ${WRKSRC} && ${PERL} ${CONFIGURE_SCRIPT} ${CONFIGURE_ARGS})
 
-regression-test test: build
-	cd ${WRKSRC} && ${MAKE} test
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* \
+		${STAGEDIR}${PREFIX}/lib/libparrot.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/parrot/${PORTVERSION}/dynext/*.so
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

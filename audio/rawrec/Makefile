@@ -5,7 +5,7 @@ PORTNAME=	rawrec
 PORTVERSION=	0.9.991
 PORTREVISION=	1
 CATEGORIES=	audio
-MASTER_SITES=	${MASTER_SITE_SUNSITE:S/%SUBDIR%/apps\/sound\/recorders/} \
+MASTER_SITES=	SUNSITE/apps/sound/recorders \
 		SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -17,9 +17,8 @@ LICENSE_FILE=	${WRKDIR}/${DISTNAME}/copyright
 WRKSRC=		${WRKDIR}/${DISTNAME}/src
 
 USES=		gmake
-MAKE_ARGS=	CC="${CC}" \
-		CFLAGS="${CPPFLAGS} ${CFLAGS} ${PTHREAD_CFLAGS}" \
-		LDFLAGS="${LDFLAGS} -lm ${PTHREAD_LIBS}"
+MAKE_ARGS=	CC="${CC}" CFLAGS="${CPPFLAGS} ${CFLAGS}" \
+		LDFLAGS="${LDFLAGS} -lm -lpthread"
 
 PLIST_FILES=	bin/rawplay bin/rawrec man/man1/rawplay.1.gz man/man1/rawrec.1.gz
 

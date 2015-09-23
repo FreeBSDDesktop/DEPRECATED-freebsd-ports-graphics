@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	ugene
-DISTVERSION=	1.15.0
+DISTVERSION=	1.17.0
+PORTREVISION=	1
 CATEGORIES=	biology science
 MASTER_SITES=	http://ugene.unipro.ru/downloads/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} QueryDesigner_UserManual.pdf \
@@ -17,11 +18,12 @@ LICENSE=	GPLv2
 
 RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
 
-USES=		execinfo qmake
+USES=		desktop-file-utils execinfo qmake
 USE_GL=		glu
-USE_QT4=	gui webkit xml svg linguist_build moc_build qmake_build \
-		qtestlib_build rcc_build uic_build imageformats_run \
-		scripttools_build
+USE_QT4=	corelib gui network script webkit xml \
+		linguisttools_build moc_build qmake_build qtestlib_build \
+		rcc_build scripttools_build uic_build \
+		imageformats_run
 USE_XORG=	xtst
 USE_LDCONFIG=	yes
 INSTALLS_ICONS=	yes
@@ -65,17 +67,12 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|/bin/bash|/usr/bin/env bash|' \
 		${WRKSRC}/src/gen_bin_script.cmd \
 		${WRKSRC}/installer/_common_data/ugene
-	@${REINPLACE_CMD} -e '/readproc\.h/d' \
-		${WRKSRC}/src/corelibs/U2Core/src/globals/AppResources.cpp
-	@${REINPLACE_CMD} -e '1000d' \
-		${WRKSRC}/src/plugins_3rdparty/ball/src/include/BALL/DATATYPE/string.h
 	@${REINPLACE_CMD} -e 's|-bit version|& for ${OPSYS}|' \
 		${WRKSRC}/src/ugeneui/src/main_window/AboutDialogController.cpp
+	@${REINPLACE_CMD} -e '/unix_not_mac/,+11d' \
+		${WRKSRC}/src/corelibs/U2Core/U2Core.pri
 .for x in ugenecl ugeneui plugins_checker
 	@${ECHO_CMD} 'LIBS += -lexecinfo' >> ${WRKSRC}/src/${x}/${x}.pro
 .endfor
-# remove BOM that gcc4.2 trips upon
-	@env LANG=C ${REINPLACE_CMD} -e 's,^...,,' \
-		${WRKSRC}/src/include/U2Formats/MysqlUpgradeTask.h
 
 .include <bsd.port.post.mk>

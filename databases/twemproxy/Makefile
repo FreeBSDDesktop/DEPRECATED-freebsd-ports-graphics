@@ -2,17 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	twemproxy
-PORTVERSION=	0.3.0
+PORTVERSION=	0.4.1
+DISTVERSIONPREFIX=	v
 CATEGORIES=	databases
-MASTER_SITES=	GOOGLE_CODE
-DISTNAME=	nutcracker-${PORTVERSION}
 
 MAINTAINER=	skreuzer@FreeBSD.org
 COMMENT=	Fast, light-weight proxy for memcached and redis
 
 LICENSE=	APACHE20
 
-USES=		execinfo
+USE_GITHUB=	yes
+GH_ACCOUNT=	twitter
+
+USES=		execinfo autoreconf libtool
 
 CFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lexecinfo

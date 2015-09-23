@@ -58,7 +58,7 @@ post-build:
 	( cd ${WRKSRC} && ${PYTHON_CMD} setup.py build )
 .endif
 
-post-install:
+pre-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}

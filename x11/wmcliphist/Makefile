@@ -6,15 +6,14 @@ PORTVERSION=	1.0
 PORTREVISION=	1
 CATEGORIES=	x11 windowmaker
 MASTER_SITES=	http://linux.nawebu.cz/wmcliphist/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	uqs
+		LOCAL/uqs
 
 MAINTAINER=	uqs@FreeBSD.org
 COMMENT=	Clipboard history management dockapp for Window Maker
 
 SUB_FILES=	pkg-message
 WRKSRC=		${WRKDIR}/${PORTNAME}
-USES=		pkgconfig
+USES=		gmake pkgconfig
 USE_GNOME=	gtk20
 USE_XORG=	x11
 

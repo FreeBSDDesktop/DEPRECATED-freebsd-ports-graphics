@@ -3,7 +3,7 @@
 
 PORTNAME=	vavoom
 PORTVERSION=	1.33
-PORTREVISION=	7
+PORTREVISION=	10
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/Vavoom-source/${PORTVERSION}
 
@@ -12,20 +12,18 @@ COMMENT=	Doom, Doom II, Heretic, Hexen, and Strife source port
 
 LICENSE=	GPLv2
 
-LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
-USES=		cmake dos2unix tar:bzip2
+USES=		cmake dos2unix jpeg tar:bzip2
 DOS2UNIX_REGEX=	((.*\.(c|cpp|h|s|asm|inc|vc|ls|acs|cfg|txt|vs|mak|mgw"))$$|\/(makefile\..*|makefile|Makefile)$$)
 
 MAKE_JOBS_UNSAFE=	yes
 
-OPTIONS_DEFINE=	FLAC LAUNCHER MAD MIKMOD OPENAL OPTIMIZED_CFLAGS VORBIS SDL WXUNICODE DOCS
-OPTIONS_DEFAULT=	OPENGL SDL WXUNICODE
+OPTIONS_DEFINE=	FLAC LAUNCHER MAD MIKMOD OPENAL OPTIMIZED_CFLAGS VORBIS SDL DOCS
+OPTIONS_DEFAULT=	OPENGL SDL
 LAUNCHER_DESC=	Build GUI launcher
 OPENAL_DESC=	Enable OpenAL support
 SDL_DESC=	Use SDL for OpenGL support
-WXUNICODE_DESC=	Enable Unicode support
 
 SUB_FILES=	pkg-message
 
@@ -45,6 +43,7 @@ CMAKE_ARGS+=	-DWITH_FLAC=N
 
 .if ${PORT_OPTIONS:MLAUNCHER}
 USE_WX=		2.8+
+WX_UNICODE=	yes
 CMAKE_ARGS+=	-DENABLE_LAUNCHER=Y \
 		-DwxWidgets_CONFIG_EXECUTABLE="${WX_CONFIG}"
 PLIST_SUB+=	LAUNCHER=""
@@ -96,7 +95,6 @@ CMAKE_ARGS+=	-DWITH_OPENGL=N
 .endif
 
 .if ${PORT_OPTIONS:MWXUNICODE}
-WX_UNICODE=yes
 .endif
 
 post-patch:

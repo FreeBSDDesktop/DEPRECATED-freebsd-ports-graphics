@@ -6,8 +6,7 @@ PORTVERSION=	2.0b1
 PORTREVISION=	2
 CATEGORIES=	emulators
 MASTER_SITES=	http://members.iinet.net.au/~tom-hunter/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	trasz
+		LOCAL/trasz
 DISTNAME=	dtcyber20b1
 
 MAINTAINER=	ports@FreeBSD.org
@@ -18,14 +17,11 @@ USE_XORG=	x11
 NO_WRKSUBDIR=	yes
 INSTALL_TARGET=
 MAKEFILE=	Makefile.x11
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
 
 SUB_FILES=	pkg-message
 PLIST_FILES=	bin/dtcyber %%EXAMPLESDIR%%/cyber.ini %%EXAMPLESDIR%%/cos.tap
-
-pre-patch:
-	${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|' ${WRKSRC}/Makefile.x11
-	${REINPLACE_CMD} -e 's|CFLAGS  = -O2|CFLAGS+= |' ${WRKSRC}/Makefile.x11
-	${REINPLACE_CMD} -e 's|/usr/X11R6|${LOCALBASE}|' ${WRKSRC}/Makefile.x11
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dtcyber ${STAGEDIR}${PREFIX}/bin

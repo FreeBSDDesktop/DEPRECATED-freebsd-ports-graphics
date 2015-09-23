@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	lives
-PORTVERSION=	2.2.6
-PORTREVISION=	3
+PORTVERSION=	2.4.1
+PORTREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}/ 
 
@@ -18,6 +18,7 @@ LIB_DEPENDS=	libasound.so:${PORTSDIR}/audio/alsa-lib \
 		libjack.so:${PORTSDIR}/audio/jack \
 		libpulse.so:${PORTSDIR}/audio/pulseaudio \
 		liboil-0.3.so:${PORTSDIR}/devel/liboil \
+		libprojectM.so:${PORTSDIR}/graphics/libprojectm \
 		libvisual-0.4.so:${PORTSDIR}/graphics/libvisual04 \
 		libopencv_calib3d.so:${PORTSDIR}/graphics/opencv \
 		libfftw3.so:${PORTSDIR}/math/fftw3 \
@@ -41,16 +42,16 @@ RUN_DEPENDS=	${LOCALBASE}/bin/analyseplugin:${PORTSDIR}/audio/ladspa \
 
 WRKSRC=		${WRKDIR}/${DISTNAME:tl}
 
-USES=		libtool pathfix perl5 pkgconfig python shebangfix tar:bzip2
+USES=		ghostscript:run libtool pathfix perl5 pkgconfig python \
+		shebangfix tar:bzip2
 SHEBANG_FILES=	build-lives-rfx-plugin build-lives-rfx-plugin-multi \
 		smogrify tools/autolives.pl
 GNU_CONFIGURE=	yes
 USE_CSTD=	gnu89
-USE_GHOSTSCRIPT_RUN=	yes
-USE_GNOME=	gtk20
+USE_GNOME=	gtk30 intltool
 USE_LDCONFIG=	yes
 
-CONFIGURE_ARGS=	--disable-ldvgrab --disable-gtk3
+CONFIGURE_ARGS=	--disable-ldvgrab
 INSTALL_TARGET=	install-strip
 
 CPPFLAGS+=	-I${LOCALBASE}/include -fPIC
@@ -87,30 +88,22 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|: install-data-local |: |g; s|-ldl||' \
 		${WRKSRC}/lives-plugins/weed-plugins/gdk/Makefile.in \
 		${WRKSRC}/lives-plugins/weed-plugins/Makefile.in
-	@${REINPLACE_CMD} -e 's|off64_t|off_t|g ; s|lseek64|lseek|g' \
-		${WRKSRC}/src/audio.c \
-		${WRKSRC}/lives-plugins/plugins/decoders/dv_decoder.c \
-		${WRKSRC}/lives-plugins/plugins/decoders/ogg_decoder.h
 	@${REINPLACE_CMD} -e 's|/usr/local/lib/|${LOCALBASE}/lib/|g' \
 		${WRKSRC}/lives-plugins/weed-plugins/frei0r.c
-	@${REINPLACE_CMD} 's|/bin/touch|/usr/bin/touch|g' \
-		${WRKSRC}/src/callbacks.c \
-		${WRKSRC}/src/saveplay.c \
-		${WRKSRC}/src/utils.c
 	@${REINPLACE_CMD} '/cp -rf/ s|data/|data|g; /cp -rf/ s|icons/|icons|g' \
 		${WRKSRC}/lives-plugins/weed-plugins/cairo/Makefile.in \
 		${WRKSRC}/lives-plugins/weed-plugins/Makefile.in
+	@${REINPLACE_CMD} '/selectRandom/d' \
+		${WRKSRC}/lives-plugins/weed-plugins/projectM.cpp
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${DOC_FILES:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
-	cd ${STAGEDIR}${PREFIX}/bin && ${RM} lives && ${LN} -s lives-exe lives
+	(cd ${STAGEDIR}${PREFIX}/bin && ${RM} lives && ${LN} -s lives-exe lives)
 
 .if ${PORT_OPTIONS:MDOXYGEN}
-	@cd ${STAGEDIR}${PREFIX} && \
-	${FIND} ${DOCSDIR:S|${PREFIX}/||}/html ! -type d >> ${TMPPLIST} && \
-	${FIND} ${DOCSDIR:S|${PREFIX}/||} -type d | ${SORT} -r | \
-	${SED} 's|^|@dirrm |' >> ${TMPPLIST}
+	@(cd ${STAGEDIR}${PREFIX} && ${FIND} ${DOCSDIR:S|${PREFIX}/||}/html \
+		! -type d >> ${TMPPLIST})
 .endif
 
 .include <bsd.port.mk>

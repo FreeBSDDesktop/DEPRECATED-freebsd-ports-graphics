@@ -7,7 +7,7 @@ Database_Post_Include=		bsd.database.mk
 Database_Include_MAINTAINER=	ports@FreeBSD.org
 
 # This file contains some routines to interact with different databases, such
-# as MySQL, PostgreSQL, and Berkley DB.  To include this file, define macro
+# as MySQL and Berkley DB.  To include this file, define macro
 # USE_[DATABASE], for example USE_MYSQL.  Defining macro like
 # USE_[DATABASE]_VER or WANT_[DATABASE]_VER will include this file as well.
 #
@@ -17,10 +17,10 @@ Database_Include_MAINTAINER=	ports@FreeBSD.org
 #			  If no version is given (by the maintainer via the port or
 #			  by the user via defined variable), try to find the
 #			  currently installed version.  Fall back to default if
-#			  necessary (MySQL-5.5 = 55).
+#			  necessary (MySQL-5.6 = 56).
 # DEFAULT_MYSQL_VER
 #			- MySQL default version.  Can be overridden within a port.
-#			  Default: 55.
+#			  Default: 56.
 # WANT_MYSQL_VER
 #			- Maintainer can set an arbitrary version of MySQL to always
 #			  build this port with (overrides WITH_MYSQL_VER).
@@ -31,8 +31,6 @@ Database_Include_MAINTAINER=	ports@FreeBSD.org
 #			- User defined variable to set MySQL version.
 # MYSQL_VER
 #			- Detected MySQL version.
-##
-# USE_PGSQL		- Do not use this-- instead use USES=pgsql
 ##
 # USE_BDB	- Add Berkeley DB library dependency.
 #			  If no version is given (by the maintainer via the port or
@@ -49,7 +47,7 @@ Database_Include_MAINTAINER=	ports@FreeBSD.org
 #			  build this port with (overrides WITH_BDB_VER).
 # WITH_BDB_VER
 #			- User defined global variable to set Berkeley DB version.
-# <UNIQUENAME>_WITH_BDB_VER
+# <BDB_UNIQUENAME>_WITH_BDB_VER
 #			- User defined port specific variable to set Berkeley DB
 #			  version.
 # WITH_BDB_HIGHEST
@@ -97,10 +95,6 @@ Database_Include_MAINTAINER=	ports@FreeBSD.org
 
 .if defined(DEFAULT_MYSQL_VER)
 WARNING+=	"DEFAULT_MYSQL_VER is defined, consider using DEFAULT_VERSIONS=mysql=${DEFAULT_MYSQL_VER} instead"
-.endif
-
-.if defined(DEFAULT_PGSQL_VER)
-WARNING+=	"DEFAULT_PGSQL_VER is defined, consider using DEFAULT_VERSIONS=pgsql=${DEFAULT_PGSQL_VER} instead"
 .endif
 
 .if defined(USE_MYSQL)
@@ -197,6 +191,8 @@ IGNORE=		cannot install: unknown MySQL version: ${MYSQL_VER}
 # TODO: avoid malformed conditional with invalid USE_BDB/WITH_BDB_VER
 # check if + works properly from test builds 01h12m23s
 
+BDB_UNIQUENAME?=	${PKGNAMEPREFIX}${PORTNAME}
+
 _USE_BDB_save:=${USE_BDB}
 _WITH_BDB_VER_save:=${WITH_BDB_VER}
 
@@ -217,9 +213,9 @@ db5_FIND=	${LOCALBASE}/include/db5/db.h
 db6_FIND=	${LOCALBASE}/include/db6/db.h
 
 # Override the global WITH_BDB_VER with the
-# port specific <UNIQUENAME>_WITH_BDB_VER
-.if defined(${UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER)
-WITH_BDB_VER=	${${UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER}
+# port specific <BDB_UNIQUENAME>_WITH_BDB_VER
+.if defined(${BDB_UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER)
+WITH_BDB_VER=	${${BDB_UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER}
 .endif
 
 # Override USE_BDB with global WITH_BDB_VER
@@ -346,7 +342,7 @@ BDB_VER=	${_BDB_VER}
 
 debug-bdb:
 	@${ECHO_CMD} "--INPUTS----------------------------------------------------"
-	@${ECHO_CMD} "${UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER: ${${UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER}"
+	@${ECHO_CMD} "${BDB_UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER: ${${BDB_UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER}"
 	@${ECHO_CMD} "WITH_BDB_VER: ${_WITH_BDB_VER_save}"
 	@${ECHO_CMD} "WANT_BDB_VER: ${WANT_BDB_VER}"
 	@${ECHO_CMD} "BDB_BUILD_DEPENDS: ${BDB_BUILD_DEPENDS}"
@@ -380,7 +376,7 @@ BAD_VAR+=	${var},
 .  endif
 . endfor
 . if defined(BAD_VAR)
-_IGNORE_MSG=	Obsolete variable(s) ${BAD_VAR} use WITH_BDB_VER or ${UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER to select Berkeley DB version
+_IGNORE_MSG=	Obsolete variable(s) ${BAD_VAR} use WITH_BDB_VER or ${BDB_UNIQUENAME:tu:S,-,_,}_WITH_BDB_VER to select Berkeley DB version
 .  if defined(IGNORE)
 IGNORE+= ${_IGNORE_MSG}
 .  else

@@ -2,14 +2,15 @@
 # $FreeBSD$
 
 PORTNAME=	lastpass-cli
-PORTVERSION=	0.4.0
+PORTVERSION=	0.6.0
+DISTVERSIONPREFIX=	v
 CATEGORIES=	security
-MASTER_SITES=	GH
 
 MAINTAINER=	tom@hur.st
 COMMENT=	LastPass command line interface tool
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 
@@ -19,9 +20,6 @@ USE_OPENSSL=	yes
 
 USE_GITHUB=	YES
 GH_ACCOUNT=	lastpass
-GH_PROJECT=	lastpass-cli
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	5c22997
 
 PLIST_FILES=	bin/lpass
 MAKE_ENV+=	MANDIR=${MANPREFIX}/man

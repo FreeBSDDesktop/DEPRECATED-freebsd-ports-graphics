@@ -3,7 +3,7 @@
 #    $MCom: ports/trunk/textproc/gtk-doc/Makefile 19804 2014-08-13 14:55:11Z kwm $
 
 PORTNAME=	gtk-doc
-PORTVERSION=	1.21
+PORTVERSION=	1.24
 CATEGORIES=	textproc
 MASTER_SITES=	GNOME
 
@@ -12,11 +12,11 @@ COMMENT=	Code documentation system, originally for GTK+
 
 BUILD_DEPENDS=	jade:${PORTSDIR}/textproc/jade \
 		itstool:${PORTSDIR}/textproc/itstool \
-		${LOCALBASE}/share/xml/docbook/${DOCBOOK_VERSION}:${PORTSDIR}/textproc/docbook-xml \
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml \
 		${LOCALBASE}/share/xsl/docbook/xhtml/chunk.xsl:${PORTSDIR}/textproc/docbook-xsl \
 		rarian-sk-config:${PORTSDIR}/textproc/rarian
 RUN_DEPENDS=	jade:${PORTSDIR}/textproc/jade \
-		${LOCALBASE}/share/xml/docbook/${DOCBOOK_VERSION}:${PORTSDIR}/textproc/docbook-xml \
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml \
 		${LOCALBASE}/share/xsl/docbook/xhtml/chunk.xsl:${PORTSDIR}/textproc/docbook-xsl \
 		rarian-sk-config:${PORTSDIR}/textproc/rarian
 

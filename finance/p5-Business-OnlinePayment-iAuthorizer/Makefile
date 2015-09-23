@@ -3,12 +3,12 @@
 
 PORTNAME=	Business-OnlinePayment-iAuthorizer
 PORTVERSION=	0.2.1
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	finance perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Business::OnlinePayment backend module for iAuthorizer
 
 LICENSE=	ART10 GPLv1
@@ -19,7 +19,9 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USES=		perl5
+USES=		perl5 shebangfix
+SHEBANG_FILES=	certification.pl
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

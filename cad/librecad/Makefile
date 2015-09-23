@@ -1,9 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	librecad
-DISTVERSION=	2.0.5
+DISTVERSION=	2.0.8
 CATEGORIES=	cad
-MASTER_SITES=	GITHUB
 
 MAINTAINER=	makc@FreeBSD.org
 COMMENT=	2D CAD system
@@ -11,14 +10,16 @@ COMMENT=	2D CAD system
 BUILD_DEPENDS=	${LOCALBASE}/include/boost/version.hpp:${PORTSDIR}/devel/boost-libs
 LIB_DEPENDS=	libmuparser.so:${PORTSDIR}/math/muparser
 
-USE_QT4=	help qt3support help-tools_build linguist_build moc_build \
-		rcc_build uic_build uic3_build
+USE_QT4=	gui help network sql svg help-tools_build \
+		linguisttools_build moc_build rcc_build uic_build
 USES=		compiler:c++11-lib desktop-file-utils pkgconfig qmake
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	LibreCAD
 GH_PROJECT=	LibreCAD
-GH_COMMIT=	f4f325e
+
+# Unhide std::to_string() to fix build with GCC (ports/193528)
+CFLAGS=		-D_GLIBCXX_USE_C99
 
 post-patch:
 	${REINPLACE_CMD} -e 's,/usr/share,${PREFIX}/share,' \
@@ -34,7 +35,11 @@ pre-install:
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/unix/librecad ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/unix/ttf2lff ${STAGEDIR}${PREFIX}/bin
 	(cd ${WRKSRC}/unix/resources && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR})
+	(${MKDIR} ${STAGEDIR}${PREFIX}/share/appdata && \
+		${INSTALL_DATA} ${WRKSRC}/unix/appdata/librecad.appdata.xml \
+		${STAGEDIR}${PREFIX}/share/appdata)
 	${INSTALL_DATA} ${WRKSRC}/desktop/librecad.desktop \
 		${STAGEDIR}${PREFIX}/share/applications
 	${INSTALL_DATA} ${WRKSRC}/librecad/res/main/librecad.png \

@@ -2,13 +2,14 @@
 # $FreeBSD$
 
 PORTNAME=	apcupsd
-PORTVERSION=	3.14.12
-PORTREVISION=	1
+PORTVERSION=	3.14.13
 CATEGORIES=	sysutils
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20-%20Stable/${PORTVERSION}
 
 MAINTAINER=	itetcu@FreeBSD.org
 COMMENT=	Set of programs for controlling APC UPS
+
+LICENSE=	GPLv2
 
 USE_RC_SUBR=	apcupsd
 SUB_FILES=	pkg-message
@@ -22,7 +23,8 @@ CONFIGURE_ARGS=	--sbindir=${PREFIX}/sbin \
 		--sysconfdir=${ETCDIR} \
 		--with-serial-dev=/dev/usv
 
-CONFIGURE_ENV+=	LD="${CXX}" LIBS="-lstdc++"
+CONFIGURE_ENV+=	LD="${CXX}" \
+		ac_cv_path_SHUTDOWN="/sbin/shutdown"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 
@@ -54,7 +56,7 @@ CGI_CONFIGURE_ON=		--with-cgi-bin=${ETCDIR}/cgi
 CGI_LIB_DEPENDS=		libgd.so:${PORTSDIR}/graphics/gd
 GAPCMON_CONFIGURE_ENABLE=	gapcmon
 GAPCMON_USE=			GNOME=gconf2
-GPCMON_CONFLICTS=		gapcmon-[0-9]*
+GAPCMON_CONFLICTS=		gapcmon-[0-9]*
 PCNET_DRV_CONFIGURE_ENABLE=	pcnet
 USB_CONFIGURE_ENABLE=		usb
 SNMP_DRV_CONFIGURE_ENABLE=	snmp
@@ -73,7 +75,7 @@ TEST_DRV_CONFIGURE_ENABLE=	test
 pre-configure:
 .if ${PORT_OPTIONS:MCLIENT_ONLY} && ( ${PORT_OPTIONS:MAPCSMART_DRV} || \
 	${PORT_OPTIONS:MAPCDUMB_DRV} || ${PORT_OPTIONS:MPCNET_DRV} || \
-	${PORT_OPTIONS:MPOWERFLUTE} || ${PORT_OPTIONS:MUSB} || \
+	${PORT_OPTIONS:MUSB} || \
 	${PORT_OPTIONS:MSNMP_DRV} || ${PORT_OPTIONS:MTEST_DRV} )
 	@${ECHO_CMD} "It doesn't make sense to build drivers if all you want is"
 	@${ECHO_CMD} "the client; please do make config and select either"

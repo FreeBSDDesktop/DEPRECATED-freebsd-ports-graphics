@@ -9,7 +9,11 @@ MASTER_SITES=	RG
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	Simple but flexible static site generator
 
-RUN_DEPENDS=	rubygem-cri>=2.2:${PORTSDIR}/devel/rubygem-cri
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-cri>=2.3:${PORTSDIR}/devel/rubygem-cri
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

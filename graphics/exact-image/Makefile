@@ -3,7 +3,7 @@
 
 PORTNAME=	exact-image
 PORTVERSION=	0.8.9
-PORTREVISION=	7
+PORTREVISION=	9
 CATEGORIES=	graphics perl5 python
 MASTER_SITES=	http://dl.exactcode.de/oss/${PORTNAME}/ LOCAL/bf
 
@@ -14,9 +14,8 @@ LICENSE=	GPLv2
 
 BUILD_DEPENDS=	swig:${PORTSDIR}/devel/swig13
 LIB_DEPENDS=	libagg.so:${PORTSDIR}/graphics/agg \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		libtiff.so:${PORTSDIR}/graphics/tiff \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libgif.so:${PORTSDIR}/graphics/giflib \
 		libjasper.so:${PORTSDIR}/graphics/jasper \
 		libIlmImf.so:${PORTSDIR}/graphics/OpenEXR \
@@ -26,8 +25,8 @@ LIB_DEPENDS=	libagg.so:${PORTSDIR}/graphics/agg \
 
 #hack to get custom exactcode configure script to enable tiff support with
 #broken headers on c++ in base system:
-CPPFLAGS+=	-fpermissive -I${LOCALBASE}/include -I${LOCALBASE}/include/libpng15
-USES=		gmake perl5 pkgconfig python tar:bzip2
+CPPFLAGS+=	-fpermissive -I${LOCALBASE}/include
+USES=		gmake jpeg perl5 pkgconfig python tar:bzip2
 USE_XORG=	x11
 HAS_CONFIGURE=	yes
 INSTALL_WRKSRC=	${WRKSRC}/objdir

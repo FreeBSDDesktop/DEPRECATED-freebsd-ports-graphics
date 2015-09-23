@@ -4,8 +4,7 @@
 PORTNAME=	commons-io
 PORTVERSION=	2.4
 CATEGORIES=	devel java
-MASTER_SITES=	${MASTER_SITE_APACHE_COMMONS_SOURCE}
-MASTER_SITE_SUBDIR=	${PORTNAME:S,commons-,,}
+MASTER_SITES=	APACHE_COMMONS_SOURCE
 PKGNAMEPREFIX=	jakarta-
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
@@ -28,20 +27,15 @@ PORTDOCS=	LICENSE.txt NOTICE.txt RELEASE-NOTES.txt apidocs
 JAR_VERSION=	${PORTNAME}-2.2-SNAPSHOT
 
 OPTIONS_DEFINE=	DOCS
-
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS}
-ALL_TARGET+=	javadoc
-.endif
+DOCS_ALL_TARGET=	javadoc
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/target/${JAR_VERSION}.jar \
 		${STAGEDIR}${JAVAJARDIR}/${PORTNAME}.jar
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	(cd ${WRKSRC}/target && ${COPYTREE_SHARE} apidocs ${STAGEDIR}${DOCSDIR})
 	(cd ${WRKSRC} && ${INSTALL_DATA} LICENSE.txt NOTICE.txt \
 		RELEASE-NOTES.txt ${STAGEDIR}${DOCSDIR})
-.endif
 
 .include <bsd.port.mk>

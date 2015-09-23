@@ -5,17 +5,18 @@ PORTNAME=	gnats
 PORTVERSION=	4.1.0
 PORTREVISION=	3
 CATEGORIES=	databases devel
-MASTER_SITES=	${MASTER_SITE_GNU}
-MASTER_SITE_SUBDIR=	gnats
+MASTER_SITES=	GNU
 PKGNAMESUFFIX=	4
 
 MAINTAINER=	portmaster@bsdforge.com
 COMMENT=	GNATS, the GNU Problem Report Management System
 
 GNU_CONFIGURE=	yes
-USES=		gmake makeinfo
+USES=		cpe gmake makeinfo
 USE_GCC=	any
 USERS=		gnats
+
+CPE_VENDOR=	gnu
 
 PKGMESSAGE=	${WRKDIR}/pkg-message
 PKGINSTALL=	${WRKDIR}/pkg-install

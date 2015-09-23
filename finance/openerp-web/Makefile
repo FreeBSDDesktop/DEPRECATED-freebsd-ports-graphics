@@ -8,8 +8,10 @@ CATEGORIES=	finance python
 MASTER_SITES=	http://openerp.com/download/stable/source/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	borja@pexego.es
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	OpenERP Web Client
+
+BROKEN=		No public distfiles
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cherrypy>0:${PORTSDIR}/www/py-cherrypy \
 		${PYTHON_PKGNAMEPREFIX}Babel>0:${PORTSDIR}/devel/py-babel \
@@ -23,7 +25,8 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cherrypy>0:${PORTSDIR}/www/py-cherrypy \
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		gettext python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist distutils
+NO_ARCH=	yes
 
 USE_RC_SUBR=	openerp-web
 

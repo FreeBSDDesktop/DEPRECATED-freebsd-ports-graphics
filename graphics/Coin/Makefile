@@ -3,7 +3,7 @@
 
 PORTNAME=	Coin
 PORTVERSION=	3.1.3
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	graphics
 MASTER_SITES=	https://bitbucket.org/Coin3D/coin/downloads/
 
@@ -24,13 +24,17 @@ CONFIGURE_ARGS=	--with-pthread=yes --enable-threadsafe	\
 		--enable-javascript-api --enable-debug=no
 USE_LDCONFIG=	yes
 MAKE_ENV=	LANG=C
+INSTALL_TARGET=	install-strip
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|DATA install-data-local|DATA|g' ${WRKSRC}/Makefile.in
-	@${REINPLACE_CMD} -e 's|-pthread|${PTHREAD_LIBS}|g' ${WRKSRC}/configure
-	@${FIND} ${WRKSRC} \( -name \*.cpp -o -name \*.h -a \! -name expat.h \) -a -print0 | ${XARGS} -0 ${REINPLACE_CMD} 's/<stdlib.h>/<cstdlib>/g'
+	@${REINPLACE_CMD} -e 's|DATA install-data-local|DATA|g' \
+		${WRKSRC}/Makefile.in
+	@${FIND} ${WRKSRC} \( -name \*.cpp -o -name \*.h -a \! \
+		-name expat.h \) -a -print0 | ${XARGS} -0 \
+		${REINPLACE_CMD} 's/<stdlib.h>/<cstdlib>/g'
 
 post-build:
-	@${REINPLACE_CMD} -e '/^ldflags=/s|-R|-Wl,-rpath,|' ${WRKSRC}/coin-default.cfg
+	${REINPLACE_CMD} -e '/^ldflags=/s|-R|-Wl,-rpath,|' \
+		${WRKSRC}/coin-default.cfg
 
 .include <bsd.port.mk>

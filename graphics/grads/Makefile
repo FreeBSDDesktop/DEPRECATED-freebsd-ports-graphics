@@ -3,10 +3,12 @@
 
 PORTNAME=	grads
 PORTVERSION=	1.9b4
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	graphics science math
 MASTER_SITES=	ftp://grads.iges.org/grads/1.9/:src \
-		ftp://grads.iges.org/grads/:other
+		ftp://cola.gmu.edu/grads/1.9/:src \
+		ftp://grads.iges.org/grads/:other \
+		ftp://cola.gmu.edu/grads/:other
 DISTFILES=	${PORTNAME}-src-${PORTVERSION}${EXTRACT_SUFX}:src \
 		example.tar.gz:other
 EXTRACT_ONLY=	${PORTNAME}-src-${PORTVERSION}${EXTRACT_SUFX}
@@ -17,9 +19,9 @@ COMMENT=	The Grid Analysis and Display System
 BUILD_DEPENDS=	${LOCALBASE}/lib/libudunits2.a:${PORTSDIR}/science/udunits \
 		${LOCALBASE}/lib/libsx.a:${PORTSDIR}/x11/libsx
 LIB_DEPENDS=	libgd.so:${PORTSDIR}/graphics/gd \
-		libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libpng15.so:${PORTSDIR}/graphics/png
+		libpng.so:${PORTSDIR}/graphics/png
 
+USES=		jpeg
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		SUPPLIBS="${LOCALBASE}"
 CONFIGURE_ARGS+=	--enable-dyn-supplibs \

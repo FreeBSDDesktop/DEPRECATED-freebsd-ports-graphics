@@ -1,26 +1,36 @@
 # $FreeBSD$
 
-GEANY_VER=	1.23
+GEANY_VER=	1.25
 GEANY_PLUGINS_ALL=	addons \
+			autoclose \
+			automark \
 			codenav \
 			commander \
+			ctags \
 			debugger \
+			defineformat \
 			devhelp \
 			doc \
 			extrasel \
+			geanypy \
 			gendoc \
 			geniuspaste \
-			gproject \
+			git-changebar \
 			insertnum \
 			latex \
 			lipsum \
 			lua \
 			macro \
+			markdown \
 			miniscript \
 			multiterm \
 			numberedbookmarks \
+			overview \
+			pairtaghighlighter \
 			pg \
+			pohelper \
 			pretty-printer \
+			projectorganizer \
 			prj \
 			scope \
 			sendmail \
@@ -33,29 +43,36 @@ GEANY_PLUGINS_ALL=	addons \
 			webhelper \
 			xmlsnippets
 
-# markdown plugin is excluded, requires peg-markdown
-
 addons_DESC=		various small addons
+autoclose_DESC=		brackets autocompletion
+automark_DESC=		highlights all words that match selected word
 codenav_DESC=		some facilities for navigating in the code
 commander_DESC=		command panel for rapid access to any action
+ctags_DESC=		generate and query ctags files
 debugger_DESC=		debugging support (via GDB currently)
+defineformat_DESC=	on-the-fly \#define formatter
 devhelp_DESC=		API documentation browser
 doc_DESC=		execute command on the word at cursor position
+geanypy_DESC=		support for Python plugins
 extrasel_DESC=		additional selection tools
 gendoc_DESC=		generate documentation from the sources comments
 geniuspaste_DESC=	pastebins support
-gproject_DESC=		extension of Geany's project management
-insertnum_DESC=		replaces selection with integer numbers
+git-changebar_DESC=	highlight changed files tracked with Git
+insertnum_DESC=		replace selection with integer numbers
 latex_DESC=		LaTeX support
 lipsum_DESC=		Lorem Ipsum generator
 lua_DESC=		Lua scripting
 macro_DESC=		user defined macros
-# markdown_DESC=		real-time preview of rendered Markdown
+markdown_DESC=		real-time preview of rendered Markdown
 miniscript_DESC=	pipe text/documents via script (shell, perl, awk, etc.)
 multiterm_DESC=		multi-tabbed virtual terminals emulator
 numberedbookmarks_DESC=	additional numbered bookmarks
+overview_DESC=		zoomed-out view of open files
+pairtaghighlighter_DESC=	highlight matching opening/closing HTML tags
 pg_DESC=		encrypt, decrypt and verify signatures with GnuPG
+pohelper_DESC=		support for gettext translation files
 pretty-printer_DESC=	formats XML and make it human-readable
+projectorganizer_DESC=	extension of Geany's project management
 prj_DESC=		alternative project manager
 scope_DESC=		graphical GDB front-end
 sendmail_DESC=		send a document as attachment
@@ -69,6 +86,7 @@ webhelper_DESC=		web development facilities
 xmlsnippets_DESC=	XML/HTML tag autocompletion
 
 doc_DIR=		geanydoc
+ctags_DIR=		geanyctags
 extrasel_DIR=		geanyextrasel
 gendoc_DIR=		geanygendoc
 insertnum_DIR=		geanyinsertnum
@@ -83,4 +101,5 @@ prj_DIR=		geanyprj
 sendmail_DIR=		geanysendmail
 vc_DIR=			geanyvc
 
+git-changebar_SWITCH=	--enable-gitchangebar
 pretty-printer_SWITCH=	--enable-pretty_printer

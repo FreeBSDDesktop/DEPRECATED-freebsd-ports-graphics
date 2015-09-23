@@ -8,7 +8,7 @@ PORTEPOCH=	1
 CATEGORIES=	mail ipv6
 EXTRACT_SUFX=
 
-MAINTAINER=	bapt@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	DragonFly Mail Agent, a small MTA for local/outbound mail
 
 LICENSE=	BSD3CLAUSE
@@ -16,15 +16,16 @@ LICENSE=	BSD3CLAUSE
 USE_OPENSSL=	yes
 
 USE_GITHUB=	yes
-GH_COMMIT=	2bb8bcb
 GH_ACCOUNT=	corecode
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	2bb8bcb
 
 CFLAGS+=	-I${OPENSSLINC} \
 		-DCONF_PATH='\"${PREFIX}/etc/dma\"' \
 		-DDMA_ROOT_USER='\"mailnull\"' \
 		-DDMA_GROUP='\"mail\"'
 LDFLAGS+=	-L${OPENSSLLIB}
+
+MAKE_ENV=	__MAKE_CONF=/dev/null SRCCONF=/dev/null NO_WERROR=defined
 
 USE_RC_SUBR=	dma_flushq
 SUB_FILES=	pkg-message
@@ -35,9 +36,9 @@ CONFFILES+=	dma.conf auth.conf
 .include <bsd.port.pre.mk>
 
 .if ${OSVERSION} < 900000
-EXTRA_PATCHES=	${.CURDIR:H:H}/mail/dma/files/extrapatch-8-spool.c
+EXTRA_PATCHES=	${FILESDIR}/extrapatch-8-spool.c
 .else
-EXTRA_PATCHES=  ${.CURDIR:H:H}/mail/dma/files/extrapatch-else-spool.c
+EXTRA_PATCHES=	${FILESDIR}/extrapatch-else-spool.c
 .endif
 
 pre-patch:

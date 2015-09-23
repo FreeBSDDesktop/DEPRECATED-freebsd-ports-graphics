@@ -5,8 +5,7 @@ PORTNAME=	ochusha
 PORTVERSION=	0.5.8.2
 PORTREVISION=	13
 CATEGORIES=	japanese
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP}
-MASTER_SITE_SUBDIR=		ochusha/16560
+MASTER_SITES=	SFJP/ochusha/16560
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	GUI BBS browser for 2ch.net
@@ -25,7 +24,5 @@ DESKTOP_ENTRIES="Ochusha" "${COMMENT}" \
 post-patch:
 	@${FIND} ${WRKSRC} -name Makefile.* | ${XARGS} ${REINPLACE_CMD} -e \
 		's|-DG.*_DISABLE_DEPRECATED||g'
-	@${REINPLACE_CMD} -e 's|echo aout|echo elf|' ${WRKSRC}/configure \
-		${WRKSRC}/libmodifiedghttp/configure ${WRKSRC}/libmodifiedgtk2/configure
 
 .include <bsd.port.mk>

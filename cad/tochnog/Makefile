@@ -8,7 +8,7 @@ CATEGORIES=	cad
 MASTER_SITES=	SF/${PORTNAME}/Tochnog%20Latest%20January%202014
 DISTFILES=	Sources${EXTRACT_SUFX} gid${EXTRACT_SUFX} \
 		tools${EXTRACT_SUFX} test${EXTRACT_SUFX}
-DIST_SUBDIR=	${PORTNAME}-${PORTVERSION}
+DIST_SUBDIR=	${DISTNAME}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Free explicit/implicit Finite Element Program
@@ -22,7 +22,6 @@ ATLAS_DESC=	Use ATLAS instead of BLAS/LAPACK
 
 WRKSRC=		${WRKDIR}/Sources/Tochnog-Latest-jan-2014
 MAKEFILE=	makefile
-MAKE_ENV=	PTHREAD_LIBS=${PTHREAD_LIBS} PTHREAD_CFLAGS=${PTHREAD_CFLAGS}
 USES=		fortran zip dos2unix
 DOS2UNIX_FILES=	time.cc time.h tnlapack.h tnsuplu.h
 
@@ -72,13 +71,12 @@ pre-configure:
 	s,%%SUPERLU%%,${SUPERLU},g ; \
 	s,%%BLAS_LIBS%%,-L${LOCALBASE}/lib ${BLAS_LIBS},g' \
 	${WRKSRC}/makefile
-.if ${PORT_OPTIONS:MTHREADS}
+pre-configure-THREADS-on:
 	${REINPLACE_CMD} -e 's,SUPERLU_MT_USE 0,SUPERLU_MT_USE 1,' \
 	${WRKSRC}/tnsuplu.h
-.else	# Serial
+pre-configure-THREADS-off:
 	${REINPLACE_CMD} -e 's,SUPERLU_USE 0,SUPERLU_USE 1,' \
 	${WRKSRC}/tnsuplu.h
-.endif
 
 post-build:
 	(cd ${WRKDIR}/Sources/tools && ${CXX} ${CXXFLAGS} -o aba2tn aba2tn.cc)
@@ -94,10 +92,9 @@ do-install:
 	  ${STAGEDIR}${GID_PTYPES}/tochnog.gid
 	${INSTALL_SCRIPT} ${WRKDIR}/Sources/gid/tochnog.gid/tochnog.ba*	\
 	  ${STAGEDIR}${GID_PTYPES}/tochnog.gid
-.if ${PORT_OPTIONS:MEXAMPLES}
+do-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	${RM} -f ${WRKDIR}/Sources/test/*.orig
 	${INSTALL_DATA} ${WRKDIR}/Sources/test/* ${STAGEDIR}${EXAMPLESDIR}
-.endif
 
 .include <bsd.port.mk>

@@ -4,10 +4,9 @@
 
 PORTNAME=	gnome
 PORTVERSION=	2.28.1
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	x11-toolkits python gnome
-MASTER_SITES=	GNOME
-MASTER_SITE_SUBDIR=	sources/gnome-python/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
+MASTER_SITES=	GNOME/sources/gnome-python/${PORTVERSION:C/^([0-9]+\.[0-9]+).*/\1/}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	gnome-python-${PORTVERSION}
 DIST_SUBDIR=	gnome2
@@ -26,7 +25,7 @@ USES=		gettext gmake libtool:keepla pathfix pkgconfig python:2 tar:bzip2
 USE_LDCONFIG=	yes
 USE_GNOME=	libgnomeui pygtk2
 GNU_CONFIGURE=	yes
-CONFIGURE_ENV=	PTHREAD_LIBS="${PTHREAD_LIBS}"
+CONFIGURE_ENV=	PTHREAD_LIBS="-lpthread"
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
 INSTALL_TARGET=	install-strip

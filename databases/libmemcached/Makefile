@@ -2,6 +2,7 @@
 
 PORTNAME=	libmemcached
 PORTVERSION=	1.0.18
+PORTREVISION=	2
 CATEGORIES=	databases
 MASTER_SITES=	http://launchpad.net/${PORTNAME}/1.0/${PORTVERSION}/+download/
 
@@ -19,9 +20,10 @@ USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--without-memcached \
+		--without-sphinx-build \
 		--enable-libmemcachedprotocol
 
-LDFLAGS+=	-L${LOCALBASE}/lib -lexecinfo
+LIBS+=		-L${LOCALBASE}/lib -lexecinfo
 CXXFLAGS+=	-D__STDC_CONSTANT_MACROS
 
 OPTIONS_DEFINE=		DEBUG DTRACE MEMASLAP SASL
@@ -50,6 +52,7 @@ PATHFIX_MAKEFILEIN=	include.am
 post-patch:
 	@${REINPLACE_CMD} -e '/^LDFLAGS *=/ s/$$/ $${LTLIBSASL2}/' \
 			${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} '/MAKE.*man/d' ${WRKSRC}/man/include.am
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.*

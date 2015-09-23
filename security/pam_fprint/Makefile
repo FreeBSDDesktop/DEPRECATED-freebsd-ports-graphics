@@ -5,8 +5,7 @@ PORTNAME=	pam_fprint
 PORTVERSION=	20080330
 PORTREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_DEBIAN}
-MASTER_SITE_SUBDIR=	pool/main/p/${PORTNAME:C/_/-/}
+MASTER_SITES=	DEBIAN/pool/main/p/${PORTNAME:C/_/-/}
 DISTNAME=	${PORTNAME:C/_/-/}_${PORTVERSION}+git.orig
 
 MAINTAINER=	lichray@gmail.com
@@ -29,13 +28,7 @@ PLIST_FILES+=	bin/pam_fprint_enroll \
 SUB_FILES=	pkg-message
 PKGMESSAGE=	${WRKDIR}/pkg-message
 
-.include <bsd.port.pre.mk>
-
-.if ${OSVERSION} < 800069
-IGNORE=		dependency libfprint will not compile on FreeBsd < 8
-.endif
-
 pre-configure:
 	cd ${WRKDIR} && ${ACLOCAL}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

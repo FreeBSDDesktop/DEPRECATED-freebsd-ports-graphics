@@ -2,32 +2,30 @@
 # $FreeBSD$
 
 PORTNAME=	exabgp
-PORTVERSION=	3.4.3
+PORTVERSION=	3.4.12
 CATEGORIES=	net
-MASTER_SITES=	GH GHC \
+MASTER_SITES=	GH \
 		http://mirrors.rit.edu/zi/
 
 MAINTAINER=	zi@FreeBSD.org
 COMMENT=	BGP engine and route injector
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Exa-Networks
-GH_TAGNAME=	${PORTVERSION}
-GH_COMMIT=	500b9b1
-USES=		tar:tgz python
+USES=		python:2 tar:tgz
 SUB_FILES=	pkg-message exabgp.sh
 SUB_LIST=	PYTHON_LIBDIR=${PYTHON_LIBDIR} PYTHON_CMD=${PYTHON_CMD} \
 		PYTHON_SITELIBDIR=${PYTHON_SITELIBDIR}
 USE_RC_SUBR=	${PORTNAME}
+NO_ARCH=	yes
 
 USERS=		_bgpd
 GROUPS=		_bgpd
 
 OPTIONS_DEFINE=	EXAMPLES
-
-.include <bsd.port.options.mk>
 
 post-extract:
 	@${MV} -f ${WRKSRC}/etc/systemd ${WRKSRC}
@@ -37,16 +35,13 @@ do-build:
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME}.sh ${STAGEDIR}${PREFIX}/sbin/${PORTNAME}
-	${INSTALL_MAN} ${WRKSRC}/debian/${PORTNAME}.1 ${STAGEDIR}${PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/man/${PORTNAME}.1 ${STAGEDIR}${PREFIX}/man/man1
 	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME} ${STAGEDIR}${ETCDIR}
 	(cd ${WRKSRC}/lib && ${COPYTREE_SHARE} . ${STAGEDIR}${PYTHON_SITELIBDIR})
-.if ${PORT_OPTIONS:MEXAMPLES}
+	${INSTALL_DATA} ${FILESDIR}/exabgp.env ${STAGEDIR}${ETCDIR}/exabgp.env.sample
+
+do-install-EXAMPLES-on:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	(cd ${WRKSRC}/etc && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
-.endif
-	${CP} ${FILESDIR}/exabgp.env ${STAGEDIR}${ETCDIR}/exabgp.env.sample
-
-post-install:
-	@${CAT} ${PKGMESSAGE}
 
 .include <bsd.port.mk>

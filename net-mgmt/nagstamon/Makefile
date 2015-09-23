@@ -5,7 +5,7 @@ PORTNAME=	nagstamon
 PORTVERSION=	1.0
 CATEGORIES=	net-mgmt python
 MASTER_SITES=	https://nagstamon.ifw-dresden.de/files-nagstamon/stable/ \
-		CRITICAL
+		LOCAL/ehaupt
 DISTNAME=	Nagstamon-${PORTVERSION}
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -15,7 +15,8 @@ LICENSE=	GPLv2
 
 RUN_DEPENDS=	sox:${PORTSDIR}/audio/sox
 
-USES=		python:2
+USES=		cpe python:2
+CPE_VENDOR=	henri_wahl
 USE_PYTHON=	distutils
 USE_GNOME=	pygtk2 librsvg2
 

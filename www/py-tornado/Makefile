@@ -1,29 +1,30 @@
-# Created by: Guixing Bai<khsing.cn@gmail.com>
+# Created by: Guixing Bai <khsing.cn@gmail.com>
 # $FreeBSD$
 
 PORTNAME=	tornado
-PORTVERSION=	4.0.2
+PORTVERSION=	4.2.1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	khsing.cn@gmail.com
+MAINTAINER=	gblach@FreeBSD.org
 COMMENT=	Python Web Server from FriendFeed
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}certifi>0:${PORTSDIR}/security/py-certify
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}certifi>0:${PORTSDIR}/security/py-certifi
 
-USE_PYTHON=		yes
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python
+USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_REL} < 300
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}backports.ssl_match_hostname>0:${PORTSDIR}/security/py-backports.ssl_match_hostname \
-		${PYTHON_PKGNAMEPREFIX}futures>0:${PORTSDIR}/devel/py-futures
+.if ${PYTHON_REL} < 3000
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}futures>0:${PORTSDIR}/devel/py-futures
 .endif
+
+post-build:
+	@${FIND} ${WRKSRC}/build -name speedups.so -exec ${STRIP_CMD} {} \;
 
 regression-test: build
 	@cd ${WRKSRC} && ${PYTHON_CMD} -m tornado.test.runtests

@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	httpclient
-DISTVERSION=	4.3.5
+DISTVERSION=	4.3.6
 CATEGORIES=	www java
-MASTER_SITES=	${MASTER_SITE_APACHE}
-MASTER_SITE_SUBDIR=	httpcomponents/${PORTNAME}/binary
+MASTER_SITES=	APACHE/httpcomponents/${PORTNAME}/binary
 DISTNAME=	httpcomponents-client-${DISTVERSION}-bin
 
 MAINTAINER=	ale@FreeBSD.org
@@ -14,6 +13,9 @@ COMMENT=	Java components implementing an advanced HTTP client
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
+USES+=	cpe
+CPE_PRODUCT=	commons-httpclient
+CPE_VENDOR=	apache
 RUN_DEPENDS=	${JAVAJARDIR}/httpcore.jar:${PORTSDIR}/www/httpcore \
 		${JAVAJARDIR}/commons-logging.jar:${PORTSDIR}/java/jakarta-commons-logging \
 		${JAVAJARDIR}/commons-codec.jar:${PORTSDIR}/java/jakarta-commons-codec

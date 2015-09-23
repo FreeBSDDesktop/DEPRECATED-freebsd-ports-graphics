@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	ansible
-PORTVERSION=	1.8.2
+PORTVERSION=	1.9.2
 PORTREVISION=	1
 CATEGORIES=	sysutils python
 MASTER_SITES=	http://releases.ansible.com/ansible/
@@ -18,10 +18,11 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}yaml>0:${PORTSDIR}/devel/py-yaml \
 		${PYTHON_PKGNAMEPREFIX}paramiko>0:${PORTSDIR}/security/py-paramiko \
 		${PYTHON_PKGNAMEPREFIX}Jinja2>0:${PORTSDIR}/devel/py-Jinja2
 
-OPTIONS_DEFINE=		EXAMPLES
+OPTIONS_DEFINE=	EXAMPLES
 
 USES=		cpe python:2 shebangfix
 USE_PYTHON=	autoplist distutils
+python_CMD=	${LOCALBASE}/bin/python
 SHEBANG_FILES=	lib/ansible/runner/action_plugins/synchronize.py \
 		lib/ansible/modules/core/*/*.py \
 		lib/ansible/modules/core/*/*/*.py \

@@ -2,14 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	flawfinder
-PORTVERSION=	1.27
+PORTVERSION=	1.31
 CATEGORIES=	security devel
 MASTER_SITES=	http://www.dwheeler.com/flawfinder/ \
-		${MASTER_SITE_PACKETSTORM}
-MASTER_SITE_SUBDIR=	UNIX/security
+		PACKETSTORM/UNIX/security
 
 MAINTAINER=	lx@FreeBSD.org
 COMMENT=	Examines source code looking for security weaknesses
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		python
 NO_BUILD=	yes

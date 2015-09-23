@@ -6,9 +6,7 @@ PORTVERSION=	2.1.8
 PORTREVISION=	4
 CATEGORIES=	databases java
 MASTER_SITES=	SF/isql/Stand%20Alone%20Jars/Version%20${PORTVERSION}:isql \
-		${MASTER_SITE_APACHE:S/$/:bsf/}
-MASTER_SITE_SUBDIR=	isql/:isql \
-			ws/soap/version-2.2/:bsf
+		APACHE/ws/soap/version-2.2:bsf
 DISTFILES=	${ISQL_JAR}:isql \
 		${BSF_JAR}:bsf
 EXTRACT_ONLY=	# none
@@ -16,8 +14,7 @@ EXTRACT_ONLY=	# none
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	JDBC 2.x compliant database front end
 
-RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper \
-		${JYTHON_PREFIX}/${JYTHON_JAR}:${PORTSDIR}/lang/jython \
+RUN_DEPENDS=	${JYTHON_PREFIX}/${JYTHON_JAR}:${PORTSDIR}/lang/jython \
 		${JAVALIBDIR}/postgresql.jar:${PORTSDIR}/databases/postgresql-jdbc \
 		${JAVALIBDIR}/mysql-connector-java.jar:${PORTSDIR}/databases/mysql-connector-java
 

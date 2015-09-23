@@ -2,7 +2,7 @@
 
 PORTNAME=	oyranos
 PORTVERSION=	0.9.5
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	SF/${PORTNAME}/Oyranos/Oyranos%20${PORTVERSION:C|(.*)\.[0-9]*$|\1|}
 
@@ -14,7 +14,7 @@ RUN_DEPENDS=	${LOCALBASE}/share/color/icc/OpenICC/sRGB.icc:${PORTSDIR}/graphics/
 		${LOCALBASE}/share/color/icc/basICColor/ISOcoated_v2_300_bas.ICC:${PORTSDIR}/graphics/icc-profiles-basiccolor
 LIB_DEPENDS=	libraw.so:${PORTSDIR}/graphics/libraw \
 		libexiv2.so:${PORTSDIR}/graphics/exiv2 \
-		libpng15.so:${PORTSDIR}/graphics/png \
+		libpng.so:${PORTSDIR}/graphics/png \
 		libcairo.so:${PORTSDIR}/graphics/cairo \
 		libyajl.so:${PORTSDIR}/devel/yajl \
 		libfltk.so:${PORTSDIR}/x11-toolkits/fltk \
@@ -23,6 +23,8 @@ LIB_DEPENDS=	libraw.so:${PORTSDIR}/graphics/libraw \
 		liblcms.so:${PORTSDIR}/graphics/lcms \
 		liblcms2.so:${PORTSDIR}/graphics/lcms2 \
 		libXcm.so:${PORTSDIR}/x11/libXcm
+
+BROKEN_FreeBSD_9=	does not build
 
 USES=		cmake gettext iconv pkgconfig tar:bzip2
 USE_GL=		yes

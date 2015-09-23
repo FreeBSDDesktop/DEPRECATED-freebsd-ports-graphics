@@ -11,17 +11,14 @@ EXTRACT_SUFX=	.tar.Z
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SNPP client/server for sending messages to an alphanumeric pager
 
+BROKEN=		Unfetchable
 USE_RC_SUBR=	qpage
 GNU_CONFIGURE=	yes
 
 OPTIONS_DEFINE=	IDENT_PATCH
 IDENT_PATCH_DESC=	Disable libwrap ident lookups
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MIDENT_PATCH}
-EXTRA_PATCHES=${FILESDIR}/libwrap_ident_patch-srvrsnpp.c
-.endif
+IDENT_PATCH_EXTRA_PATCHES=${FILESDIR}/libwrap_ident_patch-srvrsnpp.c
 
 .if !defined(WITH_QPAGE_SYSLOG_FACILITY) || !defined(WITH_QPAGE_USER)
 .if !defined(WITH_QPAGE_SYSLOG_FACILITY) && !defined(WITH_QPAGE_USER)

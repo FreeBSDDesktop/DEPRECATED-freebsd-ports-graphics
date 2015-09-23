@@ -3,7 +3,7 @@
 
 PORTNAME=	swish-e
 PORTVERSION=	2.4.7
-PORTREVISION=	2
+PORTREVISION=	4
 CATEGORIES=	www textproc
 MASTER_SITES=	http://swish-e.org/distribution/
 
@@ -12,10 +12,12 @@ COMMENT=	Simple web indexing for humans - enhanced
 
 USE_LDCONFIG=	yes
 USE_GNOME=	libxml2
-USES=		gmake libtool perl5
+USES=		gmake libtool perl5 shebangfix
+SHEBANG_FILES=	src/swishspider
 GNU_CONFIGURE=	yes
 MAKE_ARGS+=	pkgconfigdir="${PREFIX}/libdata/pkgconfig" \
                 pkgdatadir="${DATADIR}"
+INSTALL_TARGET=	install-strip
 
 OPTIONS_DEFINE=	DOCS
 

@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	watchdog
-PORTVERSION=	0.8.0
+PORTVERSION=	0.8.2
+DISTVERSIONPREFIX=	v
 PORTREVISION=	0
 CATEGORIES=	devel
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -20,28 +21,22 @@ DOCS_BUILD_DEPENDS=	${PKGNAMEPREFIX}pathtools>=0.1.2:${PORTSDIR}/devel/py-pathto
 DOCSDIR=	${PREFIX}/share/doc/${PKGNAMEPREFIX}${PORTNAME}
 
 GH_ACCOUNT=	gorakhargosh
-GH_COMMIT=	93ff1da
-GH_TAGNAME=	v${PORTVERSION}
 
-OPTIONSFILE=	${PORT_DBDIR}/py-${PORTNAME}/options
 OPTIONS_DEFINE=	DOCS
 
 PORTDOCS=	*
 
 USE_GITHUB=	yes
 USES=		python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist distutils
+NO_ARCH=	yes
 
-.include <bsd.port.options.mk>
+post-build-DOCS-on:
+	(cd ${WRKSRC}/docs ; ${MAKE_CMD} html)
 
-.if ${PORT_OPTIONS:MDOCS}
-post-build:
-	(cd ${WRKSRC}/docs ; ${MAKE} html)
-
-post-install:
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC}/docs/build/html ; \
 	${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} "-not -name .buildinfo")
-.endif
 
 .include <bsd.port.mk>

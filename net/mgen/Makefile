@@ -5,8 +5,7 @@ PORTNAME=	mgen
 PORTVERSION=	4.2b6
 CATEGORIES=	net
 MASTER_SITES=	http://downloads.pf.itd.nrl.navy.mil/mgen/archive/mgen4/ \
-	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	miwi
+		LOCAL/miwi
 DISTNAME=	src-${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	ports@FreeBSD.org
@@ -26,12 +25,8 @@ PORTDOCS=	README.TXT VERSION.TXT mgen.html example.mgn
 OPTIONS_DEFINE=	DOCS
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|-lpthread|${PTHREAD_LIBS}|g' \
-		${WRKSRC}/unix/Makefile.common \
-		${WRKSRC}/protolib/unix/Makefile.common
-
-	@${REINPLACE_CMD} -e 's|%%PTHREAD_CFLAGS%%|${PTHREAD_CFLAGS}|g; \
-		s|g++|${CXX}|; s|gcc|${CC}|; /CFLAGS =/s|$$|${CFLAGS}|' \
+	@${REINPLACE_CMD} -e 's|g++|${CXX}|; s|gcc|${CC}|; \
+		/CFLAGS =/s|$$|${CFLAGS}|' \
 		${WRKSRC}/unix/Makefile.freebsd \
 		${WRKSRC}/protolib/unix/Makefile.freebsd
 

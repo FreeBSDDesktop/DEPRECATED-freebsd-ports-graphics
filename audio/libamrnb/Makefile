@@ -3,6 +3,7 @@
 
 PORTNAME=	libamrnb
 PORTVERSION=	11.0.0.0
+PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	audio
 MASTER_SITES=	http://www.penguin.cz/~utx/ftp/amr/ \
@@ -29,24 +30,22 @@ RESTRICTED=	unclear legal status, probably need licenses from 3GPP and more
 
 USES=		gmake tar:bzip2 libtool
 PORTDOCS=	AUTHORS COPYING ChangeLog NEWS README TODO readme.txt
-SUB_FILES=	pkg-message
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV+=	LANG=C
 MAKE_ENV+=	LANG=C
+INSTALL_TARGET=	install-strip
+SUB_FILES=	pkg-message
 USE_LDCONFIG=	yes
+
 OPTIONS_DEFINE=	DOCS
 
 SRC26104=	26104-b00.zip
 
-.include <bsd.port.options.mk>
-
 post-extract:
 	@${CP} ${_DISTDIR}/${SRC26104} ${WRKSRC}/
 
-post-install:
-.if ${PORT_OPTIONS:MDOCS}
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	@cd ${WRKSRC}/ && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}/
-.endif
 
 .include <bsd.port.mk>

@@ -2,15 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	kqemu
-PORTVERSION=	1.4.0.p1
+DISTVERSION=	1.4.0pre1
 PORTREVISION=	5
 CATEGORIES=	emulators
 MASTER_SITES=	http://bellard.org/qemu/ \
 		http://qemu.org/ \
-		${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	nox
+		LOCAL/nox
 PKGNAMESUFFIX=	-kmod-devel
-DISTNAME=	${PORTNAME}-${PORTVERSION:C/.p/pre/}
 DIST_SUBDIR=	kqemu
 
 MAINTAINER=	nox@FreeBSD.org
@@ -68,10 +66,10 @@ do-install:
 	@(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} DESTDIR=${STAGEDIR} ${MAKE_FLAGS} ${MAKEFILE} ${INSTALL_TARGET})
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/kqemu
 	${INSTALL_DATA} ${WRKSRC}/kqemu.h ${STAGEDIR}${PREFIX}/include/kqemu
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/kqemu-doc.html ${WRKSRC}/kqemu-tech.html \
 		${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.post.mk>

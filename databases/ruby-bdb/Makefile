@@ -20,7 +20,6 @@ LICENSE=	RUBY
 USE_BDB=	yes
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
-OPTIONSFILE=	${PORT_DBDIR}/ruby-${PORTNAME}/options
 
 USE_RUBY=		yes
 USE_RUBY_EXTCONF=	yes
@@ -58,14 +57,24 @@ SHEBANG_FILES=	examples/record.rb \
 
 .include <bsd.port.pre.mk>
 
-post-patch:
 .if ${RUBY_VER} >= 2.0
-	@${REINPLACE_CMD} -e '/remove_const/d' ${WRKSRC}/src/features.rb
+EXTRA_PATCHES+=		${FILESDIR}/extra-patch-src-features.rb
 .endif
 
 .if ${RUBY_VER} >= 2.1
-	@${REINPLACE_CMD} -e 's|RBASIC(obj)->klass = \(.*\);|RBASIC_SET_CLASS_RAW(obj, \1);|' -e 's|RCLASS(\([[:alnum:]_]*\))->m_tbl|RCLASS_M_TBL(\1)|g' ${WRKSRC}/bdbxml2/bdbxml.h ${WRKSRC}/src/common.c
+EXTRA_PATCHES+=		${FILESDIR}/extra-patch-bdbxml2-bdbxml.h
 .endif
+
+.if ${RUBY_VER} == 2.1
+EXTRA_PATCHES+=		${FILESDIR}/extra-patch-src-common.c-21
+.endif
+
+.if ${RUBY_VER} == 2.2
+EXTRA_PATCHES+=		${FILESDIR}/extra-patch-src-common.c-22 \
+			${FILESDIR}/extra-patch-src-recnum.c-22 \
+			${FILESDIR}/extra-patch-src-cursor.c-22
+.endif
+
 post-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} \
 	${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} rdoc)

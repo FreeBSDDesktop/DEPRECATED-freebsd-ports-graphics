@@ -51,6 +51,7 @@ share/icons/hicolor/scalable/apps/smplayer.svg
 %%DATADIR%%/translations/smplayer_ru_RU.qm
 %%DATADIR%%/translations/smplayer_sk.qm
 %%DATADIR%%/translations/smplayer_sl_SI.qm
+%%DATADIR%%/translations/smplayer_sq_AL.qm
 %%DATADIR%%/translations/smplayer_sr.qm
 %%DATADIR%%/translations/smplayer_sv.qm
 %%DATADIR%%/translations/smplayer_th.qm
@@ -60,8 +61,3 @@ share/icons/hicolor/scalable/apps/smplayer.svg
 %%DATADIR%%/translations/smplayer_vi_VN.qm
 %%DATADIR%%/translations/smplayer_zh_CN.qm
 %%DATADIR%%/translations/smplayer_zh_TW.qm
-@dirrm %%DATADIR%%/translations
-@dirrm %%DATADIR%%/shortcuts
-@dirrmtry %%DATADIR%%
-@dirrmtry share/icons/hicolor/512x512/apps
-@dirrmtry share/icons/hicolor/512x512

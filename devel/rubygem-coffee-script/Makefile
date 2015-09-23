@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	coffee-script
-PORTVERSION=	2.3.0
+PORTVERSION=	2.4.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -11,8 +11,10 @@ COMMENT=	Ruby CoffeeScript is a bridge to the JS CoffeeScript compiler
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	rubygem-coffee-script-source>=1.7.0:${PORTSDIR}/devel/rubygem-coffee-script-source \
+RUN_DEPENDS=	rubygem-coffee-script-source>=0:${PORTSDIR}/devel/rubygem-coffee-script-source \
 		rubygem-execjs>=0:${PORTSDIR}/devel/rubygem-execjs
+
+NO_ARCH=	yes
 
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes

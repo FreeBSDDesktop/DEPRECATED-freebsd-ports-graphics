@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# $FreeBSD$
+#
+
+# PROVIDE: h2o
+# REQUIRE: LOGIN DAEMON NETWORKING
+# KEYWORD: shutdown
+
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# h2o_enable    (bool):   Set to NO by default.
+# Set it to YES to enable h2o.
+#
+# h2o_config    (string): Optional full path for h2o config file
+
+. /etc/rc.subr
+
+name=h2o
+rcvar=h2o_enable
+
+# defaults
+: ${h2o_enable:="NO"}
+: ${h2o_config:="%%PREFIX%%/etc/${name}/${name}.conf"}
+
+# daemon
+pidfile=`grep pid-file ${h2o_config} | cut -d' ' -f2`
+command="%%PREFIX%%/bin/${name}"
+command_args="-m daemon -c ${h2o_config}"
+procname="%%LOCALBASE%%/bin/perl"
+
+load_rc_config $name
+run_rc_command "$1"

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	salt
-PORTVERSION=	2014.7.0
+PORTVERSION=	2015.8.0
 CATEGORIES=	sysutils python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,20 +12,35 @@ COMMENT=	Distributed remote execution and configuration management system
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyzmq>=2.2.0:${PORTSDIR}/net/py-pyzmq
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}yaml>0:${PORTSDIR}/devel/py-yaml \
-		${PYTHON_PKGNAMEPREFIX}pyzmq>=2.2.0:${PORTSDIR}/net/py-pyzmq \
-		${PYTHON_PKGNAMEPREFIX}pycrypto>0:${PORTSDIR}/security/py-pycrypto \
 		${PYTHON_PKGNAMEPREFIX}Jinja2>0:${PORTSDIR}/devel/py-Jinja2 \
 		${PYTHON_PKGNAMEPREFIX}msgpack>=0.1.13:${PORTSDIR}/devel/py-msgpack \
 		${PYTHON_PKGNAMEPREFIX}libcloud>=0.14.0:${PORTSDIR}/net/py-libcloud \
 		${PYTHON_PKGNAMEPREFIX}botocore>0:${PORTSDIR}/devel/py-botocore \
-		${PYTHON_PKGNAMEPREFIX}m2crypto>0:${PORTSDIR}/security/py-m2crypto \
 		${PYTHON_PKGNAMEPREFIX}MarkupSafe>0:${PORTSDIR}/textproc/py-MarkupSafe \
-		${PYTHON_PKGNAMEPREFIX}requests>1:${PORTSDIR}/www/py-requests
+		${PYTHON_PKGNAMEPREFIX}requests>1:${PORTSDIR}/www/py-requests \
+		${PYTHON_PKGNAMEPREFIX}enum34>0:${PORTSDIR}/devel/py-enum34 \
+		${PYTHON_PKGNAMEPREFIX}progressbar>0:${PORTSDIR}/misc/py-progressbar \
+		${PYTHON_PKGNAMEPREFIX}futures>=2.0:${PORTSDIR}/devel/py-futures \
+		${PYTHON_PKGNAMEPREFIX}tornado>=4.2.1:${PORTSDIR}/www/py-tornado
+
+OPTIONS_DEFINE=	ZEROMQ RAET
+OPTIONS_DEFAULT=	ZEROMQ
+
+ZEROMQ_DESC=	Enable ZeroMQ transport
+RAET_DESC=	Enable RAET transport
+
+ZEROMQ_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyzmq>=2.2.0:${PORTSDIR}/net/py-pyzmq
+ZEROMQ_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyzmq>=2.2.0:${PORTSDIR}/net/py-pyzmq \
+		${PYTHON_PKGNAMEPREFIX}pycrypto>2.6.1:${PORTSDIR}/security/py-pycrypto
+
+RAET_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}libnacl>=1.4.2:${PORTSDIR}/security/py-libnacl \
+		${PYTHON_PKGNAMEPREFIX}ioflo>=1.2.1:${PORTSDIR}/devel/py-ioflo \
+		${PYTHON_PKGNAMEPREFIX}raet>0:${PORTSDIR}/net/py-raet
 
 USES=		python:2
 USE_PYTHON=	distutils
+NO_ARCH=	yes
 PYDISTUTILS_EGGINFO=	salt-${DISTVERSION}-py${PYTHON_VER}.egg-info
 
 PYDISTUTILS_INSTALLARGS+=\

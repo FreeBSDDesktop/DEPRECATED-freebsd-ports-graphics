@@ -3,11 +3,11 @@
 
 PORTNAME=	DateTime-Set
 PORTVERSION=	0.34
+DISTVERSIONSUFFIX=	00
 PORTREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
-DISTNAME=	${PORTNAME}-${PORTVERSION}00
 
 MAINTAINER=	perl@FreeBSD.org
 COMMENT=	Datetime sets and set math
@@ -25,13 +25,9 @@ USE_PERL5=	configure
 
 PORTDOCS=	Changes README TODO
 
-.include <bsd.port.options.mk>
-
 post-install:
-.if ${PORT_OPTIONS:MDOCS}
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
 	@${ECHO_MSG} "===> Documentation installed in ${DOCSDIR}."
-.endif
 
 .include <bsd.port.mk>

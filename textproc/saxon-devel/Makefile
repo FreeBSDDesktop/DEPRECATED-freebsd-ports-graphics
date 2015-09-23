@@ -14,8 +14,6 @@ DISTFILES=	${PORTNAME}b${PORTVERSION:S,.,-,g}j.zip:binary	\
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	XSLT 2.0 / XPath 2.0 / XQuery 1.0 processor for Java
 
-RUN_DEPENDS=	java:${PORTSDIR}/java/javavmwrapper
-
 OPTIONS_DEFINE=	JDOM DOM4J XOM DOCS
 JDOM_DESC=	Jdom support
 DOM4J_DESC=	dom4j support
@@ -85,8 +83,6 @@ do-install:
 post-install:
 	${FIND} -s ${WRKSRC}/samples -not -type d | \
 		${SED} -ne 's,^${WRKSRC}/samples,${EXAMPLESDIR:S,${PREFIX}/,,},p' >> ${TMPPLIST}
-	${FIND} -s -d ${WRKSRC}/samples -type d | \
-		${SED} -ne 's,^${WRKSRC}/samples,@dirrm ${EXAMPLESDIR:S,${PREFIX}/,,},p' >> ${TMPPLIST}
 .endif
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	amule
 PORTVERSION=	10834
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	net-p2p
 MASTER_SITES=	http://amule.sourceforge.net/tarballs/
 PKGNAMESUFFIX=	-devel
@@ -24,6 +24,8 @@ USES=		bison gmake pkgconfig perl5 shebangfix tar:bzip2 \
 USE_PERL5=	build
 USE_WX=		2.8
 WX_CONF_ARGS=	absolute
+WX_UNICODE=	yes
+
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-denoise-level=0
 
@@ -31,12 +33,11 @@ CONFIGURE_ENV=	LEX="${FLEX}" PKG_CONFIG="${PKG_CONFIG}" \
 		docdir='$${prefix}/${DOCSDIR_REL}'
 
 CPPFLAGS+=	-I${LOCALBASE}/include
-CFLAGS+=	${PTHREAD_CFLAGS}
-LDFLAGS+=	${PTHREAD_LIBS} -L${LOCALBASE}/lib
+LDFLAGS+=	-lpthread -L${LOCALBASE}/lib
 
 OPTIONS_DEFINE=	ALC ALCC AMULECMD AMULEDAEMON AMULEGUI CAS DEBUG DOCS ED2K \
 	FILEVIEW GEOIP MMAP MONOLITHIC NLS OPTIMIZED_CFLAGS PLASMAMULE UPNP \
-	WEBSERVER WXCAS WXUNICODE XAS
+	WEBSERVER WXCAS XAS
 ALC_DESC=		Compile aMule Link Creator for GUI
 ALCC_DESC=		Compile aMule Link Creator for console
 AMULECMD_DESC=		Compile aMule command line client
@@ -49,10 +50,9 @@ MMAP_DESC=		Use mapped memory
 MONOLITHIC_DESC=	Compile monolithic aMule
 PLASMAMULE_DESC=	Compile aMule plasma applet and engine
 WXCAS_DESC=		Compile aMule Statistics for GUI
-WXUNICODE_DESC=		Unicode support
 XAS_DESC=		Install XChat2 plugin
 OPTIONS_DEFAULT=ALC ALCC AMULECMD AMULEDAEMON AMULEGUI CAS ED2K \
-	FILEVIEW MONOLITHIC WEBSERVER WXCAS WXUNICODE XAS
+	FILEVIEW MONOLITHIC WEBSERVER WXCAS XAS
 
 OPTIONS_SUB=	yes
 
@@ -121,13 +121,8 @@ CONFLICTS+=		ed2k-hash*
 CONFIGURE_ARGS+=	--enable-optimize
 .endif
 
-.if ${PORT_OPTIONS:MWXUNICODE}
-WX_UNICODE=		yes
-.endif
-
 post-patch:	.SILENT
-	${REINPLACE_CMD} -e '/LDFLAGS/s/-lpthread/${PTHREAD_LIBS}/' \
-		-e 's/test.*-print-file-name.*`/true/' \
+	${REINPLACE_CMD} -e 's/test.*-print-file-name.*`/true/' \
 		-e '/if.*test/s/==/=/' \
 		${WRKSRC}/configure
 .if ! ${PORT_OPTIONS:MDOCS}

@@ -1,0 +1,4 @@
+SHA256 (hadoop/apache-hive-1.1.0-src.tar.gz) = 340bdd46e305f077132c0b1b0c62a1752245ec6deac7dc87b826e716e2f5c45f
+SIZE (hadoop/apache-hive-1.1.0-src.tar.gz) = 11990526
+SHA256 (hadoop/FreeBSD-hive-1.1.0-maven-repository.tar.gz) = 58e4b1f046ecd3f08949614bd86dbe1b83669a45cac0f9495e057f3497ce3835
+SIZE (hadoop/FreeBSD-hive-1.1.0-maven-repository.tar.gz) = 365563658

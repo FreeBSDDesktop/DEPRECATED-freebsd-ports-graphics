@@ -2,16 +2,18 @@
 
 PORTNAME=	pasm
 PORTVERSION=	0.84
+DISTVERSIONPREFIX=	${PORTNAME}-
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/rpaulo/am335x_pru_package/archive/
 
 MAINTAINER=	rpaulo@FreeBSD.org
 COMMENT=	TI PRU Assembler
 
-LICENSE=	BSD
+LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/pru_sw/utils/LICENCE.txt
 
-WRKSRC=		${WRKDIR}/am335x_pru_package-${PORTNAME}-${PORTVERSION}
+USE_GITHUB=	yes
+GH_ACCOUNT=	rpaulo
+GH_PROJECT=	am335x_pru_package
 PLIST_FILES=	bin/pasm
 
 do-build:

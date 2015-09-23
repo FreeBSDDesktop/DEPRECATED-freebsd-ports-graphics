@@ -5,7 +5,7 @@ PORTNAME=		f10
 PORTVERSION=		10
 PORTREVISION=		9
 CATEGORIES=		emulators linux
-MASTER_SITES=		CRITICAL/rpm/${LINUX_RPM_ARCH}/fedora/${PORTVERSION} \
+MASTER_SITES=		LOCAL/ehaupt/rpm/${LINUX_RPM_ARCH}/fedora/${PORTVERSION} \
 			FEDORA_LINUX/../releases/${PORTVERSION}/Everything/${LINUX_RPM_ARCH}/os/Packages/
 PKGNAMEPREFIX=		linux_base-
 DISTFILES=		${BIN_DISTFILES} ${SRC_DISTFILES}
@@ -146,7 +146,6 @@ FALLBACK_ELF_MIB=	kern.fallback_elf_brand
 .endif
 
 .if (${ARCH} == "amd64")
-LATEST_LINK:=		${PKGBASE:C/linux/linux32/}
 ARCH=			i386
 .endif
 

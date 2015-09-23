@@ -20,6 +20,7 @@ MASTER_SITES?=	http://www.sourcehosting.net/freebsd/distfiles/ \
 CATEGORIES?=	www
 SVNURL?=	http://svn.twiki.org/svn/twiki/trunk/${PNAME}
 NO_BUILD=	yes
+NO_ARCH=	yes
 TWDIR?=		${PREFIX}/share/twiki/${PNAME}
 WWWDIR?=	${PREFIX}/www/twiki
 PLIST_SUB+=	TWDIR="share/twiki/${PNAME}"
@@ -40,10 +41,6 @@ make-dist:
 create-plist:	extract
 	@${FIND} -s ${WRKSRC} -not -type d |\
 		${SED} -e 's|^${WRKSRC}|%%TWDIR%%|' > ${PLIST}
-	@${FIND} -ds ${WRKSRC} -type d -not -name ${DISTNAME} | \
-		${SED} -e "s,^${WRKSRC},@dirrm %%TWDIR%%," >> ${PLIST}
-	@${ECHO_CMD} '@dirrm %%TWDIR%%' >> ${PLIST}
-	@${ECHO_CMD} '@dirrmtry share/twiki' >> ${PLIST}
 
 do-install:
 	${MKDIR} ${STAGEDIR}${TWDIR}

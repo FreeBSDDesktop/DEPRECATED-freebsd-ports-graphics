@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	Test-Expect
-PORTVERSION=	0.31
-PORTREVISION=	1
+PORTVERSION=	0.33
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
 
-MAINTAINER=	5u623l20@gmail.com
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Automated driving and testing of terminal-based programs
 
 LICENSE=	ART10 GPLv1
@@ -20,5 +19,6 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

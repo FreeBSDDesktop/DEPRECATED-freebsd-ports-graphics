@@ -3,7 +3,7 @@
 
 PORTNAME=	pgplot
 PORTVERSION=	5.2.2
-PORTREVISION=	15
+PORTREVISION=	17
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.astro.caltech.edu/pub/pgplot/
 DISTNAME=	${PORTNAME}${PORTVERSION:R}
@@ -11,7 +11,7 @@ DISTNAME=	${PORTNAME}${PORTVERSION:R}
 MAINTAINER=	bf@FreeBSD.org
 COMMENT=	C/FORTRAN library for drawing graphs on a variety of display devices
 
-LIB_DEPENDS=	libpng15.so:${PORTSDIR}/graphics/png
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 
 MAKE_JOBS_UNSAFE=	yes
 
@@ -65,7 +65,8 @@ do-build:
 do-install:
 	@cd ${WRKSRC}; \
 	${INSTALL_PROGRAM} pgxwin_server pgdisp ${STAGEDIR}${PREFIX}/bin; \
-	${INSTALL_LIB} *.a *.so.5* ${STAGEDIR}${PREFIX}/lib; \
+	${INSTALL_DATA} *.a ${STAGEDIR}${PREFIX}/lib; \
+	${INSTALL_LIB} *.so.5* ${STAGEDIR}${PREFIX}/lib; \
 	${INSTALL_DATA} cpgplot.h ${STAGEDIR}${PREFIX}/include
 .for f in libcpgplot.so libpgplot.so
 	@${LN} -sf ${f}.5 ${STAGEDIR}${PREFIX}/lib/${f}

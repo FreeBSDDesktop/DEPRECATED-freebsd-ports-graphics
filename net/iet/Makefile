@@ -3,13 +3,12 @@
 
 PORTNAME=	iet
 PORTVERSION=	1.4.20.2
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	net kld
 MASTER_SITES=	SF/iscsitarget/iscsitarget/${PORTVERSION}/
 DISTNAME=	iscsitarget-${PORTVERSION}
 
-PATCH_SITES=	${MASTER_SITE_LOCAL}
-PATCH_SITE_SUBDIR=	delphij
+PATCH_SITES=	LOCAL/delphij
 PATCHFILES=	${PORTNAME}-${PORTVERSION}.diff.bz2
 PATCH_DIST_STRIP=	-p1
 
@@ -31,17 +30,11 @@ MAKE_ENV+=	KMODDIR=${KMODDIR} DATADIR=${DATADIR} SYSDIR="${SRC_BASE}/sys"
 
 IET_CONF_FILES=	ietd.conf initiators.allow initiators.deny targets.allow
 
-.include <bsd.port.pre.mk>
-
 .if !exists(${SRC_BASE}/sys/Makefile)
 IGNORE=		requires kernel sources to build
-.endif
-
-.if ${OSVERSION} < 800107
-BROKEN=		requires 8.0-RELEASE or higher
 .endif
 
 pre-install:
 	${MKDIR} ${STAGEDIR}${DATADIR} ${STAGEDIR}${KMODDIR} ${STAGEDIR}${ETCDIR}
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

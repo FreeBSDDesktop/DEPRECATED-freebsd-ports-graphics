@@ -2,11 +2,10 @@
 
 PORTNAME=	opus-tools
 PORTVERSION=	0.1.9
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	http://downloads.xiph.org/releases/opus/ \
-		${MASTER_SITE_MOZILLA_EXTENDED}
-MASTER_SITE_SUBDIR=	opus
+		MOZILLA/opus
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	Encode, inspect, and decode Opus files

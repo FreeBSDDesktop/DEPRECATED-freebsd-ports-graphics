@@ -3,7 +3,7 @@
 
 PORTNAME=	fam
 PORTVERSION=	2.6.10
-PORTREVISION=	6
+PORTREVISION=	8
 CATEGORIES=	devel
 MASTER_SITES=	ftp://oss.sgi.com/projects/fam/download/
 DIST_SUBDIR=	${PORTNAME}
@@ -11,13 +11,18 @@ DIST_SUBDIR=	${PORTNAME}
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	File alteration monitor
 
+LICENSE=	GPLv2 LGPL21
+LICENSE_COMB=	multi
+LICENSE_FILE_GPLv2=	${WRKSRC}/fam/COPYING
+LICENSE_FILE_LGPL21=	${WRKSRC}/libfam/COPYING
+
 CFLAGS+=	-Wno-deprecated
 
-USES=		gmake libtool
-USE_AUTOTOOLS=	libtoolize aclocal autoconf autoheader automake
-AUTOMAKE_ARGS=	-a -c -f
+USES=		autoreconf cpe gmake libtool
+CPE_VENDOR=	sgi
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
+GNU_CONFIGURE=	yes
 SUB_FILES=	pkg-message
 
 #CONFLICTS_INSTALL=	gamin-[0-9]*

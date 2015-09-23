@@ -1,19 +1,17 @@
 # $FreeBSD$
 
 PORTNAME=	gmp-api
-PORTVERSION=	35.0
+DISTVERSIONPREFIX=	Firefox
+DISTVERSION=	39 # tracking www/firefox
 CATEGORIES=	multimedia
 
 MAINTAINER=	gecko@FreeBSD.org
-COMMENT=	Gecko Media Plugins API from mozilla-central
+COMMENT=	Gecko Media Plugins API from mozilla-release
 
 LICENSE=	APACHE20
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	mozilla
-GH_PROJECT=	${PORTNAME}
-GH_TAGNAME=	${GH_COMMIT}
-GH_COMMIT=	f582a56
 
 NO_BUILD=	yes
 NO_ARCH=	yes

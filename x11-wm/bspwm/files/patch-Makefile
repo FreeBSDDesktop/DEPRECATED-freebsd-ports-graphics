@@ -1,0 +1,20 @@
+--- Makefile.orig	2015-03-20 21:29:14 UTC
++++ Makefile
+@@ -8,7 +8,7 @@ LDFLAGS += -L$(PREFIX)/lib
+ 
+ PREFIX   ?= /usr/local
+ BINPREFIX = $(PREFIX)/bin
+-MANPREFIX = $(PREFIX)/share/man
++MANPREFIX = $(PREFIX)/man
+ BASHCPL = $(PREFIX)/share/bash-completion/completions
+ ZSHCPL = $(PREFIX)/share/zsh/site-functions
+ DOCPREFIX = $(PREFIX)/share/doc/bspwm
+@@ -56,7 +56,7 @@ install:
+ 	cp -p contrib/zsh_completion "$(DESTDIR)$(ZSHCPL)"/_bspc
+ 	mkdir -p "$(DESTDIR)$(DOCPREFIX)"
+ 	cp -p $(MD_DOCS) "$(DESTDIR)$(DOCPREFIX)"
+-	cp -pr examples "$(DESTDIR)$(DOCPREFIX)"/examples
++	cp -pr examples "$(DESTDIR)$(EXAMPLESDIR)"
+ 	mkdir -p "$(DESTDIR)$(XSESSIONS)"
+ 	cp -p contrib/freedesktop/bspwm.desktop "$(DESTDIR)$(XSESSIONS)"
+ 

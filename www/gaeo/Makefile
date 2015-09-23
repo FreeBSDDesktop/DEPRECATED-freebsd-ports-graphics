@@ -6,7 +6,7 @@ PORTVERSION=	0.3
 PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	www devel python
-MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
+MASTER_SITES=	GOOGLE_CODE
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Open-source web framework running on Google App Engine
@@ -16,10 +16,8 @@ RUN_DEPENDS=	google-appengine>=1.1.0:${PORTSDIR}/www/google-appengine \
 
 PROJECTHOST=	google-app-engine-oil
 
-USES=		zip
-USE_PYTHON=		yes
-USE_PYDISTUTILS=	yes
-PYDISTUTILS_AUTOPLIST=	yes
+USES=		python zip
+USE_PYTHON=	distutils autoplist
 
 PORTDOCS=	LICENSE NOTICE README.TXT CHANGELOG
 

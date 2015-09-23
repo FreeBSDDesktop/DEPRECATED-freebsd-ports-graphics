@@ -2,7 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	yorick
-PORTVERSION=	2.2.03
+DISTVERSIONPREFIX=	y_
+DISTVERSION=	2_2_04
+PORTREVISION=	1
 CATEGORIES=	lang math
 
 MAINTAINER=	johans@FreeBSD.org
@@ -14,8 +16,6 @@ MAKE_ARGS=	Y_HOME=relocatable Y_DOCDIR=/dev/null
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	dhmunro
-GH_TAGNAME=	y_${PORTVERSION:S/./_/g}
-GH_COMMIT=	5adc927
 
 INFO=		yorick
 PORTDOCS=	FILE_FORMATS README drat.doc graph.doc hex.doc \

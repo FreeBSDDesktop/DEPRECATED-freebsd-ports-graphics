@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	flightgear-data
-PORTVERSION=	3.2.0
+PORTVERSION=	3.4.0
+PORTREVISION=	1
 CATEGORIES=	games
 # see http://www.flightgear.org/templates.js
 MASTER_SITES=	http://mirrors.ibiblio.org/flightgear/ftp/Shared/ \
@@ -23,6 +24,7 @@ WRKSRC=		${WRKDIR}/fgdata
 DATADIR=	${PREFIX}/share/flightgear
 
 PLIST=		${WRKDIR}/pkg-plist
+PLIST_DIRS=	%%DATADIR%%
 
 MANUAL_PACKAGE_BUILD=	very large distfile (>1 GB)
 

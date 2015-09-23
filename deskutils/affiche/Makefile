@@ -2,7 +2,7 @@
 
 PORTNAME=	affiche
 PORTVERSION=	0.6.0
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	deskutils gnustep
 MASTER_SITES=	http://www.collaboration-world.com/affiche.data/releases/Stable/
 DISTNAME=	Affiche-${PORTVERSION}
@@ -12,11 +12,12 @@ COMMENT=	Affiche allows people to stick notes
 
 LICENSE=	GPLv2
 
-USE_GNUSTEP=	yes
-USE_GNUSTEP_BACK=	yes
-USE_GNUSTEP_BUILD=	yes
-USE_GNUSTEP_INSTALL=	yes
+USES=		gnustep
+USE_GNUSTEP=	back build
 
 WRKSRC=		${WRKDIR}/Affiche
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/Affiche.app/Affiche
 
 .include <bsd.port.mk>

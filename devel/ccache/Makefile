@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	ccache
-PORTVERSION=	3.1.10
-PORTREVISION=	1
+PORTVERSION=	3.2.3
+PORTREVISION=	0
 CATEGORIES=	devel
 MASTER_SITES=	http://www.samba.org/ftp/ccache/ \
-		CRITICAL
+		LOCAL/bdrewery
 
 MAINTAINER=	bdrewery@FreeBSD.org
 COMMENT=	Tool to minimize the compile time of C/C++ programs
@@ -21,31 +21,29 @@ SUB_FILES=	${HOWTO} world-ccache pkg-message ccache-update-links.sh
 
 PORTDOCS=	ccache-howto-freebsd.txt MANUAL.html
 
-OPTIONS_DEFINE=	CLANGLINK LLVMLINK STATIC DOCS TINDERBOX COLORS
-OPTIONS_DEFAULT=COLORS
+OPTIONS_DEFINE=	CLANGLINK LLVMLINK STATIC DOCS TINDERBOX
+OPTIONS_DEFAULT=CLANGLINK LLVMLINK
 
-COLORS_DESC=	Support compiler colors
 CLANGLINK_DESC=	Create clang compiler links if clang is installed
 LLVMLINK_DESC=	Create llvm compiler links if llvm is installed
 TINDERBOX_DESC=	Create tarball for tinderbox usage
 
-COLORS_EXTRA_PATCHES=	${FILESDIR}/extra-patch-colors
-COLORS_USES=		compiler
+USES=		compiler
+# Don't allow autoreconf. We want no dependencies on this to keep
+# WITH_CCACHE_BUILD working.
+USES:=		${USES:Nautoreconf}
 
 OPTIONS_SUB=	yes
 
 STATIC_LDFLAGS=	-static
 
-.include <bsd.port.options.mk>
 .include <bsd.port.pre.mk>
 
-.if ${PORT_OPTIONS:MCOLORS}
 .  if ${COMPILER_TYPE} == clang
 CPPFLAGS+=	-DCC_IS_CLANG
 .  elif ${COMPILER_TYPE} == gcc
 CPPFLAGS+=	-DCC_IS_GCC
 .  endif
-.endif
 
 PLIST_SUB+=	CCLINKDIR="${CCLINKDIR}"
 
@@ -53,11 +51,11 @@ PLIST_SUB+=	CCLINKDIR="${CCLINKDIR}"
 CCACHE_COMPILERS+=	icc icpc
 .endif
 
-GNU_COMPILERS+=		34 42 43 44 45 46 47 48 49 5
+GNU_COMPILERS+=		34 42 43 44 45 46 47 48 49 5 6
 CCACHE_COMPILERS+=	cc c++ CC gcc g++ ${GNU_COMPILERS:S|^|gcc|} ${GNU_COMPILERS:S|^|g++|}
 
 .if ${PORT_OPTIONS:MCLANGLINK}
-CLANG_COMPILERS+=	31 32 33 34 35 -devel
+CLANG_COMPILERS+=	33 34 35 36 37 -devel
 CCACHE_COMPILERS+=	clang clang++ ${CLANG_COMPILERS:S|^|clang|} ${CLANG_COMPILERS:S|^|clang++|}
 .endif
 
@@ -97,11 +95,6 @@ do-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/MANUAL.html ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKDIR}/${HOWTO} ${STAGEDIR}${DOCSDIR}
-.endif
-
-post-install:
-.if ${PORT_OPTIONS:MCLANGLINK}
-	@${CAT} ${FILESDIR}/pkg-message-clang >> ${PKGMESSAGE}
 .endif
 
 .include <bsd.port.post.mk>

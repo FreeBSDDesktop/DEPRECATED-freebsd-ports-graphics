@@ -2,12 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	rdesktop
-PORTVERSION=	1.8.2
-PORTREVISION=	1
+PORTVERSION=	1.8.3
 CATEGORIES=	net comms ipv6
 MASTER_SITES=	SF
 
-MAINTAINER=	obrien@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	RDP client for Windows NT/2000/2003 Terminal Server
 
 LICENSE=	GPLv3

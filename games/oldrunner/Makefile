@@ -4,8 +4,7 @@
 PORTNAME=	oldrunner
 PORTVERSION=	20120131
 CATEGORIES=	games
-MASTER_SITES=	${MASTER_SITE_LOCAL}
-MASTER_SITE_SUBDIR=	culot
+MASTER_SITES=	LOCAL/culot
 
 MAINTAINER=	culot@FreeBSD.org
 COMMENT=	Textmode remake of Broderbund's LodeRunner
@@ -19,6 +18,7 @@ MAKEFILE=	GNUmakefile
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
 PLIST_FILES=	bin/oldrunner ${DATADIR_REL}/original.lvl man/man6/oldrunner.6.gz
+PLIST_DIRS=	${DATADIR_REL}
 
 post-patch:
 	${REINPLACE_CMD} -e '/LEVELS_PATH/s,/usr/local/share/oldrunner,${DATADIR},g' \

@@ -1,12 +1,9 @@
 # Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
 # $FreeBSD$
-#    $MCom: ports/trunk/x11-fm/nemo/Makefile 20008 2014-10-21 15:13:35Z gusi $
 
 PORTNAME=	nemo
-PORTVERSION=	2.2.4
-PORTREVISION=	1
+PORTVERSION=	2.4.5
 CATEGORIES=	x11-fm gnome
-MASTER_SITES=	http://github.com/linuxmint/${PORTNAME}/archive/${PORTVERSION}.tar.gz?dummy=/
 DIST_SUBDIR=	gnome3
 
 MAINTAINER=	gnome@FreeBSD.org
@@ -28,11 +25,13 @@ USES=		autoreconf:build desktop-file-utils gettext gmake libtool pathfix \
 		pkgconfig python:2 shared-mime-info
 USE_GNOME=	gnomedesktop3 gnomeprefix intlhack introspection:build \
 		libxml2 pygobject3
+USE_GITHUB=	yes
+GH_ACCOUNT=	linuxmint
 GNU_CONFIGURE=	yes	
 INSTALLS_ICONS=	yes
 USE_LDCONFIG=	yes
 CPPFLAGS+=	-I${LOCALBASE}/include
-LDFLAGS+=	-L${LOCALBASE}/lib ${PTHREAD_LIBS}
+LDFLAGS+=	-L${LOCALBASE}/lib -lpthread
 INSTALL_TARGET=	install-strip
 CONFIGURE_ARGS=	--enable-static --disable-packagekit
 
@@ -73,9 +72,6 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|x-gnome-saved-search|x-nemo-saved-search|g' \
 		${WRKSRC}/data/nemo.xml.in \
 		${WRKSRC}/libnemo-private/nemo-file-utilities.h
-
-#	@${REINPLACE_CMD} '/merge_action/d' \
-#		${WRKSRC}/files/Makefile.in
 
 	@${FIND} ${WRKSRC} -name \* | ${XARGS} ${EGREP} -l "#!.*\/usr\/bin\/python" | \
 		${XARGS} ${REINPLACE_CMD} -I "" -e "s|#!.*python.*|#!${PYTHON_CMD}|g"

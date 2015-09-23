@@ -2,10 +2,9 @@
 
 PORTNAME=	fcgiwrap
 PORTVERSION=	1.1.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	www
-MASTER_SITES=	GH \
-		http://www.skysmurf.nl/comp/FreeBSD/distfiles/
+MASTER_SITES=	http://www.skysmurf.nl/comp/FreeBSD/distfiles/
 
 MAINTAINER=	freebsd@skysmurf.nl
 COMMENT=	Simple FastCGI wrapper for CGI scripts
@@ -14,16 +13,12 @@ LICENSE=	MIT
 
 LIB_DEPENDS=	libfcgi.so:${PORTSDIR}/www/fcgi
 
-USES=		gmake pkgconfig
+USES=		autoreconf gmake pkgconfig
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	gnosek
-GH_COMMIT=	333ff99
-GH_TAGNAME=	${PORTVERSION}
 
 USE_RC_SUBR=	fcgiwrap
-
-USE_AUTOTOOLS=	aclocal autoconf autoheader
 
 CFLAGS+=	-I${LOCALBASE}/include -L${LOCALBASE}/lib
 GNU_CONFIGURE=	yes
