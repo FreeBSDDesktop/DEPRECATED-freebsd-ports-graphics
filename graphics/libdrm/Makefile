@@ -51,15 +51,12 @@ CONFIGURE_ARGS+=--disable-vmwgfx
 .if ${ARCH} == amd64 || ${ARCH} == i386
 PLIST_SUB+=	INTEL_DRIVER=""
 PLIST_SUB+=	RADEON_DRIVERS=""
-PLIST_SUB+=	AMDGPU_DRIVERS=""
 .elif ${ARCH} == ia64 || ${ARCH} == powerpc || ${ARCH} == powerpc64
 PLIST_SUB+=	INTEL_DRIVER="@comment "
 PLIST_SUB+=	RADEON_DRIVERS=""
-PLIST_SUB+=	AMDGPU_DRIVERS="@comment "
 .else
 PLIST_SUB+=	INTEL_DRIVER="@comment "
 PLIST_SUB+=	RADEON_DRIVERS="@comment "
-PLIST_SUB+=	AMDGPU_DRIVERS="@comment "
 .endif
 
 pre-patch:
