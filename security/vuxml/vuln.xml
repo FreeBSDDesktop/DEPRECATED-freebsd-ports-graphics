@@ -58,6 +58,1122 @@ Notes:
 
 -->
 <vuxml xmlns="http://www.vuxml.org/apps/vuxml-1">
+  <vuln vid="d3324fdb-6bf0-11e5-bc5e-00505699053e">
+    <topic>ZendFramework1 -- SQL injection vulnerability</topic>
+    <affects>
+      <package>
+	<name>ZendFramework1</name>
+	<range><lt>1.12.16</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Zend Framework developers report:</p>
+	<blockquote cite="http://framework.zend.com/security/advisory/ZF2015-08">
+	  <p>The PDO adapters of Zend Framework 1 do not filter null bytes values
+	    in SQL statements. A PDO adapter can treat null bytes in a query as a
+	    string terminator, allowing an attacker to add arbitrary SQL
+	    following a null byte, and thus create a SQL injection.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.openwall.com/lists/oss-security/2015/09/30/6</url>
+      <url>http://framework.zend.com/security/advisory/ZF2015-08</url>
+    </references>
+    <dates>
+      <discovery>2015-09-15</discovery>
+      <entry>2015-10-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="42852f72-6bd3-11e5-9909-002590263bf5">
+    <topic>OpenSMTPD -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>opensmtpd</name>
+	<range><lt>5.7.3,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OpenSMTPD developers report:</p>
+	<blockquote cite="https://www.opensmtpd.org/announces/release-5.7.3.txt">
+	  <p>fix an mda buffer truncation bug which allows a user to create
+	    forward files that pass session checks but fail delivery later down
+	    the chain, within the user mda</p>
+	  <p>fix remote buffer overflow in unprivileged pony process</p>
+	  <p>reworked offline enqueue to better protect against hardlink
+	    attacks</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.openwall.com/lists/oss-security/2015/10/04/2</url>
+      <url>https://www.opensmtpd.org/announces/release-5.7.3.txt</url>
+    </references>
+    <dates>
+      <discovery>2015-10-04</discovery>
+      <entry>2015-10-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="5d280761-6bcf-11e5-9909-002590263bf5">
+    <topic>mbedTLS/PolarSSL -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>polarssl</name>
+	<range><ge>1.2.0</ge><lt>1.2.16</lt></range>
+      </package>
+      <package>
+	<name>polarssl13</name>
+	<range><ge>1.3.0</ge><lt>1.3.13</lt></range>
+      </package>
+      <package>
+	<name>mbedtls</name>
+	<range><lt>2.1.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>ARM Limited reports:</p>
+	<blockquote cite="https://tls.mbed.org/tech-updates/releases/mbedtls-2.1.1-and-1.3.13-and-polarssl-1.2.16-released">
+	  <p>Florian Weimar from Red Hat published on Lenstra's RSA-CRT attach
+	    for PKCS#1 v1.5 signatures. These releases include countermeasures
+	    against that attack.</p>
+	  <p>Fabian Foerg of Gotham Digital Science found a possible client-side
+	    NULL pointer dereference, using the AFL Fuzzer. This dereference can
+	    only occur when misusing the API, although a fix has still been
+	    implemented.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://tls.mbed.org/tech-updates/releases/mbedtls-2.1.1-and-1.3.13-and-polarssl-1.2.16-released</url>
+    </references>
+    <dates>
+      <discovery>2015-09-18</discovery>
+      <entry>2015-10-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="953aaa57-6bce-11e5-9909-002590263bf5">
+    <topic>mbedTLS/PolarSSL -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>polarssl</name>
+	<range><ge>1.2.0</ge><lt>1.2.15</lt></range>
+      </package>
+      <package>
+	<name>polarssl13</name>
+	<range><ge>1.3.0</ge><lt>1.3.12</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>ARM Limited reports:</p>
+	<blockquote cite="https://tls.mbed.org/tech-updates/releases/polarssl-1.2.15-and-mbedtls-1.3.12-released">
+	  <p>In order to strengthen the minimum requirements for connections and
+	    to protect against the Logjam attack, the minimum size of
+	    Diffie-Hellman parameters accepted by the client has been increased
+	    to 1024 bits.</p>
+	  <p>In addition the default size for the Diffie-Hellman parameters on
+	    the server are increased to 2048 bits. This can be changed with
+	    ssl_set_dh_params() in case this is necessary.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://tls.mbed.org/tech-updates/releases/polarssl-1.2.15-and-mbedtls-1.3.12-released</url>
+    </references>
+    <dates>
+      <discovery>2015-08-11</discovery>
+      <entry>2015-10-06</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="9272a5b0-6b40-11e5-bd7f-bcaec565249c">
+    <topic>gdk-pixbuf2 -- head overflow and DoS</topic>
+    <affects>
+      <package>
+	<name>gdk-pixbuf2</name>
+	<range><lt>2.32.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>reports:</p>
+	<blockquote cite="http://www.openwall.com/lists/oss-security/2015/10/02/9">
+	  <p>We found a heap overflow and a DoS in the gdk-pixbuf
+	    implementation triggered by the scaling of tga file.</p>
+	</blockquote>
+	<blockquote cite="http://www.openwall.com/lists/oss-security/2015/10/02/10">
+	  <p>We found a heap overflow in the gdk-pixbuf implementation
+	    triggered by the scaling of gif file.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-7673</cvename>
+      <cvename>CVE-2015-7674</cvename>
+      <url>https://mail.gnome.org/archives/ftp-release-list/2015-September/msg00201.html</url>
+      <url>https://mail.gnome.org/archives/ftp-release-list/2015-September/msg00287.html</url>
+      <url>http://www.openwall.com/lists/oss-security/2015/10/02/9</url>
+      <url>http://www.openwall.com/lists/oss-security/2015/10/02/10</url>
+    </references>
+    <dates>
+      <discovery>2015-10-02</discovery>
+      <entry>2015-10-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="6b3374d4-6b0b-11e5-9909-002590263bf5">
+    <topic>plone -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>plone</name>
+	<range><lt>4.3.7</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Plone.org reports:</p>
+	<blockquote cite="https://plone.org/products/plone/security/advisories/20150910-announcement">
+	  <p>Versions Affected: All current Plone versions.</p>
+	  <p>Versions Not Affected: None.</p>
+	  <p>Nature of vulnerability: Allows creation of members by anonymous
+	    users on sites that have self-registration enabled, allowing bypass
+	    of CAPTCHA and similar protections against scripted attacks.</p>
+	  <p>The patch can be added to buildouts as Products.PloneHotfix20150910
+	    (available from PyPI) or downloaded from Plone.org.</p>
+	  <p>Immediate Measures You Should Take: Disable self-registration until
+	    you have applied the patch.</p>
+	</blockquote>
+	<blockquote cite="https://plone.org/security/20150910/non-persistent-xss-in-plone">
+	  <p>Plone's URL checking infrastructure includes a method for checking
+	    if URLs valid and located in the Plone site. By passing HTML into
+	    this specially crafted url, XSS can be achieved.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203255</freebsdpr>
+      <url>https://plone.org/products/plone-hotfix/releases/20150910</url>
+      <url>https://plone.org/products/plone/security/advisories/20150910-announcement</url>
+      <url>https://plone.org/security/20150910/non-persistent-xss-in-plone</url>
+      <url>https://github.com/plone/Products.CMFPlone/commit/3da710a2cd68587f0bf34f2e7ea1167d6eeee087</url>
+    </references>
+    <dates>
+      <discovery>2015-09-10</discovery>
+      <entry>2015-10-05</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="c1da8b75-6aef-11e5-9909-002590263bf5">
+    <topic>php -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>php5-phar</name>
+	<range><le>5.4.45</le></range>
+      </package>
+      <package>
+	<name>php55-phar</name>
+	<range><lt>5.5.30</lt></range>
+      </package>
+      <package>
+	<name>php56-phar</name>
+	<range><lt>5.6.14</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>PHP reports:</p>
+	<blockquote cite="http://php.net/ChangeLog-5.php#5.5.30">
+	  <p>Phar:</p>
+	  <ul>
+	    <li>Fixed bug #69720 (Null pointer dereference in
+	      phar_get_fp_offset()).</li>
+	    <li>Fixed bug #70433 (Uninitialized pointer in phar_make_dirstream
+	      when zip entry filename is "/").</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203541</freebsdpr>
+      <url>http://php.net/ChangeLog-5.php#5.5.30</url>
+      <url>http://php.net/ChangeLog-5.php#5.6.14</url>
+    </references>
+    <dates>
+      <discovery>2015-10-01</discovery>
+      <entry>2015-10-04</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="ee7bdf7f-11bb-4eea-b054-c692ab848c20">
+    <topic>OpenSMTPD -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>opensmtpd</name>
+	<range><lt>5.7.2,1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>OpenSMTPD developers report:</p>
+	<blockquote cite="https://www.opensmtpd.org/announces/release-5.7.2.txt">
+	  <p>an oversight in the portable version of fgetln() that allows
+	    attackers to read and write out-of-bounds memory</p>
+	  <p>multiple denial-of-service vulnerabilities that allow local users
+	    to kill or hang OpenSMTPD</p>
+	  <p>a stack-based buffer overflow that allows local users to crash
+	    OpenSMTPD, or execute arbitrary code as the non-chrooted _smtpd
+	    user</p>
+	  <p>a hardlink attack (or race-conditioned symlink attack) that allows
+	    local users to unset the chflags() of arbitrary files</p>
+	  <p>a hardlink attack that allows local users to read the first line of
+	    arbitrary files (for example, root's hash from /etc/master.passwd)
+	    </p>
+	  <p>a denial-of-service vulnerability that allows remote attackers to
+	    fill OpenSMTPD's queue or mailbox hard-disk partition</p>
+	  <p>an out-of-bounds memory read that allows remote attackers to crash
+	    OpenSMTPD, or leak information and defeat the ASLR protection</p>
+	  <p>a use-after-free vulnerability that allows remote attackers to
+	    crash OpenSMTPD, or execute arbitrary code as the non-chrooted
+	    _smtpd user</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.opensmtpd.org/announces/release-5.7.2.txt</url>
+      <cvename>CVE-2015-7687</cvename>
+    </references>
+    <dates>
+      <discovery>2015-10-02</discovery>
+      <entry>2015-10-04</entry>
+      <modified>2015-10-06</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="be3069c9-67e7-11e5-9909-002590263bf5">
+    <topic>james -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>james</name>
+	<range><lt>2.3.2.1</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Apache James Project reports:</p>
+	<blockquote cite="http://james.apache.org/download.cgi#Apache_James_Server">
+	  <p>This release has many enhancements and bug fixes over the previous
+	    release. See the Release Notes for a detailed list of changes. Some
+	    of the earlier defects could turn a James mail server into an Open
+	    Relay and allow files to be written on disk. All users of James
+	    Server are urged to upgrade to version v2.3.2.1 as soon as
+	    possible.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203461</freebsdpr>
+      <certvu>988628</certvu>
+      <cvename>CVE-2015-7611</cvename>
+      <url>http://james.apache.org/download.cgi#Apache_James_Server</url>
+      <url>https://blogs.apache.org/james/entry/apache_james_server_2_3</url>
+    </references>
+    <dates>
+      <discovery>2015-09-30</discovery>
+      <entry>2015-10-01</entry>
+      <modified>2015-10-04</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="1e7f0c11-673a-11e5-98c8-60a44c524f57">
+    <topic>otrs -- Scheduler Process ID File Access</topic>
+    <affects>
+      <package>
+	<name>otrs</name>
+	<range><gt>3.2.*</gt><lt>3.2.18</lt></range>
+	<range><gt>3.3.*</gt><lt>3.3.15</lt></range>
+	<range><gt>4.0.*</gt><lt>4.0.13</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The OTRS project reports:</p>
+	<blockquote cite="https://www.otrs.com/security-advisory-2015-02-scheduler-process-id-file-access/">
+	  <p>An attacker with valid LOCAL credentials could access and
+	     manipulate the process ID file for bin/otrs.schduler.pl from the
+	     CLI.</p>
+	  <p>The Proc::Daemon module 0.14 for Perl uses world-writable
+	     permissions for a file that stores a process ID, which allows local
+	     users to have an unspecified impact by modifying this file.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>https://www.otrs.com/security-advisory-2015-02-scheduler-process-id-file-access/</url>
+      <cvename>CVE-2015-6842</cvename>
+      <cvename>CVE-2013-7135</cvename>
+    </references>
+    <dates>
+      <discovery>2015-09-17</discovery>
+      <entry>2015-09-30</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="4e3e8a50-65c1-11e5-948e-bcaec565249c">
+    <topic>flash -- multiple vulnabilities</topic>
+    <affects>
+      <package>
+	<name>linux-c6-flashplugin</name>
+	<name>linux-f10-flashplugin</name>
+	<name>linux-c6_64-flashplugin</name>
+	<range><lt>11.2r202.521</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Adobe reports:</p>
+	<blockquote cite="https://helpx.adobe.com/security/products/flash-player/apsb15-23.html">
+	  <p>These updates resolve a type confusion vulnerability that could
+	    lead to code execution (CVE-2015-5573).</p>
+
+	  <p>These updates resolve use-after-free vulnerabilities that could
+	     lead to code execution (CVE-2015-5570, CVE-2015-5574, CVE-2015-5581, CVE-2015-5584, CVE-2015-6682).</p>
+
+	  <p>These updates resolve buffer overflow vulnerabilities that could
+	    lead to code execution (CVE-2015-6676, CVE-2015-6678).</p>
+
+	  <p>These updates resolve memory corruption vulnerabilities that
+	    could lead to code execution (CVE-2015-5575, CVE-2015-5577,
+	    CVE-2015-5578, CVE-2015-5580, CVE-2015-5582, CVE-2015-5588,
+	    CVE-2015-6677).</p>
+
+	  <p>These updates include additional validation checks to ensure
+	    that Flash Player rejects malicious content from vulnerable
+	    JSONP callback APIs  (CVE-2015-5571).</p>
+
+	  <p>These updates resolve a memory leak vulnerability
+	    (CVE-2015-5576).</p>
+
+	  <p>These updates include further hardening to a mitigation to
+	    defend against vector length corruptions  (CVE-2015-5568).</p>
+
+	  <p>These updates resolve stack corruption vulnerabilities that
+	    could lead to code execution (CVE-2015-5567, CVE-2015-5579).</p>
+
+	  <p>These updates resolve a stack overflow vulnerability that could
+	    lead to code execution (CVE-2015-5587).</p>
+
+	  <p>These updates resolve a security bypass vulnerability that could
+	    lead to information disclosure (CVE-2015-5572).</p>
+
+	  <p>These updates resolve a vulnerability that could be exploited to
+	    bypass the same-origin-policy and lead to information disclosure
+	    (CVE-2015-6679).</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-5567</cvename>
+      <cvename>CVE-2015-5568</cvename>
+      <cvename>CVE-2015-5570</cvename>
+      <cvename>CVE-2015-5571</cvename>
+      <cvename>CVE-2015-5572</cvename>
+      <cvename>CVE-2015-5573</cvename>
+      <cvename>CVE-2015-5574</cvename>
+      <cvename>CVE-2015-5575</cvename>
+      <cvename>CVE-2015-5576</cvename>
+      <cvename>CVE-2015-5577</cvename>
+      <cvename>CVE-2015-5578</cvename>
+      <cvename>CVE-2015-5588</cvename>
+      <cvename>CVE-2015-6676</cvename>
+      <cvename>CVE-2015-6677</cvename>
+      <cvename>CVE-2015-6678</cvename>
+      <cvename>CVE-2015-6679</cvename>
+      <cvename>CVE-2015-6682</cvename>
+      <url>https://helpx.adobe.com/security/products/flash-player/apsb15-23.html</url>
+    </references>
+    <dates>
+      <discovery>2015-09-21</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="5114cd11-6571-11e5-9909-002590263bf5">
+    <topic>codeigniter -- SQL injection vulnerability</topic>
+    <affects>
+      <package>
+	<name>codeigniter</name>
+	<range><lt>2.2.4</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The CodeIgniter changelog reports:</p>
+	<blockquote cite="https://codeigniter.com/userguide2/changelog.html">
+	  <p>Security: Fixed an SQL injection vulnerability in Active Record
+	    method offset().</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203401</freebsdpr>
+      <url>https://codeigniter.com/userguide2/changelog.html</url>
+    </references>
+    <dates>
+      <discovery>2015-08-20</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="01bce4c6-6571-11e5-9909-002590263bf5">
+    <topic>codeigniter -- mysql database driver vulnerability</topic>
+    <affects>
+      <package>
+	<name>codeigniter</name>
+	<range><lt>2.2.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The CodeIgniter changelog reports:</p>
+	<blockquote cite="https://codeigniter.com/userguide2/changelog.html">
+	  <p>Security: Removed a fallback to mysql_escape_string() in the mysql
+	   database driver (escape_str() method) when there's no active database
+	   connection.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203401</freebsdpr>
+      <url>https://codeigniter.com/userguide2/changelog.html</url>
+    </references>
+    <dates>
+      <discovery>2015-07-15</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="c21f4e61-6570-11e5-9909-002590263bf5">
+    <topic>codeigniter -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>codeigniter</name>
+	<range><lt>2.2.2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The CodeIgniter changelog reports:</p>
+	<blockquote cite="https://codeigniter.com/userguide2/changelog.html">
+	  <p>Security: Added HTTP "Host" header character validation to prevent
+	    cache poisoning attacks when base_url auto-detection is used.</p>
+	  <p>Security: Added FSCommand and seekSegmentTime to the "evil
+	    attributes" list in CI_Security::xss_clean().</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203401</freebsdpr>
+      <url>https://codeigniter.com/userguide2/changelog.html</url>
+    </references>
+    <dates>
+      <discovery>2015-04-15</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="f838dcb4-656f-11e5-9909-002590263bf5">
+    <topic>codeigniter -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>codeigniter</name>
+	<range><lt>2.2.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The CodeIgniter changelog reports:</p>
+	<blockquote cite="https://codeigniter.com/userguide2/changelog.html">
+	  <p>Security: The xor_encode() method in the Encrypt Class has been
+	    removed. The Encrypt Class now requires the Mcrypt extension to be
+	    installed.</p>
+	  <p>Security: The Session Library now uses HMAC authentication instead
+	    of a simple MD5 checksum.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203401</freebsdpr>
+      <url>https://codeigniter.com/userguide2/changelog.html</url>
+    </references>
+    <dates>
+      <discovery>2014-06-05</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="b7d785ea-656d-11e5-9909-002590263bf5">
+    <topic>codeigniter -- SQL injection vulnerability</topic>
+    <affects>
+      <package>
+	<name>codeigniter</name>
+	<range><lt>2.0.3</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The CodeIgniter changelog reports:</p>
+	<blockquote cite="https://codeigniter.com/userguide2/changelog.html">
+	  <p>An improvement was made to the MySQL and MySQLi drivers to prevent
+	    exposing a potential vector for SQL injection on sites using
+	    multi-byte character sets in the database client connection.</p>
+	  <p>An incompatibility in PHP versions &lt; 5.2.3 and MySQL &gt; 5.0.7
+	    with mysql_set_charset() creates a situation where using multi-byte
+	    character sets on these environments may potentially expose a SQL
+	    injection attack vector. Latin-1, UTF-8, and other "low ASCII"
+	    character sets are unaffected on all environments.</p>
+	  <p>If you are running or considering running a multi-byte character
+	    set for your database connection, please pay close attention to the
+	    server environment you are deploying on to ensure you are not
+	    vulnerable.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/156486</freebsdpr>
+      <url>https://codeigniter.com/userguide2/changelog.html</url>
+    </references>
+    <dates>
+      <discovery>2011-08-20</discovery>
+      <entry>2015-09-28</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="0e425bb7-64f2-11e5-b2fd-00262d5ed8ee">
+    <topic>chromium -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>chromium</name>
+	<range><lt>45.0.2454.101</lt></range>
+      </package>
+      <package>
+	<!-- pcbsd -->
+	<name>chromium-npapi</name>
+	<range><lt>45.0.2454.101</lt></range>
+      </package>
+      <package>
+	<!-- pcbsd -->
+	<name>chromium-pulse</name>
+	<range><lt>45.0.2454.101</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Google Chrome Releases reports:</p>
+	<blockquote cite="http://googlechromereleases.blogspot.nl/2015/09/stable-channel-update_24.html">
+	  <p>Two vulnerabilities were fixed in this release:</p>
+	  <ul>
+	    <li>[530301] High CVE-2015-1303: Cross-origin bypass in DOM. Credit
+	      to Mariusz Mlynski.</li>
+	    <li>[531891] High CVE-2015-1304: Cross-origin bypass in V8. Credit
+	      to Mariusz Mlynski.</li>
+	  </ul>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-1303</cvename>
+      <cvename>CVE-2015-1304</cvename>
+      <url>http://googlechromereleases.blogspot.nl/2015/09/stable-channel-update_24.html</url>
+    </references>
+    <dates>
+      <discovery>2015-09-24</discovery>
+      <entry>2015-09-27</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="9770d6ac-614d-11e5-b379-14dae9d210b8">
+    <topic>libssh2 -- denial of service vulnerability</topic>
+    <affects>
+      <package>
+	<name>libssh2</name>
+	<range><lt>1.5.0,2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Mariusz Ziulek reports:</p>
+	<blockquote cite="http://www.libssh2.org/adv_20150311.html">
+	  <p>A malicious attacker could man in the middle a real server
+	    and cause libssh2 using clients to crash (denial of service) or
+	    otherwise read and use completely unintended memory areas in this
+	    process.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <url>http://www.libssh2.org/adv_20150311.html</url>
+      <url>https://trac.libssh2.org/ticket/294</url>
+      <cvename>CVE-2015-1782</cvename>
+    </references>
+    <dates>
+      <discovery>2015-01-25</discovery>
+      <entry>2015-09-22</entry>
+      <modified>2015-09-22</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="2d56c7f4-b354-428f-8f48-38150c607a05">
+    <topic>mozilla -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>firefox</name>
+	<range><lt>41.0,1</lt></range>
+      </package>
+      <package>
+	<name>linux-firefox</name>
+	<range><lt>41.0,1</lt></range>
+      </package>
+      <package>
+	<name>seamonkey</name>
+	<range><lt>2.38</lt></range>
+      </package>
+      <package>
+	<name>linux-seamonkey</name>
+	<range><lt>2.38</lt></range>
+      </package>
+      <package>
+	<name>firefox-esr</name>
+	<range><lt>38.3.0,1</lt></range>
+      </package>
+      <package>
+	<name>libxul</name>
+	<range><lt>38.3.0</lt></range>
+      </package>
+      <package>
+	<name>thunderbird</name>
+	<range><lt>38.3.0</lt></range>
+      </package>
+      <package>
+	<name>linux-thunderbird</name>
+	<range><lt>38.3.0</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>The Mozilla Project reports:</p>
+	<blockquote cite="https://www.mozilla.org/en-US/security/advisories/">
+	  <p>MFSA 2015-96 Miscellaneous memory safety hazards (rv:41.0
+	    / rv:38.3)</p>
+	  <p>MFSA 2015-97 Memory leak in mozTCPSocket to servers</p>
+	  <p>MFSA 2015-98 Out of bounds read in QCMS library with ICC
+	    V4 profile attributes</p>
+	  <p>MFSA 2015-99 Site attribute spoofing on Android by
+	    pasting URL with unknown scheme</p>
+	  <p>MFSA 2015-100 Arbitrary file manipulation by local user
+	    through Mozilla updater</p>
+	  <p>MFSA 2015-101 Buffer overflow in libvpx while parsing vp9
+	    format video</p>
+	  <p>MFSA 2015-102 Crash when using debugger with SavedStacks
+	    in JavaScript</p>
+	  <p>MFSA 2015-103 URL spoofing in reader mode</p>
+	  <p>MFSA 2015-104 Use-after-free with shared workers and
+	    IndexedDB</p>
+	  <p>MFSA 2015-105 Buffer overflow while decoding WebM
+	    video</p>
+	  <p>MFSA 2015-106 Use-after-free while manipulating HTML
+	    media content</p>
+	  <p>MFSA 2015-107 Out-of-bounds read during 2D canvas display
+	    on Linux 16-bit color depth systems</p>
+	  <p>MFSA 2015-108 Scripted proxies can access inner
+	    window</p>
+	  <p>MFSA 2015-109 JavaScript immutable property enforcement
+	    can be bypassed</p>
+	  <p>MFSA 2015-110 Dragging and dropping images exposes final
+	    URL after redirects</p>
+	  <p>MFSA 2015-111 Errors in the handling of CORS preflight
+	    request headers</p>
+	  <p>MFSA 2015-112 Vulnerabilities found through code
+	    inspection</p>
+	  <p>MFSA 2015-113 Memory safety errors in libGLES in the
+	    ANGLE graphics library</p>
+	  <p>MFSA 2015-114 Information disclosure via the High
+	    Resolution Time API</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-4476</cvename>
+      <cvename>CVE-2015-4500</cvename>
+      <cvename>CVE-2015-4501</cvename>
+      <cvename>CVE-2015-4502</cvename>
+      <cvename>CVE-2015-4503</cvename>
+      <cvename>CVE-2015-4504</cvename>
+      <cvename>CVE-2015-4505</cvename>
+      <cvename>CVE-2015-4506</cvename>
+      <cvename>CVE-2015-4507</cvename>
+      <cvename>CVE-2015-4508</cvename>
+      <cvename>CVE-2015-4509</cvename>
+      <cvename>CVE-2015-4510</cvename>
+      <cvename>CVE-2015-4512</cvename>
+      <cvename>CVE-2015-4516</cvename>
+      <cvename>CVE-2015-4517</cvename>
+      <cvename>CVE-2015-4519</cvename>
+      <cvename>CVE-2015-4520</cvename>
+      <cvename>CVE-2015-4521</cvename>
+      <cvename>CVE-2015-4522</cvename>
+      <cvename>CVE-2015-7174</cvename>
+      <cvename>CVE-2015-7175</cvename>
+      <cvename>CVE-2015-7176</cvename>
+      <cvename>CVE-2015-7177</cvename>
+      <cvename>CVE-2015-7178</cvename>
+      <cvename>CVE-2015-7179</cvename>
+      <cvename>CVE-2015-7180</cvename>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-96/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-97/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-98/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-99/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-100/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-101/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-102/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-103/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-104/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-105/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-106/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-107/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-108/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-109/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-110/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-111/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-112/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-113/</url>
+      <url>https://www.mozilla.org/security/advisories/mfsa2015-114/</url>
+    </references>
+    <dates>
+      <discovery>2015-09-22</discovery>
+      <entry>2015-09-22</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="3d950687-b4c9-4a86-8478-c56743547af8">
+    <topic>ffmpeg -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>libav</name>
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>gstreamer1-libav</name>
+	<!-- gst-libav-1.4.5 has libav-10.5 -->
+	<range><lt>1.5.90</lt></range>
+      </package>
+      <package>
+	<name>gstreamer-ffmpeg</name>
+	<!-- gst-ffmpeg-0.10.13 has libav-0.7.2 (0.7.7 in freebsd port) -->
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>handbrake</name>
+	<!-- handbrake-0.10.2 has libav-10.1 -->
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>ffmpeg</name>
+	<range><lt>2.7.2,1</lt></range>
+      </package>
+      <package>
+	<name>ffmpeg26</name>
+	<range><lt>2.6.4</lt></range>
+      </package>
+      <package>
+	<name>ffmpeg25</name>
+	<range><lt>2.5.8</lt></range>
+      </package>
+      <package>
+	<name>ffmpeg24</name>
+	<range><lt>2.4.11</lt></range>
+      </package>
+      <package>
+	<name>ffmpeg-devel</name>
+	<name>ffmpeg23</name>
+	<name>ffmpeg2</name>
+	<name>ffmpeg1</name>
+	<name>ffmpeg-011</name>
+	<name>ffmpeg0</name>
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>avidemux</name>
+	<name>avidemux2</name>
+	<name>avidemux26</name>
+	<!-- avidemux-2.6.10 has ffmpeg-2.6.1 -->
+	<range><lt>2.6.11</lt></range>
+      </package>
+      <package>
+	<name>kodi</name>
+	<!-- kodi-14.2 has ffmpeg-2.4.6 -->
+	<range><lt>15.1</lt></range>
+      </package>
+      <package>
+	<name>mplayer</name>
+	<name>mencoder</name>
+	<!-- mplayer-1.1.r20150403 has ffmpeg-2.7.0+ (snapshot, c299fbb) -->
+	<range><lt>1.1.r20150822</lt></range>
+      </package>
+      <package>
+	<name>mythtv</name>
+	<name>mythtv-frontend</name>
+	<!-- mythtv-0.27.0.20140121 has ffmpeg-1.2.2+ (snapshot, f9c8726) -->
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+      <package>
+	<name>plexhometheater</name>
+	<!-- plexhometheater-1.4.1 has ffmpeg-0.10.2 fork -->
+	<!-- no known fixed version -->
+	<range><ge>0</ge></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>NVD reports:</p>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6818">
+	  <p>The decode_ihdr_chunk function in libavcodec/pngdec.c in
+	    FFmpeg before 2.7.2 does not enforce uniqueness of the IHDR
+	    (aka image header) chunk in a PNG image, which allows remote
+	    attackers to cause a denial of service (out-of-bounds array
+	    access) or possibly have unspecified other impact via a
+	    crafted image with two or more of these chunks.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6819">
+	  <p>Multiple integer underflows in the ff_mjpeg_decode_frame
+	    function in libavcodec/mjpegdec.c in FFmpeg before 2.7.2
+	    allow remote attackers to cause a denial of service
+	    (out-of-bounds array access) or possibly have unspecified
+	    other impact via crafted MJPEG data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6820">
+	  <p>The ff_sbr_apply function in libavcodec/aacsbr.c in
+	    FFmpeg before 2.7.2 does not check for a matching AAC frame
+	    syntax element before proceeding with Spectral Band
+	    Replication calculations, which allows remote attackers to
+	    cause a denial of service (out-of-bounds array access) or
+	    possibly have unspecified other impact via crafted AAC
+	    data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6821">
+	  <p>The ff_mpv_common_init function in libavcodec/mpegvideo.c
+	    in FFmpeg before 2.7.2 does not properly maintain the
+	    encoding context, which allows remote attackers to cause a
+	    denial of service (invalid pointer access) or possibly have
+	    unspecified other impact via crafted MPEG data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6822">
+	  <p>The destroy_buffers function in libavcodec/sanm.c in
+	    FFmpeg before 2.7.2 does not properly maintain height and
+	    width values in the video context, which allows remote
+	    attackers to cause a denial of service (segmentation
+	    violation and application crash) or possibly have
+	    unspecified other impact via crafted LucasArts Smush video
+	    data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6823">
+	  <p>The allocate_buffers function in libavcodec/alac.c in
+	    FFmpeg before 2.7.2 does not initialize certain context
+	    data, which allows remote attackers to cause a denial of
+	    service (segmentation violation) or possibly have
+	    unspecified other impact via crafted Apple Lossless Audio
+	    Codec (ALAC) data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6824">
+	  <p>The sws_init_context function in libswscale/utils.c in
+	    FFmpeg before 2.7.2 does not initialize certain pixbuf data
+	    structures, which allows remote attackers to cause a denial
+	    of service (segmentation violation) or possibly have
+	    unspecified other impact via crafted video data.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6825">
+	  <p>The ff_frame_thread_init function in
+	    libavcodec/pthread_frame.c in FFmpeg before 2.7.2 mishandles
+	    certain memory-allocation failures, which allows remote
+	    attackers to cause a denial of service (invalid pointer
+	    access) or possibly have unspecified other impact via a
+	    crafted file, as demonstrated by an AVI file.</p>
+	</blockquote>
+	<blockquote cite="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-6826">
+	  <p>The ff_rv34_decode_init_thread_copy function in
+	    libavcodec/rv34.c in FFmpeg before 2.7.2 does not initialize
+	    certain structure members, which allows remote attackers to
+	    cause a denial of service (invalid pointer access) or
+	    possibly have unspecified other impact via crafted (1) RV30
+	    or (2) RV40 RealVideo data.</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-6818</cvename>
+      <cvename>CVE-2015-6819</cvename>
+      <cvename>CVE-2015-6820</cvename>
+      <cvename>CVE-2015-6821</cvename>
+      <cvename>CVE-2015-6822</cvename>
+      <cvename>CVE-2015-6823</cvename>
+      <cvename>CVE-2015-6824</cvename>
+      <cvename>CVE-2015-6825</cvename>
+      <cvename>CVE-2015-6826</cvename>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=47f4e2d8960ca756ca153ab8e3e93d80449b8c91</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=84afc6b70d24fc0bf686e43138c96cf60a9445fe</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=79a98294da6cd85f8c86b34764c5e0c43b09eea3</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=b160fc290cf49b516c5b6ee0730fd9da7fc623b1</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=39bbdebb1ed8eb9c9b0cd6db85afde6ba89d86e4</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=f7068bf277a37479aecde2832208d820682b35e6</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=a5d44d5c220e12ca0cb7a4eceb0f74759cb13111</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=f1a38264f20382731cf2cc75fdd98f4c9a84a626</url>
+      <url>https://git.videolan.org/?p=ffmpeg.git;a=commitdiff;h=3197c0aa87a3b7190e17d49e6fbc7b554e4b3f0a</url>
+      <url>https://ffmpeg.org/security.html</url>
+    </references>
+    <dates>
+      <discovery>2015-09-05</discovery>
+      <entry>2015-09-20</entry>
+      <modified>2015-09-20</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="c2fcbec2-5daa-11e5-9909-002590263bf5">
+    <topic>moodle -- multiple vulnerabilities</topic>
+    <affects>
+      <package>
+	<name>moodle27</name>
+	<range><lt>2.7.10</lt></range>
+      </package>
+      <package>
+	<name>moodle28</name>
+	<range><lt>2.8.8</lt></range>
+      </package>
+      <package>
+	<name>moodle29</name>
+	<range><lt>2.9.2</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Moodle Release Notes report:</p>
+	<blockquote cite="https://docs.moodle.org/dev/Moodle_2.7.10_release_notes">
+	  <p>MSA-15-0030: Students can re-attempt answering questions in the
+	    lesson (CVE-2015-5264)</p>
+	  <p>MSA-15-0031: Teacher in forum can still post to "all participants"
+	    and groups they are not members of (CVE-2015-5272 - 2.7.10 only)</p>
+	  <p>MSA-15-0032: Users can delete files uploaded by other users in wiki
+	    (CVE-2015-5265)</p>
+	  <p>MSA-15-0033: Meta course synchronization enrolls suspended students
+	    as managers for a short period of time (CVE-2015-5266)</p>
+	  <p>MSA-15-0034: Vulnerability in password recovery mechanism
+	    (CVE-2015-5267)</p>
+	  <p>MSA-15-0035: Rating component does not check separate groups
+	    (CVE-2015-5268)</p>
+	  <p>MSA-15-0036: XSS in grouping description (CVE-2015-5269)</p>
+	</blockquote>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-5264</cvename>
+      <cvename>CVE-2015-5272</cvename>
+      <cvename>CVE-2015-5265</cvename>
+      <cvename>CVE-2015-5266</cvename>
+      <cvename>CVE-2015-5267</cvename>
+      <cvename>CVE-2015-5268</cvename>
+      <cvename>CVE-2015-5269</cvename>
+      <url>http://www.openwall.com/lists/oss-security/2015/09/21/1</url>
+      <url>https://docs.moodle.org/dev/Moodle_2.7.10_release_notes</url>
+      <url>https://docs.moodle.org/dev/Moodle_2.8.8_release_notes</url>
+      <url>https://docs.moodle.org/dev/Moodle_2.9.2_release_notes</url>
+    </references>
+    <dates>
+      <discovery>2015-09-14</discovery>
+      <entry>2015-09-18</entry>
+      <modified>2015-09-24</modified>
+    </dates>
+  </vuln>
+
+  <vuln vid="d3a98c2d-5da1-11e5-9909-002590263bf5">
+    <topic>squid -- TLS/SSL parser denial of service vulnerability</topic>
+    <affects>
+      <package>
+	<name>squid</name>
+	<range><ge>3.5.0.1</ge><lt>3.5.9</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Amos Jeffries, release manager of the Squid-3 series, reports:</p>
+	<blockquote cite="http://www.openwall.com/lists/oss-security/2015/09/18/1">
+	  <p>Vulnerable versions are 3.5.0.1 to 3.5.8 (inclusive), which are
+	    built with OpenSSL and configured for "SSL-Bump" decryption.</p>
+	  <p>Integer overflows can lead to invalid pointer math reading from
+	    random memory on some CPU architectures. In the best case this leads
+	    to wrong TLS extensiosn being used for the client, worst-case a
+	    crash of the proxy terminating all active transactions.</p>
+	  <p>Incorrect message size checks and assumptions about the existence
+	    of TLS extensions in the SSL/TLS handshake message can lead to very
+	    high CPU consumption (up to and including 'infinite loop'
+	    behaviour).</p>
+	  <p>The above can be triggered remotely. Though there is one layer of
+	    authorization applied before this processing to check that the
+	    client is allowed to use the proxy, that check is generally weak. MS
+	    Skype on Windows XP is known to trigger some of these.</p>
+	</blockquote>
+	<p>The FreeBSD port does not use SSL by default and is not vulnerable
+	  in the default configuration.</p>
+      </body>
+    </description>
+    <references>
+      <freebsdpr>ports/203186</freebsdpr>
+      <url>http://www.openwall.com/lists/oss-security/2015/09/18/1</url>
+    </references>
+    <dates>
+      <discovery>2015-09-18</discovery>
+      <entry>2015-09-18</entry>
+    </dates>
+  </vuln>
+
+  <vuln vid="b55ecf12-5d98-11e5-9909-002590263bf5">
+    <topic>remind -- buffer overflow with malicious reminder file input</topic>
+    <affects>
+      <package>
+	<name>remind</name>
+	<range><lt>3.1.15</lt></range>
+      </package>
+    </affects>
+    <description>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+	<p>Dianne Skoll reports:</p>
+	<blockquote cite="http://lists.roaringpenguin.com/pipermail/remind-fans/2015/003172.html">
+	  <p>BUG FIX: Fix a buffer overflow found by Alexander Keller.</p>
+	</blockquote>
+	<p>The bug can be manifested by an extended DUMP command using a system
+	  variable (that is a special variable whose name begins with '$')</p>
+      </body>
+    </description>
+    <references>
+      <cvename>CVE-2015-5957</cvename>
+      <freebsdpr>ports/202942</freebsdpr>
+      <url>http://lists.roaringpenguin.com/pipermail/remind-fans/2015/003172.html</url>
+      <url>http://www.openwall.com/lists/oss-security/2015/08/07/1</url>
+    </references>
+    <dates>
+      <discovery>2015-07-27</discovery>
+      <entry>2015-09-18</entry>
+    </dates>
+  </vuln>
+
   <vuln vid="d45ad7ae-5d56-11e5-9ad8-14dae9d210b8">
     <topic>shutter -- arbitrary code execution</topic>
     <affects>
@@ -1003,8 +2119,7 @@ Notes:
 	<name>avidemux</name>
 	<name>avidemux26</name>
 	<!-- avidemux-2.6.10 has ffmpeg-2.6.1 -->
-	<!-- no known fixed version -->
-	<range><ge>0</ge></range>
+	<range><lt>2.6.11</lt></range>
       </package>
       <package>
 	<name>kodi</name>
@@ -1048,6 +2163,7 @@ Notes:
     <dates>
       <discovery>2015-04-12</discovery>
       <entry>2015-09-01</entry>
+      <modified>2015-09-20</modified>
     </dates>
   </vuln>
 
@@ -2470,11 +3586,15 @@ Notes:
       </package>
       <package>
 	<name>seamonkey</name>
-	<range><lt>2.37</lt></range>
+	<range><ge>2.36</ge><lt>2.37</lt></range>
+	<!-- seamonkey-2.35 milestone.txt: 38.2.0esrpre -->
+	<range><lt>2.35</lt></range>
       </package>
       <package>
 	<name>linux-seamonkey</name>
-	<range><lt>2.37</lt></range>
+	<range><ge>2.36</ge><lt>2.37</lt></range>
+	<!-- seamonkey-2.35 milestone.txt: 38.2.0esrpre -->
+	<range><lt>2.35</lt></range>
       </package>
       <package>
 	<name>firefox-esr</name>
@@ -2559,7 +3679,7 @@ Notes:
     <dates>
       <discovery>2015-08-11</discovery>
       <entry>2015-08-11</entry>
-      <modified>2015-08-11</modified>
+      <modified>2015-08-22</modified>
     </dates>
   </vuln>
 
@@ -3625,11 +4745,13 @@ Notes:
       </package>
       <package>
 	<name>seamonkey</name>
-	<range><lt>2.36</lt></range>
+	<!-- seamonkey-2.35 milestone.txt: 38.2.0esrpre -->
+	<range><lt>2.35</lt></range>
       </package>
       <package>
 	<name>linux-seamonkey</name>
-	<range><lt>2.36</lt></range>
+	<!-- seamonkey-2.35 milestone.txt: 38.2.0esrpre -->
+	<range><lt>2.35</lt></range>
       </package>
       <package>
 	<name>firefox-esr</name>
@@ -3725,6 +4847,7 @@ Notes:
     <dates>
       <discovery>2015-07-02</discovery>
       <entry>2015-07-16</entry>
+      <modified>2015-09-22</modified>
     </dates>
   </vuln>
 
@@ -7043,11 +8166,12 @@ Notes:
       <cvename>CVE-2014-9721</cvename>
       <url>https://github.com/zeromq/libzmq/issues/1273</url>
       <mlist>http://www.openwall.com/lists/oss-security/2015/05/07/8</mlist>
-      <freebsdpr>200502</freebsdpr>
+      <freebsdpr>ports/200502</freebsdpr>
     </references>
     <dates>
       <discovery>2014-12-04</discovery>
       <entry>2015-06-10</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -7072,11 +8196,12 @@ Notes:
       <cvename>CVE-2015-4054</cvename>
       <url>https://pgbouncer.github.io/2015/04/pgbouncer-1-5-5/</url>
       <mlist>http://www.openwall.com/lists/oss-security/2015/05/21/2</mlist>
-      <freebsdpr>200507</freebsdpr>
+      <freebsdpr>ports/200507</freebsdpr>
     </references>
     <dates>
       <discovery>2015-04-08</discovery>
       <entry>2015-06-10</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -7124,7 +8249,7 @@ Notes:
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
-	<p>trongSwan Project reports</p>
+	<p>StrongSwan Project reports</p>
 	<blockquote cite="https://www.strongswan.org/blog/2015/06/01/strongswan-vulnerability-(cve-2015-3991).html">
 	  <p>A denial-of-service and potential remote code execution vulnerability
 	    triggered by crafted IKE messages was discovered in strongSwan. Versions
@@ -7139,6 +8264,7 @@ Notes:
     <dates>
       <discovery>2015-05-15</discovery>
       <entry>2015-06-09</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -7494,12 +8620,13 @@ Notes:
       <cvename>CVE-2014-9604</cvename>
       <cvename>CVE-2015-1872</cvename>
       <cvename>CVE-2015-3417</cvename>
-      <freebsdpr>200507</freebsdpr>
+      <freebsdpr>ports/200507</freebsdpr>
       <url>http://advisories.mageia.org/MGASA-2015-0233.html</url>
     </references>
     <dates>
       <discovery>2015-05-18</discovery>
       <entry>2015-06-01</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -7523,13 +8650,14 @@ Notes:
     </description>
     <references>
       <cvename>CVE-2015-3448</cvename>
-      <freebsdpr>200504</freebsdpr>
+      <freebsdpr>ports/200504</freebsdpr>
       <url>https://github.com/rest-client/rest-client/issues/349</url>
       <url>http://osvdb.org/show/osvdb/117461</url>
     </references>
     <dates>
       <discovery>2015-01-12</discovery>
       <entry>2015-05-31</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -7553,12 +8681,13 @@ Notes:
     </description>
     <references>
       <cvename>CVE-2015-1820</cvename>
-      <freebsdpr>200504</freebsdpr>
+      <freebsdpr>ports/200504</freebsdpr>
       <url>https://github.com/rest-client/rest-client/issues/369</url>
     </references>
     <dates>
       <discovery>2015-03-24</discovery>
       <entry>2015-05-31</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -8525,9 +9654,9 @@ Notes:
     </description>
     <references>
       <cvename>CVE-2015-3456</cvename>
-      <freebsdpr>200255</freebsdpr>
-      <freebsdpr>200256</freebsdpr>
-      <freebsdpr>200257</freebsdpr>
+      <freebsdpr>ports/200255</freebsdpr>
+      <freebsdpr>ports/200256</freebsdpr>
+      <freebsdpr>ports/200257</freebsdpr>
       <url>http://venom.crowdstrike.com/</url>
       <url>http://www.oracle.com/technetwork/topics/security/alert-cve-2015-3456-2542656.html</url>
       <url>http://xenbits.xen.org/xsa/advisory-133.html</url>
@@ -8535,7 +9664,7 @@ Notes:
     <dates>
       <discovery>2015-04-29</discovery>
       <entry>2015-05-17</entry>
-      <modified>2015-05-23</modified>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -8642,8 +9771,7 @@ Notes:
       </package>
       <package>
 	<name>lightzone</name>
-	<!-- no known fixed version -->
-	<range><ge>0</ge></range>
+	<range><lt>4.1.2</lt></range>
       </package>
       <package>
 	<name>netpbm</name>
@@ -8688,7 +9816,7 @@ Notes:
     <dates>
       <discovery>2015-04-24</discovery>
       <entry>2015-05-15</entry>
-      <modified>2015-07-01</modified>
+      <modified>2015-09-18</modified>
     </dates>
   </vuln>
 
@@ -9839,16 +10967,19 @@ Notes:
     <topic>Ruby -- OpenSSL Hostname Verification Vulnerability</topic>
     <affects>
       <package>
+	<name>ruby</name>
 	<name>ruby20</name>
-	<range><lt>2.0.0.645,1</lt></range>
+	<range><ge>2.0,1</ge><lt>2.0.0.645,1</lt></range>
       </package>
       <package>
 	<name>ruby</name>
-	<range><lt>2.1.6,1</lt></range>
+	<name>ruby21</name>
+	<range><ge>2.1,1</ge><lt>2.1.6,1</lt></range>
       </package>
       <package>
+	<name>ruby</name>
 	<name>ruby22</name>
-	<range><lt>2.2.2,1</lt></range>
+	<range><ge>2.2,1</ge><lt>2.2.2,1</lt></range>
       </package>
     </affects>
     <description>
@@ -9872,6 +11003,7 @@ Notes:
     <dates>
       <discovery>2015-04-13</discovery>
       <entry>2015-04-14</entry>
+      <modified>2015-09-23</modified>
     </dates>
   </vuln>
 
@@ -10341,6 +11473,22 @@ Notes:
 	<name>libzip</name>
 	<range><lt>0.11.2_2</lt></range>
       </package>
+      <package>
+	<name>ppsspp</name>
+	<range><lt>1.0.1_5</lt></range>
+      </package>
+      <package>
+	<name>ppsspp-devel</name>
+	<range><lt>1.0.1.2668_1</lt></range>
+      </package>
+      <package>
+	<name>radare2</name>
+	<range><lt>0.9.8_1</lt></range>
+      </package>
+      <package>
+	<name>openlierox</name>
+	<range><lt>0.58.r3_5,1</lt></range>
+      </package>
     </affects>
     <description>
       <body xmlns="http://www.w3.org/1999/xhtml">
@@ -10359,6 +11507,7 @@ Notes:
     <dates>
       <discovery>2015-03-18</discovery>
       <entry>2015-03-28</entry>
+      <modified>2015-09-20</modified>
     </dates>
   </vuln>
 
@@ -16673,13 +17822,14 @@ Notes:
     <references>
       <cvename>CVE-2014-2655</cvename>
       <bid>66455</bid>
-      <freebsdpr>189248</freebsdpr>
+      <freebsdpr>ports/189248</freebsdpr>
       <mlist>http://www.openwall.com/lists/oss-security/2014/03/26/6</mlist>
       <url>https://www.debian.org/security/2014/dsa-2889</url>
     </references>
     <dates>
       <discovery>2014-03-28</discovery>
       <entry>2014-07-13</entry>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
@@ -96674,7 +97824,7 @@ http_access deny Gopher</pre>
       </body>
     </description>
     <references>
-      <freebsdpr>73144</freebsdpr>
+      <freebsdpr>ports/73144</freebsdpr>
       <cvename>CVE-2004-1007</cvename>
       <mlist msgid="20041008143604.GA14934@scowler.net">http://article.gmane.org/gmane.mail.bogofilter.devel/3308</mlist>
       <mlist msgid="m3r7o892vj.fsf@merlin.emma.line.org">http://article.gmane.org/gmane.mail.bogofilter.devel/3317</mlist>
@@ -96684,7 +97834,7 @@ http_access deny Gopher</pre>
     <dates>
       <discovery>2004-10-09</discovery>
       <entry>2004-10-26</entry>
-      <modified>2004-11-03</modified>
+      <modified>2015-09-28</modified>
     </dates>
   </vuln>
 
