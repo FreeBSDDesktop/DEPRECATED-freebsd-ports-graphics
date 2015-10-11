@@ -1539,6 +1539,9 @@ QA_ENV+=		USESLIBTOOL=yes
 .if !empty(USES:Mshared-mime-info)
 QA_ENV+=		USESSHAREDMIMEINFO=yes
 .endif
+.if !empty(USES:Mterminfo)
+QA_ENV+=		USESTERMINFO=yes
+.endif
 
 CO_ENV+=		STAGEDIR=${STAGEDIR} \
 				PREFIX=${PREFIX} \
@@ -2104,7 +2107,6 @@ MTREE_FILE=	/etc/mtree/BSD.usr.dist
 .else
 MTREE_FILE=	${PORTSDIR}/Templates/BSD.local.dist
 .endif
-MTREE_FILE_DEFAULT=yes
 .endif
 MTREE_CMD?=	/usr/sbin/mtree
 MTREE_ARGS?=	-U ${MTREE_FOLLOWS_SYMLINKS} -f ${MTREE_FILE} -d -e -p
@@ -3028,7 +3030,6 @@ check-deprecated:
 # Check if the port is listed in the vulnerability database
 
 AUDITFILE?=		${PKG_DBDIR}/vuln.xml
-_EXTRACT_AUDITFILE=	${CAT} "${AUDITFILE}"
 
 check-vulnerable:
 .if !defined(DISABLE_VULNERABILITIES) && !defined(PACKAGE_BUILDING)
@@ -3623,33 +3624,38 @@ install-mtree:
 
 .if !target(install-ldconfig-file)
 install-ldconfig-file:
-.if defined(USE_LDCONFIG) || defined(USE_LDCONFIG32)
-.if defined(USE_LDCONFIG)
-.if defined(USE_LINUX_PREFIX)
-.else
-.if ${USE_LDCONFIG} != "${LOCALBASE}/lib" && !defined(INSTALL_AS_USER)
+.  if defined(USE_LDCONFIG) || defined(USE_LDCONFIG32)
+.    if defined(USE_LDCONFIG)
+.      if !defined(USE_LINUX_PREFIX)
+.        if ${USE_LDCONFIG} != "${LOCALBASE}/lib" && !defined(INSTALL_AS_USER)
 	@${ECHO_MSG} "===>   Installing ldconfig configuration file"
-.if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE}
+.          if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE}
 	@${MKDIR} ${STAGEDIR}${LOCALBASE}/${LDCONFIG_DIR}
-.endif
+.          endif
 	@${ECHO_CMD} ${USE_LDCONFIG} | ${TR} ' ' '\n' \
 		> ${STAGEDIR}${LOCALBASE}/${LDCONFIG_DIR}/${PKGBASE}
 	@${ECHO_CMD} ${LOCALBASE}/${LDCONFIG_DIR}/${PKGBASE} >> ${TMPPLIST}
-.endif
-.endif
-.endif
-.if defined(USE_LDCONFIG32)
-.if !defined(INSTALL_AS_USER)
+.          if ${PREFIX} != ${LOCALBASE}
+	@${ECHO_CMD} "@dir ${LOCALBASE}/${LDCONFIG_DIR}" >> ${TMPPLIST}
+.          endif
+.        endif
+.      endif
+.    endif
+.    if defined(USE_LDCONFIG32)
+.      if !defined(INSTALL_AS_USER)
 	@${ECHO_MSG} "===>   Installing 32-bit ldconfig configuration file"
-.if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE}
+.        if defined(NO_MTREE) || ${PREFIX} != ${LOCALBASE}
 	@${MKDIR} ${STAGEDIR}${LOCALBASE}/${LDCONFIG32_DIR}
-.endif
+.        endif
 	@${ECHO_CMD} ${USE_LDCONFIG32} | ${TR} ' ' '\n' \
 		> ${STAGEDIR}${LOCALBASE}/${LDCONFIG32_DIR}/${PKGBASE}
 	@${ECHO_CMD} ${LOCALBASE}/${LDCONFIG32_DIR}/${PKGBASE} >> ${TMPPLIST}
-.endif
-.endif
-.endif
+.        if ${PREFIX} != ${LOCALBASE}
+	@${ECHO_CMD} "@dir ${LOCALBASE}/${LDCONFIG32_DIR}" >> ${TMPPLIST}
+.        endif
+.      endif
+.    endif
+.  endif
 .endif
 
 .if !target(create-users-groups)
@@ -4361,7 +4367,7 @@ ALL-DEPENDS-LIST= \
 			dp_MAKE="${MAKE}" \
 			dp_PKGNAME="${PKGNAME}" \
 			dp_SCRIPTSDIR="${SCRIPTSDIR}" \
-			${SH} ${SCRIPTSDIR}/all-depends-list.sh
+			${SH} ${SCRIPTSDIR}/depends-list.sh -r
 
 CLEAN-DEPENDS-LIST= \
 	${SETENV} dp_ALLDEPENDS="${_UNIFIED_DEPENDS}" \
@@ -4431,6 +4437,10 @@ fetch-recursive-list:
 #	-mi
 FETCH_LIST?=	for i in $$deps; do \
 		prog=$${i%%:*}; dir=$${i\#*:}; \
+		case $$dir in \
+		/*) ;; \
+		*) dir=${PORTSDIR}/$$dir ;; \
+		esac; \
 		case $$dir in	\
 		*:*) if [ $$prog != $${prog\#/} -o ! -e $$prog ]; then	\
 				dir=$${dir%%:*};	\
