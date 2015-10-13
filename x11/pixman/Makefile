@@ -10,6 +10,8 @@ COMMENT=	Low-level pixel manipulation library
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+PORTSCOUT=	limitw:1,even
+
 USES=		cpe perl5
 USE_PERL5=	build
 XORG_CAT=	lib
