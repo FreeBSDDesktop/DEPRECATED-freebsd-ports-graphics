@@ -3,6 +3,7 @@
 
     COMMENT = Desktop publishing
 
+    SUBDIR += R-cran-knitr
     SUBDIR += a2pdf
     SUBDIR += a2ps
     SUBDIR += abc2mtex
@@ -40,11 +41,13 @@
     SUBDIR += dvi2tty
     SUBDIR += dvips2ascii
     SUBDIR += dvisvg
+    SUBDIR += dymo-cups-drivers
     SUBDIR += easylatex
     SUBDIR += enscript-a4
     SUBDIR += enscript-letter
     SUBDIR += enscript-letterdj
     SUBDIR += enscriptfonts
+    SUBDIR += epson-inkjet-printer-escpr
     SUBDIR += epsonepl
     SUBDIR += flpsed
     SUBDIR += font-amsfonts
@@ -62,17 +65,17 @@
     SUBDIR += frescobaldi
     SUBDIR += ft2demos
     SUBDIR += ggv
-    SUBDIR += ghostscript7
+    SUBDIR += ghostscript7-base
     SUBDIR += ghostscript7-commfont
     SUBDIR += ghostscript7-jpnfont
     SUBDIR += ghostscript7-korfont
-    SUBDIR += ghostscript7-nox11
-    SUBDIR += ghostscript8
-    SUBDIR += ghostscript8-nox11
-    SUBDIR += ghostscript9
-    SUBDIR += ghostscript9-agpl
-    SUBDIR += ghostscript9-agpl-nox11
-    SUBDIR += ghostscript9-nox11
+    SUBDIR += ghostscript7-x11
+    SUBDIR += ghostscript8-base
+    SUBDIR += ghostscript8-x11
+    SUBDIR += ghostscript9-agpl-base
+    SUBDIR += ghostscript9-agpl-x11
+    SUBDIR += ghostscript9-base
+    SUBDIR += ghostscript9-x11
     SUBDIR += gimp-gutenprint
     SUBDIR += gl2ps
     SUBDIR += gnome-cups-manager
@@ -118,6 +121,7 @@
     SUBDIR += libijs
     SUBDIR += libmspub01
     SUBDIR += libotf
+    SUBDIR += libpagemaker
     SUBDIR += libpaper
     SUBDIR += libppd
     SUBDIR += libspectre
@@ -258,6 +262,7 @@
     SUBDIR += utopia
     SUBDIR += xfce4-print
     SUBDIR += xmbibtex
+    SUBDIR += xpdfopen
     SUBDIR += xpp
     SUBDIR += xtexsh
     SUBDIR += yatex

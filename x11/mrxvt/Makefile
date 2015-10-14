@@ -3,10 +3,9 @@
 
 PORTNAME=	mrxvt
 PORTVERSION=	0.4.2
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	x11
 MASTER_SITES=	SF/materm/${PORTNAME}%20source/${PORTVERSION}
-EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Tabbed version of rxvt
@@ -16,7 +15,10 @@ LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
 CONFLICTS=	mrxvt-0.5.*
 
 GNU_CONFIGURE=	yes
-USES=		jpeg
+CONFIGURE_ARGS=	--disable-lastlog --disable-wtmp
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+USES=		jpeg tar:tgz
 USE_XORG=	x11
 
 OPTIONS_DEFINE=	DOCS JAPANESE XFT
@@ -24,15 +26,6 @@ OPTIONS_DEFINE=	DOCS JAPANESE XFT
 JAPANESE_CONFIGURE_ON=	--enable-xim --enable-cjk --with-encoding=eucj
 XFT_LIB_DEPENDS=	libXft.so:${PORTSDIR}/x11-fonts/libXft
 XFT_CONFIGURE_ENABLE=	xft
-
-.include <bsd.port.pre.mk>
-
-.if ${OSVERSION} >= 900007
-CONFIGURE_ARGS+=	--disable-lastlog --disable-wtmp
-.endif
-
-CPPFLAGS+=	-I${LOCALBASE}/include
-LIBS+=		-L${LOCALBASE}/lib
 
 PORTDOCS=	TIPS \
 		README.greek \
@@ -43,11 +36,18 @@ PORTDOCS=	TIPS \
 		mrxvt.vbs \
 		mrxvtset.pl
 
+.include <bsd.port.options.mk>
 
-.if empty(PORT_OPTIONS:MDOCS)
-post-patch:
-	@${REINPLACE_CMD} -e '/^\(install-data-am:\).*/ \
-		s/install-docDATA //' ${WRKSRC}/doc/Makefile.in
+.if ${PORT_OPTIONS:MXFT} && ${PORT_OPTIONS:MJAPANESE}
+USES+=		iconv
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if empty(ICONV_LIB)
+CONFIGURE_ARGS+=ac_cv_lib_iconv_iconv_open=no
+.else
+CONFIGURE_ARGS+=ac_cv_lib_iconv_iconv_open=yes
 .endif
 
 post-install:

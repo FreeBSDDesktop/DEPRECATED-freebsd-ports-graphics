@@ -1,13 +1,13 @@
 # $FreeBSD$
 
 PORTNAME=	virt-manager
-PORTVERSION=	1.1.0
-PORTREVISION=	5
+PORTVERSION=	1.2.1
+PORTREVISION=	1
 CATEGORIES=	deskutils net-mgmt
 MASTER_SITES=	http://virt-manager.org/download/sources/${PORTNAME}/ \
 		LOCAL/jgh/deskutils/${PORTNAME}/
 
-MAINTAINER=	jgh@FreeBSD.org
+MAINTAINER=	novel@FreeBSD.org
 COMMENT=	Toolkit to interact with virtualization capabilities
 
 LICENSE=	LGPL3
@@ -35,7 +35,7 @@ USE_GNOME=	introspection:run intltool librsvg2 pygobject3
 
 INSTALLS_ICONS=	yes
 
-python_OLD_CMD=	/usr/bin/python2
+python_OLD_CMD=	/usr/bin/python2 "-tt"
 SHEBANG_FILES=	virt-manager \
 		virt-install \
 		virt-clone \

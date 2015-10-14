@@ -70,6 +70,11 @@
     SUBDIR += baloo
     SUBDIR += baloo-widgets
     SUBDIR += bamf
+    SUBDIR += bareos-bat
+    SUBDIR += bareos-client
+    SUBDIR += bareos-client-static
+    SUBDIR += bareos-docs
+    SUBDIR += bareos-server
     SUBDIR += bashburn
     SUBDIR += batmon
     SUBDIR += battfink
@@ -240,6 +245,7 @@
     SUBDIR += extipl
     SUBDIR += ezjail
     SUBDIR += f3
+    SUBDIR += facter
     SUBDIR += fanout
     SUBDIR += farbot
     SUBDIR += fastest_cvsup
@@ -275,7 +281,6 @@
     SUBDIR += fpc-users
     SUBDIR += fpc-utmp
     SUBDIR += fpc-uuid
-    SUBDIR += fpkg
     SUBDIR += freebsd-snapshot
     SUBDIR += freecolor
     SUBDIR += freedt
@@ -397,6 +402,7 @@
     SUBDIR += hs-cpu
     SUBDIR += hs-ekg
     SUBDIR += hs-ekg-core
+    SUBDIR += hs-ekg-json
     SUBDIR += htop
     SUBDIR += httplog
     SUBDIR += hwstat
@@ -412,6 +418,7 @@
     SUBDIR += ioping
     SUBDIR += ipa
     SUBDIR += ipad_charge
+    SUBDIR += ipfs-go
     SUBDIR += ipmitool
     SUBDIR += ipsc
     SUBDIR += isc-cron
@@ -545,9 +552,14 @@
     SUBDIR += monitord
     SUBDIR += monitorix
     SUBDIR += mono-kmod
+    SUBDIR += moosefs-cgi
+    SUBDIR += moosefs-cgiserv
     SUBDIR += moosefs-chunkserver
+    SUBDIR += moosefs-cli
     SUBDIR += moosefs-client
     SUBDIR += moosefs-master
+    SUBDIR += moosefs-metalogger
+    SUBDIR += moosefs-netdump
     SUBDIR += moreutils
     SUBDIR += most
     SUBDIR += mount.app
@@ -615,6 +627,8 @@
     SUBDIR += p5-Iterator-File
     SUBDIR += p5-Lchown
     SUBDIR += p5-Linux-Cpuinfo
+    SUBDIR += p5-Log-Syslog-Constants
+    SUBDIR += p5-Log-Syslog-Fast
     SUBDIR += p5-MogileFS-Client
     SUBDIR += p5-MogileFS-Network
     SUBDIR += p5-MogileFS-Server
@@ -735,10 +749,11 @@
     SUBDIR += pstacku
     SUBDIR += pstree
     SUBDIR += ptools
-    SUBDIR += puppet37
     SUBDIR += puppet
     SUBDIR += puppet-lint
     SUBDIR += puppet-mode.el
+    SUBDIR += puppet37
+    SUBDIR += puppet4
     SUBDIR += pv
     SUBDIR += pwd_unmkdb
     SUBDIR += pwgen
@@ -746,6 +761,7 @@
     SUBDIR += py-XenAPI
     SUBDIR += py-analyzemft
     SUBDIR += py-bcfg2
+    SUBDIR += py-cdmi
     SUBDIR += py-croniter
     SUBDIR += py-crontab
     SUBDIR += py-danzfs
@@ -758,6 +774,7 @@
     SUBDIR += py-honcho
     SUBDIR += py-iowait
     SUBDIR += py-nagiosplugin
+    SUBDIR += py-pkginfo
     SUBDIR += py-ploy
     SUBDIR += py-ploy_ansible
     SUBDIR += py-ploy_ec2
@@ -809,9 +826,11 @@
     SUBDIR += reoback
     SUBDIR += reptyr
     SUBDIR += respond
+    SUBDIR += restic
     SUBDIR += retail
     SUBDIR += rfstool
     SUBDIR += rhc
+    SUBDIR += riak-cs
     SUBDIR += rinse
     SUBDIR += rmonitor
     SUBDIR += roottail
@@ -828,7 +847,6 @@
     SUBDIR += rubygem-bosh-gen
     SUBDIR += rubygem-bosh_cli
     SUBDIR += rubygem-bundler
-    SUBDIR += rubygem-bundler17
     SUBDIR += rubygem-bundler_ext
     SUBDIR += rubygem-capistrano
     SUBDIR += rubygem-capistrano-ext
@@ -841,6 +859,7 @@
     SUBDIR += rubygem-fluent-plugin-file-alternative
     SUBDIR += rubygem-fluent-plugin-tail-asis
     SUBDIR += rubygem-fluentd
+    SUBDIR += rubygem-fluentd010
     SUBDIR += rubygem-fssm
     SUBDIR += rubygem-god
     SUBDIR += rubygem-guard
@@ -855,6 +874,7 @@
     SUBDIR += rubygem-hammer_cli_foreman_ssh
     SUBDIR += rubygem-hiera
     SUBDIR += rubygem-hiera-file
+    SUBDIR += rubygem-hiera1
     SUBDIR += rubygem-librarian-puppet
     SUBDIR += rubygem-log4r
     SUBDIR += rubygem-logify
@@ -864,10 +884,13 @@
     SUBDIR += rubygem-ohai
     SUBDIR += rubygem-parallel
     SUBDIR += rubygem-puppet_forge
+    SUBDIR += rubygem-puppet_forge1
     SUBDIR += rubygem-r10k
     SUBDIR += rubygem-rubyipmi
     SUBDIR += rubygem-shellany
     SUBDIR += rubygem-smart_proxy_chef
+    SUBDIR += rubygem-smart_proxy_dynflow
+    SUBDIR += rubygem-smart_proxy_remote_execution_ssh
     SUBDIR += rubygem-smart_proxy_salt
     SUBDIR += rubygem-sys-admin
     SUBDIR += rubygem-sys-cpu
@@ -939,7 +962,9 @@
     SUBDIR += ssid
     SUBDIR += ssync
     SUBDIR += stalepid
+    SUBDIR += stanchion
     SUBDIR += stmpclean
+    SUBDIR += storcli
     SUBDIR += stow
     SUBDIR += stowES
     SUBDIR += stress
@@ -959,7 +984,6 @@
     SUBDIR += syslog-ng-devel
     SUBDIR += syslog-ng-incubator
     SUBDIR += syslog-ng-incubator03
-    SUBDIR += syslog-ng33
     SUBDIR += syslog-ng34
     SUBDIR += syslog-ng35
     SUBDIR += syslogger
@@ -968,6 +992,7 @@
     SUBDIR += sysvbanner
     SUBDIR += tai64nfrac
     SUBDIR += tarsnap
+    SUBDIR += tarsnap-gui
     SUBDIR += tartarus
     SUBDIR += tbku
     SUBDIR += tclsyslog
@@ -1080,6 +1105,7 @@
     SUBDIR += wmfire
     SUBDIR += wmflame
     SUBDIR += wmmemfree
+    SUBDIR += wmmemload
     SUBDIR += wmtop
     SUBDIR += wmupmon
     SUBDIR += worldtools

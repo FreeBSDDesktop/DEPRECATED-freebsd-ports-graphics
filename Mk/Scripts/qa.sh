@@ -99,19 +99,19 @@ baselibs() {
 	[ "${PKGBASE}" = "pkg" -o "${PKGBASE}" = "pkg-devel" ] && return
 	while read f; do
 		case ${f} in
-		/usr/lib/libarchive*)
-			err "Bad linking on ${f} please add USES=libarchive"
+		*NEEDED*\[libarchive.so.[56]])
+			err "Bad linking on ${f##* } please add USES=libarchive"
 			rc=1
 			;;
-		/lib/libedit*)
-			err "Bad linking on ${f} please add USES=libedit"
+		*NEEDED*\[libedit.so.7])
+			err "Bad linking on ${f##* } please add USES=libedit"
 			rc=1
 			;;
 		esac
 	done <<-EOF
-	$(find ${STAGEDIR}${BIN} ${STAGEDIR}${PREFIX}/sbin \
+	$(find ${STAGEDIR}${PREFIX}/bin ${STAGEDIR}${PREFIX}/sbin \
 		${STAGEDIR}${PREFIX}/lib ${STAGEDIR}${PREFIX}/libexec \
-		-type f -exec ldd -a {} + 2>/dev/null)
+		-type f -exec readelf -d {} + 2>/dev/null)
 	EOF
 	return ${rc}
 }
@@ -293,7 +293,28 @@ prefixvar() {
 	fi
 }
 
-checks="shebang symlinks paths stripped desktopfileutils sharedmimeinfo suidfiles libtool libperl prefixvar baselibs"
+terminfo() {
+	local f found
+
+	for f in ${STAGEDIR}${PREFIX}/share/misc/*.terminfo; do
+		[ "${f}" = "${STAGEDIR}${PREFIX}/share/misc/*.terminfo" ] && break #no matches
+		found=1
+		break
+	done
+	for f in ${STAGEDIR}${PREFIX}/share/misc/terminfo.db*; do
+		[ "${f}" = "${STAGEDIR}${PREFIX}/share/misc/terminfo.db*" ] && break #no matches
+		found=1
+		break
+	done
+	if [ -z "${USESTERMINFO}" -a -n "${found}" ]; then
+		warn "you need USES=terminfo"
+	elif [ -n "${USESTERMINFO}" -a -z "${found}" ]; then
+		warn "you may not need USES=terminfo"
+	fi
+	return 0
+}
+
+checks="shebang symlinks paths stripped desktopfileutils sharedmimeinfo suidfiles libtool libperl prefixvar baselibs terminfo"
 
 ret=0
 cd ${STAGEDIR}

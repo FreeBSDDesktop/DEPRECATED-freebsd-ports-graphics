@@ -75,9 +75,9 @@ _USE_GNOME_ALL+= atk atspi cairo gal2 \
 		gnomespeech gnomevfs2 gtk-update-icon-cache gtk20 gtkhtml3 gtksharp10 \
 		gtksharp20 gtksourceview gtksourceview2 gvfs libartlgpl2 libbonobo \
 		libbonoboui libgda4 libglade2 libgnome \
-		libgnomecanvas libgnomedb libgnomekbd libgnomeprint libgnomeprintui \
+		libgnomecanvas libgnomekbd libgnomeprint libgnomeprintui \
 		libgnomeui libgsf libgtkhtml libidl librsvg2 libwnck \
-		libxml2 libxslt linc \
+		libxml2 libxslt \
 		orbit2 pango pangox-compat pygnome2 pygobject pygtk2 \
 		pygtksourceview vte
 
@@ -247,10 +247,6 @@ gtk30_DETECT=		${LOCALBASE}/libdata/pkgconfig/gtk+-3.0.pc
 gtk30_USE_GNOME_IMPL=	atk pango
 GTK3_VERSION=		3.0.0
 
-linc_LIB_DEPENDS=	liblinc.so:${PORTSDIR}/net/linc
-linc_DETECT=		${LOCALBASE}/libdata/pkgconfig/linc.pc
-linc_USE_GNOME_IMPL=	glib20
-
 libidl_LIB_DEPENDS=	libIDL-2.so:${PORTSDIR}/devel/libIDL
 libidl_DETECT=		${LOCALBASE}/libdata/pkgconfig/libIDL-2.0.pc
 libidl_USE_GNOME_IMPL=	glib20
@@ -350,7 +346,7 @@ vte3_USE_GNOME_IMPL=	gtk30
 
 librsvg2_LIB_DEPENDS=	librsvg-2.so:${PORTSDIR}/graphics/librsvg2
 librsvg2_DETECT=	${LOCALBASE}/libdata/pkgconfig/librsvg-2.0.pc
-librsvg2_USE_GNOME_IMPL=libgsf gtk20
+librsvg2_USE_GNOME_IMPL=libgsf gdkpixbuf2 pango
 
 nautilus3_LIB_DEPENDS=	libnautilus-extension.so:${PORTSDIR}/x11-fm/nautilus
 nautilus3_DETECT=	${LOCALBASE}/share/gir-1.0/Nautilus-3.0.gir
@@ -379,10 +375,6 @@ libgda5_USE_GNOME_IMPL=	glib20 libxslt
 libgda5-ui_LIB_DEPENDS=	libgda-ui-5.0.so:${PORTSDIR}/databases/libgda5-ui
 libgda5-ui_DETECT=	${LOCALBASE}/libdata/pkgconfig/libgda-ui-5.0.pc
 libgda5-ui_USE_GNOME_IMPL=glib20 libxslt libgda5
-
-libgnomedb_LIB_DEPENDS=	libgnomedb-3.0.so:${PORTSDIR}/databases/libgnomedb
-libgnomedb_DETECT=	${LOCALBASE}/libdata/pkgconfig/libgnomedb.pc
-libgnomedb_USE_GNOME_IMPL=libgnomeui libgda3
 
 gtksourceview_LIB_DEPENDS=	libgtksourceview-1.0.so:${PORTSDIR}/x11-toolkits/gtksourceview
 gtksourceview_DETECT=	${LOCALBASE}/libdata/pkgconfig/gtksourceview-1.0.pc
@@ -691,10 +683,10 @@ post-install: gnome-post-install
 gnome-post-install:
 .  if defined(GCONF_SCHEMAS)
 	@for i in ${GCONF_SCHEMAS}; do \
-		${ECHO_CMD} "@unexec env GCONF_CONFIG_SOURCE=xml:${GCONF_CONFIG_OPTIONS}:%D/${GCONF_CONFIG_DIRECTORY} HOME=${WRKDIR} gconftool-2 --makefile-uninstall-rule %D/etc/gconf/schemas/$${i} > /dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postunexec env GCONF_CONFIG_SOURCE=xml:${GCONF_CONFIG_OPTIONS}:%D/${GCONF_CONFIG_DIRECTORY} HOME=${WRKDIR} gconftool-2 --makefile-uninstall-rule %D/etc/gconf/schemas/$${i} > /dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
 		${ECHO_CMD} "etc/gconf/schemas/$${i}" >> ${TMPPLIST}; \
-		${ECHO_CMD} "@exec env GCONF_CONFIG_SOURCE=xml:${GCONF_CONFIG_OPTIONS}:%D/${GCONF_CONFIG_DIRECTORY} HOME=${WRKDIR} gconftool-2 --makefile-install-rule %D/etc/gconf/schemas/$${i} > /dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postexec env GCONF_CONFIG_SOURCE=xml:${GCONF_CONFIG_OPTIONS}:%D/${GCONF_CONFIG_DIRECTORY} HOME=${WRKDIR} gconftool-2 --makefile-install-rule %D/etc/gconf/schemas/$${i} > /dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
 	done
 .  endif
@@ -710,9 +702,9 @@ gnome-post-install:
 
 .  if defined(INSTALLS_OMF)
 	@for i in `${GREP} "\.omf$$" ${TMPPLIST}`; do \
-		${ECHO_CMD} "@exec scrollkeeper-install -q %D/$${i} 2>/dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postexec scrollkeeper-install -q %D/$${i} 2>/dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
-		${ECHO_CMD} "@unexec scrollkeeper-uninstall -q %D/$${i} 2>/dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postunexec scrollkeeper-uninstall -q %D/$${i} 2>/dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
 	done
 .  endif
@@ -722,9 +714,9 @@ gnome-post-install:
 	@for i in `${GREP} "^share/icons/.*/" ${TMPPLIST} | ${CUT} -d / -f 1-3 | ${SORT} -u`; do \
 		${ECHO_CMD} "@rmtry $${i}/icon-theme.cache" \
 			>> ${TMPPLIST}.icons1; \
-		${ECHO_CMD} "@exec ${LOCALBASE}/bin/gtk-update-icon-cache -q -f %D/$${i} 2>/dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postexec ${LOCALBASE}/bin/gtk-update-icon-cache -q -f %D/$${i} 2>/dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
-		${ECHO_CMD} "@unexec ${LOCALBASE}/bin/gtk-update-icon-cache -q -f %D/$${i} 2>/dev/null || /usr/bin/true" \
+		${ECHO_CMD} "@postunexec ${LOCALBASE}/bin/gtk-update-icon-cache -q -f %D/$${i} 2>/dev/null || /usr/bin/true" \
 			>> ${TMPPLIST}; \
 	done
 	@if test -f ${TMPPLIST}.icons1; then \

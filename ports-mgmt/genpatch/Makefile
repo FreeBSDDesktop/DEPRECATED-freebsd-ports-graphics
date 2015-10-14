@@ -3,6 +3,7 @@
 
 PORTNAME=	genpatch
 PORTVERSION=	1.40
+PORTREVISION=	1
 CATEGORIES=	ports-mgmt
 MASTER_SITES=	# none
 DISTFILES=	# none
@@ -22,13 +23,15 @@ PLIST_FILES=	bin/dupe \
 		man/man1/genpatch.1.gz \
 		man/man1/portfix.1.gz
 
+.include <bsd.port.options.mk>
+
 .if defined(PACKAGE_BUILDING) # use known default values, poudriere overrides
 .  if defined(.MAKE.BUILT.BY) # DragonFly!
 PORTWORK=	/usr/obj/dports
 .  else
 PORTWORK=	/usr/ports
 .  endif
-.else 
+.else
 .  if defined(WRKDIRPREFIX) && !empty(WRKDIRPREFIX)
 PORTWORK=	${WRKDIRPREFIX}
 .  else

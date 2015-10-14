@@ -6,8 +6,8 @@ PORTVERSION=	1.0
 PORTREVISION=	4
 CATEGORIES=	x11-wm afterstep
 MASTER_SITES=	LOCAL/dinoex
-DISTNAME=	AfterStep-${PORTVERSION}
 PKGNAMESUFFIX=	1${PKGNAMESUFFIX2}
+DISTNAME=	AfterStep-${PORTVERSION}
 
 MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	Window manager originally based on the Bowman NeXTstep clone
@@ -16,7 +16,6 @@ RUN_DEPENDS=	asclock:${PORTSDIR}/x11-clocks/asclock
 
 CONFLICTS?=	afterstep-2*
 PORTSCOUT=	limit:^1\.[0-9.]*$$
-NO_LATEST_LINK=	yes
 
 USES=		imake
 USE_XORG=	xpm xext x11

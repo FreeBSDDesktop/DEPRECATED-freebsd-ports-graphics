@@ -3,7 +3,7 @@
 
 PORTNAME=	deadbeef
 PORTVERSION=	0.6.2
-PORTREVISION=	4
+PORTREVISION=	7
 CATEGORIES=	audio
 MASTER_SITES=	SF/${PORTNAME}/
 
@@ -17,7 +17,7 @@ GNU_CONFIGURE=	yes
 USES=		desktop-file-utils execinfo gettext gmake iconv libtool \
 		pkgconfig shebangfix tar:bzip2
 USE_LDCONFIG=	yes
-CONFIGURE_ARGS=	--disable-alsa --disable-nullout --disable-gtk3
+CONFIGURE_ARGS=	--disable-alsa --disable-nullout --disable-gtk3 --disable-static
 CPPFLAGS+=	-I../dumb/dumb-kode54/include -I../../plugins/libmp4ff \
 		-I../../plugins/gme/game-music-emu-0.6pre \
 		-I${LOCALBASE}/include
@@ -73,6 +73,7 @@ PULSEAUDIO_CONFIGURE_OFF=	--disable-pulse
 
 GUI_USE=	gnome=gtk20,glib20
 GUI_CONFIGURE_OFF=	--disable-gtkui --disable-gtk3
+GUI_IMPLIES=		CONVERTER
 
 VFS_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
 VFS_CONFIGURE_OFF=	--disable-vfs-curl
@@ -84,6 +85,7 @@ ART_LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 			libImlib2.so:${PORTSDIR}/graphics/imlib2
 ART_USES=		jpeg
 ART_CONFIGURE_OFF=	--disable-artwork --disable-artwork-imlib2
+ART_IMPLIES=		VFS
 
 SUPEREQ_CONFIGURE_OFF=	--disable-supereq
 
@@ -168,16 +170,6 @@ PLTBROWSER_CONFIGURE_OFF=	--disable-pltbrowser
 
 WMA_CONFIGURE_OFF=		--disable-wma
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MART} && ! ${PORT_OPTIONS:MVFS}
-BROKEN=		VFS plugin required for album art loader, please rerun 'make config' and either disable ART or enable VFS
-.endif
-
-.if ${PORT_OPTIONS:MCONVERTER} && ! ${PORT_OPTIONS:MGUI}
-BROKEN=		CONVERTER plugin required for gui, please rerun 'make config' and either disable CONVERTER or enable GUI
-.endif
-
 post-patch:
 # Do not link to libsupc++ which may be PIC-unsafe (breaks 64-bit arches)
 	@${REINPLACE_CMD} -e 's, -lsupc++,,' \
@@ -191,6 +183,10 @@ post-patch:
 		-e 's,libavcodec ,libavcodec0 ,g' \
 		-e 's,libavutil ,libavutil0 ,g' \
 		-e 's,libavformat ,libavformat0 ,g' \
+		-e '/HAVE_OGG" = "yes"/ {n; n; /HAVE_VORBISPLUGIN=yes/d;}' \
 		${WRKSRC}/configure
+# Fix build with libzip-1.0
+	@${REINPLACE_CMD} 's,zip_file_t,zip_file_DB,g' \
+		${WRKSRC}/plugins/vfs_zip/vfs_zip.c
 
 .include <bsd.port.mk>

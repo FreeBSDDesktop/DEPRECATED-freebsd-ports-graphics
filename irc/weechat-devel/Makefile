@@ -15,6 +15,9 @@ COMMENT=	Lightweight and user friendly ncurses based IRC client
 
 LICENSE=	GPLv3
 
+DEPRECATED=	far behind stable irc/weechat (use it instead)
+EXPIRATION_DATE=	2015-10-31
+
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 		libgcrypt.so:${PORTSDIR}/security/libgcrypt
 
@@ -22,7 +25,8 @@ CONFLICTS=	weechat-0.3*
 
 USE_LDCONFIG=	yes
 USES=		cmake iconv ncurses
-CMAKE_ARGS+=	-DENABLE_GUILE=no
+CMAKE_ARGS+=	-DENABLE_GUILE=no \
+		-DICONV_INCLUDE_PATH=${ICONV_INCLUDE_PATH}
 CFLAGS+=	-I${LOCALBASE}/include -L${LOCALBASE}/lib
 
 GITDESC=	v0.4.3-14-gc324610

@@ -6,8 +6,12 @@
     SUBDIR += MT
     SUBDIR += R-cran-RgoogleMaps
     SUBDIR += R-cran-Rpad
+    SUBDIR += R-cran-htmlwidgets
     SUBDIR += R-cran-httpuv
+    SUBDIR += R-cran-httr
+    SUBDIR += R-cran-rvest
     SUBDIR += R-cran-scrapeR
+    SUBDIR += R-cran-selectr
     SUBDIR += R-cran-shiny
     SUBDIR += WebMagick
     SUBDIR += ach
@@ -29,7 +33,6 @@
     SUBDIR += aria2
     SUBDIR += aria2fe
     SUBDIR += arora
-    SUBDIR += asp2php
     SUBDIR += asql
     SUBDIR += asterisk-stat
     SUBDIR += atutor
@@ -44,6 +47,7 @@
     SUBDIR += b2evolution
     SUBDIR += bacula-web
     SUBDIR += baikal
+    SUBDIR += bareos-webui
     SUBDIR += bblog
     SUBDIR += bigbluebutton
     SUBDIR += bins
@@ -52,6 +56,7 @@
     SUBDIR += blogsum
     SUBDIR += bluefish
     SUBDIR += boa
+    SUBDIR += bolt
     SUBDIR += bookmarkbridge
     SUBDIR += bozohttpd
     SUBDIR += c-icap
@@ -287,10 +292,11 @@
     SUBDIR += hs-http-reverse-proxy
     SUBDIR += hs-http-server
     SUBDIR += hs-http-types
+    SUBDIR += hs-http2
+    SUBDIR += hs-multipart
     SUBDIR += hs-oeis
     SUBDIR += hs-path-pieces
     SUBDIR += hs-recaptcha
-    SUBDIR += hs-scgi
     SUBDIR += hs-shakespeare
     SUBDIR += hs-snap
     SUBDIR += hs-snap-core
@@ -311,8 +317,6 @@
     SUBDIR += hs-yesod-core
     SUBDIR += hs-yesod-form
     SUBDIR += hs-yesod-persistent
-    SUBDIR += hs-yesod-platform
-    SUBDIR += hs-yesod-routes
     SUBDIR += hs-yesod-static
     SUBDIR += hs-yesod-test
     SUBDIR += htdigest
@@ -343,8 +347,6 @@
     SUBDIR += imgsizer
     SUBDIR += impresscms
     SUBDIR += interchange
-    SUBDIR += iojs
-    SUBDIR += ismail
     SUBDIR += itop
     SUBDIR += iwebcal
     SUBDIR += jawstats
@@ -533,7 +535,6 @@
     SUBDIR += monast
     SUBDIR += mongoose
     SUBDIR += mongrel2
-    SUBDIR += moodle27
     SUBDIR += moodle28
     SUBDIR += moodle29
     SUBDIR += mozplugger
@@ -559,16 +560,18 @@
     SUBDIR += node
     SUBDIR += node-devel
     SUBDIR += node010
+    SUBDIR += node012
     SUBDIR += nostromo
     SUBDIR += npapi-vlc
     SUBDIR += npapi-xine
     SUBDIR += npc
     SUBDIR += npm
+    SUBDIR += npm012
     SUBDIR += nspluginwrapper
     SUBDIR += ocaml-net
     SUBDIR += ocsigen
+    SUBDIR += offline-npm
     SUBDIR += ojs2
-    SUBDIR += ompload
     SUBDIR += opencart
     SUBDIR += openxmldir
     SUBDIR += opera
@@ -923,6 +926,7 @@
     SUBDIR += p5-HTML-QuickCheck
     SUBDIR += p5-HTML-RSSAutodiscovery
     SUBDIR += p5-HTML-ResolveLink
+    SUBDIR += p5-HTML-Restrict
     SUBDIR += p5-HTML-RobotsMETA
     SUBDIR += p5-HTML-Scrubber
     SUBDIR += p5-HTML-Seamstress
@@ -983,6 +987,7 @@
     SUBDIR += p5-HTTP-BrowserDetect
     SUBDIR += p5-HTTP-Cache-Transparent
     SUBDIR += p5-HTTP-CookieJar
+    SUBDIR += p5-HTTP-CookieMonster
     SUBDIR += p5-HTTP-Cookies
     SUBDIR += p5-HTTP-Cookies-Mozilla
     SUBDIR += p5-HTTP-Cookies-iCab
@@ -1041,6 +1046,7 @@
     SUBDIR += p5-LWP-Authen-OAuth
     SUBDIR += p5-LWP-Authen-Wsse
     SUBDIR += p5-LWP-ConnCache-MaxKeepAliveRequests
+    SUBDIR += p5-LWP-ConsoleLogger
     SUBDIR += p5-LWP-MediaTypes
     SUBDIR += p5-LWP-Online
     SUBDIR += p5-LWP-Protocol-PSGI
@@ -1129,6 +1135,7 @@
     SUBDIR += p5-Plack-Middleware-Debug
     SUBDIR += p5-Plack-Middleware-Deflater
     SUBDIR += p5-Plack-Middleware-Expires
+    SUBDIR += p5-Plack-Middleware-ExtDirect
     SUBDIR += p5-Plack-Middleware-File-Sass
     SUBDIR += p5-Plack-Middleware-FixMissingBodyInRedirect
     SUBDIR += p5-Plack-Middleware-ForceEnv
@@ -1309,7 +1316,6 @@
     SUBDIR += p5-WWW-Shorten-Bitly
     SUBDIR += p5-WWW-Shorten-Googl
     SUBDIR += p5-WWW-Shorten-KUSO
-    SUBDIR += p5-WWW-Shorten-NotLong
     SUBDIR += p5-WWW-Shorten-Yourls
     SUBDIR += p5-WWW-Shorten-isgd
     SUBDIR += p5-WWW-SourceForge
@@ -1328,6 +1334,7 @@
     SUBDIR += p5-Web-Scraper-Config
     SUBDIR += p5-Web-oEmbed
     SUBDIR += p5-WebDAO
+    SUBDIR += p5-WebDriver-Tiny
     SUBDIR += p5-WebService-Basecamp
     SUBDIR += p5-WebService-Bloglines
     SUBDIR += p5-WebService-BuzzurlAPI
@@ -1428,7 +1435,6 @@
     SUBDIR += pecl-yaf
     SUBDIR += pecl-yar
     SUBDIR += pecl-zendopcache
-    SUBDIR += pelican
     SUBDIR += perlbal
     SUBDIR += pglogd
     SUBDIR += phalcon
@@ -1495,6 +1501,7 @@
     SUBDIR += py-blogofile
     SUBDIR += py-bottle
     SUBDIR += py-bottle-cork
+    SUBDIR += py-cactus
     SUBDIR += py-cherrypy
     SUBDIR += py-cherrypy-old
     SUBDIR += py-clientform
@@ -1528,6 +1535,7 @@
     SUBDIR += py-django-keyedcache
     SUBDIR += py-django-ldapdb
     SUBDIR += py-django-livesettings
+    SUBDIR += py-django-markwhat
     SUBDIR += py-django-mezzanine
     SUBDIR += py-django-mezzanine-filebrowser
     SUBDIR += py-django-mezzanine-grappelli
@@ -1559,6 +1567,7 @@
     SUBDIR += py-django16
     SUBDIR += py-django16-tastypie
     SUBDIR += py-django17
+    SUBDIR += py-django18
     SUBDIR += py-django_compressor
     SUBDIR += py-djangotoolbox
     SUBDIR += py-djblets
@@ -1612,6 +1621,7 @@
     SUBDIR += py-paste
     SUBDIR += py-pastedeploy
     SUBDIR += py-pastescript
+    SUBDIR += py-pelican
     SUBDIR += py-plone.alterego
     SUBDIR += py-plone.app.blob
     SUBDIR += py-plone.app.caching
@@ -1696,6 +1706,7 @@
     SUBDIR += py-py-restclient
     SUBDIR += py-pyjwt
     SUBDIR += py-pylons
+    SUBDIR += py-pyocclient
     SUBDIR += py-pyquery
     SUBDIR += py-pyramid
     SUBDIR += py-pyramid_rpc
@@ -1956,6 +1967,7 @@
     SUBDIR += rubygem-robotex
     SUBDIR += rubygem-robots
     SUBDIR += rubygem-rqrcode
+    SUBDIR += rubygem-rqrcode-rails3
     SUBDIR += rubygem-rtlit
     SUBDIR += rubygem-ruby-readability
     SUBDIR += rubygem-savon
@@ -1969,11 +1981,13 @@
     SUBDIR += rubygem-sinatra-contrib
     SUBDIR += rubygem-sinatra-r18n
     SUBDIR += rubygem-sinatra-respond_to
+    SUBDIR += rubygem-task_list
     SUBDIR += rubygem-thin
     SUBDIR += rubygem-tinyatom
     SUBDIR += rubygem-tinymce-rails
     SUBDIR += rubygem-tumblr_client
     SUBDIR += rubygem-turbolinks
+    SUBDIR += rubygem-turbolinks-rails41
     SUBDIR += rubygem-typhoeus
     SUBDIR += rubygem-uglifier
     SUBDIR += rubygem-underscore-rails
@@ -2017,6 +2031,7 @@
     SUBDIR += smarty3
     SUBDIR += smb_auth
     SUBDIR += snarf
+    SUBDIR += sogo
     SUBDIR += spawn-fcgi
     SUBDIR += spdylay
     SUBDIR += speedtest-mini

@@ -27,19 +27,17 @@ CPPFLAGS+=		-I${LOCALBASE}/include
 LDFLAGS+=		-L${LOCALBASE}/lib
 
 MAKE_JOBS_UNSAFE=	yes
+
+BROKEN_armv6=	binary /nxb-bin/usr/bin/cc: not found
 PORTDOCS=	html
 DOCSDIR=	${OCAML_DOCSDIR}/${PORTNAME}
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
+DOCS_ALL_TARGET=doc
 
-.if ${PORT_OPTIONS:MDOCS}
-ALL_TARGET+= doc
-
-post-install:
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${MV} ${WRKSRC}/html ${STAGEDIR}${DOCSDIR}
-.endif
 
 .include <bsd.port.mk>

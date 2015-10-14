@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libressl
-PORTVERSION=	2.2.2
+PORTVERSION=	2.2.3
 CATEGORIES=	security devel
 MASTER_SITES=	OPENBSD/LibreSSL
 
@@ -17,12 +17,19 @@ CPE_VENDOR=	openbsd
 CONFLICTS?=	openssl-[0-9]*
 
 GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-silent-rules
 USES=		cpe libtool pathfix pkgconfig
 USE_LDCONFIG=	yes
 
 INSTALL_TARGET=	install-strip
 
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "amd64"
+CONFIGURE_TARGET=	x86_64-portbld-${OPSYS:tl}${OSREL}
+.endif
+
 regression-test: build
 	cd ${WRKSRC} && ${MAKE} check
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

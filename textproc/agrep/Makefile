@@ -6,7 +6,6 @@ PORTVERSION=	2.04
 PORTREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	ftp://ftp.cs.arizona.edu/agrep/
-EXTRACT_SUFX=	.tar.Z
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} agrep.ps.1.Z agrep.ps.2.Z
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
@@ -15,6 +14,8 @@ COMMENT=	Approximate grep (fast approximate pattern-matching tool)
 
 NO_CDROM=	No redistribution for profit
 
+USES=	tar:Z
+
 ALL_TARGET=
 MAKE_ARGS=	CFLAGS="${CFLAGS}"
 PLIST_FILES=	bin/agrep man/man1/agrep.1.gz
@@ -22,17 +23,15 @@ PORTDOCS=	COPYRIGHT agrep.algorithms agrep.ps.1.Z agrep.ps.2.Z
 
 OPTIONS_DEFINE=	DOCS
 
-.include <bsd.port.options.mk>
-
 post-extract:
 	${CP} ${DISTDIR}/agrep.ps.1.Z ${DISTDIR}/agrep.ps.2.Z ${WRKSRC}/
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/agrep ${STAGEDIR}${PREFIX}/bin/
 	${INSTALL_MAN} ${WRKSRC}/agrep.1 ${STAGEDIR}${PREFIX}/man/man1/
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}/
-.endif
 
 .include <bsd.port.mk>

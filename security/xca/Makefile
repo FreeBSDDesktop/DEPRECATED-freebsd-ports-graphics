@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	security
 MASTER_SITES=	SF
 
-MAINTAINER=	freebsd@nagilum.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Graphical certification authority
 
 LICENSE=	BSD3CLAUSE
@@ -20,6 +20,8 @@ USES=		desktop-file-utils gmake shared-mime-info
 DESTDIRNAME=	destdir
 
 .include <bsd.port.pre.mk>
+
+BROKEN_sparc64=	fails to link
 
 .if ${OSVERSION} >= 1000054
 LD_CXX_LIB=	-lc++

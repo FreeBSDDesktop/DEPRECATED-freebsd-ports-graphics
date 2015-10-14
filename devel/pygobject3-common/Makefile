@@ -34,6 +34,8 @@ PLIST_SUB=	ARCH=${ARCH} UNAME_R=${UNAME_R} VERSION=${PORTVERSION} \
 MAKE_ARGS=	PYTHON_VERSION=${PYTHON_VER}
 
 .if ${SLAVE_PORT} == no
+PORTSCOUT?=	limitw:1,even
+
 BUILD_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/pycairo.pc:${PORTSDIR}/graphics/py-cairo
 USES+=		python:build
 USE_GNOME=	glib20:build introspection:build
@@ -45,7 +47,9 @@ do-install:
 		${STAGEDIR}${PREFIX}/include/pygobject-3.0/pygobject.h
 	${INSTALL_DATA} ${WRKSRC}/pygobject-3.0.pc \
 		${STAGEDIR}${PREFIX}/libdata/pkgconfig/pygobject-3.0.pc
-.else 
+.else
+PORTSCOUT=	ignore:1
+
 USE_GNOME+=	glib20 introspection
 LIB_DEPENDS+=	libffi.so:${PORTSDIR}/devel/libffi
 RUN_DEPENDS+=	pygobject3-common>=0:${PORTSDIR}/devel/pygobject3-common

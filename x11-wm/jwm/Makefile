@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	jwm
-PORTVERSION=	2.2.2
-PORTREVISION=	2
+PORTVERSION=	2.3.1
 CATEGORIES=	x11-wm
 MASTER_SITES=	http://joewing.net/programs/jwm/releases/
 
@@ -12,7 +11,7 @@ COMMENT=	Joe's Window Manager
 
 LICENSE=	GPLv2
 
-USES=		pkgconfig tar:xz
+USES=		iconv pkgconfig tar:xz
 USE_XORG=	x11
 GNU_CONFIGURE=	yes
 
@@ -68,6 +67,12 @@ IGNORE=		the XMU support requires XEXT
 IGNORE=		the XPM support requires XEXT
 .endif
 
+.include <bsd.port.pre.mk>
+
+.if !empty(ICONV_LIB)
+CONFIGURE_ARGS+=ac_cv_lib_iconv_iconv=yes
+.endif
+
 post-patch:
 	@${REINPLACE_CMD} -e \
 		's|%%PREFIX%%|${PREFIX}|' ${WRKSRC}/example.jwmrc
@@ -78,4 +83,4 @@ post-patch:
 		'/EXE/s|install|@INSTALL_PROGRAM@| ; \
 		 /strip/s|^|#|' ${WRKSRC}/src/Makefile.in
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

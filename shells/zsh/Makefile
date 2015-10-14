@@ -2,14 +2,13 @@
 # $FreeBSD$
 
 PORTNAME=	zsh
-PORTVERSION=	5.0.8
-PORTREVISION=	3
+DISTVERSION=	5.1.1
 CATEGORIES=	shells
 MASTER_SITES=	\
-		SF/${PORTNAME}/${PORTNAME}/${PORTVERSION} \
-		SF/${PORTNAME}/${PORTNAME}-doc/${PORTVERSION}:doc \
 		http://www.zsh.org/pub/:doc \
-		http://www.zsh.org/pub/
+		http://www.zsh.org/pub/ \
+		SF/${PORTNAME}/${PORTNAME}/${PORTVERSION} \
+		SF/${PORTNAME}/${PORTNAME}-doc/${PORTVERSION}:doc
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	bapt@FreeBSD.org
@@ -24,7 +23,7 @@ MAKE_JOBS_UNSAFE=	yes
 
 ZSH_VER=	${PORTVERSION}
 
-USES=		iconv ncurses shebangfix tar:bzip2
+USES=		iconv ncurses shebangfix tar:xz
 SHEBANG_FILES=	Functions/Calendar/calendar_add \
 		Functions/Misc/checkmail \
 		Functions/Misc/run-help \
@@ -116,14 +115,6 @@ post-build:
 
 post-install:
 	${LN} -f ${STAGEDIR}${PREFIX}/bin/zsh ${STAGEDIR}${PREFIX}/bin/rzsh
-.if ${PORT_OPTIONS:MEXAMPLES}
-	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-	cd ${WRKSRC}/StartupFiles && ${INSTALL_DATA} ${PORTEXAMPLES} ${STAGEDIR}${EXAMPLESDIR}
-.endif
-.if ${PORT_OPTIONS:MDOCS}
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
-.endif
 	${STAGEDIR}${PREFIX}/bin/zsh -fc ' \
 		setopt extendedglob nomark_dirs; \
 		cd ${STAGEDIR}/${DATADIR}/${ZSH_VER} ; \
@@ -131,6 +122,14 @@ post-install:
 			zcompile -U -M $$i.zwc $$i/*~*.zwc(^/) ; \
 			${CHMOD} 644 $$i.zwc ; \
 		done'
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}/StartupFiles && ${INSTALL_DATA} ${PORTEXAMPLES} ${STAGEDIR}${EXAMPLESDIR}
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
 
 regression-test:
 	@cd ${WRKSRC}; ${SETENV} -i ${MAKE} check

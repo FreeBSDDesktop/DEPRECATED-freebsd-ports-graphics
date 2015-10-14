@@ -222,6 +222,7 @@
     SUBDIR += mailgraph
     SUBDIR += mailman
     SUBDIR += mailmgr
+    SUBDIR += mailpile
     SUBDIR += mailscanner
     SUBDIR += mailsync
     SUBDIR += mailtray
@@ -414,6 +415,7 @@
     SUBDIR += p5-POE-Component-Client-SMTP
     SUBDIR += p5-POE-Component-SMTP
     SUBDIR += p5-POE-Filter-Transparent-SMTP
+    SUBDIR += p5-Parse-MIME
     SUBDIR += p5-Parse-Syslog-Mail
     SUBDIR += p5-Qmail-Envelope
     SUBDIR += p5-SES
@@ -575,6 +577,7 @@
     SUBDIR += ruby-rmail
     SUBDIR += rubygem-actionmailer
     SUBDIR += rubygem-actionmailer4
+    SUBDIR += rubygem-actionmailer41
     SUBDIR += rubygem-email_reply_parser-discourse
     SUBDIR += rubygem-exception_notification
     SUBDIR += rubygem-larch

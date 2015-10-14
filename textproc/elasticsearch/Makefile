@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	elasticsearch
-PORTVERSION=	1.7.0
+PORTVERSION=	1.7.1
 CATEGORIES=	textproc java devel
 MASTER_SITES=	http://download.elasticsearch.org/${PORTNAME}/${PORTNAME}/ \
 		http://mirrors.rit.edu/zi/
@@ -112,11 +112,10 @@ do-install:
 	cd ${STAGEDIR}${PREFIX}/lib/elasticsearch/sigar && ${LN} -s ${JAVAJARDIR}/sigar.jar
 	cd ${STAGEDIR}${PREFIX}/lib/elasticsearch/sigar && ${LN} -s ${JAVAJARDIR}/${SIGAR_LIBNAME}
 
-.if ${PORT_OPTIONS:MDOCS}
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
 .endfor
-.endif
 
 .include <bsd.port.mk>

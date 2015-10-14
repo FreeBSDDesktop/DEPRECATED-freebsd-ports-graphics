@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	namespace-clean
-PORTVERSION=	0.25
-PORTREVISION=	2
+PORTVERSION=	0.26
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -20,5 +19,6 @@ RUN_DEPENDS:=	${BUILD_DEPENDS}
 
 USES=		perl5
 USE_PERL5=	configure
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

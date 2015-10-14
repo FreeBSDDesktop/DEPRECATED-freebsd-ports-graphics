@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME?=	percona
-DISTVERSION=	5.6.24-72.2
+DISTVERSION=	5.6.26-74.0
 PORTREVISION?=	0
 CATEGORIES=	databases ipv6
 MASTER_SITES=	http://www.percona.com/downloads/Percona-Server-5.6/Percona-Server-${DISTVERSION}/source/tarball/
@@ -87,8 +87,7 @@ post-install:
 	@${MKDIR} ${STAGEDIR}/var/db/mysql
 
 .else
-BUILD_DEPENDS+=	libedit>=0:${PORTSDIR}/devel/libedit
-RUN_DEPENDS+=	libedit>=0:${PORTSDIR}/devel/libedit
+USES+=		libedit
 .endif
 
 post-patch:

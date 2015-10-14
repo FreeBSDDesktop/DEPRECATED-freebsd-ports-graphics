@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	lita
-PORTVERSION=	4.4.3
+PORTVERSION=	4.6.1
 CATEGORIES=	net-im rubygems
 MASTER_SITES=	RG
 
@@ -10,11 +10,12 @@ MAINTAINER=	ruby@FreeBSD.org
 COMMENT=	Multi-service chat bot with extendable behavior
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	redis>=0:${PORTSDIR}/databases/redis \
 		rubygem-bundler>=1.3:${PORTSDIR}/sysutils/rubygem-bundler \
 		rubygem-faraday>=0.8.7:${PORTSDIR}/www/rubygem-faraday \
-		rubygem-http_router>=0.11.1:${PORTSDIR}/www/rubygem-http_router \
+		rubygem-http_router>=0.11.2:${PORTSDIR}/www/rubygem-http_router \
 		rubygem-i18n>=0.6.9:${PORTSDIR}/devel/rubygem-i18n \
 		rubygem-ice_nine>=0.11.0:${PORTSDIR}/devel/rubygem-ice_nine \
 		rubygem-multi_json>=1.7.7:${PORTSDIR}/devel/rubygem-multi_json \

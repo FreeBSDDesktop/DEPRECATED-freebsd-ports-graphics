@@ -43,6 +43,7 @@
     SUBDIR += aop
     SUBDIR += apoolGL
     SUBDIR += apricots
+    SUBDIR += aquaria
     SUBDIR += arkanoidsb
     SUBDIR += armagetron
     SUBDIR += arx-libertatis
@@ -307,7 +308,6 @@
     SUBDIR += fxsudoku
     SUBDIR += galaxis
     SUBDIR += galaxyhack
-    SUBDIR += galaxymage
     SUBDIR += garith
     SUBDIR += gbottler
     SUBDIR += gbrainy
@@ -520,8 +520,6 @@
     SUBDIR += lightsoff
     SUBDIR += lincity
     SUBDIR += lincity-ng
-    SUBDIR += linux-candycruncher-demo
-    SUBDIR += linux-coldwar-demo
     SUBDIR += linux-darwinia-demo
     SUBDIR += linux-defcon
     SUBDIR += linux-doom3
@@ -536,9 +534,6 @@
     SUBDIR += linux-enemyterritory-tce
     SUBDIR += linux-etqw-demo-server
     SUBDIR += linux-etqw-server
-    SUBDIR += linux-gorky17-demo
-    SUBDIR += linux-hdb-demo
-    SUBDIR += linux-majesty-demo
     SUBDIR += linux-nerogame
     SUBDIR += linux-ningpo-demo
     SUBDIR += linux-nwnclient
@@ -622,6 +617,7 @@
     SUBDIR += nadar
     SUBDIR += naev
     SUBDIR += naev-data
+    SUBDIR += narcissu2
     SUBDIR += nazghul
     SUBDIR += nehquake
     SUBDIR += nelly

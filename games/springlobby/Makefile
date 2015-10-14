@@ -3,7 +3,7 @@
 
 PORTNAME=	springlobby
 PORTVERSION=	0.180
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	games net
 MASTER_SITES=	http://www.springlobby.info/tarballs/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -18,11 +18,10 @@ RUN_DEPENDS=	spring:${PORTSDIR}/games/spring
 LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl \
 		libboost_thread.so:${PORTSDIR}/devel/boost-libs
 
-USES=		cmake pkgconfig compiler:c++11-lib tar:bzip2
+USES=		cmake compiler:c++11-lib pkgconfig tar:bzip2
 CMAKE_ARGS=	-DwxWidgets_CONFIG_EXECUTABLE="${WX_CONFIG}" \
 		-DENABLE_DEBUG_REPORT=FALSE
 USE_WX=		2.8+
-WX_UNICODE=	yes
 
 PORTDOCS=	*
 

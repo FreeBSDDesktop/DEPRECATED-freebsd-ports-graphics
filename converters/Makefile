@@ -4,6 +4,7 @@
     COMMENT = Character code converters
 
     SUBDIR += R-cran-RJSONIO
+    SUBDIR += R-cran-jsonlite
     SUBDIR += R-cran-rjson
     SUBDIR += aish
     SUBDIR += ascii2binary
@@ -22,6 +23,7 @@
     SUBDIR += drg2sbg
     SUBDIR += dumpasn1
     SUBDIR += enca
+    SUBDIR += erlang-base64url
     SUBDIR += fconv
     SUBDIR += fix-mime-charset
     SUBDIR += fondu
@@ -30,8 +32,10 @@
     SUBDIR += gbase
     SUBDIR += gbsdconv
     SUBDIR += hs-aeson
+    SUBDIR += hs-aeson-pretty
     SUBDIR += hs-dataenc
     SUBDIR += hs-json
+    SUBDIR += hs-sandi
     SUBDIR += htx
     SUBDIR += i18ntools
     SUBDIR += ical2html

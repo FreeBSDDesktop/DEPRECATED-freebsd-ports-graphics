@@ -3,6 +3,7 @@
 
 PORTNAME=	doxygen
 PORTVERSION=	1.8.10
+PORTREVISION=	2
 PORTEPOCH=	2
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.stack.nl/pub/users/dimitri/ \
@@ -15,7 +16,7 @@ COMMENT=	Documentation system for C, C++, and other languages
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		bison cmake:outsource iconv python:2
+USES=		bison cmake:outsource iconv python:2 shebangfix
 ALL_TARGET=	all
 CMAKE_ARGS+=	-DDOC_INSTALL_DIR:PATH=${DOCSDIR_REL}
 REINPLACE_ARGS=	-i ''
@@ -48,17 +49,18 @@ DOCS_PLIST_FILES=	man/man1/doxygen.1.gz \
 			man/man1/doxyindexer.1.gz \
 			man/man1/doxysearch.1.gz \
 			man/man1/doxywizard.1.gz
+DOCS_IMPLIES=		LATEX
 PORTDOCS=		*
 
-.include <bsd.port.options.mk>
-
-.if ${PORT_OPTIONS:MDOCS} && empty(PORT_OPTIONS:MLATEX)
-IGNORE=		cannot build Doxygen's PDF docs without option LATEX enabled
-.endif
+.include <bsd.port.pre.mk>
 
 .if ${OSVERSION} < 1000033
 BUILD_DEPENDS+=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex
 CMAKE_ARGS+=	-DFLEX_EXECUTABLE=${LOCALBASE}/bin/flex
 .endif
 
-.include <bsd.port.mk>
+post-patch:
+	@${REINPLACE_CMD} -e '/PERL_PATH/ s|${perl_OLD_CMD}|${perl_CMD}|' \
+		${WRKSRC}/src/config.xml
+
+.include <bsd.port.post.mk>

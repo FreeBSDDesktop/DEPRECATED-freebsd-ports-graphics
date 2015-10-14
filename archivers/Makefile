@@ -11,6 +11,7 @@
     SUBDIR += ark
     SUBDIR += atool
     SUBDIR += bicom
+    SUBDIR += brotli
     SUBDIR += bzip
     SUBDIR += bzip2
     SUBDIR += cabextract
@@ -136,6 +137,7 @@
     SUBDIR += pear-Horde_Compress_Fast
     SUBDIR += pear-Horde_Pack
     SUBDIR += pear-PHP_Archive
+    SUBDIR += peazip
     SUBDIR += pecl-lzf
     SUBDIR += pecl-phk
     SUBDIR += pecl-rar

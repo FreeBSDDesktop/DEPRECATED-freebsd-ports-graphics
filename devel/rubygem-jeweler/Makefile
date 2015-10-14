@@ -10,6 +10,7 @@ MAINTAINER=	douglas@douglasthrift.net
 COMMENT=	Simple and opinionated helper for creating Rubygem projects
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 RUN_DEPENDS=	rubygem-builder32>=0:${PORTSDIR}/devel/rubygem-builder32 \
 		rubygem-bundler>=1.0:${PORTSDIR}/sysutils/rubygem-bundler \
@@ -19,6 +20,7 @@ RUN_DEPENDS=	rubygem-builder32>=0:${PORTSDIR}/devel/rubygem-builder32 \
 		rubygem-nokogiri>=1.5.10:${PORTSDIR}/textproc/rubygem-nokogiri \
 		rubygem-rake>=0:${PORTSDIR}/devel/rubygem-rake
 
+NO_ARCH=	yes
 USE_RUBY=	yes
 USE_RUBYGEMS=	yes
 RUBYGEM_AUTOPLIST=	yes

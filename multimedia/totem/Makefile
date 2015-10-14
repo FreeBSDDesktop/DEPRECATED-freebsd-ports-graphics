@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	totem
-PORTVERSION=	3.16.2
+PORTVERSION=	3.16.3
 CATEGORIES=	multimedia gnome
 MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome3
@@ -27,8 +27,7 @@ RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/iso-codes.pc:${PORTSDIR}/misc/iso-co
 		${PYTHON_PKGNAMEPREFIX}libpeas>=0:${PORTSDIR}/devel/py-libpeas \
 		gnome-settings-daemon>=2.91.0:${PORTSDIR}/sysutils/gnome-settings-daemon \
 		gnome-icon-theme-symbolic>=2.91.0:${PORTSDIR}/x11-themes/gnome-icon-theme-symbolic \
-		grilo-plugins>=0:${PORTSDIR}/net/grilo-plugins \
-		${PYTHON_PKGNAMEPREFIX}libpeas>=0:${PORTSDIR}/devel/py3-libpeas
+		grilo-plugins>=0:${PORTSDIR}/net/grilo-plugins
 
 PORTSCOUT=	limitw:1,even
 
