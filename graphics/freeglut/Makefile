@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	freeglut
-PORTVERSION=	2.8.1
-PORTREVISION=	4
+PORTVERSION=	3.0.0
 CATEGORIES=	graphics
 MASTER_SITES=	SF
 
@@ -15,15 +14,12 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 CONFLICTS=	libglut-[0-9].*
 
-USES=		libtool
-GNU_CONFIGURE=	yes
+USES=		cmake
 USE_LDCONFIG=	yes
-USE_XORG=	ice xi xxf86vm xrandr
-USE_GL=		glu
-CONFIGURE_ARGS=	--disable-warnings
+USE_XORG=	x11 xrandr
+USE_GL=		gl glu
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lusbhid -lm
-USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
 
 DOCS=	download.html freeglut.html freeglut_logo.png		\
