@@ -1,18 +1,33 @@
 --- src/fg_joystick.c.orig	2014-10-20 15:27:04 UTC
 +++ src/fg_joystick.c
-@@ -60,7 +60,10 @@
- #                include <libusbhid.h>
- #            endif
- #        endif
--#        include <legacy/dev/usb/usb.h>
-+#        include <dev/usb/usb.h>
-+#        if __FreeBSD_version >= 800061
-+#            include <dev/usb/usb_ioctl.h>
-+#        endif
- #        include <dev/usb/usbhid.h>
+@@ -44,53 +44,9 @@
  
- /* Compatibility with older usb.h revisions */
-@@ -71,26 +74,6 @@
+ #if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+ 
+-#    ifdef HAVE_USB_JS
+-#        if defined(__NetBSD__)
+-/* XXX The below hack is done until freeglut's autoconf is updated. */
+-#            define HAVE_USBHID_H 1
+-#            ifdef HAVE_USBHID_H
+-#                include <usbhid.h>
+-#            else
+-#                include <usb.h>
+-#            endif
+-#        elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+-#            ifdef HAVE_USBHID_H
+-#                include <usbhid.h>
+-#            else
+-#                include <libusbhid.h>
+-#            endif
+-#        endif
+-#        include <legacy/dev/usb/usb.h>
+-#        include <dev/usb/usbhid.h>
+-
+-/* Compatibility with older usb.h revisions */
+-#        if !defined(USB_MAX_DEVNAMES) && defined(MAXDEVNAMES)
+-#            define USB_MAX_DEVNAMES MAXDEVNAMES
+-#        endif
+-#    endif
  
  static int hatmap_x[9] = { 0, 0, 1, 1, 1, 0, -1, -1, -1 };
  static int hatmap_y[9] = { 0, 1, 1, 0, -1, -1, -1, 0, 1 };
@@ -39,7 +54,7 @@
  
  /* Idents lower than USB_IDENT_OFFSET are for analog joysticks. */
  #    define USB_IDENT_OFFSET    2
-@@ -107,6 +90,7 @@ struct os_specific_s {
+@@ -107,6 +63,7 @@ struct os_specific_s {
   */
  static char *fghJoystickWalkUSBdev(int f, char *dev, char *out, int outlen)
  {
@@ -47,7 +62,7 @@
    struct usb_device_info di;
    int i, a;
    char *cp;
-@@ -128,6 +112,7 @@ static char *fghJoystickWalkUSBdev(int f
+@@ -128,6 +85,7 @@ static char *fghJoystickWalkUSBdev(int f
          return out;
        }
    }
