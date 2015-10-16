@@ -1,6 +1,6 @@
 --- src/fg_joystick.c.orig	2014-10-20 15:27:04 UTC
 +++ src/fg_joystick.c
-@@ -44,53 +44,9 @@
+@@ -44,60 +44,6 @@
  
  #if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
  
@@ -28,9 +28,9 @@
 -#            define USB_MAX_DEVNAMES MAXDEVNAMES
 -#        endif
 -#    endif
- 
- static int hatmap_x[9] = { 0, 0, 1, 1, 1, 0, -1, -1, -1 };
- static int hatmap_y[9] = { 0, 1, 1, 0, -1, -1, -1, 0, 1 };
+-
+-static int hatmap_x[9] = { 0, 0, 1, 1, 1, 0, -1, -1, -1 };
+-static int hatmap_y[9] = { 0, 1, 1, 0, -1, -1, -1, 0, 1 };
 -struct os_specific_s {
 -  char             fname [128 ];
 -  int              fd;
@@ -51,10 +51,17 @@
 -  int              cache_buttons;
 -  float            cache_axes [ _JS_MAX_AXES ];
 -};
+-
+-/* Idents lower than USB_IDENT_OFFSET are for analog joysticks. */
+-#    define USB_IDENT_OFFSET    2
+-
+-#    define USBDEV "/dev/usb"
+-#    define UHIDDEV "/dev/uhid"
+-#    define AJSDEV "/dev/joy"
  
- /* Idents lower than USB_IDENT_OFFSET are for analog joysticks. */
- #    define USB_IDENT_OFFSET    2
-@@ -107,6 +63,7 @@ struct os_specific_s {
+ #    ifdef HAVE_USB_JS
+ /*
+@@ -107,6 +53,7 @@ struct os_specific_s {
   */
  static char *fghJoystickWalkUSBdev(int f, char *dev, char *out, int outlen)
  {
@@ -62,7 +69,7 @@
    struct usb_device_info di;
    int i, a;
    char *cp;
-@@ -128,6 +85,7 @@ static char *fghJoystickWalkUSBdev(int f
+@@ -128,6 +75,7 @@ static char *fghJoystickWalkUSBdev(int f
          return out;
        }
    }

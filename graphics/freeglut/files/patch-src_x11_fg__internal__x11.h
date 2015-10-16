@@ -1,7 +1,20 @@
 --- src/x11/fg_internal_x11.h.orig	2014-10-20 15:27:04 UTC
 +++ src/x11/fg_internal_x11.h
-@@ -138,6 +138,29 @@ struct tagSFG_PlatformWindowState
+@@ -136,8 +136,42 @@ struct tagSFG_PlatformWindowState
+ #include <string.h>
+ 
  #    if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__)
++
++static int hatmap_x[9] = { 0, 0, 1, 1, 1, 0, -1, -1, -1 };
++static int hatmap_y[9] = { 0, 1, 1, 0, -1, -1, -1, 0, 1 };
++
++/* Idents lower than USB_IDENT_OFFSET are for analog joysticks. */
++#    define USB_IDENT_OFFSET    2
++
++#    define USBDEV "/dev/usb"
++#    define UHIDDEV "/dev/uhid"
++#    define AJSDEV "/dev/joy"
++
  /* XXX The below hack is done until freeglut's autoconf is updated. */
  #        define HAVE_USB_JS    1
 +#        if defined(__NetBSD__)
@@ -30,7 +43,7 @@
  
  #        if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
  #            include <sys/joystick.h>
-@@ -189,6 +212,30 @@ struct tagSFG_PlatformWindowState
+@@ -189,6 +223,30 @@ struct tagSFG_PlatformWindowState
   */
  #    define _JS_MAX_AXES 16
  typedef struct tagSFG_PlatformJoystick SFG_PlatformJoystick;
