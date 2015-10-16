@@ -239,3 +239,66 @@
  
  /*
   * Functions associated with the "jsJoystick" class in PLIB
+@@ -306,26 +74,6 @@ extern void fgPlatformJoystickClose ( in
+ #define MAX_NUM_JOYSTICKS  2
+ SFG_Joystick *fgJoystick [ MAX_NUM_JOYSTICKS ];
+ 
+-/*
+- * Read the raw joystick data
+- */
+-static void fghJoystickRawRead( SFG_Joystick* joy, int* buttons, float* axes )
+-{
+-    int i;
+-
+-    /* Defaults */
+-    if( buttons )
+-        *buttons = 0;
+-
+-    if( axes )
+-        for( i = 0; i < joy->num_axes; i++ )
+-            axes[ i ] = 1500.0f;
+-
+-    if( joy->error )
+-        return;
+-
+-	fgPlatformJoystickRawRead ( joy, buttons, axes );
+-}
+ 
+ /*
+  * Correct the joystick axis data
+@@ -384,7 +132,7 @@ static void fghJoystickRead( SFG_Joystic
+                 axes[ i ] = 0.0f;
+     }
+ 
+-    fghJoystickRawRead( joy, buttons, raw_axes );
++    fgJoystickRawRead( joy, buttons, raw_axes );
+ 
+     if( axes )
+         for( i=0; i<joy->num_axes; i++ )
+@@ -966,6 +714,26 @@ int fgJoystickDetect( void )
+ }
+ 
+ /*
++ * Read the raw joystick data
++ */
++void fgJoystickRawRead( SFG_Joystick* joy, int* buttons, float* axes )
++{
++    int i;
++
++    /* Defaults */
++    if( buttons )
++        *buttons = 0;
++
++    if( axes )
++        for( i = 0; i < joy->num_axes; i++ )
++            axes[ i ] = 1500.0f;
++
++    if( joy->error )
++        return;
++
++	fgPlatformJoystickRawRead ( joy, buttons, axes );
++}
++/*
+  * Joystick information, setup and execution functions
+  */
+ 
