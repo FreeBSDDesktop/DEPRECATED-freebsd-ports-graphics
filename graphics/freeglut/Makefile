@@ -12,8 +12,6 @@ COMMENT=	Alternative to the OpenGL Utility Toolkit (GLUT) library
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-CONFLICTS=	libglut-[0-9].*
-
 USES=		cmake
 USE_LDCONFIG=	yes
 USE_XORG=	ice x11 xi xrandr
