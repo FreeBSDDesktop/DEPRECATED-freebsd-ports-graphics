@@ -1,6 +1,6 @@
---- src/x11/fg_internal_x11.h.orig	2015-10-16 10:42:49 UTC
+--- src/x11/fg_internal_x11.h.orig	2014-10-20 15:27:04 UTC
 +++ src/x11/fg_internal_x11.h
-@@ -138,6 +138,31 @@ struct tagSFG_PlatformWindowState
+@@ -138,6 +138,29 @@ struct tagSFG_PlatformWindowState
  #    if defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__)
  /* XXX The below hack is done until freeglut's autoconf is updated. */
  #        define HAVE_USB_JS    1
@@ -18,11 +18,9 @@
 +#            else
 +#                include <libusbhid.h>
 +#            endif
-+#        endif
-+#        include <dev/usb/usb.h>
-+#        if __FreeBSD_version >= 800061
 +#            include <dev/usb/usb_ioctl.h>
 +#        endif
++#        include <dev/usb/usb.h>
 +#        include <dev/usb/usbhid.h>
 +
 +/* Compatibility with older usb.h revisions */
@@ -32,7 +30,7 @@
  
  #        if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
  #            include <sys/joystick.h>
-@@ -189,6 +214,30 @@ struct tagSFG_PlatformWindowState
+@@ -189,6 +212,30 @@ struct tagSFG_PlatformWindowState
   */
  #    define _JS_MAX_AXES 16
  typedef struct tagSFG_PlatformJoystick SFG_PlatformJoystick;
