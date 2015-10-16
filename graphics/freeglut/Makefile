@@ -26,8 +26,7 @@ DOCS=	download.html freeglut.html freeglut_logo.png		\
 	freeglut_user_interface.html index.html ogl_sm.png	\
 	progress.html structure.html
 BINS=	CallbackMaker Fractals Fractals_random Lorenz One Resizer \
-	init_error_func multi-touch shapes smooth_opengl3 spaceball \
-	subwin timer
+	multi-touch shapes smooth_opengl3 spaceball subwin timer
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
