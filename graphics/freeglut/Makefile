@@ -25,7 +25,9 @@ INSTALL_TARGET=	install/strip
 DOCS=	download.html freeglut.html freeglut_logo.png		\
 	freeglut_user_interface.html index.html ogl_sm.png	\
 	progress.html structure.html
-BINS=	CallbackMaker Fractals Fractals_random Lorenz One shapes
+BINS=	CallbackMaker Fractals Fractals_random Lorenz One Resizer \
+	init_error_func multi-touch shapes smooth_opengl3 spaceball \
+	subwin timer
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
@@ -49,7 +51,7 @@ post-install:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	@${INSTALL_DATA} ${WRKSRC}/progs/demos/Fractals/fractals.dat ${STAGEDIR}${EXAMPLESDIR}
 .for prog in ${BINS}
-	@${INSTALL_PROGRAM} ${WRKSRC}/progs/demos/${prog} ${STAGEDIR}${EXAMPLESDIR}
+	@${INSTALL_PROGRAM} ${WRKSRC}/bin/${prog} ${STAGEDIR}${EXAMPLESDIR}
 .endfor
 	@${ECHO_MSG} "===> Examples installed in ${EXAMPLESDIR}."
 .endif
