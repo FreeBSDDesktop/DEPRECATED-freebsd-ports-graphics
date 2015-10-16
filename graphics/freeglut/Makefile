@@ -20,7 +20,7 @@ USE_XORG=	ice x11 xi xrandr
 USE_GL=		gl glu
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lusbhid -lm
-INSTALL_TARGET=	install-strip
+INSTALL_TARGET=	install/strip
 
 DOCS=	download.html freeglut.html freeglut_logo.png		\
 	freeglut_user_interface.html index.html ogl_sm.png	\
