@@ -16,7 +16,7 @@ CONFLICTS=	libglut-[0-9].*
 
 USES=		cmake
 USE_LDCONFIG=	yes
-USE_XORG=	x11 xi xrandr
+USE_XORG=	ice x11 xi xrandr
 USE_GL=		gl glu
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib -lusbhid -lm
