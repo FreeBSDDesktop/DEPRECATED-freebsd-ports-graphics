@@ -4,7 +4,7 @@
  void        fgInitialiseJoysticks( void );
  void        fgJoystickClose( void );
  void        fgJoystickPollWindow( SFG_Window* window );
-+void        fgJoystickRawRead( SFG_Joystic* joy, int* buttons, float* axes );
++void        fgJoystickRawRead( SFG_Joystick* joy, int* buttons, float* axes );
  
  /* InputDevice Initialisation and Closure */
  int         fgInputDeviceDetect( void );
