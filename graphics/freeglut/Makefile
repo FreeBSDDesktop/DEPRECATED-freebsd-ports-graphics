@@ -37,10 +37,6 @@ pre-configure:
 		${WRKSRC}/progs/demos/${fract}
 .endfor
 
-post-build:
-	@${MV} ${WRKSRC}/progs/demos/CallbackMaker/.libs/CallbackMaker	\
-		${WRKSRC}/progs/demos/CallbackMaker/.libs/callbackmaker
-
 post-install:
 .if ${PORT_OPTIONS:MDOCS}
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
