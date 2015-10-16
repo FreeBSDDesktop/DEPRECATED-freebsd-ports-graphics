@@ -1,4 +1,4 @@
---- src/x11/fg_joystick_x11.c.orig	2015-10-16 13:07:33 UTC
+--- src/x11/fg_joystick_x11.c.orig	2014-12-02 05:22:12 UTC
 +++ src/x11/fg_joystick_x11.c
 @@ -46,6 +46,183 @@
  #define MAX_NUM_JOYSTICKS  2   
@@ -184,3 +184,21 @@
  void fgPlatformJoystickRawRead( SFG_Joystick* joy, int* buttons, float* axes )
  {
      int status;
+@@ -259,7 +436,7 @@ void fgPlatformJoystickOpen( SFG_Joystic
+         joy->num_axes    =  2;
+         joy->num_buttons = 32;
+ 
+-        fghJoystickRawRead( joy, buttons, axes );
++        fgJoystickRawRead( joy, buttons, axes );
+         joy->error = axes[ 0 ] < -1000000000.0f;
+         if( joy->error )
+             return;
+@@ -379,7 +556,7 @@ void fgPlatformJoystickOpen( SFG_Joystic
+ 
+     do
+     {
+-        fghJoystickRawRead( joy, NULL, joy->center );
++        fgJoystickRawRead( joy, NULL, joy->center );
+         counter++;
+     } while( !joy->error &&
+              counter < 100 &&

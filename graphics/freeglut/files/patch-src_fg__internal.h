@@ -1,4 +1,4 @@
---- src/fg_internal.h.orig	2015-10-16 13:23:29 UTC
+--- src/fg_internal.h.orig	2014-12-22 16:27:02 UTC
 +++ src/fg_internal.h
 @@ -967,6 +967,7 @@ int         fgJoystickDetect( void );
  void        fgInitialiseJoysticks( void );
