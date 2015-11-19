@@ -8,7 +8,6 @@ CATEGORIES=	x11-drivers
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Driver for Intel integrated graphics chipsets
 
-#LIB_DEPENDS=	libglamor.so:${PORTSDIR}/graphics/glamor
 LIB_DEPENDS=	libxcb-util.so:${PORTSDIR}/x11/xcb-util
 
 ONLY_FOR_ARCHS=	amd64 i386
@@ -31,7 +30,6 @@ CPE_VENDOR=	x
 
 CONFIGURE_ENV+=	xorg_cv_cc_flag__Wno_maybe_uninitialized=no
 CONFIGURE_ARGS+=	--enable-sna \
-			--disable-glamor \
 			--disable-dri3
 INSTALL_TARGET=	install-strip
 
