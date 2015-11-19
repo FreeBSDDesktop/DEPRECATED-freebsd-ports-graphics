@@ -15,6 +15,7 @@
     SUBDIR += R-cran-rmarkdown
     SUBDIR += R-cran-stringi
     SUBDIR += R-cran-stringr
+    SUBDIR += R-cran-xml2
     SUBDIR += R-cran-xtable
     SUBDIR += R-cran-yaml
     SUBDIR += ack
@@ -83,6 +84,7 @@
     SUBDIR += clucene
     SUBDIR += clucene-qt4
     SUBDIR += clucene-qt5
+    SUBDIR += cmark
     SUBDIR += coccigrep
     SUBDIR += code2html
     SUBDIR += codespell
@@ -223,6 +225,7 @@
     SUBDIR += groff
     SUBDIR += groonga
     SUBDIR += gsed
+    SUBDIR += gspell
     SUBDIR += gtk-doc
     SUBDIR += gtkspell
     SUBDIR += gtkspell-reference
@@ -298,6 +301,7 @@
     SUBDIR += html2fo
     SUBDIR += html2tex
     SUBDIR += html2text
+    SUBDIR += html2xhtml
     SUBDIR += htmlc
     SUBDIR += htmldoc
     SUBDIR += htmlise
@@ -435,6 +439,7 @@
     SUBDIR += linux-f10-scim-gtk
     SUBDIR += linux-f10-scim-libs
     SUBDIR += linuxdoc
+    SUBDIR += linuxdoc-tools
     SUBDIR += localize
     SUBDIR += loook
     SUBDIR += lt-aspell
@@ -1182,6 +1187,7 @@
     SUBDIR += po4a
     SUBDIR += pocketreader
     SUBDIR += pod2mdoc
+    SUBDIR += pootle
     SUBDIR += popup
     SUBDIR += popup-stacks
     SUBDIR += ppower4
@@ -1202,6 +1208,7 @@
     SUBDIR += py-diff-match-patch
     SUBDIR += py-docutils
     SUBDIR += py-dsv
+    SUBDIR += py-elasticsearch-dsl-py
     SUBDIR += py-elasticsearch-py
     SUBDIR += py-elib.intl
     SUBDIR += py-empy
@@ -1225,6 +1232,7 @@
     SUBDIR += py-markdown
     SUBDIR += py-markdown2
     SUBDIR += py-mistune
+    SUBDIR += py-mwparserfromhell
     SUBDIR += py-nltk
     SUBDIR += py-openpyxl
     SUBDIR += py-openpyxl1
@@ -1259,12 +1267,13 @@
     SUBDIR += py-sparqlwrapper
     SUBDIR += py-sphinx
     SUBDIR += py-sphinx-intl
-    SUBDIR += py-sphinx_rtd_theme
     SUBDIR += py-sphinx_numfig
+    SUBDIR += py-sphinx_rtd_theme
     SUBDIR += py-sphinx_wikipedia
     SUBDIR += py-sphinxcontrib-adadomain
     SUBDIR += py-sphinxcontrib-bitbucket
     SUBDIR += py-sphinxcontrib-httpdomain
+    SUBDIR += py-sphinxcontrib-programoutput
     SUBDIR += py-syck
     SUBDIR += py-texttable
     SUBDIR += py-tinycss
@@ -1347,6 +1356,7 @@
     SUBDIR += ruby-xml-configfile
     SUBDIR += ruby-xmlparser
     SUBDIR += ruby-xmlscan
+    SUBDIR += rubygem-actionpack-xml_parser
     SUBDIR += rubygem-albino
     SUBDIR += rubygem-amatch
     SUBDIR += rubygem-asciidoctor
@@ -1390,15 +1400,21 @@
     SUBDIR += rubygem-ini
     SUBDIR += rubygem-itextomml
     SUBDIR += rubygem-jekyll-assets
+    SUBDIR += rubygem-jekyll-feed
     SUBDIR += rubygem-jekyll-gist
+    SUBDIR += rubygem-jekyll-mentions
     SUBDIR += rubygem-jekyll-paginate
+    SUBDIR += rubygem-jekyll-redirect-from
     SUBDIR += rubygem-jekyll-sass-converter
+    SUBDIR += rubygem-jekyll-sitemap
+    SUBDIR += rubygem-jemoji
     SUBDIR += rubygem-jsmin
     SUBDIR += rubygem-kramdown
     SUBDIR += rubygem-kwalify
     SUBDIR += rubygem-libxml-ruby
     SUBDIR += rubygem-linguistics
     SUBDIR += rubygem-liquid
+    SUBDIR += rubygem-liquid2
     SUBDIR += rubygem-loggability
     SUBDIR += rubygem-loofah
     SUBDIR += rubygem-ltsv
@@ -1436,6 +1452,7 @@
     SUBDIR += rubygem-sass-rails5
     SUBDIR += rubygem-sass32
     SUBDIR += rubygem-sax-machine
+    SUBDIR += rubygem-scss_lint
     SUBDIR += rubygem-simplecov-html
     SUBDIR += rubygem-spreadsheet
     SUBDIR += rubygem-stamp

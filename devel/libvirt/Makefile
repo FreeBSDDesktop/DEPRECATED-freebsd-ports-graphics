@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	libvirt
-PORTVERSION=	1.2.19
+PORTVERSION=	1.2.21
 CATEGORIES=	devel
 MASTER_SITES=	http://libvirt.org/sources/ \
 		ftp://libvirt.org/libvirt/
 
-MAINTAINER=	jgh@FreeBSD.org
+MAINTAINER=	novel@FreeBSD.org
 COMMENT=	Toolkit to interact with virtualization capabilities
 
 LICENSE=	LGPL3
@@ -23,12 +23,14 @@ RUN_DEPENDS=	dnsmasq:${PORTSDIR}/dns/dnsmasq \
 		dmidecode:${PORTSDIR}/sysutils/dmidecode
 
 OPTIONS_DEFINE=	DOCS NLS QEMU SASL
+OPTIONS_DEFINE_amd64=	XEN
 .if exists(/usr/sbin/bhyve)
-OPTIONS_DEFINE_amd64=	BHYVE
-OPTIONS_DEFAULT_amd64=	BHYVE
+OPTIONS_DEFINE_amd64+=	BHYVE
+OPTIONS_DEFAULT_amd64+=	BHYVE
 .endif
 QEMU_DESC=	QEMU driver
 BHYVE_DESC=	bhyve driver
+XEN_DESC=	Xen support via libxl
 
 OPTIONS_SUB=	yes
 
@@ -45,6 +47,10 @@ NLS_CONFIGURE_ON=	--with-libintl-prefix=${LOCALBASE}
 SASL_CONFIGURE_WITH=	sasl
 SASL_LIB_DEPENDS=	libsasl2.so:${PORTSDIR}/security/cyrus-sasl2
 
+XEN_CONFIGURE_WITH=	libxl
+XEN_CFLAGS=	-I${LOCALBASE}/include
+XEN_LIB_DEPENDS=	libxenlight.so:${PORTSDIR}/sysutils/xen-tools
+
 VARDIR=		/var
 
 USE_RC_SUBR=	libvirtd
@@ -59,7 +65,6 @@ CONFIGURE_ARGS=	--without-avahi \
 		--without-lxc \
 		--without-uml \
 		--without-xen \
-		--without-libxl \
 		--with-ssh2 \
 		--localstatedir=${VARDIR}
 
@@ -81,6 +86,8 @@ PLIST_SUB=	PORTVERSION="-${PORTVERSION}" \
 		SHLIB_VER=${SHLIB_VER}
 PORTDOCS=	*
 
+SUB_FILES=	pkg-message
+
 .include <bsd.port.options.mk>
 
 .if (exists(/usr/sbin/bhyve) && ${OSVERSION} >= 100051)
@@ -94,17 +101,26 @@ STRIP_FILES+=	lib/libvirt/connection-driver/libvirt_driver_bhyve.so
 PLIST_FILES+=	lib/libvirt/connection-driver/libvirt_driver_bhyve.so
 .endif
 
-post-patch:
-.if ${OSVERSION} < 900000
-	@${REINPLACE_CMD} -e 's|-Wmissing-include-dirs||' \
-		${WRKSRC}/configure
+.if !${PLIST_SUB:MXEN}
+PLIST_SUB+=     XEN="@comment "
 .endif
+
+post-patch:
 	@${MV} ${WRKSRC}/daemon/libvirtd.conf ${WRKSRC}/daemon/libvirtd.conf.sample
 	@${REINPLACE_CMD} -e 's|libvirtd\.conf|libvirtd.conf.sample|' \
 		${WRKSRC}/daemon/Makefile.in
+	
+	@${REINPLACE_CMD} -e 's|ln -s ../default.xml|true|' \
+			  -e 's|$$(DESTDIR)$$(confdir)/qemu/networks|${STAGEDIR}${EXAMPLESDIR}/networks|' \
+			  ${WRKSRC}/src/Makefile.in
 
 	@${MV} ${WRKSRC}/src/libvirt.conf ${WRKSRC}/src/libvirt.conf.sample
 	@${REINPLACE_CMD} -e 's|conf_DATA = libvirt.conf|conf_DATA = libvirt.conf.sample|' \
+		${WRKSRC}/src/Makefile.in
+
+	@${MV} ${WRKSRC}/src/locking/virtlockd.conf ${WRKSRC}/src/locking/virtlockd.conf.sample
+	@${REINPLACE_CMD} -e 's|virtlockd.conf |virtlockd.conf.sample |' \
+			  -e 's|virtlockd.conf$$|virtlockd.conf.sample|' \
 		${WRKSRC}/src/Makefile.in
 
 	@${MV} ${WRKSRC}/src/qemu/qemu.conf ${WRKSRC}/src/qemu/qemu.conf.sample
@@ -113,10 +129,18 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|qemu.conf$$|qemu.conf.sample|' \
 		${WRKSRC}/src/Makefile.in
 
+	@${MV} ${WRKSRC}/src/libxl/libxl.conf ${WRKSRC}/src/libxl/libxl.conf.sample
+	@${REINPLACE_CMD} -e 's|libxl.conf |libxl.conf.sample |' \
+		${WRKSRC}/src/Makefile.in
+	@${REINPLACE_CMD} -e 's|libxl.conf$$|libxl.conf.sample|' \
+		${WRKSRC}/src/Makefile.in
+
 	@${REINPLACE_CMD} -e 's|cp $$(DESTDIR)|cp -f $$(DESTDIR)|' \
 		${WRKSRC}/src/Makefile.in
 
 post-install:
+	@${RMDIR} ${STAGEDIR}${EXAMPLESDIR}/networks/autostart
+	@${MKDIR} ${STAGEDIR}${ETCDIR}/qemu/networks/autostart
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 .for doc in AUTHORS ChangeLog INSTALL NEWS README TODO
 	${INSTALL_DATA} ${WRKSRC}/${doc} ${STAGEDIR}${DOCSDIR}

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	comeonin
-PORTVERSION=	1.1.3
+PORTVERSION=	1.4
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 PKGNAMEPREFIX=	elixir-
@@ -15,5 +15,11 @@ LICENSE_COMB=	multi
 USES=		elixir gmake
 USE_GITHUB=	yes
 GH_ACCOUNT=	elixircnx
+
+MIX_BUILD_DEPS=	devel/elixir-gettext
+MIX_RUN_DEPS:=	${MIX_BUILD_DEPS}
+
+post-build:
+	${STRIP_CMD} ${WRKSRC}/priv/bcrypt_nif.so
 
 .include <bsd.port.mk>

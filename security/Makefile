@@ -112,8 +112,11 @@
     SUBDIR += easy-rsa
     SUBDIR += easypg
     SUBDIR += elixir-comeonin
+    SUBDIR += elixir-jose
     SUBDIR += engine_pkcs11
+    SUBDIR += erlang-jose
     SUBDIR += erlang-p1tls
+    SUBDIR += esteidfirefoxplugin
     SUBDIR += expiretable
     SUBDIR += f-prot
     SUBDIR += fakebo
@@ -171,6 +174,7 @@
     SUBDIR += gsasl
     SUBDIR += gsfv
     SUBDIR += gss
+    SUBDIR += gstreamer1-plugins-dtls
     SUBDIR += gtk-knocker
     SUBDIR += gtkpasman
     SUBDIR += gwee
@@ -785,6 +789,7 @@
     SUBDIR += py-Products.PluggableAuthService
     SUBDIR += py-RestrictedPython
     SUBDIR += py-SecretStorage
+    SUBDIR += py-acme
     SUBDIR += py-artifacts
     SUBDIR += py-bcrypt
     SUBDIR += py-borg.localrole
@@ -811,6 +816,7 @@
     SUBDIR += py-kerberos
     SUBDIR += py-keyczar
     SUBDIR += py-keyring
+    SUBDIR += py-letsencrypt
     SUBDIR += py-libnacl
     SUBDIR += py-m2crypto
     SUBDIR += py-mcrypt
@@ -841,6 +847,7 @@
     SUBDIR += py-pyptlib
     SUBDIR += py-pyscard
     SUBDIR += py-pysha3
+    SUBDIR += py-python-gnupg
     SUBDIR += py-python-registry
     SUBDIR += py-rekall
     SUBDIR += py-rekall-core
@@ -955,8 +962,10 @@
     SUBDIR += rubygem-ruby-saml
     SUBDIR += rubygem-scrypt
     SUBDIR += rubygem-six
+    SUBDIR += rubygem-sshkey
     SUBDIR += rubygem-sshkit
     SUBDIR += rubygem-twitter_oauth
+    SUBDIR += s2n
     SUBDIR += safesh
     SUBDIR += samba-virusfilter
     SUBDIR += sancp
@@ -1070,6 +1079,7 @@
     SUBDIR += vinetto
     SUBDIR += vlock
     SUBDIR += vlog
+    SUBDIR += vm-to-tor
     SUBDIR += vnccrack
     SUBDIR += vpnc
     SUBDIR += vuxml
@@ -1095,6 +1105,7 @@
     SUBDIR += yersinia
     SUBDIR += ykclient
     SUBDIR += ykpers
+    SUBDIR += yubikey-personalization-gui
     SUBDIR += zebedee
     SUBDIR += zenmap
     SUBDIR += zxid

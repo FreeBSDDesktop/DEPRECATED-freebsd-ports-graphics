@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	curl
-PORTVERSION=	7.44.0
+PORTVERSION=	7.45.0
 CATEGORIES=	ftp www
 MASTER_SITES=	http://curl.haxx.se/download/ \
 		LOCAL/sunpoet
@@ -11,6 +11,7 @@ MAINTAINER?=	sunpoet@FreeBSD.org
 COMMENT?=	Non-interactive tool to get files from FTP, GOPHER, HTTP(S) servers
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 OPTIONS_DEFINE=	CA_BUNDLE COOKIES CURL_DEBUG DEBUG DOCS EXAMPLES HTTP2 IDN IPV6 LDAP LDAPS LIBSSH2 PROXY RTMP TLS_SRP
 OPTIONS_RADIO=	RESOLV SSL
@@ -48,6 +49,8 @@ CONFIGURE_ENV+=	LOCALBASE=${LOCALBASE} \
 		ac_cv_func_SSLv2_client_method=no
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
+TEST_ENV=	${MAKE_ENV} LC_ALL=C
+TEST_TARGET=	test
 USE_PERL5=	build
 USES=		libtool pathfix perl5 tar:lzma
 
@@ -116,9 +119,8 @@ IPV6_CONFIGURE_OFF=	--disable-ipv6
 IPV6_CONFIGURE_ON=	--enable-ipv6
 LDAP_CONFIGURE_OFF=	--disable-ldap
 LDAP_CONFIGURE_ON=	--enable-ldap
-LDAP_CPPFLAGS=		-I${LOCALBASE}/include
-LDAP_LDFLAGS=		-L${LOCALBASE}/lib
 LDAP_USE=		OPENLDAP=yes
+LDAP_USES=		localbase
 LDAPS_CONFIGURE_OFF=	--disable-ldaps
 LDAPS_CONFIGURE_ON=	--enable-ldaps
 LIBSSH2_CONFIGURE_OFF=	--without-libssh2
@@ -178,25 +180,26 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|include <gssapi.h>|include <gssapi/gssapi.h>|' ${WRKSRC}/lib/curl_gssapi.h ${WRKSRC}/lib/urldata.h
 	@${REINPLACE_CMD} -e 's|gss_nt_service_name|GSS_C_NT_HOSTBASED_SERVICE|' ${WRKSRC}/lib/curl_sasl_gssapi.c
 
-post-install:
 .if !defined(BUILDING_HIPHOP)
+post-install:
 	${LN} -s libcurl.so.4 ${STAGEDIR}${PREFIX}/lib/libcurl.so.7
 	${INSTALL_DATA} ${WRKSRC}/docs/libcurl/libcurl.m4 ${STAGEDIR}${PREFIX}/share/aclocal/
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/ ${STAGEDIR}${DOCSDIR}/libcurl/
 	cd ${WRKSRC}/docs/ && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}/
-	cd ${WRKSRC}/docs/libcurl/ && ${INSTALL_DATA} ABI *.html *.pdf *.m4 ${STAGEDIR}${DOCSDIR}/libcurl/
+	cd ${WRKSRC}/docs/libcurl/ && ${INSTALL_DATA} ABI *.html *.m4 *.pdf ${STAGEDIR}${DOCSDIR}/libcurl/
+
+post-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/
 	cd ${WRKSRC}/docs/examples/ && ${INSTALL_DATA} README Makefile.example makefile* *.c *.cpp ${STAGEDIR}${EXAMPLESDIR}/
 .endif
 
-regression-test test: build
-.if !${PORT_OPTIONS:MPROXY}
+pre-test-PROXY-off:
 	@${ECHO_MSG} "******************************************"
 	@${ECHO_MSG} "* You have disabled curl proxy support.  *"
 	@${ECHO_MSG} "* Some tests SHALL FAIL!                 *"
 	@${ECHO_MSG} "* This is being addressed.               *"
 	@${ECHO_MSG} "******************************************"
-.endif
-	cd ${WRKSRC}/ && ${SETENV} ${MAKE_ENV} LC_ALL=C ${MAKE_CMD} test
 
 .include <bsd.port.mk>

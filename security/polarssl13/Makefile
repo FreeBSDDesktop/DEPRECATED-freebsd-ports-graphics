@@ -1,14 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=	polarssl
-PORTVERSION=	1.3.11
+PORTVERSION=	1.3.15
 DISTVERSIONSUFFIX=	-gpl
 CATEGORIES=	security devel
 MASTER_SITES=	https://polarssl.org/download/
 PKGNAMESUFFIX=	13
 DISTNAME=	mbedtls-${DISTVERSIONPREFIX}${DISTVERSION}${DISTVERSIONSUFFIX}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	tijl@FreeBSD.org
 COMMENT=	SSL/TLS and cryptography library
 
 LICENSE=	GPLv2
@@ -28,6 +28,7 @@ post-patch:
 		-e 's/PREFIX/NAMEPREFIX/' \
 		-e 's/$$(DESTDIR)/&$$(PREFIX)/' \
 		${WRKSRC}/Makefile
+	@${REINPLACE_CMD} 's/-fpic//' ${WRKSRC}/library/Makefile
 
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX}/bin ${STAGEDIR}${PREFIX}/lib -type f | \

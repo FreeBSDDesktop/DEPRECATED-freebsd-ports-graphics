@@ -2,8 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	freebsd-doc-all
-PORTVERSION=	47011
+PORTVERSION=	47441
 PORTEPOCH=	1
+PORTREVISION=	1
 CATEGORIES=	misc docs
 MASTER_SITES=	#empty
 DISTFILES=	#empty
@@ -22,12 +23,12 @@ RUN_DEPENDS+=	bn-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-bn		\
 		hu-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-hu		\
 		it-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-it		\
 		ja-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-ja		\
+		ko-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-ko		\
 		mn-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-mn		\
 		nl-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-nl		\
 		pl-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-pl		\
 		pt-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-pt		\
 		ru-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-ru		\
-		sr-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-sr		\
 		tr-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-tr		\
 		zh_cn-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-zh_cn	\
 		zh_tw-freebsd-doc>=${PORTVERSION}:${PORTSDIR}/misc/freebsd-doc-zh_tw

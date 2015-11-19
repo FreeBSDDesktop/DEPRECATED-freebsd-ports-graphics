@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	fira
-PORTVERSION=	4.104
+PORTVERSION=	4.105
 CATEGORIES=	x11-fonts
 MASTER_SITES=	http://www.carrois.com/downloads/%SUBDIR%/:sans,mono \
 		SF/horia/${CATEGORIES}/${PORTNAME}/%SUBDIR%/:sans,mono
@@ -28,7 +28,7 @@ SUB_FILES=	pkg-message
 PORTDOCS=	*.pdf *.rtf
 PORTEXAMPLES=	*
 
-MONO_VERSION=	3204
+MONO_VERSION=	3205
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 EXAMPLES_DESC=	UFO source files
@@ -39,24 +39,22 @@ DOCS_DISTFILES=	${DISTNAME}_4_1_Version_Report.rtf:sans \
 EXAMPLES_DISTFILES=	${DISTNAME}UFO_beta${PORTVERSION:S|.||}${EXTRACT_SUFX}:sans \
 			${DISTNAME}MonoUFO_beta${MONO_VERSION}${EXTRACT_SUFX}:mono
 
-.include <bsd.port.options.mk>
-
 do-install:
 	@${MKDIR} ${STAGEDIR}${FONTSDIR}
 	${INSTALL_DATA} ${WRKSRC}/${DISTNAME}*Fonts*/OTF/*.otf \
 		${STAGEDIR}${FONTSDIR}
-.if ${PORT_OPTIONS:MDOCS}
+
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${CP} ${DISTDIR}/${DISTFILES:C|:[^:]+$||:M*.rtf} ${WRKSRC}
 	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|:M*.rtf} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/${DISTNAME}*PDF*/|:M*.pdf} \
 		${STAGEDIR}${DOCSDIR}
-.endif
-.if ${PORT_OPTIONS:MEXAMPLES}
+
+do-install-EXAMPLES-on:
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
-. for e in ${EXAMPLES_DISTFILES:R:C|:[^:]+$||}
-	(cd ${WRKDIR}/${e} && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
-. endfor
-.endif
+.for e in ${EXAMPLES_DISTFILES:R:C|:[^:]+$||}
+	(cd ${WRKSRC}/${e} && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+.endfor
 
 .include <bsd.port.mk>

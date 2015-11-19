@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	alsa-plugins
-PORTVERSION=	1.0.29
+PORTVERSION=	1.1.0
 CATEGORIES=	audio
 MASTER_SITES=	ALSA/plugins \
 		GENTOO
@@ -15,11 +15,10 @@ LICENSE=	LGPL21 # or any later version
 LIB_DEPENDS=	libasound.so:${PORTSDIR}/audio/alsa-lib
 
 GNU_CONFIGURE=	yes
-USES=		alias libtool:keepla pkgconfig tar:bzip2
+USES=		alias libtool:keepla localbase pkgconfig tar:bzip2
 EXTRA_PATCHES+=	${FILESDIR}/alsa-plugins.patch
 INSTALL_TARGET=	install-strip
 CPPFLAGS+=	-I${.CURDIR}/../alsa-lib/files
-LDFLAGS+=	-L${LOCALBASE}/lib
 
 OPTIONS_DEFAULT=IO_PTR
 OPTIONS_DEFINE=	JACK FFMPEG PULSEAUDIO SAMPLERATE SPEEX
@@ -44,7 +43,6 @@ JACK_IMPLIES=		SAMPLERATE
 
 FFMPEG_LIB_DEPENDS=	libavcodec.so:${PORTSDIR}/multimedia/ffmpeg
 FFMPEG_CONFIGURE_ENABLE=avcodec
-FFMPEG_CPPFLAGS=	-I${LOCALBASE}/include
 
 PULSEAUDIO_LIB_DEPENDS=	libpulse.so:${PORTSDIR}/audio/pulseaudio
 PULSEAUDIO_CONFIGURE_ENABLE=pulseaudio

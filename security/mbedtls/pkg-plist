@@ -10,6 +10,7 @@ bin/mbedtls_dh_genprime
 bin/mbedtls_dh_server
 bin/mbedtls_dtls_client
 bin/mbedtls_dtls_server
+bin/mbedtls_ecdh_curve25519
 bin/mbedtls_ecdsa
 bin/mbedtls_gen_entropy
 bin/mbedtls_gen_key
@@ -67,6 +68,7 @@ include/mbedtls/des.h
 include/mbedtls/dhm.h
 include/mbedtls/ecdh.h
 include/mbedtls/ecdsa.h
+include/mbedtls/ecjpake.h
 include/mbedtls/ecp.h
 include/mbedtls/entropy.h
 include/mbedtls/entropy_poll.h
@@ -109,6 +111,12 @@ include/mbedtls/x509_crl.h
 include/mbedtls/x509_crt.h
 include/mbedtls/x509_csr.h
 include/mbedtls/xtea.h
+lib/libmbedcrypto.a
+lib/libmbedcrypto.so
+lib/libmbedcrypto.so.0
 lib/libmbedtls.a
 lib/libmbedtls.so
 lib/libmbedtls.so.10
+lib/libmbedx509.a
+lib/libmbedx509.so
+lib/libmbedx509.so.0

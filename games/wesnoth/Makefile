@@ -2,8 +2,8 @@
 
 PORTNAME=	wesnoth
 PORTVERSION=	1.12.4
-PORTEPOCH=	1
 PORTREVISION=	1
+PORTEPOCH=	1
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-${PORTVERSION:R}/${PORTNAME}-${PORTVERSION} \
 		http://files.wesnoth.org/ \
@@ -22,6 +22,8 @@ LIB_DEPENDS=	libvorbisfile.so:${PORTSDIR}/audio/libvorbis \
 		libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig
 
 LDFLAGS+=	-L${LOCALBASE}/lib -lboost_system
+
+PORTSCOUT=	limitw:1,even
 
 USE_SDL=	image mixer net ttf
 USE_GNOME=	pango
@@ -67,7 +69,6 @@ RAWSOCKETS_CFLAGS=-DNETWORK_USE_RAW_SOCKETS
 SERVER_DESC=	Server
 SERVER_CMAKE_OFF=-DENABLE_SERVER=off
 TEST_CMAKE_ON=	-DENABLE_TESTS=on
-TEST_BROKEN=	Does not compile with TEST option enabled
 TOOLS_DESC=	Extra tools for artists and translators
 TOOLS_CMAKE_ON=	-DENABLE_TOOLS=on
 

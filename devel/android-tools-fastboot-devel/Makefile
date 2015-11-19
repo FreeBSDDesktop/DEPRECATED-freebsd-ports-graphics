@@ -1,21 +1,17 @@
 # $FreeBSD$
 
-DISTVERSION=	m-preview-1112
-DISTVERSIONSUFFIX=	-ge4c1bb5
+# Hint: git describe --abbrev=12 --match android-m-preview
+DISTVERSION=	m-preview-5498
+DISTVERSIONSUFFIX=	-g0bb1ce06ea46
 PORTREVISION=	0
 PKGNAMESUFFIX=	-devel
 
-GH_TAGNAME=	${DISTVERSIONFULL:C/-[0-9].*//}-170-ga0370d7:extras \
-		${DISTVERSIONFULL:C/-[0-9].*//}-18-g91b7d91:libselinux
+GH_TAGNAME=	${DISTVERSIONFULL:C/-[0-9].*//}-972-g442e952:extras \
+		${DISTVERSIONFULL:C/-[0-9].*//}-90-ga83098b:libselinux
 
 CONFLICTS_INSTALL=	${PORTNAME}-[0-9]*
 
 MASTERDIR=	${.CURDIR}/../android-tools-fastboot
 DISTINFO_FILE=	${.CURDIR}/distinfo
-FILESDIR=	${.CURDIR}/files
-EXTRA_PATCHES+=	${.CURDIR}/files/patch-*
-
-USES=		compiler:c++11-lib
-CFLAGS+=	-DFASTBOOT_REVISION='\"${DISTVERSIONFULL}\"'
 
 .include "${MASTERDIR}/Makefile"

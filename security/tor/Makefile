@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tor
-DISTVERSION=	0.2.6.9
+DISTVERSION=	0.2.6.10
 CATEGORIES=	security net ipv6
 MASTER_SITES=	TOR
 
@@ -44,8 +44,7 @@ CONFLICTS=	tor-devel-[0-9]*
 
 .include <bsd.port.options.mk>
 
-.if ( (${OSVERSION} < 900000) || \
-(${OSVERSION} >= 900003) ) && !defined(USE_GCC) && empty(CC:T:M*gcc4*) && \
+.if !defined(USE_GCC) && empty(CC:T:M*gcc4*) && \
 empty(PORT_OPTIONS:MSTATIC_TOR) && empty(ARCH:Mia64)
 CONFIGURE_ARGS+=	--enable-gcc-hardening
 .else

@@ -3,10 +3,10 @@
 
 PORTNAME=	apache-openoffice
 PORTVERSION=	${AOOVERSION1}.${AOOVERSION2}.${SVNREVISION}
-PORTREVISION=	2
-PORTEPOCH=	3
+#PORTREVISION=	1
+PORTEPOCH=	4
 CATEGORIES=	editors java
-MASTER_SITES=	http://ci.apache.org/projects/openoffice/milestones/${AOOVERSION}-${AOORC}-r${SVNREVISION}/source/ \
+MASTER_SITES=	https://dist.apache.org/repos/dist/dev/openoffice/${AOOVERSION}-${AOORC}-r${SVNREVISION}/source/ \
 		http://tools.openoffice.org/unowinreg_prebuild/680/:unoreg \
 		LOCAL/truckman/openoffice:snap,extsrc
 .if defined(LANG_PKGNAME)
@@ -93,6 +93,8 @@ RUN_DEPENDS=								\
 		${LOCALBASE}/share/icons/hicolor/index.theme:${PORTSDIR}/misc/hicolor-icon-theme \
 		${JAVALIBDIR}/commons-httpclient.jar:${PORTSDIR}/java/jakarta-commons-httpclient \
 		${JAVALIBDIR}/bsh.jar:${PORTSDIR}/lang/bsh \
+		${LOCALBASE}/share/fonts/Caladea/Caladea-Bold.ttf:${PORTSDIR}/x11-fonts/crosextrafonts-caladea-ttf \
+		${LOCALBASE}/share/fonts/Carlito/Carlito-Bold.ttf:${PORTSDIR}/x11-fonts/crosextrafonts-carlito-ttf \
 		${LOCALBASE}/share/fonts/ChromeOS/Arimo-Bold.ttf:${PORTSDIR}/x11-fonts/croscorefonts-fonts-ttf
 
 AOOVERSION1=	4
@@ -100,7 +102,7 @@ AOOVERSION2=	2
 AOOVERSION3=	0
 # From solenv/inc/minor.mk SOURCEREVISION LAST_MINOR BUILD
 AOOTAG=		AOO420m1\(Build:9800\)
-SVNREVISION=	1697984
+SVNREVISION=	1712473
 #AOORC=rc3
 EXTSRC=		ApacheOpenOffice.ext_sources.${AOOVERSION1}.x.x.20150707.tar.gz
 
@@ -131,6 +133,7 @@ USE_GL=		gl glu
 USE_GNOME=	gtk20 libxslt libidl glib20
 USE_JAVA=	yes
 JAVA_BUILD=	jdk
+JAVA_RUN=	jdk
 JAVA_VENDOR=	openjdk
 JAVA_VERSION=	1.6+
 USE_PERL5=	build
@@ -144,11 +147,14 @@ WITHOUT_CPU_CFLAGS=	true
 CPE_PRODUCT=	${PORTNAME:S|apache-||}
 CPE_VENDOR=	apache
 
-OPTIONS_DEFINE=		CUPS GNOME GNOMEVFS MMEDIA CCACHE
-OPTIONS_DEFAULT=	CUPS GNOME GNOMEVFS MMEDIA
+OPTIONS_DEFINE=		CUPS GNOME GNOMEVFS MMEDIA PDFIMPORT SDK WIKI_PUBLISHER CCACHE
+OPTIONS_DEFAULT=	CUPS GNOME GNOMEVFS MMEDIA PDFIMPORT WIKI_PUBLISHER
 GNOME_DESC=		GConf + screensaver presentation control via DBUS
 GNOMEVFS_DESC=		GNOME Virtual File System
 MMEDIA_DESC=		Multimedia backend for impress
+PDFIMPORT_DESC=		Build and install PDF import extension
+SDK_DESC=		Build and install software development kit
+WIKI_PUBLISHER_DESC=	Build and install Wiki Publisher extension
 CCACHE_DESC=		Mimimize compile time of C/C++ programs
 
 CUPS_CONFIGURE_ENABLE=		cups
@@ -165,6 +171,12 @@ GNOMEVFS_USE=			GNOME=gnomevfs2
 
 MMEDIA_CONFIGURE_ENABLE=	gstreamer
 MMEDIA_USE=			GSTREAMER=yes
+
+SDK_CONFIGURE_ENABLE=		odk
+
+PDFIMPORT_CONFIGURE_ENABLE=	pdfimport
+
+WIKI_PUBLISHER_CONFIGURE_ENABLE=	wiki-publisher
 
 .include <bsd.port.pre.mk>
 
@@ -204,7 +216,8 @@ GNU_CONFIGURE=	yes
 WRKSUBDIR=	${WRKDIR}/aoo-${AOOVERSION}
 WRKSRC?=	${WRKSUBDIR}/main
 SUB_FILES=	pkg-message
-SUB_LIST=	EXECBASE=${EXECBASE} AOOTAG=${AOOTAG} AOOUDIR=${AOOUDIR}
+SUB_LIST=	EXECBASE=${EXECBASE} AOOTAG=${AOOTAG} AOOUDIR=${AOOUDIR} \
+		PRINSTALLATION_BASEDIR=${PRINSTALLATION_BASEDIR}
 
 CONFIGURE_ARGS+=							\
 			--with-unix-wrapper=${EXECBASE}			\
@@ -258,21 +271,14 @@ CONFIGURE_ARGS+=							\
 			--with-system-sane				\
 			--with-system-serf				\
 			--with-system-stdlibs				\
-			--enable-symbols=small				\
 			--without-stlport				\
 			--with-vendor="FreeBSD ports system"		\
 			--enable-verbose				\
 			--with-system-vigra				\
-			--enable-wiki-publisher				\
 			--with-system-xrender				\
 			--with-system-zlib
 
-#AOOEXTENSIONS+=		minimizer/presentation-minimizer.oxt
-#AOOEXTENSIONS+=		presenter/presenter-screen.oxt
-#AOOEXTENSIONS+=		pdfimport/pdfimport.oxt
-AOOEXTENSIONS+=		swext/wiki-publisher.oxt
-
-ICONS=	${WRKSRC}/sysui/desktop/icons
+CREATE_TREE=	${WRKSRC}/sysui/desktop/share/create_tree.sh
 
 .include <${FILESDIR}/Makefile.knobs>
 
@@ -333,6 +339,9 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e "/^ICONVERSION/s/=.*/= '-${AOOSUFFIX}'/" \
 		${WRKSRC}/sysui/desktop/productversion.mk
+	${REINPLACE_CMD} -e "s|%%JAVA_HOME%%|${JAVA_HOME}|" \
+		${WRKSRC}/desktop/scripts/soffice.sh
+	${REINPLACE_CMD} -e '/^mkdir -p/,$$d' ${CREATE_TREE}
 .if ${COMPILER_TYPE} == gcc
 	# g++49 -Os sometimes leaves inline class methods undefined,
 	# affects fmgridif.cxx and ColumnControl.cxx
@@ -397,24 +406,16 @@ do-build:
 	LANG=C LC_ALL=C build.pl --all -P$${numproc} -- -P$${dmproc}
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PRINSTALLATION_BASEDIR}/extensions/ \
-		${STAGEDIR}${DESKTOPDIR}
+	@${MKDIR} ${STAGEDIR}${PRINSTALLATION_BASEDIR} \
+		${STAGEDIR}${DESKTOPDIR} \
+		${STAGEDIR}${PREFIX}/share/mime/packages
 	@cd ${WRKSRC}/instsetoo_native/unxfbsd?.pro/Apache_OpenOffice/archive/install/${LOCALIZED_LANG}/ ; \
 		for i in *.tar.?z ; do \
 			${ECHO_CMD} "extracting $$i" ; \
-			${TAR} -s '|./[^/]*/||' -xz -f $$i - \
+			${TAR} -s '|./[^/]*/||' -xz -f $$i \
 				-C ${STAGEDIR}${PRINSTALLATION_BASEDIR} ; \
 		done
-	@${ECHO_CMD} "installing extensions" ; \
-	cd ${WRKSRC}/solver/${AOOXXX}/unxfbsd?.pro/bin/ ; \
-		${INSTALL_DATA} ${AOOEXTENSIONS} \
-			${STAGEDIR}${PRINSTALLATION_BASEDIR}/extensions/
-	@cd ${STAGEDIR}${OOPATH}/program ; \
-		${ECHO_CMD} "stripping executables and shared libraries" ; \
-		${STRIP_CMD} crashrep pagein uri-encode javaldx regmerge \
-			regview *.so* *.bin ; \
-		${ECHO_CMD} "fixing permissions" ; \
-		${FIND} . -type d -exec ${CHMOD} 755 {} \;
+	${FIND} ${STAGEDIR}${PRINSTALLATION_BASEDIR} -type d -exec ${CHMOD} 755 {} \;
 	${REINPLACE_CMD} \
 		-e '/^UserInstallation/s/=.*/=$$SYSUSERCONFIG\/${AOOUDIR}/' \
 		${STAGEDIR}${OOPATH}/program/bootstraprc
@@ -426,34 +427,37 @@ do-install:
 			${WRKDIR}/openoffice-wrapper
 	${INSTALL_SCRIPT} ${WRKDIR}/openoffice-wrapper \
 		${STAGEDIR}${PREFIX}/bin/${EXECBASE}
-	@cd ${STAGEDIR}${PREFIX}/bin; for i in sbase scalc sdraw \
-		setofficelang simpress smath spadmin swriter ; do \
+	@cd ${STAGEDIR}${PREFIX}/bin; for i in printeradmin sbase scalc sdraw \
+		simpress smath spadmin swriter ; do \
 			${LN} -f ${EXECBASE} ${EXECBASE}-$${i} ; \
 	done
-	${LN} -sf ${XDGDIR} ${STAGEDIR}${DESKTOPDIR}/${EXECBASE}
-	@${ECHO_CMD} "installing application icons"
-	@cd ${ICONS} ; for dir in hicolor/*/apps ; do \
-		${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/$${dir} ; \
-		for app in base calc draw impress math printeradmin startcenter writer; do \
-			icon_src=$${dir}/$${app}.png; \
-			icon_dst=share/icons/$${dir}/${EXECBASE}-$${app}.png; \
-			if [ -r $${icon_src} ]; then \
-				${INSTALL_DATA} $${icon_src} \
-				    ${STAGEDIR}${PREFIX}/$${icon_dst} ; \
-			fi \
-		done ; \
-	done
-	@${ECHO_CMD} "installing mimetype icons"
-	@cd ${ICONS} ; for dir in hicolor/*/mimetypes ; do \
-		dstdir=${STAGEDIR}${PREFIX}/share/icons/$${dir} ; \
-		${MKDIR} $${dstdir} ; \
-		${INSTALL_DATA} $${dir}/*.png $${dstdir}/ ; \
-	done
+	@${ECHO_CMD} "adding desktop support"
+	@${LN} -sf ${XDGDIR} ${STAGEDIR}${DESKTOPDIR}/${EXECBASE}
+	@cd ${WRKSRC}/sysui/unxfbsd?.pro/misc/openoffice ;	\
+	    DESTDIR=${STAGEDIR}					\
+		GNOMEDIR=${PREFIX}				\
+		ICON_PREFIX=openoffice${AOOVERSION1}		\
+		ICON_SOURCE_DIR=${WRKSRC}/sysui/desktop/icons	\
+		ICON_THEMES="hicolor/??x??"			\
+		KDEMAINDIR=${PREFIX}				\
+		PREFIX=openoffice${AOOVERSION1}			\
+		${SH} ${CREATE_TREE} ;				\
+	    ${INSTALL_DATA} apacheopenoffice.xml		\
+		${STAGEDIR}/${PREFIX}/share/mime/packages
+
+do-install-SDK-on:
+	${TAR} -s '|./[^/]*/||' -xz -C ${STAGEDIR}${PRINSTALLATION_BASEDIR} \
+		-f ${WRKSRC}/instsetoo_native/unxfbsd?.pro/Apache_OpenOffice_SDK/archive/install/${LOCALIZED_LANG}/*.tar.gz
+	@f=${STAGEDIR}${OOPATH}/sdk/bin/unoapploader ; \
+		${CHMOD} 644 $${f} ; ${STRIP_CMD} $${f} ; ${CHMOD} 444 $${f}
+
+post-install:
 	@${ECHO_CMD} "generating plist";
 	@cd ${STAGEDIR}${PREFIX} ; (\
-		${ECHO_CMD} "share/applications/${EXECBASE}" ; \
 		${FIND} -s bin -name "${EXECBASE}*" ; \
-		${FIND} -s ${INSTALLATION_BASEDIR} share/icons \! -type d ; \
+		${FIND} -s ${INSTALLATION_BASEDIR} share/applications \
+			share/application-registry share/icons \
+			share/mime-info share/mime share/mimelnk \! -type d ; \
 		${FIND} ${INSTALLATION_BASEDIR} -type d -empty | ${SORT} -r | \
 			${SED} -e 's/^/@dir /' ; \
 	) >> ${TMPPLIST}

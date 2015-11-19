@@ -77,6 +77,7 @@
     SUBDIR += e2fsprogs-libuuid
     SUBDIR += elixir-uuid
     SUBDIR += elscreen
+    SUBDIR += erlang-mimerl
     SUBDIR += esniper
     SUBDIR += estic
     SUBDIR += excel-writer
@@ -96,6 +97,7 @@
     SUBDIR += fortune-mod-epictetus
     SUBDIR += fortune-mod-ferengi_rules_of_acquisition
     SUBDIR += fortune-mod-futurama
+    SUBDIR += fortune-mod-psalms
     SUBDIR += fortuneit
     SUBDIR += fpc-chm
     SUBDIR += freebsd-doc-all
@@ -109,6 +111,7 @@
     SUBDIR += freebsd-doc-hu
     SUBDIR += freebsd-doc-it
     SUBDIR += freebsd-doc-ja
+    SUBDIR += freebsd-doc-ko
     SUBDIR += freebsd-doc-mn
     SUBDIR += freebsd-doc-nl
     SUBDIR += freebsd-doc-pl
@@ -388,13 +391,14 @@
     SUBDIR += qt4-qtdemo
     SUBDIR += qt5ct
     SUBDIR += quotes
+    SUBDIR += raspberrypi-userland
+    SUBDIR += raspbsd-led
     SUBDIR += ree
     SUBDIR += rfc
     SUBDIR += ringtonetools
     SUBDIR += rname
     SUBDIR += rpl
     SUBDIR += rtfm
-    SUBDIR += ruby-progressbar
     SUBDIR += rubygem-dotenv
     SUBDIR += rubygem-iesd
     SUBDIR += rubygem-mime-types
@@ -440,6 +444,7 @@
     SUBDIR += tpp
     SUBDIR += translate
     SUBDIR += ttyrec
+    SUBDIR += tudu
     SUBDIR += tvbrowser
     SUBDIR += typetrainer
     SUBDIR += uk-phone

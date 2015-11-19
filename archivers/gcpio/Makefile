@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	cpio
-PORTVERSION=	2.11
-PORTREVISION=	3
+PORTVERSION=	2.12
 CATEGORIES=	archivers
 MASTER_SITES=	GNU
 PKGNAMEPREFIX=	g
@@ -20,6 +19,7 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--program-prefix=g \
 		--disable-silent-rules \
 		--with-rmt=/etc/rmt
+TEST_TARGET=	check
 
 INFO=		cpio
 
@@ -28,8 +28,5 @@ OPTIONS_SUB=	yes
 
 NLS_USES=	gettext
 NLS_CONFIGURE_ENABLE=	nls
-
-regression-test: build
-	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check
 
 .include <bsd.port.mk>

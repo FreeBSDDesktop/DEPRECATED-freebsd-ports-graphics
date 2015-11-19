@@ -77,7 +77,6 @@
     SUBDIR += cmp3
     SUBDIR += cmt
     SUBDIR += cmus
-    SUBDIR += cmus-post.fm
     SUBDIR += cpige
     SUBDIR += cplay
     SUBDIR += cpp-xmms2
@@ -207,6 +206,7 @@
     SUBDIR += gnormalize
     SUBDIR += gnuitar
     SUBDIR += gnupod
+    SUBDIR += gnuspeechsa
     SUBDIR += gnustep-cdplayer
     SUBDIR += gogglesmm
     SUBDIR += goobox
@@ -254,7 +254,9 @@
     SUBDIR += gstreamer1-plugins-a52dec
     SUBDIR += gstreamer1-plugins-amrnb
     SUBDIR += gstreamer1-plugins-amrwbdec
+    SUBDIR += gstreamer1-plugins-bs2b
     SUBDIR += gstreamer1-plugins-cdparanoia
+    SUBDIR += gstreamer1-plugins-chromaprint
     SUBDIR += gstreamer1-plugins-faac
     SUBDIR += gstreamer1-plugins-faad
     SUBDIR += gstreamer1-plugins-flac
@@ -265,6 +267,7 @@
     SUBDIR += gstreamer1-plugins-lame
     SUBDIR += gstreamer1-plugins-mad
     SUBDIR += gstreamer1-plugins-modplug
+    SUBDIR += gstreamer1-plugins-mpg123
     SUBDIR += gstreamer1-plugins-ogg
     SUBDIR += gstreamer1-plugins-opus
     SUBDIR += gstreamer1-plugins-pulse
@@ -608,6 +611,7 @@
     SUBDIR += py-discogs-client
     SUBDIR += py-eyed3
     SUBDIR += py-fastaudio
+    SUBDIR += py-fmoo-audiotools
     SUBDIR += py-gmusicapi
     SUBDIR += py-id3
     SUBDIR += py-karaoke

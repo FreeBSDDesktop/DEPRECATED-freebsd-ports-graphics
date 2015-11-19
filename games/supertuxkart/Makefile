@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	supertuxkart
-PORTVERSION=	0.9
+PORTVERSION=	0.9.1
 CATEGORIES=	games
 MASTER_SITES=	SF/supertuxkart/SuperTuxKart/${PORTVERSION}
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
@@ -17,8 +17,6 @@ LIB_DEPENDS=	libvorbisfile.so:${PORTSDIR}/audio/libvorbis \
 		libogg.so:${PORTSDIR}/audio/libogg \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libpng.so:${PORTSDIR}/graphics/png
-
-BROKEN_powerpc=	does not configure on powerpc
 
 USES=		alias cmake compiler:c++11-lib dos2unix gettext \
 		gmake jpeg openal:al pkgconfig tar:xz

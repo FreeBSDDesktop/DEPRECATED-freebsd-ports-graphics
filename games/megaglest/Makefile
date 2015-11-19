@@ -3,7 +3,7 @@
 
 PORTNAME=	megaglest
 PORTVERSION=	3.9.0.4
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}_3.9.0/
 DISTNAME=	${PORTNAME}-source-${PORTVERSION}
@@ -63,10 +63,4 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/source/glest_map_editor/megaglest_editor ${STAGEDIR}${PREFIX}/bin/megaglest_editor
 .endif
 
-.include <bsd.port.pre.mk>
-
-.if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
-BROKEN=		Does not compile on ia64, powerpc, or sparc64: unrecognized compiler flags
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

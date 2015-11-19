@@ -10,6 +10,8 @@ MASTER_SITES=	SAVANNAH
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Character map for GNUstep
 
+BROKEN=		unfetchable
+
 LICENSE=	GPLv2
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
@@ -17,6 +19,6 @@ USES=		gnustep
 USE_GNUSTEP=	back build
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/Local/Applications/Charmap.app/Charmap
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Applications/Charmap.app/Charmap
 
 .include <bsd.port.mk>

@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	iocage
-PORTVERSION=	20150826
+PORTVERSION=	20151022
 CATEGORIES=	sysutils
 PKGNAMESUFFIX=	-devel
 
-MAINTAINER=	kmoore@freebsd.org
+MAINTAINER=	kmoore@FreeBSD.org
 COMMENT=	Full featured, no dependency Jail container manager - devel build
 
 LICENSE=	BSD2CLAUSE
@@ -14,15 +14,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	iocage
-GH_TAGNAME=	320ff13
-
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 900044
-BROKEN=		This port works only on FreeBSD 9 and newer
-.endif
+GH_TAGNAME=	d7b3ff14f4a6c38fefbd9c52f93b86b7425b1a42
 
 NO_BUILD=	yes
+NO_ARCH=	yes
 
 post-patch:
 	@${REINPLACE_CMD} -e "s|/usr/local/lib/iocage|${PREFIX}/lib/iocage|g" ${WRKSRC}/iocage
@@ -36,4 +31,4 @@ do-install:
 	(cd ${WRKSRC}/lib/ && ${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/lib/iocage)
 	${INSTALL_MAN} ${WRKSRC}/iocage.8 ${STAGEDIR}${PREFIX}/man/man8
 
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

@@ -115,6 +115,7 @@
     SUBDIR += pidgin-rhythmbox
     SUBDIR += pidgin-sipe
     SUBDIR += pidgin-skype
+    SUBDIR += pidgin-skypeweb
     SUBDIR += pidgin-twitter
     SUBDIR += plasma-applet-ktp
     SUBDIR += poezio
@@ -155,6 +156,7 @@
     SUBDIR += skype
     SUBDIR += skype-devel
     SUBDIR += skype4
+    SUBDIR += teamwords
     SUBDIR += telegram
     SUBDIR += telegram-purple
     SUBDIR += telepathy-butterfly

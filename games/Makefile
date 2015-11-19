@@ -43,6 +43,7 @@
     SUBDIR += aop
     SUBDIR += apoolGL
     SUBDIR += apricots
+    SUBDIR += aquaria
     SUBDIR += arkanoidsb
     SUBDIR += armagetron
     SUBDIR += arx-libertatis
@@ -188,6 +189,7 @@
     SUBDIR += darkplaces
     SUBDIR += dcross
     SUBDIR += defendguin
+    SUBDIR += dhewm3
     SUBDIR += diameter
     SUBDIR += diaspora
     SUBDIR += digger-vgl
@@ -229,6 +231,7 @@
     SUBDIR += ember
     SUBDIR += endgame-singularity
     SUBDIR += endgame-singularity-music
+    SUBDIR += endless-sky
     SUBDIR += enigma
     SUBDIR += ensemblist
     SUBDIR += entombed
@@ -534,7 +537,6 @@
     SUBDIR += linux-etqw-demo-server
     SUBDIR += linux-etqw-server
     SUBDIR += linux-nerogame
-    SUBDIR += linux-ningpo-demo
     SUBDIR += linux-nwnclient
     SUBDIR += linux-nwserver
     SUBDIR += linux-quake3
@@ -896,6 +898,7 @@
     SUBDIR += sol
     SUBDIR += solarconquest
     SUBDIR += solarus
+    SUBDIR += solarus-quest-editor
     SUBDIR += solarwolf
     SUBDIR += sopwith
     SUBDIR += spacejunk

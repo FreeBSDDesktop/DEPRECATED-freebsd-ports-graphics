@@ -1,7 +1,5 @@
 bin/nikto
-@unexec if cmp -s %D/etc/nikto.conf %D/etc/nikto.conf.sample; then rm -f %D/etc/nikto.conf; fi
-etc/nikto.conf.sample
-@exec if [ ! -f %D/etc/nikto.conf ] ; then cp -p %D/%F %B/nikto.conf; fi
+@sample etc/nikto.conf.sample
 man/man1/nikto.1.gz
 %%PORTDOCS%%%%DOCSDIR%%/CHANGES.txt
 %%PORTDOCS%%%%DOCSDIR%%/LICENSE.txt
@@ -71,8 +69,3 @@ man/man1/nikto.1.gz
 %%DATADIR%%/templates/xml_host_item.tmpl
 %%DATADIR%%/templates/xml_start.tmpl
 %%DATADIR%%/templates/xml_summary.tmpl
-@dirrm %%DATADIR%%/templates
-@dirrm %%DATADIR%%/plugins
-@dirrm %%DATADIR%%/databases
-@dirrm %%DATADIR%%
-%%PORTDOCS%%@dirrm %%DOCSDIR%%

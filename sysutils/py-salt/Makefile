@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	salt
-PORTVERSION=	2015.8.0
+PORTVERSION=	2015.8.1
 CATEGORIES=	sysutils python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -11,6 +11,7 @@ MAINTAINER=	christer.edwards@gmail.com
 COMMENT=	Distributed remote execution and configuration management system
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}yaml>0:${PORTSDIR}/devel/py-yaml \
 		${PYTHON_PKGNAMEPREFIX}Jinja2>0:${PORTSDIR}/devel/py-Jinja2 \
@@ -56,7 +57,9 @@ PYDISTUTILS_INSTALLARGS+=\
 		--salt-logs-dir=/var/log/salt \
 		--salt-pidfile-dir=/var/run
 
-USE_RC_SUBR=	salt_master \
+USE_RC_SUBR=	salt_api \
+		salt_proxy \
+		salt_master \
 		salt_minion \
 		salt_syndic
 

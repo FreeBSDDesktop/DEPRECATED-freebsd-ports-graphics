@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	rust
-PORTVERSION=	1.2.0
+PORTVERSION=	1.4.0
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	http://static.rust-lang.org/dist/:src \
 		http://static.rust-lang.org/stage0-snapshots/:bootstrap
@@ -11,7 +12,7 @@ DISTFILES=	${RUST_SOURCE}:src \
 		${RUST_BOOT}:bootstrap
 EXTRACT_ONLY=	${RUST_SOURCE}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	riggs@FreeBSD.org
 COMMENT=	Language with a focus on memory safety and concurrency
 
 LICENSE=	APACHE20 \
@@ -20,8 +21,10 @@ LICENSE_COMB=	dual
 LICENSE_FILE=	${WRKSRC}/LICENSE-APACHE \
 		${WRKSRC}/LICENSE-MIT
 
-ONLY_FOR_ARCHS=	amd64
+ONLY_FOR_ARCHS=	amd64 i386
 ONLY_FOR_ARCHS_REASON=	requires prebuilt bootstrap compiler
+
+DISTINFO_FILE=	${MASTERDIR}/distinfo.${ARCH}
 
 # FIXME: The bootstrapped rustc adds -L/usr/local/lib in front of
 # the LDFLAGS. When stage0's rustc is linked, it picks the installed
@@ -31,8 +34,10 @@ CONFLICTS_BUILD=	rust \
 CONFLICTS_INSTALL=	rust-nightly
 
 RUST_SOURCE=	${DISTNAME}-src${EXTRACT_SUFX}
-RUST_BOOT=	rust-stage0-${RUST_BOOT_SIG}.tar.bz2
-RUST_BOOT_SIG=	2015-05-24-ba0e1cd-freebsd-x86_64-370db40613f5c08563ed7e38357826dd42d4e0f8
+RUST_BOOT=	rust-stage0-${RUST_BOOT_SIG_${ARCH}}.tar.bz2
+
+RUST_BOOT_SIG_amd64=	2015-08-11-1af31d4-freebsd-x86_64-de1f36592bac0eeb90c049a8421246652c511b9e
+RUST_BOOT_SIG_i386=	2015-08-11-1af31d4-freebsd-i386-3cd4a44fb97b3135be3d1b760bea604a381e85dc
 
 # Rust's libraries are named librustc_${component}-${RUST_VSN_HASH}.so.
 # The hash depends on Rust version and, if the channel is not "stable",
@@ -42,7 +47,10 @@ RUST_CHANNEL=	stable
 RUST_VSN_HASH!=	/usr/bin/printf '%s' ${RUST_VSN} | /sbin/md5 -q | cut -c 1-8
 PLIST_SUB+=	RUST_VSN_HASH=${RUST_VSN_HASH}
 
-PLIST_SUB+=	RUST_TARGET=x86_64-unknown-${OPSYS:tl}
+# Rust's target arch string is different from *BSD arch strings
+RUST_ARCH_amd64=	x86_64
+RUST_ARCH_i386=		i686
+PLIST_SUB+=	RUST_TARGET=${RUST_ARCH_${ARCH}}-unknown-${OPSYS:tl}
 
 USES=		gmake libedit python:2,build
 HAS_CONFIGURE=	yes
@@ -51,9 +59,9 @@ CONFIGURE_ARGS=	--disable-valgrind --disable-docs \
 		--release-channel=${RUST_CHANNEL}
 
 # Use LLVM from ports, instead of the copy shipped with rust.
-LLVM_VER=	36
-BUILD_DEPENDS+=	llvm${LLVM_VER}>=0:${PORTSDIR}/devel/llvm${LLVM_VER}
-CONFIGURE_ARGS+=--llvm-root=${LOCALBASE}/llvm${LLVM_VER}
+#LLVM_VER=	36
+#BUILD_DEPENDS+=	llvm${LLVM_VER}>=0:${PORTSDIR}/devel/llvm${LLVM_VER}
+#CONFIGURE_ARGS+=--llvm-root=${LOCALBASE}/llvm${LLVM_VER}
 
 .if defined(BATCH) || defined(PACKAGE_BUILDING)
 MAKE_ARGS+=	VERBOSE=1
@@ -63,6 +71,10 @@ OPTIONS_DEFINE=		LLNEXTGEN
 LLNEXTGEN_DESC=		Build with grammar verification
 
 LLNEXTGEN_BUILD_DEPENDS=	LLnextgen:${PORTSDIR}/devel/llnextgen
+
+# Note that make test does not work when rust is already installed
+TEST_TARGET=	check
+TEST_ENV+=	ALLOW_NONZERO_RLIMIT_CORE=1
 
 .include <bsd.port.options.mk>
 

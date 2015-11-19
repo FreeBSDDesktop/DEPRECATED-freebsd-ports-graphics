@@ -675,7 +675,7 @@ attach_thread (ptid_t ptid, const td_thrhandle_t *th_p,
     memset(private, 0, sizeof(struct private_thread_info));
 
     tp = add_thread_with_info(ptid, private);
-    tp->private = private;
+    tp->priv = private;
     tp->private_dtor = free_private_thread_info;
   }
 
@@ -764,7 +764,10 @@ fbsd_thread_wait (struct target_ops *ops,
   td_thrinfo_t ti;
 
   ret = beneath->to_wait (beneath, ptid, ourstatus, options);
-  if (GET_PID(ret) >= 0 && ourstatus->kind == TARGET_WAITKIND_STOPPED)
+  if (GET_PID(ret) >= 0 &&
+    ( ourstatus->kind == TARGET_WAITKIND_STOPPED ||
+      ourstatus->kind == TARGET_WAITKIND_VFORKED ||
+      ourstatus->kind == TARGET_WAITKIND_FORKED ) )
     {
       lwp = get_current_lwp (GET_PID(ret));
       ret = thread_from_lwp (BUILD_LWP(lwp, GET_PID(ret)),
@@ -1096,6 +1099,9 @@ fbsd_find_lwp_name(long lwpid, struct private_thread_info *info)
   int pid = inferior_ptid.pid;
   size_t len = 0;
 
+  if (!target_has_execution)
+    return;
+
   name[0] = CTL_KERN;
   name[1] = KERN_PROC;
   name[2] = KERN_PROC_PID | KERN_PROC_INC_THREAD;
@@ -1176,9 +1182,9 @@ fbsd_thread_pid_to_str (struct target_ops *ops, ptid_t ptid)
       if (ti.ti_lid != 0)
         {
           // Need to find the name of this LWP, even though it shouldn't change
-          fbsd_find_lwp_name(ti.ti_lid, tinfo->private);
+          fbsd_find_lwp_name(ti.ti_lid, tinfo->priv);
 
-          if (tinfo->private->lwp_name == NULL)
+          if (tinfo->priv->lwp_name == NULL)
             {
               snprintf(buf, sizeof (buf), "Thread %llx (LWP %d)",
                   (unsigned long long)th.th_thread, ti.ti_lid);
@@ -1187,7 +1193,7 @@ fbsd_thread_pid_to_str (struct target_ops *ops, ptid_t ptid)
             {
               snprintf(buf, sizeof (buf), "Thread %llx (LWP %d %s)",
                   (unsigned long long)th.th_thread, ti.ti_lid,
-                  tinfo->private->lwp_name);
+                  tinfo->priv->lwp_name);
             }
         }
       else

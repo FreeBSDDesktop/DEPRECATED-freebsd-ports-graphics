@@ -2,12 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	puppet
-PORTVERSION=	3.8.2
-PORTREVISION=	1
+PORTVERSION=	3.8.4
 CATEGORIES=	sysutils
 MASTER_SITES=	http://downloads.puppetlabs.com/puppet/
 
-MAINTAINER=	swills@FreeBSD.org
+MAINTAINER=	mmoll@FreeBSD.org
 COMMENT=	Configuration management framework written in Ruby
 
 LICENSE=	APACHE20
@@ -20,7 +19,7 @@ RUN_DEPENDS=	rubygem-facter>=0:${PORTSDIR}/sysutils/rubygem-facter \
 
 USES=		cpe
 CPE_VENDOR=	puppetlabs
-CONFLICTS_INSTALL=	puppet37-*
+CONFLICTS_INSTALL=	puppet37-* puppet4-*
 NO_BUILD=	yes
 USE_RUBY=	yes
 USE_RUBY_FEATURES=	iconv

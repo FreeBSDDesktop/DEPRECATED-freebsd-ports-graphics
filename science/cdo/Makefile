@@ -2,16 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	cdo
-PORTVERSION=	1.6.9
-PORTREVISION=	1
+PORTVERSION=	1.7.0
 CATEGORIES=	science
-MASTER_SITES=	https://code.zmaw.de/attachments/download/10198/ \
+MASTER_SITES=	https://code.zmaw.de/attachments/download/11392/ \
 		LOCAL/sunpoet
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Climate Data Operators
 
 LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 OPTIONS_DEFINE=	CGRIBEX HDF5 JASPER NETCDF PROJ SZIP UDUNITS
 OPTIONS_DEFAULT=CGRIBEX HDF5 JASPER NETCDF PROJ SZIP UDUNITS
@@ -32,6 +32,7 @@ CONFIGURE_ARGS=	--disable-cgribex \
 		--with-zlib=/usr
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
+TEST_TARGET=	check
 USE_LDCONFIG=	yes
 USES=		gmake libtool pathfix
 
@@ -67,10 +68,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|$$(libdir)/\($$$$pkgconfigfile\)|${PREFIX}/libdata/\1|' ${WRKSRC}/libcdi/src/Makefile.in
 	@${REINPLACE_CMD} -e 's|unsigned32 |uint32_t |' ${WRKSRC}/libcdi/src/cdilib.c ${WRKSRC}/libcdi/src/util.c
 
-regression-test test: build
-.if ${PORT_OPTIONS:MNETCDF}
+test-NETCDF-on:
 	@cd ${WRKSRC}/ && ${SETENV} CDO_PATH=src/cdo src/cdotest
-.endif
-	cd ${WRKSRC}/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check
 
 .include <bsd.port.post.mk>

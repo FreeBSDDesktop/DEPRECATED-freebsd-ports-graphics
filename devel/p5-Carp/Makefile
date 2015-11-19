@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	Carp
-PORTVERSION=	1.36
+PORTVERSION=	1.38
 CATEGORIES=	devel perl5
 MASTER_SITES=	CPAN
 PKGNAMEPREFIX=	p5-
@@ -13,6 +13,7 @@ COMMENT=	Alternative warn and die for modules
 LICENSE=	ART10 GPLv1
 LICENSE_COMB=	dual
 
+NO_ARCH=	yes
 USE_PERL5=	configure
 USES=		perl5
 

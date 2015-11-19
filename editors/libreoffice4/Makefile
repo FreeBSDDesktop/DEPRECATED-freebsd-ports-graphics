@@ -37,7 +37,6 @@ LIB_DEPENDS=	libapr-1.so:${PORTSDIR}/devel/apr1 \
 		liborcus-0.8.so:${PORTSDIR}/devel/liborcus07 \
 		libcurl.so:${PORTSDIR}/ftp/curl \
 		libcairo.so:${PORTSDIR}/graphics/cairo \
-		libGLEW.so:${PORTSDIR}/graphics/glew \
 		libgraphite2.so:${PORTSDIR}/graphics/graphite2 \
 		liblcms2.so:${PORTSDIR}/graphics/lcms2 \
 		libcdr-0.1.so:${PORTSDIR}/graphics/libcdr01 \
@@ -85,7 +84,7 @@ _MAKE_JOBS=	#
 
 GNU_CONFIGURE=	yes
 USE_AUTOTOOLS=	autoconf aclocal
-USE_GL=		gl glu
+USE_GL=		gl glew glu
 USE_OPENLDAP=	yes
 USE_PERL5=	build
 USE_QT4=	# empty but required
@@ -336,10 +335,6 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-libc++.i386:-p0
 
 .if ${COMPILER_FEATURES:Mlibstdc++}
 EXTRA_PATCHES+=	${FILESDIR}/extra-configure.ac
-.endif
-
-.if ${OSVERSION} < 900506
-CONFIGURE_ARGS+=	--with-linker-hash-style=sysv
 .endif
 
 .if ${OSVERSION} < 1000033

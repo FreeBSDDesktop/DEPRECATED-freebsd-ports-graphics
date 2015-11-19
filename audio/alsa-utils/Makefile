@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	alsa-utils
-PORTVERSION=	1.0.29
+PORTVERSION=	1.1.0
 CATEGORIES=	audio
 MASTER_SITES=	ALSA/utils \
 		GENTOO
@@ -15,17 +15,20 @@ LICENSE=	GPLv2 # or any later version
 LIB_DEPENDS=	libasound.so:${PORTSDIR}/audio/alsa-lib
 RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:${PORTSDIR}/audio/alsa-plugins
 
-USES=		gmake shebangfix tar:bzip2
+USES=		gmake localbase shebangfix tar:bzip2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-udev-rules-dir="\$${prefix}/lib/udev"
 SHEBANG_FILES=	alsa-info/alsa-info.sh alsaconf/alsaconf.in
 INSTALL_TARGET=	install-strip
-CPPFLAGS+=	-I${LOCALBASE}/include -I${.CURDIR}/../alsa-lib/files
-LDFLAGS+=	-L${LOCALBASE}/lib
+CPPFLAGS+=	-I${.CURDIR}/../alsa-lib/files
 
 OPTIONS_SUB=	yes
-OPTIONS_DEFINE=	MANPAGES NLS
-OPTIONS_DEFAULT=MANPAGES
+OPTIONS_DEFINE=	BAT MANPAGES NLS
+OPTIONS_DEFAULT=BAT MANPAGES
+
+BAT_DESC=	Basic Audio Tester support
+BAT_LIB_DEPENDS=libfftw3.so:${PORTSDIR}/math/fftw3
+BAT_CONFIGURE_ENABLE=bat
 
 MANPAGES_BUILD_DEPENDS=	xmlto:${PORTSDIR}/textproc/xmlto
 MANPAGES_CONFIGURE_ENABLE=xmlto

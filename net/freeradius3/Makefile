@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	freeradius
-DISTVERSION=	3.0.9
+DISTVERSION=	3.0.10
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.freeradius.org/pub/freeradius/%SUBDIR%/ \
 		ftp://ftp.ntua.gr/pub/net/radius/freeradius/%SUBDIR%/ \
@@ -28,7 +28,7 @@ CONFLICTS_INSTALL=	gnu-radius-[0-9].* openradius-[0-9].* radiusd-cistron-[0-9].*
 
 USE_RC_SUBR=	radiusd
 
-USES=		gmake tar:bzip2 shebangfix
+USES=		gmake shebangfix tar:bzip2
 SHEBANG_FILES=	src/modules/rlm_counter/rad_counter scripts/sql/radsqlrelay
 GNU_CONFIGURE=	yes
 USE_OPENSSL=	yes
@@ -115,6 +115,7 @@ CONFIGURE_ARGS+=--without-edir
 
 .if ${PORT_OPTIONS:MLDAP}
 USE_OPENLDAP=	YES
+LIB_DEPENDS+=	libsasl2.so:${PORTSDIR}/security/cyrus-sasl2
 CONFIGURE_ARGS+=--with-rlm_ldap
 PLIST_SUB+=	LDAP=""
 _REQUIRE+=	slapd
