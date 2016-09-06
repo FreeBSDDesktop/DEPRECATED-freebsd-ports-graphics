@@ -17,7 +17,7 @@ USES=		cmake pkgconfig pathfix
 USE_XORG=	x11 xcb xcursor
 USE_GL=		egl gbm glesv2
 
-LIB_DEPENDS= \
+LIB_DEPENDS+= \
 		libxkbcommon.so:${PORTSDIR}/x11/libxkbcommon		\
 		libX11.so:${PORTSDIR}/x11/libX11					\
 		libxcb.so:${PORTSDIR}/x11/libxcb					\
@@ -32,12 +32,16 @@ LIB_DEPENDS= \
 		libinput.so:${PORTSDIR}/wayland/libinput			\
 		libxcb-image.so:${PORTSDIR}/x11/xcb-util-image
 
-BUILD_DEPENDS+=	${NONEXISTENT}:${PORTSDIR}/wayland/wayland-protocols
-BUILD_DEPENDS+=	wayland-scanner:${PORTSDIR}/wayland/wayland
+BUILD_DEPENDS+= \
+		${NONEXISTENT}:${PORTSDIR}/wayland/wayland-protocols \
+		wayland-scanner:${PORTSDIR}/wayland/wayland
 
-RUN_DEPENDS=	${LOCALBASE}/lib/libglapi.so.0:${PORTSDIR}/graphics/libglapi
+RUN_DEPENDS+= \
+		${LOCALBASE}/lib/libglapi.so.0:${PORTSDIR}/graphics/libglapi \
+		${LOCALBASE}/share/X11/xkb/rules/base:${PORTSDIR}/x11/xkeyboard-config
 
-CONFIGURE_ENV+=	PKG_CONFIG_PATH=${STAGEDIR}${PREFIX}/libdata/pkgconfig
+CONFIGURE_ENV+=	\
+		PKG_CONFIG_PATH=${STAGEDIR}${PREFIX}/libdata/pkgconfig
 
 CFLAGS+=	-fcolor-diagnostics
 
