@@ -12,5 +12,6 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	ivadasz
 GH_TAGNAME=	43b8ebf
 
+USES=	uidfix
 
 .include <bsd.port.mk>

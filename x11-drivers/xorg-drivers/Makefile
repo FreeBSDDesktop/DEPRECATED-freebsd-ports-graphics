@@ -19,6 +19,7 @@ INPUT_DRIVERS=		mouse \
 			elographics \
 			hyperpen \
 			joystick \
+			libinput \
 			mutouch \
 			penmount \
 			synaptics \
