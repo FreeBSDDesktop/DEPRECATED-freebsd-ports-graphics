@@ -1,6 +1,6 @@
---- configure.orig	2016-08-27 22:22:24.912148000 +0200
-+++ configure	2016-08-27 22:22:53.680236000 +0200
-@@ -868,6 +868,8 @@
+--- configure.orig	2016-07-08 12:46:20.268123000 +0200
++++ configure	2016-07-08 13:06:42.801841000 +0200
+@@ -867,6 +867,8 @@
  GLPROTO_CFLAGS
  XLIBGL_LIBS
  XLIBGL_CFLAGS
@@ -9,7 +9,7 @@
  LIBUDEV_LIBS
  LIBUDEV_CFLAGS
  ENABLE_SHADER_CACHE_FALSE
-@@ -1203,6 +1205,8 @@
+@@ -1200,6 +1202,8 @@
  OPENSSL_LIBS
  LIBUDEV_CFLAGS
  LIBUDEV_LIBS
@@ -18,7 +18,7 @@
  XLIBGL_CFLAGS
  XLIBGL_LIBS
  GLPROTO_CFLAGS
-@@ -2044,6 +2048,10 @@
+@@ -2041,6 +2045,10 @@
                C compiler flags for LIBUDEV, overriding pkg-config
    LIBUDEV_LIBS
                linker flags for LIBUDEV, overriding pkg-config
@@ -29,7 +29,7 @@
    XLIBGL_CFLAGS
                C compiler flags for XLIBGL, overriding pkg-config
    XLIBGL_LIBS linker flags for XLIBGL, overriding pkg-config
-@@ -5382,6 +5390,7 @@
+@@ -5379,6 +5387,7 @@
  DRI3PROTO_REQUIRED=1.0
  PRESENTPROTO_REQUIRED=1.0
  LIBUDEV_REQUIRED=151
@@ -37,19 +37,19 @@
  GLPROTO_REQUIRED=1.4.14
  LIBOMXIL_BELLAGIO_REQUIRED=0.0
  LIBVA_REQUIRED=0.38.0
-@@ -21724,7 +21733,7 @@
- 
- 
+@@ -21721,7 +21730,7 @@
+
+
  case "$host_os" in
 -linux*)
 +linux*|freebsd*)
      dri3_default=yes
      ;;
  *)
-@@ -22860,6 +22869,78 @@
- 	have_libudev=yes
+@@ -22849,6 +22858,78 @@
+	have_libudev=yes
  fi
- 
+
 +
 +pkg_failed=no
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBDEVQ" >&5
@@ -125,7 +125,7 @@
  # Check whether --enable-sysfs was given.
  if test "${enable_sysfs+set}" = set; then :
    enableval=$enable_sysfs; have_sysfs="$enableval"
-@@ -23666,6 +23747,10 @@
+@@ -23655,6 +23736,10 @@
      DEFINES="$DEFINES -DHAVE_LIBUDEV"
      have_pci_id=yes
  fi
@@ -133,18 +133,22 @@
 +    DEFINES="$DEFINES -DHAVE_LIBDEVQ"
 +    have_pci_id=yes
 +fi
- 
+
  if test "$have_sysfs" = yes; then
      DEFINES="$DEFINES -DHAVE_SYSFS"
-@@ -23799,9 +23884,28 @@
+@@ -23799,11 +23884,33 @@ if test "x$enable_dri" = xyes; then
              ;;
          esac
          ;;
-     *freebsd* | dragonfly* | *netbsd* | openbsd*)
-         DEFINES="$DEFINES -DHAVE_ALIAS"
+-    *freebsd* | dragonfly* | *netbsd* | openbsd*)
++    freebsd*)
++        DEFINES="$DEFINES -DHAVE_ALIAS"
 +        if test "x$enable_dri3" = xyes; then
 +            DEFINES="$DEFINES -DHAVE_DRI3"
 +        fi
++        ;;
++    dragonfly* | *netbsd* | openbsd*)
+         DEFINES="$DEFINES -DHAVE_ALIAS"
          ;;
      gnu*)
          DEFINES="$DEFINES -DHAVE_ALIAS"
@@ -165,8 +169,10 @@
 +            ;;
 +        esac
          ;;
-@@ -24657,6 +24761,8 @@
- 
+     cygwin*)
+         if test "x$with_dri_drivers" = "xyes"; then
+@@ -24646,6 +24747,8 @@
+
  if test "x$need_pci_id$have_libudev" = xyesyes; then
      GBM_PC_REQ_PRIV="libudev >= $LIBUDEV_REQUIRED"
 +elif test "x$need_libdevq" = xyes; then
@@ -174,10 +180,10 @@
  else
      GBM_PC_REQ_PRIV=""
  fi
-@@ -25592,9 +25698,19 @@
+@@ -25581,9 +25684,19 @@
          as_fn_error $? "cannot enable OpenCL without Gallium" "$LINENO" 5
      fi
- 
+
 +    if test "x$acv_mesa_CLANG" = xno; then
 +
 +    GCC_VERSION=`$CC -dumpversion`
@@ -191,9 +197,10 @@
      fi
 +# end of clang test.
 +    fi
- 
+
      if test "x$have_libclc" = xno; then
          as_fn_error $? "pkg-config cannot find libclc.pc which is required to build clover.
+@@ -26112,9 +26225,9 @@
  strip_unwanted_llvm_flags() {
      # Use \> (marks the end of the word)
      echo `$1` | sed \
@@ -203,10 +210,10 @@
 +	-e 's/-march=[:graph:]* //g' \
 +	-e 's/-mtune=[:graph:]* //g' \
 +	-e 's/-mcpu=[:graph:]* //g' \
- 	-e 's/-DNDEBUG\>//g' \
- 	-e 's/-D_GNU_SOURCE\>//g' \
- 	-e 's/-pedantic\>//g' \
-@@ -26414,9 +26530,6 @@
+	-e 's/-DNDEBUG\>//g' \
+	-e 's/-D_GNU_SOURCE\>//g' \
+	-e 's/-pedantic\>//g' \
+@@ -26403,9 +26516,6 @@
                  CLANG_LIBDIR=${LLVM_LIBDIR}
              fi
              CLANG_RESOURCE_DIR=$CLANG_LIBDIR/clang/${LLVM_VERSION}
@@ -216,30 +223,3 @@
          fi
      else
          MESA_LLVM=0
-@@ -26502,7 +26615,7 @@
-     if test "x$MESA_LLVM" = x0; then
-         case "$host" in *gnux32) return;; esac
-         case "$host_cpu" in
--        i*86|x86_64|amd64) as_fn_error $? "LLVM is required to build $1 on x86 and x86_64" "$LINENO" 5;;
-+        i*86|amd64|amd64) as_fn_error $? "LLVM is required to build $1 on x86 and x86_64" "$LINENO" 5;;
-         esac
-     fi
- }
-@@ -27849,7 +27962,7 @@
- fi
- 
- 
-- if test "x$asm_arch" = xx86 -o "x$asm_arch" = xx86_64; then
-+ if test "x$asm_arch" = xx86 -o "x$asm_arch" = xamd64; then
-   HAVE_X86_ASM_TRUE=
-   HAVE_X86_ASM_FALSE='#'
- else
-@@ -27857,7 +27970,7 @@
-   HAVE_X86_ASM_FALSE=
- fi
- 
-- if test "x$asm_arch" = xx86_64; then
-+ if test "x$asm_arch" = xamd64; then
-   HAVE_X86_64_ASM_TRUE=
-   HAVE_X86_64_ASM_FALSE='#'
- else

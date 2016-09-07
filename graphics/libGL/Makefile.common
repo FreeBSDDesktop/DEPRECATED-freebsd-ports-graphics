@@ -76,6 +76,7 @@ CONFIGURE_ARGS+=	--with-sha1=libcrypto
 
 CONFIGURE_ARGS+=	--enable-gbm
 
+
 # There are issues that need to be fixed to use TLS model "initial-exec"
 # So stick with "global-dynamic"'s model for now. kan@ is working on a
 # patch for rtld. We might want to backport global-dynamic or
