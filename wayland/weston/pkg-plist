@@ -1,8 +1,5 @@
 bin/wcap-decode
-%%SUID%%@(,,4755) bin/weston
-%%NO_SUID%%bin/weston
-%%SUID%%@(,,4755) bin/weston-launch
-%%NO_SUID%%bin/weston-launch
+bin/weston
 bin/weston-calibrator
 bin/weston-clickdot
 bin/weston-cliptest
@@ -13,6 +10,8 @@ bin/weston-flower
 bin/weston-fullscreen
 bin/weston-image
 bin/weston-info
+%%SUID%%@(,,4755) bin/weston-launch
+%%NO_SUID%%bin/weston-launch
 bin/weston-multi-resource
 bin/weston-presentation-shm
 bin/weston-resizor

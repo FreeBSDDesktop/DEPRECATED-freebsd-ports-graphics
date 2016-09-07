@@ -32,7 +32,7 @@ USE_GL=		egl gbm glesv2
 
 OPTIONS_SUB=	yes
 OPTIONS_DEFINE=	SUID
-SUID_DESC=	Install weston binary with setuid bit set
+SUID_DESC=	Install weston-launch binary with setuid bit set
 OPTIONS_DEFAULT=SUID
 
 
@@ -88,7 +88,7 @@ CONFIGURE_ARGS+=	--disable-xwayland-test
 
 CONFIGURE_ARGS+=	--with-cairo=image
 
-# We handle setuid in the plist. This allows to build xorg-server as a user.
+# We handle setuid in the plist. This allows to build as a user.
 CONFIGURE_ARGS+=	--disable-setuid-install
 
 CONFIGURE_ENV+= LIBS="-lepoll-shim -lrt -lkbdev -lEGL"
