@@ -34,7 +34,7 @@ OPTIONS_SUB=	yes
 OPTIONS_DEFINE=	SUID
 SUID_DESC=	Install weston binary with setuid bit set
 OPTIONS_DEFAULT=SUID
-SUID_CONFIGURE_ENABLE=setuid-install
+
 
 LIB_DEPENDS= \
 		libxkbcommon.so:${PORTSDIR}/x11/libxkbcommon		\
@@ -87,6 +87,9 @@ CONFIGURE_ARGS+=	--disable-vaapi-recorder
 CONFIGURE_ARGS+=	--disable-xwayland-test
 
 CONFIGURE_ARGS+=	--with-cairo=image
+
+# We handle setuid in the plist. This allows to build xorg-server as a user.
+CONFIGURE_ARGS+=	--disable-setuid-install
 
 CONFIGURE_ENV+= LIBS="-lepoll-shim -lrt -lkbdev -lEGL"
 
