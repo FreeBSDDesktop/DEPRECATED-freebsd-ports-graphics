@@ -36,7 +36,9 @@ USE_XORG?=	xf86driproto glproto xdmcp x11 xkbfile xxf86misc xxf86vm xaw7 \
 CONFIGURE_ARGS?= --disable-dmx --disable-xvfb --disable-xnest \
 		--without-xmlto --disable-docs --disable-devel-docs \
 		--localstatedir=/var --without-dtrace --disable-xephyr \
-		--enable-record=yes --enable-glamor
+		--enable-record=yes --enable-glamor --disable-config-udev \
+		--disable-config-udev-kms
+
 INSTALL_TARGET=	install-strip
 
 OPTIONS_SUB=	yes
