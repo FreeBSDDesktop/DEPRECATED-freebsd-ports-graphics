@@ -16,7 +16,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	FreeBSDDesktop
 GH_TAGNAME=	5a9d2b9
 
-USES=		autoreconf gmake libtool localbase pathfix pkgconfig
+USES=		dos2unix autoreconf gmake libtool localbase pathfix pkgconfig
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
