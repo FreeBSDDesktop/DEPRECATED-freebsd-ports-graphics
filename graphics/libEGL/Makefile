@@ -3,7 +3,7 @@
 
 PORTNAME=	libEGL
 PORTVERSION=	${MESAVERSION}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics
 
 COMMENT=	OpenEGL library
@@ -16,6 +16,7 @@ LIB_DEPENDS+=	libpthread-stubs.so:devel/libpthread-stubs \
 OPTIONS_DEFINE_amd64=	DRI3
 OPTIONS_DEFINE_i386=	DRI3
 DRI3_DESC=	Experimental: Enable DRI3 support.
+OPTIONS_DEFAULT_amd64=	DRI3
 
 USE_GL=		gbm
 USE_XORG=	x11 xau xcb xdmcp
