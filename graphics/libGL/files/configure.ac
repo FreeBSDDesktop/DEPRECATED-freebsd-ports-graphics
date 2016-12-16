@@ -1,13 +1,5 @@
 --- configure.ac.orig	2016-06-21 14:31:09.000000000 +0200
 +++ configure.ac	2016-07-08 13:05:53.236433000 +0200
-@@ -79,6 +79,7 @@
- DRI3PROTO_REQUIRED=1.0
- PRESENTPROTO_REQUIRED=1.0
- LIBUDEV_REQUIRED=151
-+LIBDEVQ_REQUIRED=0.0.2
- GLPROTO_REQUIRED=1.4.14
- LIBOMXIL_BELLAGIO_REQUIRED=0.0
- LIBVA_REQUIRED=0.38.0
 @@ -871,7 +872,7 @@
      [enable_dri=yes])
  
@@ -17,27 +9,6 @@
      dri3_default=yes
      ;;
  *)
-@@ -1311,6 +1312,9 @@
- PKG_CHECK_MODULES([LIBUDEV], [libudev >= $LIBUDEV_REQUIRED],
-                   have_libudev=yes, have_libudev=no)
- 
-+PKG_CHECK_MODULES([LIBDEVQ], [libdevq-1.0 >= $LIBDEVQ_REQUIRED],
-+                  have_libdevq=yes, have_libdevq=no)
-+
- AC_ARG_ENABLE([sysfs],
-     [AS_HELP_STRING([--enable-sysfs],
-         [enable /sys PCI identification @<:@default=disabled@:>@])],
-@@ -1408,6 +1412,10 @@
-     DEFINES="$DEFINES -DHAVE_LIBUDEV"
-     have_pci_id=yes
- fi
-+if test "$have_libdevq" = yes; then
-+    DEFINES="$DEFINES -DHAVE_LIBDEVQ"
-+    have_pci_id=yes
-+fi
- 
- if test "$have_sysfs" = yes; then
-     DEFINES="$DEFINES -DHAVE_SYSFS"
 @@ -1540,6 +1548,23 @@
          ;;
      gnu*)
@@ -45,10 +16,6 @@
 +dnl not sure about dri3 support, just enable it for now.
 +        if test "x$enable_dri3" = xyes; then
 +            DEFINES="$DEFINES -DHAVE_DRI3"
-+        fi
-+
-+        if test "x$have_libdevq" != xyes; then
-+            AC_MSG_ERROR([libdevq required for building DRI])
 +        fi
 +
 +        case "$host_cpu" in
@@ -62,15 +29,6 @@
          ;;
      cygwin*)
          if test "x$with_dri_drivers" = "xyes"; then
-@@ -1746,6 +1771,8 @@
- AM_CONDITIONAL(HAVE_GBM, test "x$enable_gbm" = xyes)
- if test "x$need_pci_id$have_libudev" = xyesyes; then
-     GBM_PC_REQ_PRIV="libudev >= $LIBUDEV_REQUIRED"
-+elif test "x$need_libdevq" = xyes; then
-+    GBM_PC_REQ_PRIV="libdevq-1.0 >= $LIBDEVQ_REQUIRED"
- else
-     GBM_PC_REQ_PRIV=""
- fi
 @@ -1921,9 +1948,19 @@
          AC_MSG_ERROR([cannot enable OpenCL without Gallium])
      fi

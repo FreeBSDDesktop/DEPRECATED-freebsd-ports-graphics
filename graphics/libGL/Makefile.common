@@ -29,7 +29,7 @@ DISTFILES=	mesa-${MESADISTVERSION}${EXTRACT_SUFX}
 MAINTAINER=	x11@FreeBSD.org
 
 BUILD_DEPENDS+=	makedepend:devel/makedepend
-LIB_DEPENDS+=	libdevq.so:devel/libdevq
+LIB_DEPENDS+=	libudev.so:wayland/libudev-devd
 
 USES+=		compiler:c++11-lib bison gettext-tools gmake libtool \
 		localbase pathfix pkgconfig python:2,build shebangfix tar:xz
