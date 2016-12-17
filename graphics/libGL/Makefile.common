@@ -18,7 +18,7 @@
 MESAVERSION=	${MESABASEVERSION}${MESASUBVERSION:C/^(.)/.\1/}
 MESADISTVERSION=${MESABASEVERSION}${MESASUBVERSION:C/^(.)/-\1/}
 
-MESABASEVERSION=	12.0.4
+MESABASEVERSION=	13.0.2
 # if there is a subversion, don't include the '-' between 7.11-rc2.
 MESASUBVERSION=
 
@@ -29,7 +29,6 @@ DISTFILES=	mesa-${MESADISTVERSION}${EXTRACT_SUFX}
 MAINTAINER=	x11@FreeBSD.org
 
 BUILD_DEPENDS+=	makedepend:devel/makedepend
-LIB_DEPENDS+=	libudev.so:wayland/libudev-devd
 
 USES+=		compiler:c++11-lib bison gettext-tools gmake libtool \
 		localbase pathfix pkgconfig python:2,build shebangfix tar:xz
@@ -49,6 +48,11 @@ PORTSCOUT=	ignore:1
 BUILD_DEPENDS+=	${LOCALBASE}/bin/flex:textproc/flex
 CONFIGURE_ENV+=	ac_cv_prog_LEX=${LOCALBASE}/bin/flex
 .endif
+
+BUILD_DEPENDS+=	binutils>=0:devel/binutils
+CONFIGURE_ENV+=	LD=${LOCALBASE}/bin/ld \
+		AR=${LOCALBASE}/bin/ar \
+		RANLIB=${LOCALBASE}/bin/ranlib
 
 python_OLD_CMD=	"/usr/bin/env[[:space:]]python"
 python_CMD=	${LOCALBASE}/bin/python2
@@ -70,10 +74,10 @@ MESA_LLVM_VER=39
 
 CONFIGURE_ARGS+=	--with-sha1=libcrypto
 
-# XXX this is for testing only, in ports we probably should autoconfig this
-# if the kernel is new enough.
-# dragonfly doesn't have dmabuf so when this gets converted, don't enable there.
-.if ${PORT_OPTIONS:MDRI3}
+# XXX this needs propper OSVERSION checks
+.if ${OPSYS} == FreeBSD # && \
+#		(${OSVERSION} >= 1001000 && ${ARCH} == amd64 || \
+#		${OSVERSION} >= 1001000 && ${ARCH} == i386))
 USE_XORG+=	dri3proto presentproto xshmfence
 LIB_DEPENDS+=	libxcb.so:x11/libxcb
 CONFIGURE_ARGS+=	--enable-dri3
@@ -106,10 +110,12 @@ CONFIGURE_ARGS+=	--disable-gles1
 CONFIGURE_ARGS+=	--enable-gles2
 
 # Clover (OpenCL).
-.if ${OPSYS} == DragonFly || \
-	(${OPSYS} == FreeBSD && \
-		(${OSVERSION} >= 1001000 && ${ARCH} == amd64 || \
-		${OSVERSION} >= 1001000 && ${ARCH} == i386))
+#temp disable opencl until I can find out why llvm breaks
+.if 0 
+#.if ${OPSYS} == DragonFly || \
+#	(${OPSYS} == FreeBSD && \
+#		(${OSVERSION} >= 1001000 && ${ARCH} == amd64 || \
+#		${OSVERSION} >= 1001000 && ${ARCH} == i386))
 
 BUILD_DEPENDS+=	libclc>=0.0.r222830:devel/libclc
 
@@ -136,9 +142,9 @@ CONFIGURE_ARGS+=	--disable-opencl
 CONFIGURE_ARGS+=	--enable-osmesa
 
 # gallium
-BUILD_DEPENDS+=	llvm${MESA_LLVM_VER}>=3.7.1_1:devel/llvm${MESA_LLVM_VER}
+BUILD_DEPENDS+=	llvm${MESA_LLVM_VER}>=3.9.0_4:devel/llvm${MESA_LLVM_VER}
 .if ${COMPONENT:Mdri} != "" || ${COMPONENT:Mclover} != "" || ${COMPONENT:Megl} != ""
-RUN_DEPENDS+=	llvm${MESA_LLVM_VER}>=3.7.1_1:devel/llvm${MESA_LLVM_VER}
+RUN_DEPENDS+=	llvm${MESA_LLVM_VER}>=3.9.0_4:devel/llvm${MESA_LLVM_VER}
 .endif
 
 CONFIGURE_ENV+= LLVM_CONFIG=${LOCALBASE}/bin/llvm-config${MESA_LLVM_VER}

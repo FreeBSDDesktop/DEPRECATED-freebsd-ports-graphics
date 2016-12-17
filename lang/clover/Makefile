@@ -17,6 +17,8 @@ USES=		ssl
 USE_XORG=	glproto x11 xext xxf86vm xdamage xfixes dri2proto \
 		presentproto xvmc xshmfence dri3proto
 
+BROKEN=		clover is currently disabled
+
 ONLY_FOR_ARCHS=	i386 amd64
 ONLY_FOR_ARCHS_REASON=	Clover needs a graphics driver supported by the Radeon KMS driver
 
