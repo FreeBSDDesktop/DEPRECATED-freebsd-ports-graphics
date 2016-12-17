@@ -1,0 +1,11 @@
+--- tests/nouveau/Makefile.in.orig	2016-12-17 11:13:25.885543000 +0100
++++ tests/nouveau/Makefile.in	2016-12-17 11:13:34.496397000 +0100
+@@ -540,7 +540,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
+ LDADD = \
+ 	../../nouveau/libdrm_nouveau.la \
+ 	../../libdrm.la \
+-	-ldl -lpthread
++	-lpthread
+ 
+ all: all-am
+ 

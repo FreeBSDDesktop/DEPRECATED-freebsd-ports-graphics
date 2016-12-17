@@ -28,7 +28,7 @@
  AM_CONDITIONAL(HAVE_LIBUDEV, [test "x$HAVE_LIBUDEV" = xyes])
  
 +# For FreeBSD support
-+PKG_CHECK_MODULES([LIBDEVQ], [libdevq-1.0 >= 0.0.3], [HAVE_LIBDEVQ=yes], [HAVE_LIBDEVQ=no])
++PKG_CHECK_MODULES([LIBDEVQ], [libdevq-1.0 >= 0.0.4], [HAVE_LIBDEVQ=yes], [HAVE_LIBDEVQ=no])
 +if test "x$HAVE_LIBDEVQ" = xyes; then
 +	AC_DEFINE(HAVE_LIBDEVQ, 1, [Have libdevq support])
 +fi

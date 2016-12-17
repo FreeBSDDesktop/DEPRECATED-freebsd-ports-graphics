@@ -39,6 +39,7 @@ include/libdrm/vc4_drm.h
 include/libdrm/via_drm.h
 include/libdrm/virtgpu_drm.h
 %%KMS%%include/libkms/libkms.h
+include/libsync.h
 include/xf86drm.h
 include/xf86drmMode.h
 lib/libdrm.so

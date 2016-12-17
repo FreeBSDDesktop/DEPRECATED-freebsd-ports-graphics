@@ -1,9 +1,8 @@
 # Created by: lesi@FreeBSD.org
-# $FreeBSD$
+# $FreeBSD: head/graphics/libdrm/Makefile 412346 2016-04-01 14:00:51Z mat $
 
 PORTNAME=	libdrm
-PORTVERSION=	2.4.70
-PORTREVISION=	2
+PORTVERSION=	2.4.74
 PORTEPOCH=	1
 CATEGORIES=	graphics x11
 MASTER_SITES=	http://dri.freedesktop.org/libdrm/
@@ -11,7 +10,7 @@ MASTER_SITES=	http://dri.freedesktop.org/libdrm/
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Userspace interface to kernel Direct Rendering Module services
 
-BUILD_DEPENDS=	libdevq>=0.0.3:devel/libdevq
+BUILD_DEPENDS=	libdevq>=0.0.4:devel/libdevq
 LIB_DEPENDS=	libpciaccess.so:devel/libpciaccess \
 		libdevq.so:devel/libdevq \
 		libpthread-stubs.so:devel/libpthread-stubs
@@ -73,11 +72,12 @@ PLIST_SUB+=	VC4_DRIVERS="@comment "
 # This variable is not for users. So use a non-default name, intended for
 # people working on DRM kernel module development.
 .if !defined(LIBDRM_SKIP_RETURN_PATCH)
-EXTRA_PATCHES+=	${FILESDIR}/extra-xf86drm.c
+#EXTRA_PATCHES+=	${FILESDIR}/extra-xf86drm.c
 .endif
 
 pre-patch:
 	@${REINPLACE_CMD} 's|{libdir}/pkgconfig|{prefix}/libdata/pkgconfig|g; \
+			   s|"libudev|"libudev-disabled|g; \
 			   s,i?86|x86_64),i?86|amd64|x86_64),g' \
 		${WRKSRC}/configure
 
