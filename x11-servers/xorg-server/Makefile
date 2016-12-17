@@ -27,7 +27,7 @@ USE_PERL5=	build
 USE_GL=		gbm egl gl
 USE_XORG?=	xf86driproto glproto xdmcp x11 xkbfile xxf86misc xxf86vm xaw7 \
 		xmu xt xpm xext randrproto renderproto fixesproto damageproto \
-		dri2proto xcmiscproto xextproto xproto xtrans \
+		dri2proto dri3proto xcmiscproto xextproto xproto xtrans \
 		xf86miscproto xf86vidmodeproto xf86bigfontproto scrnsaverproto \
 		bigreqsproto resourceproto fontsproto inputproto xf86dgaproto \
 		videoproto compositeproto trapproto presentproto recordproto \

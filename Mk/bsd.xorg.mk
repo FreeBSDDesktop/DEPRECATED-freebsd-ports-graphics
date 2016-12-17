@@ -60,8 +60,9 @@ USE_XORG+=      xorg-macros
 . if ${XORG_CAT} == "driver"
 USE_XORG+=	xorg-server xproto randrproto xi renderproto xextproto \
 		inputproto kbproto fontsproto videoproto dri2proto xf86driproto \
-		presentproto glproto xineramaproto resourceproto scrnsaverproto
-# work around a llvm bug on i386, llvm bug #15806 
+		presentproto glproto xineramaproto resourceproto scrnsaverproto \
+		dri3proto
+# work around a llvm bug on i386, llvm bug #15806
 # reproduced with clang 3.2 (current release) and 3.1
 .  if ${ARCH} == i386
 CFLAGS+=	-fno-optimize-sibling-calls
