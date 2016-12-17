@@ -1,11 +1,11 @@
---- clients/screenshot.c.orig	2016-05-19 21:36:04 UTC
+--- clients/screenshot.c.orig	2016-08-10 22:56:50 UTC
 +++ clients/screenshot.c
-@@ -257,7 +257,7 @@ int main(int argc, char *argv[])
- 	if (getenv("WAYLAND_SOCKET") == NULL) {
- 		fprintf(stderr, "%s must be launched by weston.\n"
- 			"Use the MOD+S shortcut to take a screenshot.\n",
--			program_invocation_short_name);
-+			getprogname());
- 		return -1;
- 	}
+@@ -40,6 +40,8 @@
+ #include "shared/os-compatibility.h"
+ #include "shared/xalloc.h"
  
++#define program_invocation_short_name getprogname()
++
+ /* The screenshooter is a good example of a custom object exposed by
+  * the compositor and serves as a test bed for implementing client
+  * side marshalling outside libwayland.so */

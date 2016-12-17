@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	wlc
-PORTVERSION=	0.0.5
+PORTVERSION=	0.0.7
 CATEGORIES=	wayland
 
 MAINTAINER=	x11@FreeBSD.org
@@ -21,7 +21,7 @@ RUN_DEPENDS=	xkeyboard-config>=0:x11/xkeyboard-config
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	cloudef
-GH_TAGNAME=	fa780ce
+GH_TAGNAME=	b5bf9e4
 GH_TUPLE=	cloudef:chck:3f27d2a:chck
 
 USES=		cmake gnome localbase pkgconfig pathfix
