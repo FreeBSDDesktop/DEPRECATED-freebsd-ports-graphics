@@ -13,3 +13,4 @@ libdata/pkgconfig/wayland-protocols.pc
 %%DATADIR%%/unstable/text-input/text-input-unstable-v1.xml
 %%DATADIR%%/unstable/xdg-foreign/xdg-foreign-unstable-v1.xml
 %%DATADIR%%/unstable/xdg-shell/xdg-shell-unstable-v5.xml
+%%DATADIR%%/unstable/xdg-shell/xdg-shell-unstable-v6.xml

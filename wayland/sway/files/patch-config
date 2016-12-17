@@ -1,6 +1,6 @@
---- config.orig	2016-09-02 17:15:06 UTC
+--- config.orig	2016-10-25 21:49:49 UTC
 +++ config
-@@ -15,8 +15,8 @@ set $menu dmenu_run
+@@ -20,8 +20,8 @@ set $menu dmenu_run
  
  ### Output configuration
  #
@@ -9,5 +9,5 @@
 +# Default wallpaper (more resolutions are available in /usr/local/share/sway/)
 +output * bg /usr/local/share/sway/Sway_Wallpaper_Blue_1920x1080.png fill
  #
- # Example output configuration:
+ # Example configuration:
  #
