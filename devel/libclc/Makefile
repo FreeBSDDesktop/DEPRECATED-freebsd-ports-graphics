@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libclc
-DISTVERSION=	0.3.0.20160907
+DISTVERSION=	0.3.0.20160921
 CATEGORIES=	devel
 
 MAINTAINER=	x11@FreeBSD.org
@@ -17,10 +17,11 @@ BUILD_DEPENDS=	clang${LLVMVER}:devel/llvm${LLVMVER} \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	llvm-mirror
-# newer snapshot needs llvm 3.9+
-GH_TAGNAME=	4ece229
+# Never revisions need llvm 4.0
+GH_TAGNAME=	520743b0
 
-USES=		gmake python:2,build ninja
+# ninja based build is broken since commit 598792bc (16 sep 2016)
+USES=		gmake python:2.7,build gmake
 USE_LDCONFIG=	yes
 MAKE_ENV=	MAKE=${GMAKE} DESTDIR=${STAGEDIR}
 
@@ -37,7 +38,7 @@ post-patch:
 		${WRKSRC}/configure.py
 
 do-configure:
-	@cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} -g ninja \
+	@cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS} -g make \
 		--with-llvm-config=${LOCALBASE}/bin/llvm-config${LLVMVER} \
 		--pkgconfigdir=${PREFIX}/libdata/pkgconfig \
 		--prefix=${PREFIX}
