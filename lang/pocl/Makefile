@@ -2,6 +2,7 @@
 
 PORTNAME=	pocl
 PORTVERSION=	0.13
+PORTREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	SF/pocl \
 		http://portablecl.org/downloads/
