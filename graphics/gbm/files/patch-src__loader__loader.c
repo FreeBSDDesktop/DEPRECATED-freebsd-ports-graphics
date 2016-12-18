@@ -1,5 +1,5 @@
---- src/loader/loader.c.orig	2016-12-17 19:24:53.031263000 -0500
-+++ src/loader/loader.c	2016-12-17 19:25:02.688631000 -0500
+--- src/loader/loader.c.orig	2016-11-10 17:05:17.000000000 -0500
++++ src/loader/loader.c	2016-12-17 20:09:34.946729000 -0500
 @@ -33,6 +33,16 @@
  #include <stdio.h>
  #include <stdbool.h>
@@ -249,7 +249,14 @@
  #if defined(HAVE_LIBDRM)
  #ifdef USE_DRICONF
  static const char __driConfigOptionsLoader[] =
-@@ -307,6 +542,41 @@
+@@ -304,9 +539,48 @@
+    if (drm_get_pci_id_for_fd(fd, vendor_id, chip_id))
+       return 1;
+ #endif
++#if HAVE_LIBUDEV
++   if (libudev_get_pci_id_for_fd(fd, vendor_id, chip_id))
++      return 1;
++#endif   
     return 0;
  }
  
@@ -291,7 +298,7 @@
  
  #if defined(HAVE_LIBDRM)
  static char *
-@@ -332,6 +602,10 @@
+@@ -332,6 +606,10 @@
  {
     char *result = NULL;
  
@@ -302,7 +309,7 @@
  #if HAVE_LIBDRM
     if ((result = drm_get_device_name_for_fd(fd)))
        return result;
-@@ -386,7 +660,7 @@
+@@ -386,7 +664,7 @@
  
  out:
     log_(driver ? _LOADER_DEBUG : _LOADER_WARNING,
