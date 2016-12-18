@@ -3,7 +3,7 @@
 
 PORTNAME=	dri
 PORTVERSION=	${MESAVERSION}
-PORTEPOCH=	4
+PORTEPOCH=	5
 CATEGORIES=	graphics
 
 COMMENT=	OpenGL hardware acceleration drivers for the DRI
