@@ -28,7 +28,8 @@ DISTFILES=	mesa-${MESADISTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	x11@FreeBSD.org
 
-BUILD_DEPENDS+=	makedepend:devel/makedepend
+BUILD_DEPENDS+=	makedepend:devel/makedepend \
+		libudev-devd>=0:wayland/libudev-devd
 
 USES+=		compiler:c++11-lib bison gettext-tools gmake libtool \
 		localbase pathfix pkgconfig python:2,build shebangfix tar:xz
@@ -99,7 +100,8 @@ CONFIGURE_ARGS+=	--enable-gbm
 
 # XXX revise this to a BUILD_DEPENDS and only LIBS_DEPEND for ports that need it.
 LIB_DEPENDS+=	libwayland-client.so:wayland/wayland \
-		libwayland-server.so:wayland/wayland
+		libwayland-server.so:wayland/wayland \
+		libudev.so:wayland/libudev-devd
 
 # the third option in --with-egl-platforms is wayland.
 CONFIGURE_ARGS+=	--enable-egl --with-egl-platforms=x11,drm,wayland
@@ -111,7 +113,7 @@ CONFIGURE_ARGS+=	--enable-gles2
 
 # Clover (OpenCL).
 #temp disable opencl until I can find out why llvm breaks
-.if 0 
+.if 0
 #.if ${OPSYS} == DragonFly || \
 #	(${OPSYS} == FreeBSD && \
 #		(${OSVERSION} >= 1001000 && ${ARCH} == amd64 || \
@@ -214,4 +216,3 @@ CONFIGURE_ARGS+=--with-gallium-drivers="${GALLIUM_DRIVERS:tl}"
 .if ${OPSYS} == DragonFly
 LIB_DEPENDS+= libelf.so:devel/libelf
 .endif
-

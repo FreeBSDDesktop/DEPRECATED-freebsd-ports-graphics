@@ -20,11 +20,15 @@ USE_XORG=	glproto x11 xext xxf86vm xdamage xfixes dri2proto \
 ONLY_FOR_ARCHS=	i386 amd64
 ONLY_FOR_ARCHS_REASON=	Clover needs a graphics driver supported by the Radeon KMS driver
 
+
+BROKEN= Does not link. To be fixed.
+
+
 .include <bsd.port.options.mk>
 .include "${.CURDIR}/../../graphics/libGL/Makefile.common"
 
 #MESA_BUILD_WRKSRC=	src/util src/glsl src/mesa src/gallium
-MESA_BUILD_WRKSRC=	src src/gallium 
+MESA_BUILD_WRKSRC=	src src/gallium
 #src/gallium/state_trackers/clover
 #/util src/compiler src/mesa src/gallium
 # src/gallium/state_trackers/clover src/gallium/auxiliary
