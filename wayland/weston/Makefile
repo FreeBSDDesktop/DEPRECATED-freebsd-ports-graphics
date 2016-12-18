@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	weston
-PORTVERSION=	1.11.0
+PORTVERSION=	1.12.0
 CATEGORIES=	wayland
 MASTER_SITES=	http://wayland.freedesktop.org/releases/
 MAINTAINER=	x11@freebsd.org
@@ -48,8 +48,6 @@ LIB_DEPENDS= \
 		libwayland-client.so:${PORTSDIR}/wayland/wayland	\
 		libwayland-cursor.so:${PORTSDIR}/wayland/wayland	\
 		libwayland-egl.so:${PORTSDIR}/graphics/libEGL		\
-		libEGL.so:${PORTSDIR}/graphics/libEGL				\
-		libGLESv2.so:${PORTSDIR}/graphics/libGL				\
 		libevent.so:${PORTSDIR}/devel/libevent2				\
 		libdrm.so:${PORTSDIR}/graphics/libdrm				\
 		libpng.so:${PORTSDIR}/graphics/png					\
@@ -63,7 +61,7 @@ LIB_DEPENDS= \
 		libinput.so:${PORTSDIR}/wayland/libinput			\
 		libmtdev.so:${PORTSDIR}/devel/libmtdev
 
-BUILD_DEPENDS+=	${NONEXISTENT}:${PORTSDIR}/wayland/wayland-protocols
+BUILD_DEPENDS+=	wayland-protocols>=1.7:${PORTSDIR}/wayland/wayland-protocols
 BUILD_DEPENDS+=	wayland-scanner:${PORTSDIR}/wayland/wayland
 
 RUN_DEPENDS=	${LOCALBASE}/lib/libglapi.so.0:${PORTSDIR}/graphics/libglapi
@@ -76,7 +74,6 @@ GNU_CONFIGURE=	YES
 CONFIGURE_ARGS+=	--enable-wayland-compositor
 CONFIGURE_ARGS+=	--enable-x11-compositor
 CONFIGURE_ARGS+=	--enable-drm-compositor
-CONFIGURE_ARGS+=	--enable-rpi-compositor
 CONFIGURE_ARGS+=	--enable-weston-launch
 CONFIGURE_ARGS+=	--enable-xwayland
 CONFIGURE_ARGS+=	--enable-clients
@@ -88,14 +85,16 @@ CONFIGURE_ARGS+=	--disable-xwayland-test
 
 CONFIGURE_ARGS+=	--with-cairo=image
 
+
 # We handle setuid in the plist. This allows to build as a user.
 CONFIGURE_ARGS+=	--disable-setuid-install
 
 CONFIGURE_ENV+= LIBS="-lepoll-shim -lrt -lkbdev -lEGL"
 
+
 # TODO: Fix include paths and libraries
 
-# CONFIGURE_ENV+=	PKG_CONFIG_PATH="${PREFIX}/libdata/pkgconfig"
+# CONFIGURE_ENV+=	PKG_CONFIG_PATH="/usr/local/libdata/pkgconfig"
 # CONFIGURE_ENV+= XWAYLAND_CLIENT_LIBS="-lepoll-shim -lrt"
 # CONFIGURE_ENV+= EGL_CLIENT_LIBS="-lepoll-shim -lrt"
 
@@ -120,5 +119,12 @@ CONFIGURE_ENV+= EGL_TESTS_CFLAGS="-L${STAGEDIR}${PREFIX}/lib -I${STAGEDIR}${PREF
 # 		${WRKSRC}/Makefile.am
 
 PATHFIX_MAKEFILEIN?=	Makefile.am
+
+# Should not have to do this. "make" should find them in $WAYLAND_PROTOCOLS_DATADIR set by automake...
+WAYLAND_PROTOCOLS_DATADIR=`pkg-config --variable=pkgdatadir wayland-protocols`
+pre-configure:
+	@cp ${WAYLAND_PROTOCOLS_DATADIR}/stable/*/* ${WRKSRC}/protocol/
+	@cp ${WAYLAND_PROTOCOLS_DATADIR}/unstable/*/* ${WRKSRC}/protocol/
+
 
 .include <bsd.port.mk>
