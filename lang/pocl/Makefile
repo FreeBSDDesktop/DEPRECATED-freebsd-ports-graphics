@@ -26,7 +26,7 @@ BROKEN_FreeBSD_10=	pocl is not supported on 10.x
 ONLY_FOR_ARCHS=	amd64
 ONLY_FOR_ARCHS_REASON_amd64=	only tested on amd64
 
-LLVM_VERSION=	37
+LLVM_VERSION=	38
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
