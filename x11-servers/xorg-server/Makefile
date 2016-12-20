@@ -3,7 +3,7 @@
 
 PORTNAME?=	xorg-server
 PORTVERSION=	1.18.4
-PORTREVISION?=	0
+PORTREVISION?=	1
 PORTEPOCH?=	1
 CATEGORIES=	x11-servers
 MASTER_SITES=	XORG/individual/xserver
@@ -69,11 +69,11 @@ SUB_FILES=	pkg-install pkg-deinstall
 PLIST=		${.CURDIR}/pkg-plist
 .endif
 
-.if ${PORT_OPTIONS:MDRI3}
-USE_XORG+=	dri3proto
-CONFIGURE_ARGS+=	 --enable-dri3
+.if ${OPSYS} == FreeBSD
+USE_XORG+=	dri3proto presentproto xshmfence
+CONFIGURE_ARGS+=	--enable-dri3
 .else
-CONFIGURE_ARGS+=	 --disable-dri3
+CONFIGURE_ARGS+=	--disable-dri3
 .endif
 
 .if ${PORT_OPTIONS:MUDEV}

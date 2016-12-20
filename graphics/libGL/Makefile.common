@@ -159,7 +159,7 @@ CONFIGURE_ARGS+=--enable-texture-float
 .endif
 
 # only support on DragonFly. FreeBSD's drm doesn't support it.
-.if ${OPSYS} == DragonFly && ${COMPONENT:Mdri} != ""
+.if ${COMPONENT:Mdri} != ""
 CONFIGURE_ARGS+=--enable-vdpau
 LIB_DEPENDS+=   libvdpau.so:multimedia/libvdpau
 PLIST_SUB+=     VDPAU=""
@@ -167,9 +167,6 @@ PLIST_SUB+=     VDPAU=""
 CONFIGURE_ARGS+=--disable-vdpau
 PLIST_SUB+=     VDPAU="@comment "
 .endif
-
-# VAAPI support?
-CONFIGURE_ARGS+=--disable-va
 
 ALL_DRI_DRIVERS=I915 I965 R200 RADEON SWRAST
 ALL_GALLIUM_DRIVERS=R300 R600 RADEONSI SVGA SWRAST
