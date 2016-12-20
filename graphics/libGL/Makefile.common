@@ -94,7 +94,7 @@ CONFIGURE_ARGS+=	--enable-gbm
 # pthread_setspecific which it uses now by default. But since this
 # configure switch is going away ...
 # https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
-#CONFIGURE_ARGS+=	--enable-glx-tls
+CONFIGURE_ARGS+=	--enable-glx-tls
 
 # libEGL, dri and clover need gallium enabled.
 
