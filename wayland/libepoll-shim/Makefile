@@ -1,17 +1,17 @@
-# Created by Johannes Lundberg <yohanesu75@gmail.com>
+# Created by Johannes Lundberg <johalun0@gmail.com>
 # $FreeBSD$
 
 PORTNAME=	libepoll-shim
-PORTVERSION=	0.0.20160812
+PORTVERSION=	0.0.20161220
 CATEGORIES=	wayland
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	epoll shim implemented using kevent
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	jiixyj
+GH_ACCOUNT=	FreeBSDDesktop
 GH_PROJECT=	epoll-shim
-GH_TAGNAME=	0562794
+GH_TAGNAME=	c04b26b
 
 USE_LDCONFIG=	yes
 
