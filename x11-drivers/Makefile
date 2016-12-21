@@ -35,7 +35,7 @@
     SUBDIR += xf86-video-mach64
     SUBDIR += xf86-video-mga
     SUBDIR += xf86-video-neomagic
-    SUBDIR += xf86-video-nouveau
+#    SUBDIR += xf86-video-nouveau
     SUBDIR += xf86-video-nv
     SUBDIR += xf86-video-openchrome
     SUBDIR += xf86-video-r128
