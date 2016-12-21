@@ -29,9 +29,12 @@ DISTFILES=	mesa-${MESADISTVERSION}${EXTRACT_SUFX}
 MAINTAINER=	x11@FreeBSD.org
 
 BUILD_DEPENDS+=	makedepend:devel/makedepend \
-		libudev-devd>=0:wayland/libudev-devd
+		libudev-devd>=0:wayland/libudev-devd \
+		clang${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER} \
+		clang++${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER} \
+		clang-cpp${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER}
 
-USES+=		compiler:c++11-lib bison gettext-tools gmake libtool \
+USES+=		bison gettext-tools gmake libtool \
 		localbase pathfix pkgconfig python:2,build shebangfix tar:xz
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
@@ -53,7 +56,11 @@ CONFIGURE_ENV+=	ac_cv_prog_LEX=${LOCALBASE}/bin/flex
 BUILD_DEPENDS+=	binutils>=0:devel/binutils
 CONFIGURE_ENV+=	LD=${LOCALBASE}/bin/ld \
 		AR=${LOCALBASE}/bin/ar \
-		RANLIB=${LOCALBASE}/bin/ranlib
+		RANLIB=${LOCALBASE}/bin/ranlib \
+		CC=${LOCALBASE}/bin/clang${MESA_LLVM_VER} \
+		CXX=${LOCALBASE}/bin/clang++${MESA_LLVM_VER} \
+		CPP=${LOCALBASE}/bin/clang-cpp${MESA_LLVM_VER}
+
 
 python_OLD_CMD=	"/usr/bin/env[[:space:]]python"
 python_CMD=	${LOCALBASE}/bin/python2
