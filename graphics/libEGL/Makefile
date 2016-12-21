@@ -10,7 +10,6 @@ COMMENT=	OpenEGL library
 
 LIB_DEPENDS+=	libpthread-stubs.so:devel/libpthread-stubs \
 		libexpat.so:textproc/expat2 \
-		libdevq.so:devel/libdevq \
 		libdrm.so:graphics/libdrm
 
 OPTIONS_DEFINE_amd64=	DRI3
