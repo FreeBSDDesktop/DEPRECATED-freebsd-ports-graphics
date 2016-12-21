@@ -29,9 +29,12 @@ DISTFILES=	mesa-${MESADISTVERSION}${EXTRACT_SUFX}
 MAINTAINER=	x11@FreeBSD.org
 
 BUILD_DEPENDS+=	makedepend:devel/makedepend \
-		libudev-devd>=0:wayland/libudev-devd
+		libudev-devd>=0:wayland/libudev-devd \
+		clang${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER} \
+		clang++${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER} \
+		clang-cpp${MESA_LLVM_VER}:devel/llvm${MESA_LLVM_VER}
 
-USES+=		compiler:c++11-lib bison gettext-tools gmake libtool \
+USES+=		bison gettext-tools gmake libtool \
 		localbase pathfix pkgconfig python:2,build shebangfix tar:xz
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
@@ -53,7 +56,11 @@ CONFIGURE_ENV+=	ac_cv_prog_LEX=${LOCALBASE}/bin/flex
 BUILD_DEPENDS+=	binutils>=0:devel/binutils
 CONFIGURE_ENV+=	LD=${LOCALBASE}/bin/ld \
 		AR=${LOCALBASE}/bin/ar \
-		RANLIB=${LOCALBASE}/bin/ranlib
+		RANLIB=${LOCALBASE}/bin/ranlib \
+		CC=${LOCALBASE}/bin/clang${MESA_LLVM_VER} \
+		CXX=${LOCALBASE}/bin/clang++${MESA_LLVM_VER} \
+		CPP=${LOCALBASE}/bin/clang-cpp${MESA_LLVM_VER}
+
 
 python_OLD_CMD=	"/usr/bin/env[[:space:]]python"
 python_CMD=	${LOCALBASE}/bin/python2
@@ -94,7 +101,7 @@ CONFIGURE_ARGS+=	--enable-gbm
 # pthread_setspecific which it uses now by default. But since this
 # configure switch is going away ...
 # https://lists.freebsd.org/pipermail/freebsd-arch/2016-February/017699.html
-#CONFIGURE_ARGS+=	--enable-glx-tls
+CONFIGURE_ARGS+=	--enable-glx-tls
 
 # libEGL, dri and clover need gallium enabled.
 
@@ -159,7 +166,7 @@ CONFIGURE_ARGS+=--enable-texture-float
 .endif
 
 # only support on DragonFly. FreeBSD's drm doesn't support it.
-.if ${OPSYS} == DragonFly && ${COMPONENT:Mdri} != ""
+.if ${COMPONENT:Mdri} != ""
 CONFIGURE_ARGS+=--enable-vdpau
 LIB_DEPENDS+=   libvdpau.so:multimedia/libvdpau
 PLIST_SUB+=     VDPAU=""
@@ -167,9 +174,6 @@ PLIST_SUB+=     VDPAU=""
 CONFIGURE_ARGS+=--disable-vdpau
 PLIST_SUB+=     VDPAU="@comment "
 .endif
-
-# VAAPI support?
-CONFIGURE_ARGS+=--disable-va
 
 ALL_DRI_DRIVERS=I915 I965 R200 RADEON SWRAST
 ALL_GALLIUM_DRIVERS=R300 R600 RADEONSI SVGA SWRAST
