@@ -1,5 +1,5 @@
---- src/session/tty.c.orig	2016-08-19 13:28:50 UTC
-+++ src/session/tty.c
+--- src/session/tty.c.orig	2016-12-08 15:15:47.000000000 +0000
++++ src/session/tty.c	2016-12-22 20:49:34.719399000 +0000
 @@ -9,27 +9,18 @@
  #include "internal.h"
  #include "tty.h"
@@ -36,7 +36,16 @@
  #endif
  
  #ifndef KDSKBMUTE
-@@ -100,22 +91,22 @@ open_tty(int vt)
+@@ -83,7 +74,7 @@
+ open_tty(int vt)
+ {
+    char tty_name[64];
+-   snprintf(tty_name, sizeof tty_name, "%s%d", TTY_BASENAME, vt);
++   snprintf(tty_name, sizeof tty_name, "%s%x", TTY_BASENAME, vt);
+ 
+    /* check if we are running on the desired vt */
+    if (ttyname(STDIN_FILENO) && chck_cstreq(tty_name, ttyname(STDIN_FILENO))) {
+@@ -100,22 +91,22 @@
  }
  
  static bool
@@ -64,7 +73,7 @@
     if (!replace_vt) {
        int kd_mode;
        if (ioctl(fd, KDGETMODE, &kd_mode) == -1)
-@@ -125,18 +116,20 @@ setup_tty(int fd, bool replace_vt)
+@@ -125,18 +116,20 @@
           die("vt%d is already in graphics mode (%d). Is another display server running?", wlc.vt, kd_mode);
     }
  
@@ -87,7 +96,7 @@
  
     if (ioctl(fd, KDGKBMODE, &wlc.old_state.kb_mode) == -1)
        die("Could not get keyboard mode");
-@@ -144,7 +137,19 @@ setup_tty(int fd, bool replace_vt)
+@@ -144,7 +137,19 @@
     // vt will be restored from now on
     wlc.tty = fd;
  
@@ -108,7 +117,7 @@
     if (ioctl(fd, KDSKBMUTE, 1) == -1 && ioctl(fd, KDSKBMODE, K_OFF) == -1) {
        wlc_tty_terminate();
        die("Could not set keyboard mode to K_OFF");
-@@ -156,18 +161,19 @@ setup_tty(int fd, bool replace_vt)
+@@ -156,18 +161,19 @@
        die("Could not set console mode to KD_GRAPHICS");
     }
  
@@ -130,7 +139,7 @@
  
     return true;
  }
-@@ -230,13 +236,19 @@ wlc_tty_terminate(void)
+@@ -230,13 +236,19 @@
        // The ACTIVATE / WAITACTIVE may be potentially bad here.
        // However, we need to make sure the vt we initially opened is also active on cleanup.
        // We can't make sure this is synchronized due to unclean exits.
@@ -154,7 +163,7 @@
  
           if (ioctl(wlc.tty, KDSETMODE, KD_TEXT) == -1)
              wlc_log(WLC_LOG_ERROR, "Failed to restore vt%d mode to VT_AUTO", wlc.vt);
-@@ -271,7 +283,7 @@ wlc_tty_init(int vt)
+@@ -271,7 +283,7 @@
     if (!vt && !(vt = find_vt(getenv("XDG_VTNR"), &replace_vt)))
        die("Could not find vt");
  
