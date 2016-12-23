@@ -120,7 +120,6 @@ CONFIGURE_ARGS+=	--enable-gles2
 
 # Clover (OpenCL).
 #temp disable opencl until I can find out why llvm breaks
-.if 0
 #.if ${OPSYS} == DragonFly || \
 #	(${OPSYS} == FreeBSD && \
 #		(${OSVERSION} >= 1001000 && ${ARCH} == amd64 || \
@@ -140,7 +139,6 @@ clover-pre-configure:
 		${ECHO_MSG} "Your llvm${MESA_LLVM_VER} is not build with clang support, which is required."; \
 		${FALSE}; \
 	fi
-.endif
 
 CONFIGURE_ARGS+=	--enable-opencl \
 			--enable-opencl-icd
