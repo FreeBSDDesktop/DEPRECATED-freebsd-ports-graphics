@@ -1,0 +1,11 @@
+--- tests/Makefile.in.orig	2016-12-17 11:14:33.480167000 +0100
++++ tests/Makefile.in	2016-12-17 11:21:57.998894000 +0100
+@@ -674,7 +674,7 @@
+ 	-I $(top_srcdir)
+ 
+ LDADD = $(top_builddir)/libdrm.la $(am__append_8)
+-dristat_LDADD = -lm
++dristat_LDADD = -lm -L/usr/local/lib -ldevq
+ @HAVE_LIBUDEV_TRUE@check_LTLIBRARIES = libdrmtest.la
+ @HAVE_LIBUDEV_TRUE@libdrmtest_la_SOURCES = \
+ @HAVE_LIBUDEV_TRUE@	drmtest.c \

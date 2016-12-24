@@ -10,8 +10,9 @@ MASTER_SITES=	http://dri.freedesktop.org/libdrm/
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Userspace interface to kernel Direct Rendering Module services
 
+BUILD_DEPENDS=	libdevq>=0.0.4:devel/libdevq
 LIB_DEPENDS=	libpciaccess.so:devel/libpciaccess \
-		libudev.so:wayland/libudev-devd \
+		libdevq.so:devel/libdevq \
 		libpthread-stubs.so:devel/libpthread-stubs
 
 USES=		libtool pkgconfig tar:bzip2
@@ -76,6 +77,7 @@ PLIST_SUB+=	VC4_DRIVERS="@comment "
 
 pre-patch:
 	@${REINPLACE_CMD} 's|{libdir}/pkgconfig|{prefix}/libdata/pkgconfig|g; \
+			   s|"libudev|"libudev-disabled|g; \
 			   s,i?86|x86_64),i?86|amd64|x86_64),g' \
 		${WRKSRC}/configure
 
