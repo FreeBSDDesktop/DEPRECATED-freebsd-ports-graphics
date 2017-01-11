@@ -21,6 +21,8 @@ GH_TAGNAME=	67c9796
 USES=		autoreconf gmake libtool pathfix pkgconfig
 GNU_CONFIGURE=	yes
 
+GROUPS=		input
+
 CPPFLAGS+=	-I${LOCALBASE}/include/libepoll-shim
 INSTALL_TARGET=	install-strip
 

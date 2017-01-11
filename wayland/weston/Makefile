@@ -17,6 +17,8 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 USE_XORG=	x11 xcb xcursor
 USE_GL=		egl gbm glesv2
 
+GROUPS=		weston-launch
+
 #BROKEN=	Can build all clients but compositor does not work.
 #TODO: Start a new port based on original code, not Dragonfly port.
 
