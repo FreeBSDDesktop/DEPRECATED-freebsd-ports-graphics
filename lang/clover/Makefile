@@ -2,7 +2,7 @@
 
 PORTNAME=	clover
 PORTVERSION=	${MESAVERSION}
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	lang
 
 COMMENT=	Mesa "Clover" OpenCL library
@@ -21,18 +21,13 @@ ONLY_FOR_ARCHS=	i386 amd64
 ONLY_FOR_ARCHS_REASON=	Clover needs a graphics driver supported by the Radeon KMS driver
 
 
-BROKEN= Does not link. To be fixed.
+#BROKEN= Does not link. To be fixed.
 
 
 .include <bsd.port.options.mk>
 .include "${.CURDIR}/../../graphics/libGL/Makefile.common"
 
-#MESA_BUILD_WRKSRC=	src/util src/glsl src/mesa src/gallium
-MESA_BUILD_WRKSRC=	src src/gallium
-#src/gallium/state_trackers/clover
-#/util src/compiler src/mesa src/gallium
-# src/gallium/state_trackers/clover src/gallium/auxiliary
-MESA_INSTALL_WRKSRC=	src/gallium/state_trackers/clover src/gallium/targets/pipe-loader src/gallium/targets/opencl
+MESA_INSTALL_WRKSRC=	src/gallium/targets/opencl src/gallium/targets/pipe-loader
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} < 1001000
 IGNORE=		Clover is only supported on FreeBSD 10.1 and newer
