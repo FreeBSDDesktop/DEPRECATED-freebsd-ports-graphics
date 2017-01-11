@@ -71,7 +71,7 @@ CONFIGURE_ARGS=	--disable-static \
 		--with-user=gdm \
 		--with-group=gdm \
 		--with-initial-vt=09 \
-		--disable-wayland-support \
+		--enable-wayland-support \
 		--with-systemd=no
 
 # this is a hack until we can get our own pam dir and dir in order.

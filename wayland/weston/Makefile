@@ -75,6 +75,7 @@ CONFIGURE_ARGS+=	--enable-wayland-compositor
 CONFIGURE_ARGS+=	--enable-x11-compositor
 CONFIGURE_ARGS+=	--enable-drm-compositor
 CONFIGURE_ARGS+=	--enable-weston-launch
+CONFIGURE_ARGS+=	--enable-scfb-compositor
 CONFIGURE_ARGS+=	--enable-xwayland
 CONFIGURE_ARGS+=	--enable-clients
 CONFIGURE_ARGS+=	--enable-demo-clients-install
