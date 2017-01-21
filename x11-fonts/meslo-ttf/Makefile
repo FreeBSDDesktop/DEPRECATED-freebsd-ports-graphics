@@ -1,9 +1,8 @@
 # Created by: Johannes Lundberg <johalun0@gmail.com>
 # $FreeBSD$
 
-PORTNAME=	meslo
+PORTNAME=	meslo-ttf
 DISTVERSION=	1.2.1
-PORTVERSION=	20170120
 PORTREVISION=	1
 CATEGORIES=	x11-fonts
 MASTER_SITES=	https://github.com/andreberg/Meslo-Font/raw/master/dist/v${DISTVERSION}/
