@@ -14,3 +14,11 @@
  		CLOCK_REALTIME		/* may jump and crawl */
  	};
  	unsigned i;
+@@ -5067,6 +5067,7 @@ weston_compositor_get_user_data(struct w
+ static const char * const backend_map[] = {
+ 	[WESTON_BACKEND_DRM] =		"drm-backend.so",
+ 	[WESTON_BACKEND_FBDEV] =	"fbdev-backend.so",
++	[WESTON_BACKEND_SCFB] =		"scfb-backend.so",
+ 	[WESTON_BACKEND_HEADLESS] =	"headless-backend.so",
+ 	[WESTON_BACKEND_RDP] =		"rdp-backend.so",
+ 	[WESTON_BACKEND_WAYLAND] =	"wayland-backend.so",

@@ -1,0 +1,11 @@
+--- src/CMakeLists.txt.orig	2017-01-08 13:11:37 UTC
++++ src/CMakeLists.txt
+@@ -54,7 +54,7 @@ set(sources
+    resources/types/surface.c
+    resources/types/xdg-toplevel.c
+    session/fd.c
+-   session/tty.c
++   session/tty_freebsd.c
+    session/udev.c
+    wlc.c
+    extended/wlc-wayland.c

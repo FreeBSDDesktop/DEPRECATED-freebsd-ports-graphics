@@ -30,6 +30,7 @@ bin/weston-terminal
 bin/weston-transformed
 include/libweston-1/compositor-drm.h
 include/libweston-1/compositor-fbdev.h
+include/libweston-1/compositor-scfb.h
 include/libweston-1/compositor-headless.h
 include/libweston-1/compositor-rdp.h
 include/libweston-1/compositor-wayland.h
@@ -53,6 +54,7 @@ lib/libweston-1/gl-renderer.so
 lib/libweston-1/headless-backend.so
 lib/libweston-1/wayland-backend.so
 lib/libweston-1/x11-backend.so
+lib/libweston-1/scfb-backend.so
 lib/libweston-1/xwayland.so
 lib/libweston-desktop-1.so
 lib/libweston-desktop-1.so.0

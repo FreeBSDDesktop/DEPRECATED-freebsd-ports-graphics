@@ -7,3 +7,6 @@
 *.rej
 *.orig
 *.sw[p-z]
+**/cscope.files
+**/cscope.out
+
