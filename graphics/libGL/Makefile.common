@@ -20,7 +20,7 @@ MESADISTVERSION=${MESABASEVERSION}${MESASUBVERSION:C/^(.)/-\1/}
 
 MESABASEVERSION=	17.0.0
 # if there is a subversion, don't include the '-' between 7.11-rc2.
-MESASUBVERSION=		rc1
+MESASUBVERSION=		rc2
 
 #MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/${MESABASEVERSION}/
 MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/
