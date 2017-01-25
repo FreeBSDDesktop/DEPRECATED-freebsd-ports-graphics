@@ -1,4 +1,4 @@
-# Created by Johannes Lundberg <yohanesu75@gmail.com>
+# Created by Johannes Lundberg <johalun0@gmail.com>
 # $FreeBSD$
 
 PORTNAME=	sway
@@ -33,7 +33,6 @@ USE_GCC=	any
 CMAKE_ARGS=	-DEPOLL_INCLUDE_DIR=${LOCALBASE}/include/libepoll-shim \
 		-DEPOLL_LIBRARIES=${LOCALBASE}/lib/libepoll-shim.so \
 		-DRT_LIBRARIES=-lrt
-
 
 OPTIONS_SUB=	yes
 OPTIONS_DEFINE=	SUID

@@ -15,13 +15,11 @@ LIB_DEPENDS=	libevdev.so:devel/libevdev \
 		libmtdev.so:devel/libmtdev
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	jiixyj
+GH_ACCOUNT=	FreeBSDDesktop
 GH_TAGNAME=	67c9796
 
 USES=		autoreconf gmake libtool pathfix pkgconfig
 GNU_CONFIGURE=	yes
-
-GROUPS=		input
 
 CPPFLAGS+=	-I${LOCALBASE}/include/libepoll-shim
 INSTALL_TARGET=	install-strip
