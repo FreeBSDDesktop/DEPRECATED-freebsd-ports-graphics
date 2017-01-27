@@ -31,14 +31,15 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS= libexpat.so:textproc/expat2 \
 		libffi.so:devel/libffi \
-		libepoll-shim.so:wayland/libepoll-shim
+		libepoll-shim.so:wayland/libepoll-shim \
+		libxml2.so:textproc/libxml2
 
 CFLAGS+= "-I${PREFIX}/include/libepoll-shim"
 
 WITH_DEBUG=	1
 
 USES=		autoreconf gmake libtool localbase pathfix pkgconfig tar:xz
-USE_GNOME=	libxslt:build
+# USE_GNOME=	libxslt:build
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-documentation

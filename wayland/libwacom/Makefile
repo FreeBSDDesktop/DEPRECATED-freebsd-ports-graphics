@@ -1,4 +1,4 @@
-# Created by yohanesu75@gmail.com
+# Created by johalun0@gmail.com
 # $FreeBSD$
 
 PORTNAME=	libwacom
