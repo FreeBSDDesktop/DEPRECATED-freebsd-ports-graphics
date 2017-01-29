@@ -3,7 +3,7 @@
 
 PORTNAME=	libglapi
 PORTVERSION=	${MESAVERSION}
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	graphics
 
 COMMENT=	Common GL api library used by Mesa based ports

@@ -79,7 +79,7 @@ INSTALL_TARGET=		install-strip
 
 COMPONENT=		${PORTNAME:tl:C/^lib//:C/mesa-//}
 
-MESA_LLVM_VER=39
+MESA_LLVM_VER=40
 
 CONFIGURE_ARGS+=	--with-sha1=libcrypto
 
